@@ -6,7 +6,7 @@ package characters
 import (
 	context "context"
 	fmt "fmt"
-	health "github.com/MruV-RP/mruv-pb-go/health"
+	common "github.com/MruV-RP/mruv-pb-go/common"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
@@ -60,8 +60,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVCharactersServiceClient interface {
-	GetServiceStatus(ctx context.Context, in *health.ServiceStatusRequest, opts ...grpc.CallOption) (*health.ServiceStatusResponse, error)
-	GetServiceVersion(ctx context.Context, in *health.VersionRequest, opts ...grpc.CallOption) (*health.VersionResponse, error)
+	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
+	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
 }
 
 type mruVCharactersServiceClient struct {
@@ -72,8 +72,8 @@ func NewMruVCharactersServiceClient(cc *grpc.ClientConn) MruVCharactersServiceCl
 	return &mruVCharactersServiceClient{cc}
 }
 
-func (c *mruVCharactersServiceClient) GetServiceStatus(ctx context.Context, in *health.ServiceStatusRequest, opts ...grpc.CallOption) (*health.ServiceStatusResponse, error) {
-	out := new(health.ServiceStatusResponse)
+func (c *mruVCharactersServiceClient) GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error) {
+	out := new(common.ServiceStatusResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/GetServiceStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -81,8 +81,8 @@ func (c *mruVCharactersServiceClient) GetServiceStatus(ctx context.Context, in *
 	return out, nil
 }
 
-func (c *mruVCharactersServiceClient) GetServiceVersion(ctx context.Context, in *health.VersionRequest, opts ...grpc.CallOption) (*health.VersionResponse, error) {
-	out := new(health.VersionResponse)
+func (c *mruVCharactersServiceClient) GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error) {
+	out := new(common.VersionResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/GetServiceVersion", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -92,18 +92,18 @@ func (c *mruVCharactersServiceClient) GetServiceVersion(ctx context.Context, in 
 
 // MruVCharactersServiceServer is the server API for MruVCharactersService service.
 type MruVCharactersServiceServer interface {
-	GetServiceStatus(context.Context, *health.ServiceStatusRequest) (*health.ServiceStatusResponse, error)
-	GetServiceVersion(context.Context, *health.VersionRequest) (*health.VersionResponse, error)
+	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
+	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)
 }
 
 // UnimplementedMruVCharactersServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedMruVCharactersServiceServer struct {
 }
 
-func (*UnimplementedMruVCharactersServiceServer) GetServiceStatus(ctx context.Context, req *health.ServiceStatusRequest) (*health.ServiceStatusResponse, error) {
+func (*UnimplementedMruVCharactersServiceServer) GetServiceStatus(ctx context.Context, req *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceStatus not implemented")
 }
-func (*UnimplementedMruVCharactersServiceServer) GetServiceVersion(ctx context.Context, req *health.VersionRequest) (*health.VersionResponse, error) {
+func (*UnimplementedMruVCharactersServiceServer) GetServiceVersion(ctx context.Context, req *common.VersionRequest) (*common.VersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceVersion not implemented")
 }
 
@@ -112,7 +112,7 @@ func RegisterMruVCharactersServiceServer(s *grpc.Server, srv MruVCharactersServi
 }
 
 func _MruVCharactersService_GetServiceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(health.ServiceStatusRequest)
+	in := new(common.ServiceStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -124,13 +124,13 @@ func _MruVCharactersService_GetServiceStatus_Handler(srv interface{}, ctx contex
 		FullMethod: "/mruv.MruVCharactersService/GetServiceStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVCharactersServiceServer).GetServiceStatus(ctx, req.(*health.ServiceStatusRequest))
+		return srv.(MruVCharactersServiceServer).GetServiceStatus(ctx, req.(*common.ServiceStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVCharactersService_GetServiceVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(health.VersionRequest)
+	in := new(common.VersionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func _MruVCharactersService_GetServiceVersion_Handler(srv interface{}, ctx conte
 		FullMethod: "/mruv.MruVCharactersService/GetServiceVersion",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVCharactersServiceServer).GetServiceVersion(ctx, req.(*health.VersionRequest))
+		return srv.(MruVCharactersServiceServer).GetServiceVersion(ctx, req.(*common.VersionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
