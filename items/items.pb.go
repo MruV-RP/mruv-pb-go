@@ -6,7 +6,7 @@ package items
 import (
 	context "context"
 	fmt "fmt"
-	common "github.com/MruV-RP/mruv-pb-go/common"
+	health "github.com/MruV-RP/mruv-pb-go/health"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
@@ -451,8 +451,8 @@ type MruVItemServiceClient interface {
 	Update(ctx context.Context, in *UpdateItemRequest, opts ...grpc.CallOption) (*UpdateItemResponse, error)
 	Get(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error)
 	//Service status
-	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
-	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
+	GetServiceStatus(ctx context.Context, in *health.ServiceStatusRequest, opts ...grpc.CallOption) (*health.ServiceStatusResponse, error)
+	GetServiceVersion(ctx context.Context, in *health.VersionRequest, opts ...grpc.CallOption) (*health.VersionResponse, error)
 }
 
 type mruVItemServiceClient struct {
@@ -499,8 +499,8 @@ func (c *mruVItemServiceClient) Get(ctx context.Context, in *GetItemRequest, opt
 	return out, nil
 }
 
-func (c *mruVItemServiceClient) GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error) {
-	out := new(common.ServiceStatusResponse)
+func (c *mruVItemServiceClient) GetServiceStatus(ctx context.Context, in *health.ServiceStatusRequest, opts ...grpc.CallOption) (*health.ServiceStatusResponse, error) {
+	out := new(health.ServiceStatusResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetServiceStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -508,8 +508,8 @@ func (c *mruVItemServiceClient) GetServiceStatus(ctx context.Context, in *common
 	return out, nil
 }
 
-func (c *mruVItemServiceClient) GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error) {
-	out := new(common.VersionResponse)
+func (c *mruVItemServiceClient) GetServiceVersion(ctx context.Context, in *health.VersionRequest, opts ...grpc.CallOption) (*health.VersionResponse, error) {
+	out := new(health.VersionResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetServiceVersion", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -524,8 +524,8 @@ type MruVItemServiceServer interface {
 	Update(context.Context, *UpdateItemRequest) (*UpdateItemResponse, error)
 	Get(context.Context, *GetItemRequest) (*GetItemResponse, error)
 	//Service status
-	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
-	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)
+	GetServiceStatus(context.Context, *health.ServiceStatusRequest) (*health.ServiceStatusResponse, error)
+	GetServiceVersion(context.Context, *health.VersionRequest) (*health.VersionResponse, error)
 }
 
 // UnimplementedMruVItemServiceServer can be embedded to have forward compatible implementations.
@@ -544,10 +544,10 @@ func (*UnimplementedMruVItemServiceServer) Update(ctx context.Context, req *Upda
 func (*UnimplementedMruVItemServiceServer) Get(ctx context.Context, req *GetItemRequest) (*GetItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (*UnimplementedMruVItemServiceServer) GetServiceStatus(ctx context.Context, req *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error) {
+func (*UnimplementedMruVItemServiceServer) GetServiceStatus(ctx context.Context, req *health.ServiceStatusRequest) (*health.ServiceStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceStatus not implemented")
 }
-func (*UnimplementedMruVItemServiceServer) GetServiceVersion(ctx context.Context, req *common.VersionRequest) (*common.VersionResponse, error) {
+func (*UnimplementedMruVItemServiceServer) GetServiceVersion(ctx context.Context, req *health.VersionRequest) (*health.VersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceVersion not implemented")
 }
 
@@ -628,7 +628,7 @@ func _MruVItemService_Get_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 func _MruVItemService_GetServiceStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.ServiceStatusRequest)
+	in := new(health.ServiceStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -640,13 +640,13 @@ func _MruVItemService_GetServiceStatus_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/mruv.MruVItemService/GetServiceStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).GetServiceStatus(ctx, req.(*common.ServiceStatusRequest))
+		return srv.(MruVItemServiceServer).GetServiceStatus(ctx, req.(*health.ServiceStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVItemService_GetServiceVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.VersionRequest)
+	in := new(health.VersionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -658,7 +658,7 @@ func _MruVItemService_GetServiceVersion_Handler(srv interface{}, ctx context.Con
 		FullMethod: "/mruv.MruVItemService/GetServiceVersion",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).GetServiceVersion(ctx, req.(*common.VersionRequest))
+		return srv.(MruVItemServiceServer).GetServiceVersion(ctx, req.(*health.VersionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
