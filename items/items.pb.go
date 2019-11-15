@@ -26,412 +26,827 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-//Items
-type CreateItemRequest struct {
-	Item                 *Item    `protobuf:"bytes,1,opt,name=item,proto3" json:"item,omitempty"`
+// Requests messages
+type GetItemsRequest struct {
+	Limit                int32    `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CreateItemRequest) Reset()         { *m = CreateItemRequest{} }
-func (m *CreateItemRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateItemRequest) ProtoMessage()    {}
-func (*CreateItemRequest) Descriptor() ([]byte, []int) {
+func (m *GetItemsRequest) Reset()         { *m = GetItemsRequest{} }
+func (m *GetItemsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetItemsRequest) ProtoMessage()    {}
+func (*GetItemsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2532e29ffc1dd680, []int{0}
 }
 
-func (m *CreateItemRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateItemRequest.Unmarshal(m, b)
+func (m *GetItemsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetItemsRequest.Unmarshal(m, b)
 }
-func (m *CreateItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateItemRequest.Marshal(b, m, deterministic)
+func (m *GetItemsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetItemsRequest.Marshal(b, m, deterministic)
 }
-func (m *CreateItemRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateItemRequest.Merge(m, src)
+func (m *GetItemsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetItemsRequest.Merge(m, src)
 }
-func (m *CreateItemRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateItemRequest.Size(m)
+func (m *GetItemsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetItemsRequest.Size(m)
 }
-func (m *CreateItemRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateItemRequest.DiscardUnknown(m)
+func (m *GetItemsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetItemsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CreateItemRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetItemsRequest proto.InternalMessageInfo
 
-func (m *CreateItemRequest) GetItem() *Item {
+func (m *GetItemsRequest) GetLimit() int32 {
 	if m != nil {
-		return m.Item
+		return m.Limit
 	}
-	return nil
+	return 0
 }
 
-type CreateItemResponse struct {
-	ItemId               int64    `protobuf:"varint,1,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+type GetItemsResponse struct {
+	Items                []*Item  `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CreateItemResponse) Reset()         { *m = CreateItemResponse{} }
-func (m *CreateItemResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateItemResponse) ProtoMessage()    {}
-func (*CreateItemResponse) Descriptor() ([]byte, []int) {
+func (m *GetItemsResponse) Reset()         { *m = GetItemsResponse{} }
+func (m *GetItemsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetItemsResponse) ProtoMessage()    {}
+func (*GetItemsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2532e29ffc1dd680, []int{1}
 }
 
-func (m *CreateItemResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateItemResponse.Unmarshal(m, b)
+func (m *GetItemsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetItemsResponse.Unmarshal(m, b)
 }
-func (m *CreateItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateItemResponse.Marshal(b, m, deterministic)
+func (m *GetItemsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetItemsResponse.Marshal(b, m, deterministic)
 }
-func (m *CreateItemResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateItemResponse.Merge(m, src)
+func (m *GetItemsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetItemsResponse.Merge(m, src)
 }
-func (m *CreateItemResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateItemResponse.Size(m)
+func (m *GetItemsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetItemsResponse.Size(m)
 }
-func (m *CreateItemResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateItemResponse.DiscardUnknown(m)
+func (m *GetItemsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetItemsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CreateItemResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetItemsResponse proto.InternalMessageInfo
 
-func (m *CreateItemResponse) GetItemId() int64 {
+func (m *GetItemsResponse) GetItems() []*Item {
 	if m != nil {
-		return m.ItemId
+		return m.Items
 	}
-	return 0
+	return nil
 }
 
-type DestroyItemRequest struct {
-	ItemId               int64    `protobuf:"varint,1,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+type GetItemTypesRequest struct {
+	Limit                int32    `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DestroyItemRequest) Reset()         { *m = DestroyItemRequest{} }
-func (m *DestroyItemRequest) String() string { return proto.CompactTextString(m) }
-func (*DestroyItemRequest) ProtoMessage()    {}
-func (*DestroyItemRequest) Descriptor() ([]byte, []int) {
+func (m *GetItemTypesRequest) Reset()         { *m = GetItemTypesRequest{} }
+func (m *GetItemTypesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetItemTypesRequest) ProtoMessage()    {}
+func (*GetItemTypesRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2532e29ffc1dd680, []int{2}
 }
 
-func (m *DestroyItemRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DestroyItemRequest.Unmarshal(m, b)
+func (m *GetItemTypesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetItemTypesRequest.Unmarshal(m, b)
 }
-func (m *DestroyItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DestroyItemRequest.Marshal(b, m, deterministic)
+func (m *GetItemTypesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetItemTypesRequest.Marshal(b, m, deterministic)
 }
-func (m *DestroyItemRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DestroyItemRequest.Merge(m, src)
+func (m *GetItemTypesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetItemTypesRequest.Merge(m, src)
 }
-func (m *DestroyItemRequest) XXX_Size() int {
-	return xxx_messageInfo_DestroyItemRequest.Size(m)
+func (m *GetItemTypesRequest) XXX_Size() int {
+	return xxx_messageInfo_GetItemTypesRequest.Size(m)
 }
-func (m *DestroyItemRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DestroyItemRequest.DiscardUnknown(m)
+func (m *GetItemTypesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetItemTypesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DestroyItemRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetItemTypesRequest proto.InternalMessageInfo
 
-func (m *DestroyItemRequest) GetItemId() int64 {
+func (m *GetItemTypesRequest) GetLimit() int32 {
 	if m != nil {
-		return m.ItemId
+		return m.Limit
 	}
 	return 0
 }
 
-type DestroyItemResponse struct {
-	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type GetItemTypesResponse struct {
+	ItemTypes            []*ItemType `protobuf:"bytes,1,rep,name=item_types,json=itemTypes,proto3" json:"item_types,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
 }
 
-func (m *DestroyItemResponse) Reset()         { *m = DestroyItemResponse{} }
-func (m *DestroyItemResponse) String() string { return proto.CompactTextString(m) }
-func (*DestroyItemResponse) ProtoMessage()    {}
-func (*DestroyItemResponse) Descriptor() ([]byte, []int) {
+func (m *GetItemTypesResponse) Reset()         { *m = GetItemTypesResponse{} }
+func (m *GetItemTypesResponse) String() string { return proto.CompactTextString(m) }
+func (*GetItemTypesResponse) ProtoMessage()    {}
+func (*GetItemTypesResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2532e29ffc1dd680, []int{3}
 }
 
-func (m *DestroyItemResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DestroyItemResponse.Unmarshal(m, b)
+func (m *GetItemTypesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetItemTypesResponse.Unmarshal(m, b)
 }
-func (m *DestroyItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DestroyItemResponse.Marshal(b, m, deterministic)
+func (m *GetItemTypesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetItemTypesResponse.Marshal(b, m, deterministic)
 }
-func (m *DestroyItemResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DestroyItemResponse.Merge(m, src)
+func (m *GetItemTypesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetItemTypesResponse.Merge(m, src)
 }
-func (m *DestroyItemResponse) XXX_Size() int {
-	return xxx_messageInfo_DestroyItemResponse.Size(m)
+func (m *GetItemTypesResponse) XXX_Size() int {
+	return xxx_messageInfo_GetItemTypesResponse.Size(m)
 }
-func (m *DestroyItemResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DestroyItemResponse.DiscardUnknown(m)
+func (m *GetItemTypesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetItemTypesResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DestroyItemResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetItemTypesResponse proto.InternalMessageInfo
 
-func (m *DestroyItemResponse) GetSuccess() bool {
+func (m *GetItemTypesResponse) GetItemTypes() []*ItemType {
 	if m != nil {
-		return m.Success
+		return m.ItemTypes
 	}
-	return false
+	return nil
 }
 
-type UpdateItemRequest struct {
-	Item                 *Item    `protobuf:"bytes,1,opt,name=item,proto3" json:"item,omitempty"`
+type GetContainersRequest struct {
+	Limit                int32    `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UpdateItemRequest) Reset()         { *m = UpdateItemRequest{} }
-func (m *UpdateItemRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateItemRequest) ProtoMessage()    {}
-func (*UpdateItemRequest) Descriptor() ([]byte, []int) {
+func (m *GetContainersRequest) Reset()         { *m = GetContainersRequest{} }
+func (m *GetContainersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetContainersRequest) ProtoMessage()    {}
+func (*GetContainersRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2532e29ffc1dd680, []int{4}
 }
 
-func (m *UpdateItemRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateItemRequest.Unmarshal(m, b)
+func (m *GetContainersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetContainersRequest.Unmarshal(m, b)
 }
-func (m *UpdateItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateItemRequest.Marshal(b, m, deterministic)
+func (m *GetContainersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetContainersRequest.Marshal(b, m, deterministic)
 }
-func (m *UpdateItemRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateItemRequest.Merge(m, src)
+func (m *GetContainersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetContainersRequest.Merge(m, src)
 }
-func (m *UpdateItemRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateItemRequest.Size(m)
+func (m *GetContainersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetContainersRequest.Size(m)
 }
-func (m *UpdateItemRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateItemRequest.DiscardUnknown(m)
+func (m *GetContainersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetContainersRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UpdateItemRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetContainersRequest proto.InternalMessageInfo
 
-func (m *UpdateItemRequest) GetItem() *Item {
+func (m *GetContainersRequest) GetLimit() int32 {
 	if m != nil {
-		return m.Item
-	}
-	return nil
-}
-
-type UpdateItemResponse struct {
-	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UpdateItemResponse) Reset()         { *m = UpdateItemResponse{} }
-func (m *UpdateItemResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateItemResponse) ProtoMessage()    {}
-func (*UpdateItemResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2532e29ffc1dd680, []int{5}
-}
-
-func (m *UpdateItemResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateItemResponse.Unmarshal(m, b)
-}
-func (m *UpdateItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateItemResponse.Marshal(b, m, deterministic)
-}
-func (m *UpdateItemResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateItemResponse.Merge(m, src)
-}
-func (m *UpdateItemResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateItemResponse.Size(m)
-}
-func (m *UpdateItemResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateItemResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateItemResponse proto.InternalMessageInfo
-
-func (m *UpdateItemResponse) GetSuccess() bool {
-	if m != nil {
-		return m.Success
-	}
-	return false
-}
-
-type GetItemRequest struct {
-	ItemId               int64    `protobuf:"varint,1,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetItemRequest) Reset()         { *m = GetItemRequest{} }
-func (m *GetItemRequest) String() string { return proto.CompactTextString(m) }
-func (*GetItemRequest) ProtoMessage()    {}
-func (*GetItemRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2532e29ffc1dd680, []int{6}
-}
-
-func (m *GetItemRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetItemRequest.Unmarshal(m, b)
-}
-func (m *GetItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetItemRequest.Marshal(b, m, deterministic)
-}
-func (m *GetItemRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetItemRequest.Merge(m, src)
-}
-func (m *GetItemRequest) XXX_Size() int {
-	return xxx_messageInfo_GetItemRequest.Size(m)
-}
-func (m *GetItemRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetItemRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetItemRequest proto.InternalMessageInfo
-
-func (m *GetItemRequest) GetItemId() int64 {
-	if m != nil {
-		return m.ItemId
+		return m.Limit
 	}
 	return 0
 }
 
-type GetItemResponse struct {
+type GetContainersResponse struct {
+	Containers           []*Container `protobuf:"bytes,1,rep,name=containers,proto3" json:"containers,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *GetContainersResponse) Reset()         { *m = GetContainersResponse{} }
+func (m *GetContainersResponse) String() string { return proto.CompactTextString(m) }
+func (*GetContainersResponse) ProtoMessage()    {}
+func (*GetContainersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{5}
+}
+
+func (m *GetContainersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetContainersResponse.Unmarshal(m, b)
+}
+func (m *GetContainersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetContainersResponse.Marshal(b, m, deterministic)
+}
+func (m *GetContainersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetContainersResponse.Merge(m, src)
+}
+func (m *GetContainersResponse) XXX_Size() int {
+	return xxx_messageInfo_GetContainersResponse.Size(m)
+}
+func (m *GetContainersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetContainersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetContainersResponse proto.InternalMessageInfo
+
+func (m *GetContainersResponse) GetContainers() []*Container {
+	if m != nil {
+		return m.Containers
+	}
+	return nil
+}
+
+type PutItemRequest struct {
+	ContainerId *ContainerID `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	ItemId      *ItemID      `protobuf:"bytes,2,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+	// Types that are valid to be assigned to Where:
+	//	*PutItemRequest_Slot
+	Where                isPutItemRequest_Where `protobuf_oneof:"where"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
+	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_sizecache        int32                  `json:"-"`
+}
+
+func (m *PutItemRequest) Reset()         { *m = PutItemRequest{} }
+func (m *PutItemRequest) String() string { return proto.CompactTextString(m) }
+func (*PutItemRequest) ProtoMessage()    {}
+func (*PutItemRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{6}
+}
+
+func (m *PutItemRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PutItemRequest.Unmarshal(m, b)
+}
+func (m *PutItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PutItemRequest.Marshal(b, m, deterministic)
+}
+func (m *PutItemRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PutItemRequest.Merge(m, src)
+}
+func (m *PutItemRequest) XXX_Size() int {
+	return xxx_messageInfo_PutItemRequest.Size(m)
+}
+func (m *PutItemRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_PutItemRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PutItemRequest proto.InternalMessageInfo
+
+func (m *PutItemRequest) GetContainerId() *ContainerID {
+	if m != nil {
+		return m.ContainerId
+	}
+	return nil
+}
+
+func (m *PutItemRequest) GetItemId() *ItemID {
+	if m != nil {
+		return m.ItemId
+	}
+	return nil
+}
+
+type isPutItemRequest_Where interface {
+	isPutItemRequest_Where()
+}
+
+type PutItemRequest_Slot struct {
+	Slot int32 `protobuf:"varint,3,opt,name=slot,proto3,oneof"`
+}
+
+func (*PutItemRequest_Slot) isPutItemRequest_Where() {}
+
+func (m *PutItemRequest) GetWhere() isPutItemRequest_Where {
+	if m != nil {
+		return m.Where
+	}
+	return nil
+}
+
+func (m *PutItemRequest) GetSlot() int32 {
+	if x, ok := m.GetWhere().(*PutItemRequest_Slot); ok {
+		return x.Slot
+	}
+	return 0
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*PutItemRequest) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*PutItemRequest_Slot)(nil),
+	}
+}
+
+type TakeItemRequest struct {
+	Id                   *ItemID  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TakeItemRequest) Reset()         { *m = TakeItemRequest{} }
+func (m *TakeItemRequest) String() string { return proto.CompactTextString(m) }
+func (*TakeItemRequest) ProtoMessage()    {}
+func (*TakeItemRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{7}
+}
+
+func (m *TakeItemRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TakeItemRequest.Unmarshal(m, b)
+}
+func (m *TakeItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TakeItemRequest.Marshal(b, m, deterministic)
+}
+func (m *TakeItemRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TakeItemRequest.Merge(m, src)
+}
+func (m *TakeItemRequest) XXX_Size() int {
+	return xxx_messageInfo_TakeItemRequest.Size(m)
+}
+func (m *TakeItemRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_TakeItemRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TakeItemRequest proto.InternalMessageInfo
+
+func (m *TakeItemRequest) GetId() *ItemID {
+	if m != nil {
+		return m.Id
+	}
+	return nil
+}
+
+type TakeItemResponse struct {
 	Item                 *Item    `protobuf:"bytes,1,opt,name=item,proto3" json:"item,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetItemResponse) Reset()         { *m = GetItemResponse{} }
-func (m *GetItemResponse) String() string { return proto.CompactTextString(m) }
-func (*GetItemResponse) ProtoMessage()    {}
-func (*GetItemResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2532e29ffc1dd680, []int{7}
+func (m *TakeItemResponse) Reset()         { *m = TakeItemResponse{} }
+func (m *TakeItemResponse) String() string { return proto.CompactTextString(m) }
+func (*TakeItemResponse) ProtoMessage()    {}
+func (*TakeItemResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{8}
 }
 
-func (m *GetItemResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetItemResponse.Unmarshal(m, b)
+func (m *TakeItemResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TakeItemResponse.Unmarshal(m, b)
 }
-func (m *GetItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetItemResponse.Marshal(b, m, deterministic)
+func (m *TakeItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TakeItemResponse.Marshal(b, m, deterministic)
 }
-func (m *GetItemResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetItemResponse.Merge(m, src)
+func (m *TakeItemResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TakeItemResponse.Merge(m, src)
 }
-func (m *GetItemResponse) XXX_Size() int {
-	return xxx_messageInfo_GetItemResponse.Size(m)
+func (m *TakeItemResponse) XXX_Size() int {
+	return xxx_messageInfo_TakeItemResponse.Size(m)
 }
-func (m *GetItemResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetItemResponse.DiscardUnknown(m)
+func (m *TakeItemResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_TakeItemResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetItemResponse proto.InternalMessageInfo
+var xxx_messageInfo_TakeItemResponse proto.InternalMessageInfo
 
-func (m *GetItemResponse) GetItem() *Item {
+func (m *TakeItemResponse) GetItem() *Item {
 	if m != nil {
 		return m.Item
 	}
 	return nil
 }
 
-type Item struct {
-	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+type GetContainerItemsResponse struct {
+	Items                []*Item  `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Item) Reset()         { *m = Item{} }
-func (m *Item) String() string { return proto.CompactTextString(m) }
-func (*Item) ProtoMessage()    {}
-func (*Item) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2532e29ffc1dd680, []int{8}
+func (m *GetContainerItemsResponse) Reset()         { *m = GetContainerItemsResponse{} }
+func (m *GetContainerItemsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetContainerItemsResponse) ProtoMessage()    {}
+func (*GetContainerItemsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{9}
 }
 
-func (m *Item) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Item.Unmarshal(m, b)
+func (m *GetContainerItemsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetContainerItemsResponse.Unmarshal(m, b)
 }
-func (m *Item) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Item.Marshal(b, m, deterministic)
+func (m *GetContainerItemsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetContainerItemsResponse.Marshal(b, m, deterministic)
 }
-func (m *Item) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Item.Merge(m, src)
+func (m *GetContainerItemsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetContainerItemsResponse.Merge(m, src)
 }
-func (m *Item) XXX_Size() int {
-	return xxx_messageInfo_Item.Size(m)
+func (m *GetContainerItemsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetContainerItemsResponse.Size(m)
 }
-func (m *Item) XXX_DiscardUnknown() {
-	xxx_messageInfo_Item.DiscardUnknown(m)
+func (m *GetContainerItemsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetContainerItemsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Item proto.InternalMessageInfo
+var xxx_messageInfo_GetContainerItemsResponse proto.InternalMessageInfo
 
-func (m *Item) GetId() int64 {
+func (m *GetContainerItemsResponse) GetItems() []*Item {
 	if m != nil {
-		return m.Id
+		return m.Items
 	}
-	return 0
+	return nil
 }
 
-func (m *Item) GetName() string {
+type RemoveItemRequest struct {
+	ContainerId          *ContainerID `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	ItemId               *ItemID      `protobuf:"bytes,2,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *RemoveItemRequest) Reset()         { *m = RemoveItemRequest{} }
+func (m *RemoveItemRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveItemRequest) ProtoMessage()    {}
+func (*RemoveItemRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{10}
+}
+
+func (m *RemoveItemRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveItemRequest.Unmarshal(m, b)
+}
+func (m *RemoveItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveItemRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveItemRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveItemRequest.Merge(m, src)
+}
+func (m *RemoveItemRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveItemRequest.Size(m)
+}
+func (m *RemoveItemRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveItemRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveItemRequest proto.InternalMessageInfo
+
+func (m *RemoveItemRequest) GetContainerId() *ContainerID {
 	if m != nil {
-		return m.Name
+		return m.ContainerId
+	}
+	return nil
+}
+
+func (m *RemoveItemRequest) GetItemId() *ItemID {
+	if m != nil {
+		return m.ItemId
+	}
+	return nil
+}
+
+type SortItemsRequest struct {
+	ContainerId          *ContainerID `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	SortBy               string       `protobuf:"bytes,2,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *SortItemsRequest) Reset()         { *m = SortItemsRequest{} }
+func (m *SortItemsRequest) String() string { return proto.CompactTextString(m) }
+func (*SortItemsRequest) ProtoMessage()    {}
+func (*SortItemsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{11}
+}
+
+func (m *SortItemsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SortItemsRequest.Unmarshal(m, b)
+}
+func (m *SortItemsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SortItemsRequest.Marshal(b, m, deterministic)
+}
+func (m *SortItemsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SortItemsRequest.Merge(m, src)
+}
+func (m *SortItemsRequest) XXX_Size() int {
+	return xxx_messageInfo_SortItemsRequest.Size(m)
+}
+func (m *SortItemsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SortItemsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SortItemsRequest proto.InternalMessageInfo
+
+func (m *SortItemsRequest) GetContainerId() *ContainerID {
+	if m != nil {
+		return m.ContainerId
+	}
+	return nil
+}
+
+func (m *SortItemsRequest) GetSortBy() string {
+	if m != nil {
+		return m.SortBy
 	}
 	return ""
 }
 
+type SortItemsResponse struct {
+	Items                []*Item  `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SortItemsResponse) Reset()         { *m = SortItemsResponse{} }
+func (m *SortItemsResponse) String() string { return proto.CompactTextString(m) }
+func (*SortItemsResponse) ProtoMessage()    {}
+func (*SortItemsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{12}
+}
+
+func (m *SortItemsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SortItemsResponse.Unmarshal(m, b)
+}
+func (m *SortItemsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SortItemsResponse.Marshal(b, m, deterministic)
+}
+func (m *SortItemsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SortItemsResponse.Merge(m, src)
+}
+func (m *SortItemsResponse) XXX_Size() int {
+	return xxx_messageInfo_SortItemsResponse.Size(m)
+}
+func (m *SortItemsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SortItemsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SortItemsResponse proto.InternalMessageInfo
+
+func (m *SortItemsResponse) GetItems() []*Item {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
+type GetNearestItemsRequest struct {
+	PlayerPosition       *common.Position `protobuf:"bytes,1,opt,name=player_position,json=playerPosition,proto3" json:"player_position,omitempty"`
+	ContainerId          *ContainerID     `protobuf:"bytes,2,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *GetNearestItemsRequest) Reset()         { *m = GetNearestItemsRequest{} }
+func (m *GetNearestItemsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetNearestItemsRequest) ProtoMessage()    {}
+func (*GetNearestItemsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{13}
+}
+
+func (m *GetNearestItemsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNearestItemsRequest.Unmarshal(m, b)
+}
+func (m *GetNearestItemsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNearestItemsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetNearestItemsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNearestItemsRequest.Merge(m, src)
+}
+func (m *GetNearestItemsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetNearestItemsRequest.Size(m)
+}
+func (m *GetNearestItemsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNearestItemsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNearestItemsRequest proto.InternalMessageInfo
+
+func (m *GetNearestItemsRequest) GetPlayerPosition() *common.Position {
+	if m != nil {
+		return m.PlayerPosition
+	}
+	return nil
+}
+
+func (m *GetNearestItemsRequest) GetContainerId() *ContainerID {
+	if m != nil {
+		return m.ContainerId
+	}
+	return nil
+}
+
+type GetNearestItemsResponse struct {
+	Item                 []*InsideItem `protobuf:"bytes,1,rep,name=item,proto3" json:"item,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *GetNearestItemsResponse) Reset()         { *m = GetNearestItemsResponse{} }
+func (m *GetNearestItemsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetNearestItemsResponse) ProtoMessage()    {}
+func (*GetNearestItemsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{14}
+}
+
+func (m *GetNearestItemsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNearestItemsResponse.Unmarshal(m, b)
+}
+func (m *GetNearestItemsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNearestItemsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetNearestItemsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNearestItemsResponse.Merge(m, src)
+}
+func (m *GetNearestItemsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetNearestItemsResponse.Size(m)
+}
+func (m *GetNearestItemsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNearestItemsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNearestItemsResponse proto.InternalMessageInfo
+
+func (m *GetNearestItemsResponse) GetItem() []*InsideItem {
+	if m != nil {
+		return m.Item
+	}
+	return nil
+}
+
+type UseItemRequest struct {
+	ItemId               *ItemID  `protobuf:"bytes,1,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UseItemRequest) Reset()         { *m = UseItemRequest{} }
+func (m *UseItemRequest) String() string { return proto.CompactTextString(m) }
+func (*UseItemRequest) ProtoMessage()    {}
+func (*UseItemRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{15}
+}
+
+func (m *UseItemRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UseItemRequest.Unmarshal(m, b)
+}
+func (m *UseItemRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UseItemRequest.Marshal(b, m, deterministic)
+}
+func (m *UseItemRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UseItemRequest.Merge(m, src)
+}
+func (m *UseItemRequest) XXX_Size() int {
+	return xxx_messageInfo_UseItemRequest.Size(m)
+}
+func (m *UseItemRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UseItemRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UseItemRequest proto.InternalMessageInfo
+
+func (m *UseItemRequest) GetItemId() *ItemID {
+	if m != nil {
+		return m.ItemId
+	}
+	return nil
+}
+
+type UseItemResponse struct {
+	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UseItemResponse) Reset()         { *m = UseItemResponse{} }
+func (m *UseItemResponse) String() string { return proto.CompactTextString(m) }
+func (*UseItemResponse) ProtoMessage()    {}
+func (*UseItemResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2532e29ffc1dd680, []int{16}
+}
+
+func (m *UseItemResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UseItemResponse.Unmarshal(m, b)
+}
+func (m *UseItemResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UseItemResponse.Marshal(b, m, deterministic)
+}
+func (m *UseItemResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UseItemResponse.Merge(m, src)
+}
+func (m *UseItemResponse) XXX_Size() int {
+	return xxx_messageInfo_UseItemResponse.Size(m)
+}
+func (m *UseItemResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UseItemResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UseItemResponse proto.InternalMessageInfo
+
+func (m *UseItemResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
 func init() {
-	proto.RegisterType((*CreateItemRequest)(nil), "mruv.CreateItemRequest")
-	proto.RegisterType((*CreateItemResponse)(nil), "mruv.CreateItemResponse")
-	proto.RegisterType((*DestroyItemRequest)(nil), "mruv.DestroyItemRequest")
-	proto.RegisterType((*DestroyItemResponse)(nil), "mruv.DestroyItemResponse")
-	proto.RegisterType((*UpdateItemRequest)(nil), "mruv.UpdateItemRequest")
-	proto.RegisterType((*UpdateItemResponse)(nil), "mruv.UpdateItemResponse")
-	proto.RegisterType((*GetItemRequest)(nil), "mruv.GetItemRequest")
-	proto.RegisterType((*GetItemResponse)(nil), "mruv.GetItemResponse")
-	proto.RegisterType((*Item)(nil), "mruv.Item")
+	proto.RegisterType((*GetItemsRequest)(nil), "mruv.GetItemsRequest")
+	proto.RegisterType((*GetItemsResponse)(nil), "mruv.GetItemsResponse")
+	proto.RegisterType((*GetItemTypesRequest)(nil), "mruv.GetItemTypesRequest")
+	proto.RegisterType((*GetItemTypesResponse)(nil), "mruv.GetItemTypesResponse")
+	proto.RegisterType((*GetContainersRequest)(nil), "mruv.GetContainersRequest")
+	proto.RegisterType((*GetContainersResponse)(nil), "mruv.GetContainersResponse")
+	proto.RegisterType((*PutItemRequest)(nil), "mruv.PutItemRequest")
+	proto.RegisterType((*TakeItemRequest)(nil), "mruv.TakeItemRequest")
+	proto.RegisterType((*TakeItemResponse)(nil), "mruv.TakeItemResponse")
+	proto.RegisterType((*GetContainerItemsResponse)(nil), "mruv.GetContainerItemsResponse")
+	proto.RegisterType((*RemoveItemRequest)(nil), "mruv.RemoveItemRequest")
+	proto.RegisterType((*SortItemsRequest)(nil), "mruv.SortItemsRequest")
+	proto.RegisterType((*SortItemsResponse)(nil), "mruv.SortItemsResponse")
+	proto.RegisterType((*GetNearestItemsRequest)(nil), "mruv.GetNearestItemsRequest")
+	proto.RegisterType((*GetNearestItemsResponse)(nil), "mruv.GetNearestItemsResponse")
+	proto.RegisterType((*UseItemRequest)(nil), "mruv.UseItemRequest")
+	proto.RegisterType((*UseItemResponse)(nil), "mruv.UseItemResponse")
 }
 
 func init() { proto.RegisterFile("items/items.proto", fileDescriptor_2532e29ffc1dd680) }
 
 var fileDescriptor_2532e29ffc1dd680 = []byte{
-	// 479 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0x5d, 0x6a, 0xdb, 0x40,
-	0x10, 0xc7, 0xb1, 0x23, 0xec, 0x66, 0x02, 0x49, 0x34, 0x6e, 0x88, 0xa2, 0x94, 0x12, 0x5c, 0x0a,
-	0x69, 0xc0, 0x5a, 0xe2, 0xdc, 0xa0, 0x2d, 0x98, 0x3c, 0xf4, 0x03, 0x85, 0x86, 0xd2, 0x3c, 0x14,
-	0x59, 0x1e, 0x6c, 0x41, 0xa4, 0x55, 0xb5, 0x2b, 0x43, 0x29, 0x7d, 0xe9, 0x15, 0x7a, 0x8e, 0x9e,
-	0xa6, 0x57, 0xe8, 0x41, 0xca, 0x7e, 0xc8, 0xb6, 0x2c, 0x17, 0x37, 0x2f, 0xc6, 0x3b, 0xf3, 0x9f,
-	0xdf, 0xcc, 0xec, 0x7f, 0x11, 0xb8, 0x89, 0xa4, 0x54, 0x30, 0xfd, 0x1b, 0xe4, 0x05, 0x97, 0x1c,
-	0x9d, 0xb4, 0x28, 0xe7, 0xfe, 0x93, 0x29, 0xe7, 0xd3, 0x7b, 0x62, 0x51, 0x9e, 0xb0, 0x28, 0xcb,
-	0xb8, 0x8c, 0x64, 0xc2, 0x33, 0xab, 0xf1, 0x7b, 0x31, 0x4f, 0x53, 0x9e, 0xb1, 0x19, 0x45, 0xf7,
-	0x72, 0x66, 0x82, 0xfd, 0x2b, 0x70, 0x5f, 0x15, 0x14, 0x49, 0xba, 0x96, 0x94, 0x86, 0xf4, 0xa5,
-	0x24, 0x21, 0xf1, 0x29, 0x38, 0x0a, 0xee, 0xb5, 0xce, 0x5a, 0xe7, 0x7b, 0x43, 0x08, 0x14, 0x3c,
-	0xd0, 0x02, 0x1d, 0xef, 0x0f, 0x00, 0x57, 0x8b, 0x44, 0xce, 0x33, 0x41, 0x78, 0x0c, 0x5d, 0x95,
-	0xfd, 0x9c, 0x4c, 0x74, 0xe1, 0x4e, 0xd8, 0x51, 0xc7, 0xeb, 0x89, 0x92, 0xbf, 0x26, 0x21, 0x0b,
-	0xfe, 0x75, 0xb5, 0xc9, 0x3f, 0xe5, 0x0c, 0x7a, 0x35, 0xb9, 0xc5, 0x7b, 0xd0, 0x15, 0x65, 0x1c,
-	0x93, 0x10, 0x5a, 0xff, 0x28, 0xac, 0x8e, 0x6a, 0x87, 0x0f, 0xf9, 0xe4, 0x81, 0x3b, 0x04, 0x80,
-	0xab, 0x45, 0x5b, 0x9b, 0xbc, 0x80, 0xfd, 0x11, 0xc9, 0xff, 0x5a, 0xe0, 0x12, 0x0e, 0x16, 0x52,
-	0xcb, 0xdd, 0x36, 0xcd, 0x05, 0x38, 0xea, 0x84, 0xfb, 0xd0, 0x5e, 0xe0, 0xda, 0xc9, 0x04, 0x11,
-	0x9c, 0x2c, 0x4a, 0xc9, 0x6b, 0x9f, 0xb5, 0xce, 0x77, 0x43, 0xfd, 0x7f, 0xf8, 0xcb, 0x81, 0x83,
-	0x37, 0x45, 0x79, 0xab, 0x0a, 0x6e, 0xa8, 0x98, 0x27, 0x31, 0xe1, 0x5b, 0xe8, 0x18, 0x47, 0xf0,
-	0xd8, 0xb0, 0x1b, 0xa6, 0xfa, 0x5e, 0x33, 0x61, 0x86, 0xeb, 0xbb, 0x3f, 0x7e, 0xff, 0xf9, 0xd9,
-	0xde, 0xeb, 0xef, 0x9a, 0x27, 0xc5, 0xe6, 0x97, 0x78, 0x07, 0x5d, 0xeb, 0x01, 0xda, 0xba, 0xa6,
-	0x83, 0xfe, 0xc9, 0x86, 0x8c, 0x45, 0x9e, 0x6a, 0xe4, 0xd1, 0x45, 0x6f, 0x81, 0x64, 0xdf, 0xec,
-	0x65, 0x7d, 0xc7, 0x8f, 0xd0, 0x31, 0x57, 0x5f, 0x0d, 0xdb, 0x70, 0xaf, 0x1a, 0xb6, 0xe9, 0x50,
-	0x45, 0x1e, 0xae, 0x93, 0x03, 0x45, 0x7e, 0x07, 0x3b, 0x23, 0x92, 0xf8, 0xd8, 0x54, 0xd7, 0xfd,
-	0xf2, 0x8f, 0xd6, 0xa2, 0x75, 0x20, 0x6e, 0x1c, 0x95, 0xe0, 0x70, 0x44, 0xd2, 0xde, 0xf2, 0x8d,
-	0x8c, 0x64, 0x29, 0xd0, 0x37, 0x9c, 0x5a, 0xb0, 0xea, 0x71, 0xba, 0x31, 0x67, 0x3b, 0x79, 0xba,
-	0x13, 0xe2, 0xe1, 0xb2, 0x93, 0x30, 0xc8, 0x3b, 0x70, 0x97, 0x6d, 0x6e, 0xa9, 0x10, 0x09, 0xcf,
-	0xaa, 0x2d, 0xec, 0x71, 0x6d, 0x8b, 0x45, 0xd4, 0xb2, 0x4f, 0x34, 0xbb, 0x87, 0xee, 0x92, 0x3d,
-	0x37, 0x92, 0x97, 0xcf, 0x3f, 0x3d, 0x9b, 0x26, 0x72, 0x56, 0x8e, 0x83, 0x98, 0xa7, 0x4c, 0xbd,
-	0x9c, 0x41, 0xf8, 0x9e, 0x29, 0xca, 0x20, 0x1f, 0x0f, 0xa6, 0xdc, 0x54, 0x8c, 0x3b, 0xfa, 0x83,
-	0x70, 0xf5, 0x37, 0x00, 0x00, 0xff, 0xff, 0xa2, 0xe4, 0xfa, 0xf0, 0x5e, 0x04, 0x00, 0x00,
+	// 1067 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x57, 0x5f, 0x6f, 0x1b, 0x45,
+	0x10, 0xaf, 0xd3, 0x24, 0x6e, 0xc6, 0xa9, 0xcf, 0x5e, 0xdb, 0xb1, 0x73, 0x09, 0x10, 0x16, 0x2a,
+	0xaa, 0x94, 0xf8, 0x84, 0xdb, 0x28, 0xa0, 0xaa, 0x80, 0xd2, 0xa0, 0xd6, 0x82, 0x96, 0xe8, 0x92,
+	0xf6, 0x01, 0x90, 0xcc, 0xc5, 0x5e, 0x25, 0x57, 0x6c, 0xdf, 0x71, 0xb7, 0x76, 0x15, 0x45, 0xbc,
+	0xf0, 0xc2, 0x0b, 0x6f, 0x7c, 0x1c, 0x3e, 0x06, 0x5f, 0x81, 0x0f, 0x82, 0x76, 0x6f, 0xee, 0xcf,
+	0xee, 0x5d, 0x9a, 0xb4, 0x0f, 0xbc, 0x58, 0xda, 0xd9, 0x99, 0xdf, 0x6f, 0x76, 0x66, 0x6f, 0x7e,
+	0x6b, 0xa8, 0xbb, 0x9c, 0x4d, 0x42, 0x4b, 0xfe, 0x76, 0xfd, 0xc0, 0xe3, 0x1e, 0x59, 0x9c, 0x04,
+	0xb3, 0xb9, 0xb9, 0x79, 0xea, 0x79, 0xa7, 0x63, 0x66, 0x39, 0xbe, 0x6b, 0x39, 0xd3, 0xa9, 0xc7,
+	0x1d, 0xee, 0x7a, 0x53, 0xf4, 0x31, 0x1b, 0x43, 0x6f, 0x32, 0xf1, 0xa6, 0xd6, 0x19, 0x73, 0xc6,
+	0xfc, 0x0c, 0x8d, 0xed, 0x0c, 0xd6, 0x60, 0xe2, 0x8d, 0xd8, 0x18, 0x37, 0x9a, 0xe8, 0x1d, 0xfa,
+	0x0e, 0x77, 0x1d, 0xb4, 0xd2, 0x4f, 0xc0, 0x78, 0xc2, 0x78, 0x5f, 0x78, 0xdb, 0xec, 0xd7, 0x19,
+	0x0b, 0x39, 0x69, 0xc2, 0xd2, 0xd8, 0x9d, 0xb8, 0xbc, 0x53, 0xda, 0x2a, 0xdd, 0x5d, 0xb2, 0xa3,
+	0x05, 0x7d, 0x00, 0xb5, 0xd4, 0x31, 0xf4, 0xbd, 0x69, 0xc8, 0xc8, 0x16, 0x2c, 0x49, 0x9e, 0x4e,
+	0x69, 0xeb, 0xe6, 0xdd, 0x4a, 0x0f, 0xba, 0x22, 0xe9, 0xae, 0xf0, 0xb1, 0xa3, 0x0d, 0x7a, 0x0f,
+	0x1a, 0x18, 0x75, 0x7c, 0xee, 0xb3, 0x2b, 0x28, 0xbe, 0x81, 0xa6, 0xea, 0x8c, 0x34, 0x3b, 0x00,
+	0x02, 0x6d, 0xc0, 0x85, 0x15, 0xb9, 0xaa, 0x29, 0x97, 0x70, 0xb6, 0x57, 0xdc, 0x38, 0x8c, 0x7e,
+	0x2a, 0x61, 0x1e, 0x7b, 0x53, 0xee, 0xb8, 0x53, 0x16, 0x5c, 0x41, 0xfa, 0x14, 0x5a, 0x9a, 0x37,
+	0xb2, 0x5a, 0x00, 0xc3, 0xc4, 0x8a, 0xac, 0x46, 0xc4, 0x9a, 0x78, 0xdb, 0x19, 0x17, 0xfa, 0x67,
+	0x09, 0xaa, 0x87, 0x33, 0x99, 0x7f, 0x4c, 0xf9, 0x00, 0x56, 0x13, 0x87, 0x81, 0x3b, 0x92, 0xcc,
+	0x95, 0x5e, 0x5d, 0x43, 0xe9, 0x1f, 0xd8, 0x95, 0xc4, 0xad, 0x3f, 0x22, 0x77, 0xa0, 0x2c, 0xcf,
+	0xeb, 0x8e, 0x3a, 0x0b, 0x32, 0x60, 0x35, 0x3d, 0x6c, 0xff, 0xc0, 0x5e, 0x16, 0x9b, 0xfd, 0x11,
+	0x69, 0xc2, 0x62, 0x38, 0xf6, 0x78, 0xe7, 0xa6, 0x38, 0xce, 0xd3, 0x1b, 0xb6, 0x5c, 0xed, 0x97,
+	0x61, 0xe9, 0xf5, 0x19, 0x0b, 0x18, 0xb5, 0xc0, 0x38, 0x76, 0x7e, 0x61, 0xd9, 0x74, 0x36, 0x61,
+	0x21, 0x49, 0x42, 0xc5, 0x5c, 0x70, 0x47, 0xb4, 0x07, 0xb5, 0x34, 0x00, 0x8b, 0xf0, 0x3e, 0x2c,
+	0x0a, 0x36, 0x8c, 0xc9, 0x36, 0x58, 0xda, 0xe9, 0x23, 0x58, 0xcf, 0x56, 0xef, 0x6d, 0xaf, 0x87,
+	0x0f, 0x75, 0x9b, 0x4d, 0xbc, 0x39, 0xfb, 0xbf, 0x8a, 0x46, 0x1d, 0xa8, 0x1d, 0x79, 0x81, 0x7a,
+	0xe1, 0xdf, 0x8d, 0xb0, 0x0d, 0xe5, 0xd0, 0x0b, 0xf8, 0xe0, 0xe4, 0x5c, 0x12, 0xae, 0xd8, 0xcb,
+	0x62, 0xb9, 0x7f, 0x4e, 0x77, 0xa1, 0x9e, 0xa1, 0xb8, 0x76, 0x2d, 0xfe, 0x28, 0xc1, 0xda, 0x13,
+	0xc6, 0x9f, 0x33, 0x27, 0x60, 0xa1, 0x9a, 0xe0, 0x1e, 0x18, 0xfe, 0xd8, 0x39, 0x67, 0xc1, 0xc0,
+	0xf7, 0x42, 0x57, 0x8c, 0x00, 0xcc, 0x11, 0xbf, 0x82, 0x43, 0xb4, 0xda, 0xd5, 0xc8, 0x2d, 0x5e,
+	0xe7, 0x4e, 0xb6, 0x70, 0x9d, 0x93, 0xd1, 0xaf, 0xa0, 0x9d, 0x4b, 0x04, 0x8f, 0xf1, 0x71, 0x72,
+	0x1f, 0xc4, 0x29, 0x6a, 0x78, 0x8a, 0x69, 0xe8, 0x8e, 0x58, 0xe6, 0x56, 0xec, 0x41, 0xf5, 0x45,
+	0xa8, 0xf4, 0x34, 0xd3, 0x9d, 0xd2, 0x1b, 0xba, 0x73, 0x0f, 0x8c, 0x24, 0x10, 0x19, 0x3b, 0x50,
+	0x0e, 0x67, 0xc3, 0x21, 0x0b, 0x43, 0x19, 0x79, 0xcb, 0x8e, 0x97, 0xbd, 0xbf, 0x0d, 0x30, 0x9e,
+	0x05, 0xb3, 0x97, 0xc2, 0xfd, 0x88, 0x05, 0x73, 0x77, 0xc8, 0xc8, 0x17, 0x00, 0x8f, 0x03, 0xe6,
+	0x70, 0x89, 0x41, 0x32, 0x55, 0x36, 0x15, 0x42, 0x5a, 0xff, 0xfd, 0x9f, 0x7f, 0xff, 0x5a, 0xa8,
+	0xd0, 0x15, 0x6b, 0xfe, 0x59, 0x34, 0x2b, 0xc9, 0x43, 0x28, 0xe3, 0xf4, 0x21, 0x8a, 0xaf, 0x99,
+	0x41, 0xa1, 0x6b, 0x32, 0xae, 0x46, 0xaa, 0x49, 0x9c, 0x75, 0xe1, 0x8e, 0x7e, 0x23, 0x5f, 0x02,
+	0xbc, 0xf0, 0x47, 0x57, 0xf3, 0x62, 0x7c, 0x4f, 0x8f, 0xff, 0x1a, 0xe0, 0x80, 0x8d, 0x19, 0xc6,
+	0xab, 0xfc, 0x85, 0x08, 0xdb, 0x3a, 0xc2, 0x77, 0x70, 0x2b, 0x9e, 0xcf, 0xa4, 0x15, 0x45, 0x68,
+	0x83, 0xdd, 0x5c, 0xd3, 0xcd, 0x51, 0x89, 0xe3, 0x62, 0x90, 0x4c, 0x31, 0xfa, 0x50, 0x4d, 0xeb,
+	0x28, 0xc6, 0x2a, 0xd1, 0x06, 0xae, 0x59, 0x53, 0xd7, 0xfd, 0x03, 0xda, 0x92, 0x30, 0x06, 0xbd,
+	0x1d, 0xc3, 0xc8, 0x71, 0x4c, 0xbe, 0x85, 0x4a, 0x66, 0xaa, 0x93, 0x5c, 0x9c, 0xa9, 0x21, 0x53,
+	0x53, 0xe2, 0x34, 0x09, 0x51, 0x70, 0xa2, 0x53, 0x3e, 0x87, 0x6a, 0x5a, 0xe7, 0x6b, 0xe6, 0x85,
+	0x78, 0xbd, 0x22, 0xbc, 0x43, 0xa8, 0xa6, 0x75, 0xbf, 0x24, 0xbf, 0x4b, 0x11, 0xb7, 0x8b, 0x10,
+	0x7f, 0x82, 0xd5, 0xac, 0x88, 0x91, 0x75, 0xa5, 0xe8, 0x59, 0x15, 0x34, 0xcd, 0xa2, 0x2d, 0xec,
+	0x09, 0x16, 0x93, 0x68, 0xc5, 0x7c, 0x06, 0x46, 0xd4, 0x97, 0xe4, 0xe3, 0x25, 0xba, 0x26, 0x99,
+	0xf9, 0xcf, 0x3b, 0xbe, 0x34, 0x54, 0x5e, 0x9a, 0x54, 0xb2, 0xc8, 0xf7, 0x32, 0xd9, 0x14, 0x2b,
+	0x1f, 0x6a, 0xea, 0xf0, 0x74, 0x43, 0x62, 0xb5, 0x48, 0x43, 0xc5, 0x8a, 0x4e, 0x6f, 0x83, 0x11,
+	0xf5, 0xe7, 0xed, 0xf2, 0x43, 0xcc, 0x5e, 0x21, 0xe6, 0x31, 0x18, 0x51, 0x8f, 0xde, 0x98, 0xe7,
+	0xe5, 0xa8, 0xdb, 0x85, 0xa8, 0x3f, 0xc3, 0x6d, 0x45, 0xf7, 0x49, 0xda, 0x8d, 0xdc, 0xd3, 0xc1,
+	0xdc, 0x28, 0xdc, 0xc3, 0x56, 0x29, 0x33, 0x21, 0x53, 0xdc, 0x57, 0x50, 0xcf, 0x69, 0x63, 0x51,
+	0xe6, 0x1f, 0xe4, 0xc1, 0xd5, 0xef, 0xf3, 0x43, 0x49, 0xb0, 0x41, 0xd6, 0x0b, 0xce, 0x81, 0xdf,
+	0xeb, 0x6b, 0x68, 0x44, 0x42, 0xaa, 0x40, 0x90, 0x76, 0x04, 0x9d, 0xd3, 0x58, 0x65, 0xa6, 0x3d,
+	0x94, 0xf0, 0xbb, 0xdb, 0xf7, 0x75, 0xf8, 0xac, 0x74, 0x74, 0x13, 0x2e, 0xeb, 0x02, 0x27, 0xb9,
+	0x30, 0x91, 0x57, 0x50, 0xc6, 0x37, 0x0f, 0x69, 0xa2, 0x18, 0x29, 0x4f, 0x20, 0x6d, 0x7a, 0x21,
+	0x97, 0xf9, 0x4e, 0x5c, 0x17, 0xb0, 0x92, 0x08, 0x2b, 0xc1, 0x61, 0xa6, 0x8b, 0xb9, 0xd9, 0xce,
+	0xd9, 0xb1, 0x8a, 0x8f, 0x24, 0xf5, 0x1e, 0xd9, 0xbd, 0x26, 0xb5, 0x50, 0x73, 0xeb, 0x02, 0x25,
+	0x5e, 0x4c, 0x0a, 0x43, 0x13, 0x45, 0xb2, 0x99, 0x34, 0xae, 0x40, 0xb4, 0xcd, 0xf7, 0x2e, 0xd9,
+	0xc5, 0x74, 0x6e, 0x90, 0xcf, 0xa1, 0x8c, 0x62, 0x17, 0x97, 0x4e, 0x15, 0x4d, 0xb3, 0xa5, 0x59,
+	0x93, 0x48, 0x26, 0xdf, 0xe2, 0xa8, 0x79, 0x47, 0xdc, 0xe1, 0xb3, 0xe4, 0xfa, 0x2a, 0x46, 0xed,
+	0xfa, 0x6a, 0x7b, 0x08, 0xd7, 0x91, 0x75, 0x21, 0xa4, 0x96, 0x0a, 0x4a, 0x18, 0x41, 0xfe, 0x28,
+	0x2f, 0x30, 0x46, 0xbd, 0x64, 0x41, 0x28, 0x9e, 0x14, 0x98, 0x2a, 0x2e, 0xb5, 0x54, 0x13, 0x2b,
+	0x62, 0xaf, 0x4b, 0xec, 0x06, 0xa9, 0xa7, 0xd8, 0xf3, 0xc8, 0x65, 0xff, 0xce, 0x0f, 0x1f, 0x9d,
+	0xba, 0xfc, 0x6c, 0x76, 0xd2, 0x1d, 0x7a, 0x13, 0x4b, 0xe8, 0xf8, 0x8e, 0x7d, 0x68, 0x09, 0x94,
+	0x1d, 0xff, 0x64, 0xe7, 0xd4, 0x8b, 0xdc, 0x4f, 0x96, 0xe5, 0xdf, 0x94, 0xfb, 0xff, 0x05, 0x00,
+	0x00, 0xff, 0xff, 0xbd, 0xd2, 0xa1, 0x7a, 0x23, 0x0d, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -446,10 +861,33 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVItemServiceClient interface {
-	Create(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error)
-	Destroy(ctx context.Context, in *DestroyItemRequest, opts ...grpc.CallOption) (*DestroyItemResponse, error)
-	Update(ctx context.Context, in *UpdateItemRequest, opts ...grpc.CallOption) (*UpdateItemResponse, error)
-	Get(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error)
+	//CRUD items
+	CreateItem(ctx context.Context, in *Item, opts ...grpc.CallOption) (*ItemID, error)
+	GetItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*Item, error)
+	UpdateItem(ctx context.Context, in *Item, opts ...grpc.CallOption) (*ItemID, error)
+	DeleteItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*ItemID, error)
+	GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error)
+	//CRUD itemsTypes
+	CreateItemType(ctx context.Context, in *ItemType, opts ...grpc.CallOption) (*ItemTypeID, error)
+	GetItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemType, error)
+	UpdateItemType(ctx context.Context, in *ItemType, opts ...grpc.CallOption) (*ItemTypeID, error)
+	DeleteItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemTypeID, error)
+	GetItemTypes(ctx context.Context, in *GetItemTypesRequest, opts ...grpc.CallOption) (*GetItemTypesResponse, error)
+	//CRUD containers
+	CreateContainer(ctx context.Context, in *Container, opts ...grpc.CallOption) (*ContainerID, error)
+	GetContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*Container, error)
+	UpdateContainer(ctx context.Context, in *Container, opts ...grpc.CallOption) (*ContainerID, error)
+	DeleteContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*ContainerID, error)
+	GetContainers(ctx context.Context, in *GetContainersRequest, opts ...grpc.CallOption) (*GetContainersResponse, error)
+	//Container Methods
+	GetContainerItems(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*GetContainerItemsResponse, error)
+	RemoveContainerItem(ctx context.Context, in *RemoveItemRequest, opts ...grpc.CallOption) (*Item, error)
+	PutItem(ctx context.Context, in *PutItemRequest, opts ...grpc.CallOption) (*ItemID, error)
+	//TODO: SortItemsStream
+	SortItems(ctx context.Context, in *SortItemsRequest, opts ...grpc.CallOption) (*SortItemsResponse, error)
+	//TODO: GetNearestItemsStream
+	GetNearestItems(ctx context.Context, in *GetNearestItemsRequest, opts ...grpc.CallOption) (*GetNearestItemsResponse, error)
+	UseItem(ctx context.Context, in *UseItemRequest, opts ...grpc.CallOption) (*UseItemResponse, error)
 	//Service status
 	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
@@ -463,36 +901,189 @@ func NewMruVItemServiceClient(cc *grpc.ClientConn) MruVItemServiceClient {
 	return &mruVItemServiceClient{cc}
 }
 
-func (c *mruVItemServiceClient) Create(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error) {
-	out := new(CreateItemResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/Create", in, out, opts...)
+func (c *mruVItemServiceClient) CreateItem(ctx context.Context, in *Item, opts ...grpc.CallOption) (*ItemID, error) {
+	out := new(ItemID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/CreateItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVItemServiceClient) Destroy(ctx context.Context, in *DestroyItemRequest, opts ...grpc.CallOption) (*DestroyItemResponse, error) {
-	out := new(DestroyItemResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/Destroy", in, out, opts...)
+func (c *mruVItemServiceClient) GetItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*Item, error) {
+	out := new(Item)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVItemServiceClient) Update(ctx context.Context, in *UpdateItemRequest, opts ...grpc.CallOption) (*UpdateItemResponse, error) {
-	out := new(UpdateItemResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/Update", in, out, opts...)
+func (c *mruVItemServiceClient) UpdateItem(ctx context.Context, in *Item, opts ...grpc.CallOption) (*ItemID, error) {
+	out := new(ItemID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/UpdateItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVItemServiceClient) Get(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error) {
-	out := new(GetItemResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/Get", in, out, opts...)
+func (c *mruVItemServiceClient) DeleteItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*ItemID, error) {
+	out := new(ItemID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/DeleteItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error) {
+	out := new(GetItemsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetItems", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) CreateItemType(ctx context.Context, in *ItemType, opts ...grpc.CallOption) (*ItemTypeID, error) {
+	out := new(ItemTypeID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/CreateItemType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemType, error) {
+	out := new(ItemType)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetItemType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) UpdateItemType(ctx context.Context, in *ItemType, opts ...grpc.CallOption) (*ItemTypeID, error) {
+	out := new(ItemTypeID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/UpdateItemType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) DeleteItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemTypeID, error) {
+	out := new(ItemTypeID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/DeleteItemType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetItemTypes(ctx context.Context, in *GetItemTypesRequest, opts ...grpc.CallOption) (*GetItemTypesResponse, error) {
+	out := new(GetItemTypesResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetItemTypes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) CreateContainer(ctx context.Context, in *Container, opts ...grpc.CallOption) (*ContainerID, error) {
+	out := new(ContainerID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/CreateContainer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*Container, error) {
+	out := new(Container)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetContainer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) UpdateContainer(ctx context.Context, in *Container, opts ...grpc.CallOption) (*ContainerID, error) {
+	out := new(ContainerID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/UpdateContainer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) DeleteContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*ContainerID, error) {
+	out := new(ContainerID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/DeleteContainer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetContainers(ctx context.Context, in *GetContainersRequest, opts ...grpc.CallOption) (*GetContainersResponse, error) {
+	out := new(GetContainersResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetContainers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetContainerItems(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*GetContainerItemsResponse, error) {
+	out := new(GetContainerItemsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetContainerItems", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) RemoveContainerItem(ctx context.Context, in *RemoveItemRequest, opts ...grpc.CallOption) (*Item, error) {
+	out := new(Item)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/RemoveContainerItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) PutItem(ctx context.Context, in *PutItemRequest, opts ...grpc.CallOption) (*ItemID, error) {
+	out := new(ItemID)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/PutItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) SortItems(ctx context.Context, in *SortItemsRequest, opts ...grpc.CallOption) (*SortItemsResponse, error) {
+	out := new(SortItemsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/SortItems", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) GetNearestItems(ctx context.Context, in *GetNearestItemsRequest, opts ...grpc.CallOption) (*GetNearestItemsResponse, error) {
+	out := new(GetNearestItemsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/GetNearestItems", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVItemServiceClient) UseItem(ctx context.Context, in *UseItemRequest, opts ...grpc.CallOption) (*UseItemResponse, error) {
+	out := new(UseItemResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVItemService/UseItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -519,10 +1110,33 @@ func (c *mruVItemServiceClient) GetServiceVersion(ctx context.Context, in *commo
 
 // MruVItemServiceServer is the server API for MruVItemService service.
 type MruVItemServiceServer interface {
-	Create(context.Context, *CreateItemRequest) (*CreateItemResponse, error)
-	Destroy(context.Context, *DestroyItemRequest) (*DestroyItemResponse, error)
-	Update(context.Context, *UpdateItemRequest) (*UpdateItemResponse, error)
-	Get(context.Context, *GetItemRequest) (*GetItemResponse, error)
+	//CRUD items
+	CreateItem(context.Context, *Item) (*ItemID, error)
+	GetItem(context.Context, *ItemID) (*Item, error)
+	UpdateItem(context.Context, *Item) (*ItemID, error)
+	DeleteItem(context.Context, *ItemID) (*ItemID, error)
+	GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error)
+	//CRUD itemsTypes
+	CreateItemType(context.Context, *ItemType) (*ItemTypeID, error)
+	GetItemType(context.Context, *ItemTypeID) (*ItemType, error)
+	UpdateItemType(context.Context, *ItemType) (*ItemTypeID, error)
+	DeleteItemType(context.Context, *ItemTypeID) (*ItemTypeID, error)
+	GetItemTypes(context.Context, *GetItemTypesRequest) (*GetItemTypesResponse, error)
+	//CRUD containers
+	CreateContainer(context.Context, *Container) (*ContainerID, error)
+	GetContainer(context.Context, *ContainerID) (*Container, error)
+	UpdateContainer(context.Context, *Container) (*ContainerID, error)
+	DeleteContainer(context.Context, *ContainerID) (*ContainerID, error)
+	GetContainers(context.Context, *GetContainersRequest) (*GetContainersResponse, error)
+	//Container Methods
+	GetContainerItems(context.Context, *ContainerID) (*GetContainerItemsResponse, error)
+	RemoveContainerItem(context.Context, *RemoveItemRequest) (*Item, error)
+	PutItem(context.Context, *PutItemRequest) (*ItemID, error)
+	//TODO: SortItemsStream
+	SortItems(context.Context, *SortItemsRequest) (*SortItemsResponse, error)
+	//TODO: GetNearestItemsStream
+	GetNearestItems(context.Context, *GetNearestItemsRequest) (*GetNearestItemsResponse, error)
+	UseItem(context.Context, *UseItemRequest) (*UseItemResponse, error)
 	//Service status
 	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)
@@ -532,17 +1146,68 @@ type MruVItemServiceServer interface {
 type UnimplementedMruVItemServiceServer struct {
 }
 
-func (*UnimplementedMruVItemServiceServer) Create(ctx context.Context, req *CreateItemRequest) (*CreateItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (*UnimplementedMruVItemServiceServer) CreateItem(ctx context.Context, req *Item) (*ItemID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateItem not implemented")
 }
-func (*UnimplementedMruVItemServiceServer) Destroy(ctx context.Context, req *DestroyItemRequest) (*DestroyItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Destroy not implemented")
+func (*UnimplementedMruVItemServiceServer) GetItem(ctx context.Context, req *ItemID) (*Item, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItem not implemented")
 }
-func (*UnimplementedMruVItemServiceServer) Update(ctx context.Context, req *UpdateItemRequest) (*UpdateItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+func (*UnimplementedMruVItemServiceServer) UpdateItem(ctx context.Context, req *Item) (*ItemID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateItem not implemented")
 }
-func (*UnimplementedMruVItemServiceServer) Get(ctx context.Context, req *GetItemRequest) (*GetItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+func (*UnimplementedMruVItemServiceServer) DeleteItem(ctx context.Context, req *ItemID) (*ItemID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteItem not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetItems(ctx context.Context, req *GetItemsRequest) (*GetItemsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItems not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) CreateItemType(ctx context.Context, req *ItemType) (*ItemTypeID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateItemType not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetItemType(ctx context.Context, req *ItemTypeID) (*ItemType, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItemType not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) UpdateItemType(ctx context.Context, req *ItemType) (*ItemTypeID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateItemType not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) DeleteItemType(ctx context.Context, req *ItemTypeID) (*ItemTypeID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteItemType not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetItemTypes(ctx context.Context, req *GetItemTypesRequest) (*GetItemTypesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItemTypes not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) CreateContainer(ctx context.Context, req *Container) (*ContainerID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateContainer not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetContainer(ctx context.Context, req *ContainerID) (*Container, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetContainer not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) UpdateContainer(ctx context.Context, req *Container) (*ContainerID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateContainer not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) DeleteContainer(ctx context.Context, req *ContainerID) (*ContainerID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteContainer not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetContainers(ctx context.Context, req *GetContainersRequest) (*GetContainersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetContainers not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetContainerItems(ctx context.Context, req *ContainerID) (*GetContainerItemsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetContainerItems not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) RemoveContainerItem(ctx context.Context, req *RemoveItemRequest) (*Item, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveContainerItem not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) PutItem(ctx context.Context, req *PutItemRequest) (*ItemID, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutItem not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) SortItems(ctx context.Context, req *SortItemsRequest) (*SortItemsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SortItems not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) GetNearestItems(ctx context.Context, req *GetNearestItemsRequest) (*GetNearestItemsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNearestItems not implemented")
+}
+func (*UnimplementedMruVItemServiceServer) UseItem(ctx context.Context, req *UseItemRequest) (*UseItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UseItem not implemented")
 }
 func (*UnimplementedMruVItemServiceServer) GetServiceStatus(ctx context.Context, req *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceStatus not implemented")
@@ -555,74 +1220,380 @@ func RegisterMruVItemServiceServer(s *grpc.Server, srv MruVItemServiceServer) {
 	s.RegisterService(&_MruVItemService_serviceDesc, srv)
 }
 
-func _MruVItemService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateItemRequest)
+func _MruVItemService_CreateItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Item)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVItemServiceServer).Create(ctx, in)
+		return srv.(MruVItemServiceServer).CreateItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVItemService/Create",
+		FullMethod: "/mruv.MruVItemService/CreateItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).Create(ctx, req.(*CreateItemRequest))
+		return srv.(MruVItemServiceServer).CreateItem(ctx, req.(*Item))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVItemService_Destroy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DestroyItemRequest)
+func _MruVItemService_GetItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVItemServiceServer).Destroy(ctx, in)
+		return srv.(MruVItemServiceServer).GetItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVItemService/Destroy",
+		FullMethod: "/mruv.MruVItemService/GetItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).Destroy(ctx, req.(*DestroyItemRequest))
+		return srv.(MruVItemServiceServer).GetItem(ctx, req.(*ItemID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVItemService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateItemRequest)
+func _MruVItemService_UpdateItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Item)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVItemServiceServer).Update(ctx, in)
+		return srv.(MruVItemServiceServer).UpdateItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVItemService/Update",
+		FullMethod: "/mruv.MruVItemService/UpdateItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).Update(ctx, req.(*UpdateItemRequest))
+		return srv.(MruVItemServiceServer).UpdateItem(ctx, req.(*Item))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVItemService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetItemRequest)
+func _MruVItemService_DeleteItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVItemServiceServer).Get(ctx, in)
+		return srv.(MruVItemServiceServer).DeleteItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVItemService/Get",
+		FullMethod: "/mruv.MruVItemService/DeleteItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVItemServiceServer).Get(ctx, req.(*GetItemRequest))
+		return srv.(MruVItemServiceServer).DeleteItem(ctx, req.(*ItemID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetItemsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetItems(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetItems",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetItems(ctx, req.(*GetItemsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_CreateItemType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemType)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).CreateItemType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/CreateItemType",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).CreateItemType(ctx, req.(*ItemType))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetItemType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemTypeID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetItemType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetItemType",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetItemType(ctx, req.(*ItemTypeID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_UpdateItemType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemType)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).UpdateItemType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/UpdateItemType",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).UpdateItemType(ctx, req.(*ItemType))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_DeleteItemType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ItemTypeID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).DeleteItemType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/DeleteItemType",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).DeleteItemType(ctx, req.(*ItemTypeID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetItemTypes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetItemTypesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetItemTypes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetItemTypes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetItemTypes(ctx, req.(*GetItemTypesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_CreateContainer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Container)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).CreateContainer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/CreateContainer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).CreateContainer(ctx, req.(*Container))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetContainer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ContainerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetContainer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetContainer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetContainer(ctx, req.(*ContainerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_UpdateContainer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Container)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).UpdateContainer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/UpdateContainer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).UpdateContainer(ctx, req.(*Container))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_DeleteContainer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ContainerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).DeleteContainer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/DeleteContainer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).DeleteContainer(ctx, req.(*ContainerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetContainers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetContainersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetContainers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetContainers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetContainers(ctx, req.(*GetContainersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetContainerItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ContainerID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetContainerItems(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetContainerItems",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetContainerItems(ctx, req.(*ContainerID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_RemoveContainerItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).RemoveContainerItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/RemoveContainerItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).RemoveContainerItem(ctx, req.(*RemoveItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_PutItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PutItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).PutItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/PutItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).PutItem(ctx, req.(*PutItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_SortItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SortItemsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).SortItems(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/SortItems",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).SortItems(ctx, req.(*SortItemsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_GetNearestItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNearestItemsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).GetNearestItems(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/GetNearestItems",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).GetNearestItems(ctx, req.(*GetNearestItemsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVItemService_UseItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UseItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVItemServiceServer).UseItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVItemService/UseItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVItemServiceServer).UseItem(ctx, req.(*UseItemRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -668,20 +1639,88 @@ var _MruVItemService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MruVItemServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Create",
-			Handler:    _MruVItemService_Create_Handler,
+			MethodName: "CreateItem",
+			Handler:    _MruVItemService_CreateItem_Handler,
 		},
 		{
-			MethodName: "Destroy",
-			Handler:    _MruVItemService_Destroy_Handler,
+			MethodName: "GetItem",
+			Handler:    _MruVItemService_GetItem_Handler,
 		},
 		{
-			MethodName: "Update",
-			Handler:    _MruVItemService_Update_Handler,
+			MethodName: "UpdateItem",
+			Handler:    _MruVItemService_UpdateItem_Handler,
 		},
 		{
-			MethodName: "Get",
-			Handler:    _MruVItemService_Get_Handler,
+			MethodName: "DeleteItem",
+			Handler:    _MruVItemService_DeleteItem_Handler,
+		},
+		{
+			MethodName: "GetItems",
+			Handler:    _MruVItemService_GetItems_Handler,
+		},
+		{
+			MethodName: "CreateItemType",
+			Handler:    _MruVItemService_CreateItemType_Handler,
+		},
+		{
+			MethodName: "GetItemType",
+			Handler:    _MruVItemService_GetItemType_Handler,
+		},
+		{
+			MethodName: "UpdateItemType",
+			Handler:    _MruVItemService_UpdateItemType_Handler,
+		},
+		{
+			MethodName: "DeleteItemType",
+			Handler:    _MruVItemService_DeleteItemType_Handler,
+		},
+		{
+			MethodName: "GetItemTypes",
+			Handler:    _MruVItemService_GetItemTypes_Handler,
+		},
+		{
+			MethodName: "CreateContainer",
+			Handler:    _MruVItemService_CreateContainer_Handler,
+		},
+		{
+			MethodName: "GetContainer",
+			Handler:    _MruVItemService_GetContainer_Handler,
+		},
+		{
+			MethodName: "UpdateContainer",
+			Handler:    _MruVItemService_UpdateContainer_Handler,
+		},
+		{
+			MethodName: "DeleteContainer",
+			Handler:    _MruVItemService_DeleteContainer_Handler,
+		},
+		{
+			MethodName: "GetContainers",
+			Handler:    _MruVItemService_GetContainers_Handler,
+		},
+		{
+			MethodName: "GetContainerItems",
+			Handler:    _MruVItemService_GetContainerItems_Handler,
+		},
+		{
+			MethodName: "RemoveContainerItem",
+			Handler:    _MruVItemService_RemoveContainerItem_Handler,
+		},
+		{
+			MethodName: "PutItem",
+			Handler:    _MruVItemService_PutItem_Handler,
+		},
+		{
+			MethodName: "SortItems",
+			Handler:    _MruVItemService_SortItems_Handler,
+		},
+		{
+			MethodName: "GetNearestItems",
+			Handler:    _MruVItemService_GetNearestItems_Handler,
+		},
+		{
+			MethodName: "UseItem",
+			Handler:    _MruVItemService_UseItem_Handler,
 		},
 		{
 			MethodName: "GetServiceStatus",
