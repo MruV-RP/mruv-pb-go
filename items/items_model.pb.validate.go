@@ -43,7 +43,15 @@ func (m *ItemType) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ItemTypeValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Name
 
@@ -187,9 +195,25 @@ func (m *Item) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ItemValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for ItemTypeId
+	if v, ok := interface{}(m.GetItemTypeId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ItemValidationError{
+				field:  "ItemTypeId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Weight
 
@@ -326,15 +350,46 @@ func (m *ContainerType) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ContainerTypeValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for ContainerItemTypeId
+	if v, ok := interface{}(m.GetContainerItemTypeId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ContainerTypeValidationError{
+				field:  "ContainerItemTypeId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for MaxNumber
 
 	// no validation rules for MaxVolume
 
 	// no validation rules for MaxWeight
+
+	for idx, item := range m.GetValidItemTypes() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ContainerTypeValidationError{
+					field:  fmt.Sprintf("ValidItemTypes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	return nil
 }
@@ -467,11 +522,35 @@ func (m *Container) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ContainerValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for TypeId
+	if v, ok := interface{}(m.GetTypeId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ContainerValidationError{
+				field:  "TypeId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for ItemId
+	if v, ok := interface{}(m.GetItemId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ContainerValidationError{
+				field:  "ItemId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for ItemsInside
 
@@ -621,7 +700,15 @@ func (m *InsideItem) Validate() error {
 		return nil
 	}
 
-	// no validation rules for ContainerId
+	if v, ok := interface{}(m.GetContainerId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InsideItemValidationError{
+				field:  "ContainerId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for Position
 

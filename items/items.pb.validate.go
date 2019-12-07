@@ -728,156 +728,6 @@ var _ interface {
 	ErrorName() string
 } = PutItemRequestValidationError{}
 
-// Validate checks the field values on TakeItemRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *TakeItemRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TakeItemRequestValidationError{
-				field:  "Id",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// TakeItemRequestValidationError is the validation error returned by
-// TakeItemRequest.Validate if the designated constraints aren't met.
-type TakeItemRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e TakeItemRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e TakeItemRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e TakeItemRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e TakeItemRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e TakeItemRequestValidationError) ErrorName() string { return "TakeItemRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e TakeItemRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sTakeItemRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = TakeItemRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = TakeItemRequestValidationError{}
-
-// Validate checks the field values on TakeItemResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *TakeItemResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if v, ok := interface{}(m.GetItem()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TakeItemResponseValidationError{
-				field:  "Item",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	return nil
-}
-
-// TakeItemResponseValidationError is the validation error returned by
-// TakeItemResponse.Validate if the designated constraints aren't met.
-type TakeItemResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e TakeItemResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e TakeItemResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e TakeItemResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e TakeItemResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e TakeItemResponseValidationError) ErrorName() string { return "TakeItemResponseValidationError" }
-
-// Error satisfies the builtin error interface
-func (e TakeItemResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sTakeItemResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = TakeItemResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = TakeItemResponseValidationError{}
-
 // Validate checks the field values on GetContainerItemsRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1039,17 +889,17 @@ var _ interface {
 	ErrorName() string
 } = GetContainerItemsResponseValidationError{}
 
-// Validate checks the field values on RemoveItemRequest with the rules defined
+// Validate checks the field values on PullItemRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.
-func (m *RemoveItemRequest) Validate() error {
+func (m *PullItemRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	if v, ok := interface{}(m.GetContainerId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RemoveItemRequestValidationError{
+			return PullItemRequestValidationError{
 				field:  "ContainerId",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1059,7 +909,7 @@ func (m *RemoveItemRequest) Validate() error {
 
 	if v, ok := interface{}(m.GetItemId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return RemoveItemRequestValidationError{
+			return PullItemRequestValidationError{
 				field:  "ItemId",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -1070,9 +920,9 @@ func (m *RemoveItemRequest) Validate() error {
 	return nil
 }
 
-// RemoveItemRequestValidationError is the validation error returned by
-// RemoveItemRequest.Validate if the designated constraints aren't met.
-type RemoveItemRequestValidationError struct {
+// PullItemRequestValidationError is the validation error returned by
+// PullItemRequest.Validate if the designated constraints aren't met.
+type PullItemRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1080,24 +930,22 @@ type RemoveItemRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemoveItemRequestValidationError) Field() string { return e.field }
+func (e PullItemRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemoveItemRequestValidationError) Reason() string { return e.reason }
+func (e PullItemRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemoveItemRequestValidationError) Cause() error { return e.cause }
+func (e PullItemRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemoveItemRequestValidationError) Key() bool { return e.key }
+func (e PullItemRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemoveItemRequestValidationError) ErrorName() string {
-	return "RemoveItemRequestValidationError"
-}
+func (e PullItemRequestValidationError) ErrorName() string { return "PullItemRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RemoveItemRequestValidationError) Error() string {
+func (e PullItemRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1109,14 +957,14 @@ func (e RemoveItemRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemoveItemRequest.%s: %s%s",
+		"invalid %sPullItemRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemoveItemRequestValidationError{}
+var _ error = PullItemRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1124,7 +972,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemoveItemRequestValidationError{}
+} = PullItemRequestValidationError{}
 
 // Validate checks the field values on SortItemsRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
@@ -1293,10 +1141,10 @@ func (m *GetNearestItemsRequest) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPlayerPosition()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GetNearestItemsRequestValidationError{
-				field:  "PlayerPosition",
+				field:  "Position",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1312,6 +1160,8 @@ func (m *GetNearestItemsRequest) Validate() error {
 			}
 		}
 	}
+
+	// no validation rules for DistanceLimit
 
 	return nil
 }
