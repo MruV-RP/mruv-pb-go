@@ -728,6 +728,81 @@ var _ interface {
 	ErrorName() string
 } = PutItemRequestValidationError{}
 
+// Validate checks the field values on PutItemResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *PutItemResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetInsideItem()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PutItemResponseValidationError{
+				field:  "InsideItem",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// PutItemResponseValidationError is the validation error returned by
+// PutItemResponse.Validate if the designated constraints aren't met.
+type PutItemResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PutItemResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PutItemResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PutItemResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PutItemResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PutItemResponseValidationError) ErrorName() string { return "PutItemResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PutItemResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPutItemResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PutItemResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PutItemResponseValidationError{}
+
 // Validate checks the field values on GetContainerItemsRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1059,19 +1134,14 @@ func (m *SortItemsResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetItems() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SortItemsResponseValidationError{
-					field:  fmt.Sprintf("Items[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
+	if v, ok := interface{}(m.GetContainer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SortItemsResponseValidationError{
+				field:  "Container",
+				reason: "embedded message failed validation",
+				cause:  err,
 			}
 		}
-
 	}
 
 	return nil
