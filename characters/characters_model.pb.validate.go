@@ -43,7 +43,25 @@ func (m *Character) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	if v, ok := interface{}(m.GetId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CharacterValidationError{
+				field:  "Id",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetOwnerId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CharacterValidationError{
+				field:  "OwnerId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	// no validation rules for FirstName
 
@@ -52,6 +70,16 @@ func (m *Character) Validate() error {
 	// no validation rules for Age
 
 	// no validation rules for Sex
+
+	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CharacterValidationError{
+				field:  "Position",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
