@@ -5,6 +5,7 @@ package characters
 
 import (
 	fmt "fmt"
+	accounts "github.com/MruV-RP/mruv-pb-go/accounts"
 	common "github.com/MruV-RP/mruv-pb-go/common"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
@@ -53,16 +54,16 @@ func (DeathType) EnumDescriptor() ([]byte, []int) {
 }
 
 type Character struct {
-	Id                   *CharacterID     `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	OwnerId              *AccountID       `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
-	FirstName            string           `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	SecondName           string           `protobuf:"bytes,4,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
-	Age                  uint32           `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
-	Sex                  uint32           `protobuf:"varint,6,opt,name=sex,proto3" json:"sex,omitempty"`
-	Position             *common.Position `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
+	Id                   *CharacterID        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerId              *accounts.AccountID `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	FirstName            string              `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	SecondName           string              `protobuf:"bytes,4,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
+	Age                  uint32              `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
+	Sex                  uint32              `protobuf:"varint,6,opt,name=sex,proto3" json:"sex,omitempty"`
+	Position             *common.Position    `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
 func (m *Character) Reset()         { *m = Character{} }
@@ -97,7 +98,7 @@ func (m *Character) GetId() *CharacterID {
 	return nil
 }
 
-func (m *Character) GetOwnerId() *AccountID {
+func (m *Character) GetOwnerId() *accounts.AccountID {
 	if m != nil {
 		return m.OwnerId
 	}

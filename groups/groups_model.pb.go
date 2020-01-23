@@ -5,7 +5,7 @@ package groups
 
 import (
 	fmt "fmt"
-	characters "github.com/MruV-RP/mruv-pb-go/characters"
+	accounts "github.com/MruV-RP/mruv-pb-go/accounts"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
 )
@@ -155,14 +155,14 @@ func (m *GroupID) GetId() int32 {
 }
 
 type Group struct {
-	Id                   *GroupID                `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string                  `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Description          string                  `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Permissions          []*Permission           `protobuf:"bytes,5,rep,name=permissions,proto3" json:"permissions,omitempty"`
-	Members              []*characters.AccountID `protobuf:"bytes,6,rep,name=members,proto3" json:"members,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
-	XXX_unrecognized     []byte                  `json:"-"`
-	XXX_sizecache        int32                   `json:"-"`
+	Id                   *GroupID              `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string                `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description          string                `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Permissions          []*Permission         `protobuf:"bytes,5,rep,name=permissions,proto3" json:"permissions,omitempty"`
+	Members              []*accounts.AccountID `protobuf:"bytes,6,rep,name=members,proto3" json:"members,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
 }
 
 func (m *Group) Reset()         { *m = Group{} }
@@ -218,7 +218,7 @@ func (m *Group) GetPermissions() []*Permission {
 	return nil
 }
 
-func (m *Group) GetMembers() []*characters.AccountID {
+func (m *Group) GetMembers() []*accounts.AccountID {
 	if m != nil {
 		return m.Members
 	}
