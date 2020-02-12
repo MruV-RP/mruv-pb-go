@@ -104,42 +104,173 @@ func (m *GetGroupsResponse) GetGroups() []*Group {
 	return nil
 }
 
+type AddGroupMemberRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddGroupMemberRequest) Reset()         { *m = AddGroupMemberRequest{} }
+func (m *AddGroupMemberRequest) String() string { return proto.CompactTextString(m) }
+func (*AddGroupMemberRequest) ProtoMessage()    {}
+func (*AddGroupMemberRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{2}
+}
+
+func (m *AddGroupMemberRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddGroupMemberRequest.Unmarshal(m, b)
+}
+func (m *AddGroupMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddGroupMemberRequest.Marshal(b, m, deterministic)
+}
+func (m *AddGroupMemberRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddGroupMemberRequest.Merge(m, src)
+}
+func (m *AddGroupMemberRequest) XXX_Size() int {
+	return xxx_messageInfo_AddGroupMemberRequest.Size(m)
+}
+func (m *AddGroupMemberRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddGroupMemberRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddGroupMemberRequest proto.InternalMessageInfo
+
+type AddGroupMemberResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddGroupMemberResponse) Reset()         { *m = AddGroupMemberResponse{} }
+func (m *AddGroupMemberResponse) String() string { return proto.CompactTextString(m) }
+func (*AddGroupMemberResponse) ProtoMessage()    {}
+func (*AddGroupMemberResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{3}
+}
+
+func (m *AddGroupMemberResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddGroupMemberResponse.Unmarshal(m, b)
+}
+func (m *AddGroupMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddGroupMemberResponse.Marshal(b, m, deterministic)
+}
+func (m *AddGroupMemberResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddGroupMemberResponse.Merge(m, src)
+}
+func (m *AddGroupMemberResponse) XXX_Size() int {
+	return xxx_messageInfo_AddGroupMemberResponse.Size(m)
+}
+func (m *AddGroupMemberResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddGroupMemberResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddGroupMemberResponse proto.InternalMessageInfo
+
+type RemoveGroupMemberRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveGroupMemberRequest) Reset()         { *m = RemoveGroupMemberRequest{} }
+func (m *RemoveGroupMemberRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveGroupMemberRequest) ProtoMessage()    {}
+func (*RemoveGroupMemberRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{4}
+}
+
+func (m *RemoveGroupMemberRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveGroupMemberRequest.Unmarshal(m, b)
+}
+func (m *RemoveGroupMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveGroupMemberRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveGroupMemberRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveGroupMemberRequest.Merge(m, src)
+}
+func (m *RemoveGroupMemberRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveGroupMemberRequest.Size(m)
+}
+func (m *RemoveGroupMemberRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveGroupMemberRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveGroupMemberRequest proto.InternalMessageInfo
+
+type RemoveGroupMemberResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveGroupMemberResponse) Reset()         { *m = RemoveGroupMemberResponse{} }
+func (m *RemoveGroupMemberResponse) String() string { return proto.CompactTextString(m) }
+func (*RemoveGroupMemberResponse) ProtoMessage()    {}
+func (*RemoveGroupMemberResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{5}
+}
+
+func (m *RemoveGroupMemberResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveGroupMemberResponse.Unmarshal(m, b)
+}
+func (m *RemoveGroupMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveGroupMemberResponse.Marshal(b, m, deterministic)
+}
+func (m *RemoveGroupMemberResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveGroupMemberResponse.Merge(m, src)
+}
+func (m *RemoveGroupMemberResponse) XXX_Size() int {
+	return xxx_messageInfo_RemoveGroupMemberResponse.Size(m)
+}
+func (m *RemoveGroupMemberResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveGroupMemberResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveGroupMemberResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*GetGroupsRequest)(nil), "mruv.GetGroupsRequest")
 	proto.RegisterType((*GetGroupsResponse)(nil), "mruv.GetGroupsResponse")
+	proto.RegisterType((*AddGroupMemberRequest)(nil), "mruv.AddGroupMemberRequest")
+	proto.RegisterType((*AddGroupMemberResponse)(nil), "mruv.AddGroupMemberResponse")
+	proto.RegisterType((*RemoveGroupMemberRequest)(nil), "mruv.RemoveGroupMemberRequest")
+	proto.RegisterType((*RemoveGroupMemberResponse)(nil), "mruv.RemoveGroupMemberResponse")
 }
 
 func init() { proto.RegisterFile("groups/groups.proto", fileDescriptor_c041880a4c61bab6) }
 
 var fileDescriptor_c041880a4c61bab6 = []byte{
-	// 417 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xcf, 0xea, 0xd3, 0x40,
-	0x10, 0xc7, 0xa9, 0xb6, 0x45, 0x37, 0x8a, 0xcd, 0xb4, 0xda, 0x36, 0x7a, 0x28, 0x51, 0xa4, 0x08,
-	0xcd, 0x62, 0xbd, 0x78, 0x11, 0x41, 0x2b, 0xc5, 0x83, 0x50, 0x52, 0xec, 0x41, 0x0f, 0x92, 0xb6,
-	0x43, 0xba, 0x90, 0x64, 0x63, 0x76, 0x93, 0x8b, 0x78, 0xf1, 0x15, 0x7c, 0x17, 0x5f, 0xc4, 0x57,
-	0xf0, 0x41, 0x24, 0xbb, 0x9b, 0x5f, 0x93, 0xf4, 0x77, 0xf8, 0x9d, 0x96, 0xf9, 0xf3, 0xfd, 0xcc,
-	0xec, 0xcc, 0x90, 0x61, 0x98, 0xf1, 0x3c, 0x15, 0x54, 0x3f, 0x5e, 0x9a, 0x71, 0xc9, 0xa1, 0x1b,
-	0x67, 0x79, 0xe1, 0x3c, 0x09, 0x39, 0x0f, 0x23, 0xa4, 0x41, 0xca, 0x68, 0x90, 0x24, 0x5c, 0x06,
-	0x92, 0xf1, 0xc4, 0xe4, 0x38, 0xc3, 0x03, 0x8f, 0x63, 0x9e, 0xd0, 0x13, 0x06, 0x91, 0x3c, 0x19,
-	0xe7, 0xb4, 0x41, 0xfb, 0x16, 0xf3, 0x23, 0x46, 0x3a, 0xe4, 0xce, 0xc9, 0x60, 0x8d, 0x72, 0xad,
-	0x02, 0x3e, 0x7e, 0xcf, 0x51, 0x48, 0x18, 0x91, 0x5e, 0xc4, 0x62, 0x26, 0x27, 0x9d, 0x59, 0x67,
-	0xde, 0xf3, 0xb5, 0xe1, 0xbe, 0x26, 0x76, 0x2d, 0x53, 0xa4, 0x3c, 0x11, 0x08, 0x4f, 0x49, 0x5f,
-	0x43, 0x27, 0x9d, 0xd9, 0xed, 0xb9, 0xb5, 0xb4, 0xbc, 0xb2, 0x47, 0x4f, 0x65, 0xf9, 0x26, 0xb4,
-	0xfc, 0xd3, 0x25, 0xf6, 0xa7, 0x2c, 0xdf, 0x69, 0xed, 0x16, 0xb3, 0x82, 0x1d, 0x10, 0xde, 0x10,
-	0xeb, 0x7d, 0x86, 0x81, 0x44, 0xe5, 0x86, 0xba, 0xd2, 0xb9, 0x5f, 0x33, 0x3e, 0xae, 0x5c, 0xf8,
-	0xf5, 0xf7, 0xdf, 0xef, 0x5b, 0xf7, 0x5c, 0x42, 0x8b, 0x97, 0xe6, 0x13, 0xf0, 0x96, 0xdc, 0xa9,
-	0xda, 0x81, 0x66, 0xba, 0x53, 0x47, 0xb9, 0x63, 0xa5, 0xb5, 0xe1, 0xc1, 0x59, 0x4b, 0x7f, 0xb0,
-	0xe3, 0x4f, 0xf8, 0x40, 0xac, 0xcf, 0xe9, 0xf1, 0x46, 0xf5, 0x1d, 0xc5, 0x18, 0x2d, 0xa1, 0xc9,
-	0xf0, 0x4a, 0xcc, 0x8a, 0x58, 0x2b, 0x8c, 0xb0, 0xc2, 0xb4, 0x5a, 0x69, 0x81, 0x4c, 0x33, 0x2f,
-	0x2e, 0x9a, 0xd9, 0x90, 0xbb, 0x57, 0xc3, 0x85, 0x47, 0x46, 0xd4, 0xda, 0x8b, 0x33, 0xbe, 0xf0,
-	0xeb, 0x2d, 0x54, 0xf3, 0x81, 0xfa, 0x7c, 0x50, 0x2d, 0xd6, 0x0c, 0x7b, 0x2b, 0x03, 0x99, 0x0b,
-	0x70, 0x34, 0xa0, 0xe1, 0xac, 0xe0, 0x8f, 0xaf, 0x8d, 0x99, 0x02, 0x13, 0x55, 0x00, 0x60, 0x50,
-	0x16, 0x60, 0x12, 0x63, 0x41, 0x85, 0x46, 0x7e, 0x55, 0x57, 0x61, 0x54, 0x3b, 0xcc, 0x04, 0xe3,
-	0x09, 0x8c, 0x34, 0xcb, 0x98, 0x55, 0x85, 0x87, 0x2d, 0xaf, 0x61, 0x4f, 0x15, 0x7b, 0x08, 0xf6,
-	0x99, 0x5d, 0xe8, 0x94, 0x77, 0xcf, 0xbf, 0x3c, 0x0b, 0x99, 0x3c, 0xe5, 0x7b, 0xef, 0xc0, 0x63,
-	0x5a, 0x9e, 0xd0, 0xc2, 0xdf, 0xd0, 0x92, 0xb2, 0x48, 0xf7, 0x8b, 0x90, 0x9b, 0xbf, 0xee, 0xfb,
-	0xea, 0x96, 0x5f, 0xfd, 0x0f, 0x00, 0x00, 0xff, 0xff, 0x0e, 0x90, 0xfe, 0x67, 0x36, 0x03, 0x00,
-	0x00,
+	// 467 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x93, 0xdf, 0x8a, 0xd3, 0x40,
+	0x14, 0xc6, 0xad, 0xda, 0x45, 0x4f, 0xfd, 0x97, 0xd3, 0xee, 0xb6, 0x9d, 0x2e, 0xba, 0x44, 0x91,
+	0x22, 0xb4, 0xc1, 0xf5, 0xc6, 0x1b, 0x11, 0xb5, 0xb0, 0x78, 0x51, 0x58, 0xb2, 0xd0, 0x0b, 0x11,
+	0x24, 0x6d, 0x8f, 0x69, 0x20, 0x93, 0x89, 0x93, 0x49, 0x6e, 0xc4, 0x1b, 0x5f, 0xc1, 0x1b, 0xdf,
+	0xcb, 0x57, 0xf0, 0x41, 0xa4, 0x33, 0x93, 0x35, 0x4d, 0xd3, 0xab, 0x30, 0xe7, 0x3b, 0xdf, 0x6f,
+	0xce, 0x9c, 0x73, 0x02, 0xdd, 0x50, 0x8a, 0x3c, 0xcd, 0x3c, 0xf3, 0x99, 0xa6, 0x52, 0x28, 0x81,
+	0xb7, 0xb9, 0xcc, 0x0b, 0x76, 0x1a, 0x0a, 0x11, 0xc6, 0xe4, 0x05, 0x69, 0xe4, 0x05, 0x49, 0x22,
+	0x54, 0xa0, 0x22, 0x91, 0xd8, 0x1c, 0xd6, 0x5d, 0x09, 0xce, 0x45, 0xe2, 0x6d, 0x28, 0x88, 0xd5,
+	0xc6, 0x06, 0x87, 0x3b, 0xb4, 0x2f, 0x5c, 0xac, 0x29, 0x36, 0x92, 0x3b, 0x86, 0x47, 0x17, 0xa4,
+	0x2e, 0xb4, 0xe0, 0xd3, 0xb7, 0x9c, 0x32, 0x85, 0x3d, 0x68, 0xc7, 0x11, 0x8f, 0xd4, 0xa0, 0x75,
+	0xd6, 0x1a, 0xb7, 0x7d, 0x73, 0x70, 0x5f, 0x83, 0x53, 0xc9, 0xcc, 0x52, 0x91, 0x64, 0x84, 0x4f,
+	0xe1, 0xc8, 0x40, 0x07, 0xad, 0xb3, 0x5b, 0xe3, 0xce, 0x79, 0x67, 0xba, 0xad, 0x71, 0xaa, 0xb3,
+	0x7c, 0x2b, 0xb9, 0x7d, 0x38, 0x7e, 0xb7, 0x5e, 0xeb, 0xd8, 0x9c, 0xf8, 0x92, 0xa4, 0xbd, 0xc8,
+	0x1d, 0xc0, 0x49, 0x5d, 0x30, 0x5c, 0x97, 0xc1, 0xc0, 0x27, 0x2e, 0x0a, 0x6a, 0x70, 0x8d, 0x60,
+	0xd8, 0xa0, 0x19, 0xe3, 0xf9, 0xef, 0x36, 0x38, 0x73, 0x99, 0x2f, 0x4c, 0x9d, 0x57, 0x24, 0x8b,
+	0x68, 0x45, 0xf8, 0x06, 0x3a, 0x1f, 0x24, 0x05, 0xca, 0x58, 0xb0, 0x5a, 0x25, 0xbb, 0x5f, 0x39,
+	0x7c, 0x9c, 0xb9, 0xf8, 0xf3, 0xcf, 0xdf, 0x5f, 0x37, 0xef, 0xb9, 0xe0, 0x15, 0x2f, 0x6d, 0xc3,
+	0xf0, 0x2d, 0xdc, 0x29, 0x9f, 0x8e, 0xbb, 0xe9, 0xac, 0x8a, 0x72, 0xfb, 0xda, 0xeb, 0xe0, 0xc3,
+	0xff, 0x5e, 0xef, 0x7b, 0xb4, 0xfe, 0x81, 0x33, 0xe8, 0xcc, 0x28, 0xa6, 0xf2, 0xfe, 0x1a, 0xa3,
+	0x56, 0x81, 0xa5, 0xbc, 0xd8, 0xa3, 0x5c, 0xc2, 0xdd, 0xeb, 0x09, 0xe0, 0x89, 0x35, 0xd5, 0x86,
+	0xc7, 0xfa, 0x7b, 0x71, 0xdb, 0x52, 0xfb, 0x30, 0xac, 0x3e, 0x6c, 0x0e, 0x0f, 0x76, 0x07, 0x80,
+	0x23, 0x63, 0x6f, 0x9c, 0x17, 0x3b, 0x6d, 0x16, 0xed, 0x05, 0x37, 0x70, 0x01, 0xce, 0xde, 0x64,
+	0xf0, 0xb1, 0x31, 0x1d, 0x1a, 0x27, 0x7b, 0x72, 0x50, 0xbf, 0xe6, 0x7e, 0xd5, 0x4b, 0x6a, 0x87,
+	0x79, 0xa5, 0x02, 0x95, 0x67, 0xc8, 0x8c, 0x6d, 0x27, 0x58, 0x22, 0x47, 0x8d, 0x9a, 0xc5, 0x0d,
+	0x75, 0x1f, 0xba, 0xe8, 0x54, 0xda, 0x9b, 0x19, 0xe6, 0x67, 0xbd, 0xe2, 0xd6, 0xb6, 0x20, 0x99,
+	0x45, 0x22, 0xc1, 0x9e, 0x81, 0xd9, 0x63, 0x79, 0xc5, 0x71, 0x2d, 0x5a, 0xee, 0xad, 0x86, 0xf7,
+	0x10, 0x2b, 0xf0, 0xc2, 0xe4, 0xbc, 0x7f, 0xfe, 0xe9, 0x59, 0x18, 0xa9, 0x4d, 0xbe, 0x9c, 0xae,
+	0x04, 0xf7, 0xb6, 0x4b, 0x3a, 0xf1, 0x2f, 0xbd, 0x2d, 0x66, 0x92, 0x2e, 0x27, 0xa1, 0xb0, 0xf9,
+	0xcb, 0x23, 0xfd, 0x67, 0xbe, 0xfa, 0x17, 0x00, 0x00, 0xff, 0xff, 0x08, 0x5b, 0x6c, 0xf3, 0x04,
+	0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -157,9 +288,10 @@ type MruVGroupsServiceClient interface {
 	//CRUD
 	CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*GroupID, error)
 	GetGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*Group, error)
-	UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*GroupID, error)
 	DeleteGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*GroupID, error)
 	GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...grpc.CallOption) (*GetGroupsResponse, error)
+	AddGroupMember(ctx context.Context, in *AddGroupMemberRequest, opts ...grpc.CallOption) (*AddGroupMemberResponse, error)
+	RemoveGroupMember(ctx context.Context, in *RemoveGroupMemberRequest, opts ...grpc.CallOption) (*RemoveGroupMemberResponse, error)
 	//Service status
 	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
@@ -191,15 +323,6 @@ func (c *mruVGroupsServiceClient) GetGroup(ctx context.Context, in *GroupID, opt
 	return out, nil
 }
 
-func (c *mruVGroupsServiceClient) UpdateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*GroupID, error) {
-	out := new(GroupID)
-	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/UpdateGroup", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *mruVGroupsServiceClient) DeleteGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*GroupID, error) {
 	out := new(GroupID)
 	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/DeleteGroup", in, out, opts...)
@@ -212,6 +335,24 @@ func (c *mruVGroupsServiceClient) DeleteGroup(ctx context.Context, in *GroupID, 
 func (c *mruVGroupsServiceClient) GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...grpc.CallOption) (*GetGroupsResponse, error) {
 	out := new(GetGroupsResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) AddGroupMember(ctx context.Context, in *AddGroupMemberRequest, opts ...grpc.CallOption) (*AddGroupMemberResponse, error) {
+	out := new(AddGroupMemberResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AddGroupMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) RemoveGroupMember(ctx context.Context, in *RemoveGroupMemberRequest, opts ...grpc.CallOption) (*RemoveGroupMemberResponse, error) {
+	out := new(RemoveGroupMemberResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/RemoveGroupMember", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -241,9 +382,10 @@ type MruVGroupsServiceServer interface {
 	//CRUD
 	CreateGroup(context.Context, *Group) (*GroupID, error)
 	GetGroup(context.Context, *GroupID) (*Group, error)
-	UpdateGroup(context.Context, *Group) (*GroupID, error)
 	DeleteGroup(context.Context, *GroupID) (*GroupID, error)
 	GetGroups(context.Context, *GetGroupsRequest) (*GetGroupsResponse, error)
+	AddGroupMember(context.Context, *AddGroupMemberRequest) (*AddGroupMemberResponse, error)
+	RemoveGroupMember(context.Context, *RemoveGroupMemberRequest) (*RemoveGroupMemberResponse, error)
 	//Service status
 	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)
@@ -259,14 +401,17 @@ func (*UnimplementedMruVGroupsServiceServer) CreateGroup(ctx context.Context, re
 func (*UnimplementedMruVGroupsServiceServer) GetGroup(ctx context.Context, req *GroupID) (*Group, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
 }
-func (*UnimplementedMruVGroupsServiceServer) UpdateGroup(ctx context.Context, req *Group) (*GroupID, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateGroup not implemented")
-}
 func (*UnimplementedMruVGroupsServiceServer) DeleteGroup(ctx context.Context, req *GroupID) (*GroupID, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteGroup not implemented")
 }
 func (*UnimplementedMruVGroupsServiceServer) GetGroups(ctx context.Context, req *GetGroupsRequest) (*GetGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroups not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) AddGroupMember(ctx context.Context, req *AddGroupMemberRequest) (*AddGroupMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddGroupMember not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) RemoveGroupMember(ctx context.Context, req *RemoveGroupMemberRequest) (*RemoveGroupMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveGroupMember not implemented")
 }
 func (*UnimplementedMruVGroupsServiceServer) GetServiceStatus(ctx context.Context, req *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceStatus not implemented")
@@ -315,24 +460,6 @@ func _MruVGroupsService_GetGroup_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVGroupsService_UpdateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Group)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVGroupsServiceServer).UpdateGroup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.MruVGroupsService/UpdateGroup",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).UpdateGroup(ctx, req.(*Group))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _MruVGroupsService_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GroupID)
 	if err := dec(in); err != nil {
@@ -365,6 +492,42 @@ func _MruVGroupsService_GetGroups_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MruVGroupsServiceServer).GetGroups(ctx, req.(*GetGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_AddGroupMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddGroupMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).AddGroupMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/AddGroupMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).AddGroupMember(ctx, req.(*AddGroupMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_RemoveGroupMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveGroupMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).RemoveGroupMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/RemoveGroupMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).RemoveGroupMember(ctx, req.(*RemoveGroupMemberRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -418,16 +581,20 @@ var _MruVGroupsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVGroupsService_GetGroup_Handler,
 		},
 		{
-			MethodName: "UpdateGroup",
-			Handler:    _MruVGroupsService_UpdateGroup_Handler,
-		},
-		{
 			MethodName: "DeleteGroup",
 			Handler:    _MruVGroupsService_DeleteGroup_Handler,
 		},
 		{
 			MethodName: "GetGroups",
 			Handler:    _MruVGroupsService_GetGroups_Handler,
+		},
+		{
+			MethodName: "AddGroupMember",
+			Handler:    _MruVGroupsService_AddGroupMember_Handler,
+		},
+		{
+			MethodName: "RemoveGroupMember",
+			Handler:    _MruVGroupsService_RemoveGroupMember_Handler,
 		},
 		{
 			MethodName: "GetServiceStatus",
