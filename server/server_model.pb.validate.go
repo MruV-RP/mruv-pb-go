@@ -109,6 +109,8 @@ func (m *ServerInfo) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Id
+
 	// no validation rules for Name
 
 	// no validation rules for Host
@@ -116,6 +118,10 @@ func (m *ServerInfo) Validate() error {
 	// no validation rules for Port
 
 	// no validation rules for Platform
+
+	// no validation rules for Status
+
+	// no validation rules for Players
 
 	return nil
 }
@@ -173,72 +179,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ServerInfoValidationError{}
-
-// Validate checks the field values on ServerStatus with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
-func (m *ServerStatus) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Active
-
-	// no validation rules for Players
-
-	return nil
-}
-
-// ServerStatusValidationError is the validation error returned by
-// ServerStatus.Validate if the designated constraints aren't met.
-type ServerStatusValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ServerStatusValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ServerStatusValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ServerStatusValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ServerStatusValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ServerStatusValidationError) ErrorName() string { return "ServerStatusValidationError" }
-
-// Error satisfies the builtin error interface
-func (e ServerStatusValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sServerStatus.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ServerStatusValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ServerStatusValidationError{}

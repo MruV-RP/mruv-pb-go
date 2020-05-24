@@ -25,93 +25,335 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Request message for `MruVServerService`
-type RegisterServerRequest struct {
+// Types of server events.
+type ServerEvent_ServerEventType int32
+
+const (
+	ServerEvent_UNKNOWN         ServerEvent_ServerEventType = 0
+	ServerEvent_REGISTERED      ServerEvent_ServerEventType = 1
+	ServerEvent_SERVER_DOWN     ServerEvent_ServerEventType = 2
+	ServerEvent_SERVER_UP       ServerEvent_ServerEventType = 3
+	ServerEvent_PLAYERS_CHANGED ServerEvent_ServerEventType = 4
+)
+
+var ServerEvent_ServerEventType_name = map[int32]string{
+	0: "UNKNOWN",
+	1: "REGISTERED",
+	2: "SERVER_DOWN",
+	3: "SERVER_UP",
+	4: "PLAYERS_CHANGED",
+}
+
+var ServerEvent_ServerEventType_value = map[string]int32{
+	"UNKNOWN":         0,
+	"REGISTERED":      1,
+	"SERVER_DOWN":     2,
+	"SERVER_UP":       3,
+	"PLAYERS_CHANGED": 4,
+}
+
+func (x ServerEvent_ServerEventType) String() string {
+	return proto.EnumName(ServerEvent_ServerEventType_name, int32(x))
+}
+
+func (ServerEvent_ServerEventType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{5, 0}
+}
+
+// Request message for `MruVServerService.GetRegisteredServers`.
+type GetRegisteredServersRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RegisterServerRequest) Reset()         { *m = RegisterServerRequest{} }
-func (m *RegisterServerRequest) String() string { return proto.CompactTextString(m) }
-func (*RegisterServerRequest) ProtoMessage()    {}
-func (*RegisterServerRequest) Descriptor() ([]byte, []int) {
+func (m *GetRegisteredServersRequest) Reset()         { *m = GetRegisteredServersRequest{} }
+func (m *GetRegisteredServersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetRegisteredServersRequest) ProtoMessage()    {}
+func (*GetRegisteredServersRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_fde5b5d7aefe7c04, []int{0}
 }
 
-func (m *RegisterServerRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RegisterServerRequest.Unmarshal(m, b)
+func (m *GetRegisteredServersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRegisteredServersRequest.Unmarshal(m, b)
 }
-func (m *RegisterServerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RegisterServerRequest.Marshal(b, m, deterministic)
+func (m *GetRegisteredServersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRegisteredServersRequest.Marshal(b, m, deterministic)
 }
-func (m *RegisterServerRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterServerRequest.Merge(m, src)
+func (m *GetRegisteredServersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRegisteredServersRequest.Merge(m, src)
 }
-func (m *RegisterServerRequest) XXX_Size() int {
-	return xxx_messageInfo_RegisterServerRequest.Size(m)
+func (m *GetRegisteredServersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetRegisteredServersRequest.Size(m)
 }
-func (m *RegisterServerRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RegisterServerRequest.DiscardUnknown(m)
+func (m *GetRegisteredServersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRegisteredServersRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RegisterServerRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetRegisteredServersRequest proto.InternalMessageInfo
 
-// Response message for `MruVServerService`
-type RegisterServerResponse struct {
+// Response message for `MruVServerService.GetRegisteredServers`.
+type GetRegisteredServersResponse struct {
+	Servers              []*ServerInfo `protobuf:"bytes,1,rep,name=servers,proto3" json:"servers,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *GetRegisteredServersResponse) Reset()         { *m = GetRegisteredServersResponse{} }
+func (m *GetRegisteredServersResponse) String() string { return proto.CompactTextString(m) }
+func (*GetRegisteredServersResponse) ProtoMessage()    {}
+func (*GetRegisteredServersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{1}
+}
+
+func (m *GetRegisteredServersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetRegisteredServersResponse.Unmarshal(m, b)
+}
+func (m *GetRegisteredServersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetRegisteredServersResponse.Marshal(b, m, deterministic)
+}
+func (m *GetRegisteredServersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetRegisteredServersResponse.Merge(m, src)
+}
+func (m *GetRegisteredServersResponse) XXX_Size() int {
+	return xxx_messageInfo_GetRegisteredServersResponse.Size(m)
+}
+func (m *GetRegisteredServersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetRegisteredServersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetRegisteredServersResponse proto.InternalMessageInfo
+
+func (m *GetRegisteredServersResponse) GetServers() []*ServerInfo {
+	if m != nil {
+		return m.Servers
+	}
+	return nil
+}
+
+// Request message for `MruVServerService.UpdateServerStatus`.
+type UpdateServerStatusRequest struct {
+	// Id of the server.
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Status of the server.
+	Status ServerStatus `protobuf:"varint,2,opt,name=status,proto3,enum=mruv.server.ServerStatus" json:"status,omitempty"`
+	// How many players are registered on that server.
+	Players              int32    `protobuf:"varint,3,opt,name=players,proto3" json:"players,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RegisterServerResponse) Reset()         { *m = RegisterServerResponse{} }
-func (m *RegisterServerResponse) String() string { return proto.CompactTextString(m) }
-func (*RegisterServerResponse) ProtoMessage()    {}
-func (*RegisterServerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fde5b5d7aefe7c04, []int{1}
+func (m *UpdateServerStatusRequest) Reset()         { *m = UpdateServerStatusRequest{} }
+func (m *UpdateServerStatusRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateServerStatusRequest) ProtoMessage()    {}
+func (*UpdateServerStatusRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{2}
 }
 
-func (m *RegisterServerResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RegisterServerResponse.Unmarshal(m, b)
+func (m *UpdateServerStatusRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateServerStatusRequest.Unmarshal(m, b)
 }
-func (m *RegisterServerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RegisterServerResponse.Marshal(b, m, deterministic)
+func (m *UpdateServerStatusRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateServerStatusRequest.Marshal(b, m, deterministic)
 }
-func (m *RegisterServerResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterServerResponse.Merge(m, src)
+func (m *UpdateServerStatusRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateServerStatusRequest.Merge(m, src)
 }
-func (m *RegisterServerResponse) XXX_Size() int {
-	return xxx_messageInfo_RegisterServerResponse.Size(m)
+func (m *UpdateServerStatusRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateServerStatusRequest.Size(m)
 }
-func (m *RegisterServerResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RegisterServerResponse.DiscardUnknown(m)
+func (m *UpdateServerStatusRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateServerStatusRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RegisterServerResponse proto.InternalMessageInfo
+var xxx_messageInfo_UpdateServerStatusRequest proto.InternalMessageInfo
+
+func (m *UpdateServerStatusRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *UpdateServerStatusRequest) GetStatus() ServerStatus {
+	if m != nil {
+		return m.Status
+	}
+	return ServerStatus_UNKNOWN
+}
+
+func (m *UpdateServerStatusRequest) GetPlayers() int32 {
+	if m != nil {
+		return m.Players
+	}
+	return 0
+}
+
+// Response message for `MruVServerService.UpdateServerStatus`.
+type UpdateServerStatusResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateServerStatusResponse) Reset()         { *m = UpdateServerStatusResponse{} }
+func (m *UpdateServerStatusResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateServerStatusResponse) ProtoMessage()    {}
+func (*UpdateServerStatusResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{3}
+}
+
+func (m *UpdateServerStatusResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateServerStatusResponse.Unmarshal(m, b)
+}
+func (m *UpdateServerStatusResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateServerStatusResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateServerStatusResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateServerStatusResponse.Merge(m, src)
+}
+func (m *UpdateServerStatusResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateServerStatusResponse.Size(m)
+}
+func (m *UpdateServerStatusResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateServerStatusResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateServerStatusResponse proto.InternalMessageInfo
+
+// Request message for `MruVServerService.ServerEventsStream`.
+type ServerEventsStreamRequest struct {
+	// The ID of the server from which we want to receive events.
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ServerEventsStreamRequest) Reset()         { *m = ServerEventsStreamRequest{} }
+func (m *ServerEventsStreamRequest) String() string { return proto.CompactTextString(m) }
+func (*ServerEventsStreamRequest) ProtoMessage()    {}
+func (*ServerEventsStreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{4}
+}
+
+func (m *ServerEventsStreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServerEventsStreamRequest.Unmarshal(m, b)
+}
+func (m *ServerEventsStreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServerEventsStreamRequest.Marshal(b, m, deterministic)
+}
+func (m *ServerEventsStreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerEventsStreamRequest.Merge(m, src)
+}
+func (m *ServerEventsStreamRequest) XXX_Size() int {
+	return xxx_messageInfo_ServerEventsStreamRequest.Size(m)
+}
+func (m *ServerEventsStreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServerEventsStreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ServerEventsStreamRequest proto.InternalMessageInfo
+
+func (m *ServerEventsStreamRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// Server event.
+// Response message for `MruVServerService.ServerEventsStream`.
+type ServerEvent struct {
+	// Type of a server event.
+	Type                 ServerEvent_ServerEventType `protobuf:"varint,1,opt,name=type,proto3,enum=mruv.server.ServerEvent_ServerEventType" json:"type,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                    `json:"-"`
+	XXX_unrecognized     []byte                      `json:"-"`
+	XXX_sizecache        int32                       `json:"-"`
+}
+
+func (m *ServerEvent) Reset()         { *m = ServerEvent{} }
+func (m *ServerEvent) String() string { return proto.CompactTextString(m) }
+func (*ServerEvent) ProtoMessage()    {}
+func (*ServerEvent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fde5b5d7aefe7c04, []int{5}
+}
+
+func (m *ServerEvent) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServerEvent.Unmarshal(m, b)
+}
+func (m *ServerEvent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServerEvent.Marshal(b, m, deterministic)
+}
+func (m *ServerEvent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerEvent.Merge(m, src)
+}
+func (m *ServerEvent) XXX_Size() int {
+	return xxx_messageInfo_ServerEvent.Size(m)
+}
+func (m *ServerEvent) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServerEvent.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ServerEvent proto.InternalMessageInfo
+
+func (m *ServerEvent) GetType() ServerEvent_ServerEventType {
+	if m != nil {
+		return m.Type
+	}
+	return ServerEvent_UNKNOWN
+}
 
 func init() {
-	proto.RegisterType((*RegisterServerRequest)(nil), "mruv.RegisterServerRequest")
-	proto.RegisterType((*RegisterServerResponse)(nil), "mruv.RegisterServerResponse")
+	proto.RegisterEnum("mruv.server.ServerEvent_ServerEventType", ServerEvent_ServerEventType_name, ServerEvent_ServerEventType_value)
+	proto.RegisterType((*GetRegisteredServersRequest)(nil), "mruv.server.GetRegisteredServersRequest")
+	proto.RegisterType((*GetRegisteredServersResponse)(nil), "mruv.server.GetRegisteredServersResponse")
+	proto.RegisterType((*UpdateServerStatusRequest)(nil), "mruv.server.UpdateServerStatusRequest")
+	proto.RegisterType((*UpdateServerStatusResponse)(nil), "mruv.server.UpdateServerStatusResponse")
+	proto.RegisterType((*ServerEventsStreamRequest)(nil), "mruv.server.ServerEventsStreamRequest")
+	proto.RegisterType((*ServerEvent)(nil), "mruv.server.ServerEvent")
 }
 
 func init() { proto.RegisterFile("server/server.proto", fileDescriptor_fde5b5d7aefe7c04) }
 
 var fileDescriptor_fde5b5d7aefe7c04 = []byte{
-	// 220 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2e, 0x4e, 0x2d, 0x2a,
-	0x4b, 0x2d, 0xd2, 0x87, 0x50, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0x2c, 0xb9, 0x45, 0xa5,
-	0x65, 0x52, 0x32, 0xe9, 0xf9, 0xf9, 0xe9, 0x39, 0xa9, 0xfa, 0x89, 0x05, 0x99, 0xfa, 0x89, 0x79,
-	0x79, 0xf9, 0x25, 0x89, 0x25, 0x99, 0xf9, 0x79, 0xc5, 0x10, 0x35, 0x52, 0x92, 0x28, 0x1a, 0xe3,
-	0x73, 0xf3, 0x53, 0x52, 0x73, 0x20, 0x52, 0x4a, 0xe2, 0x5c, 0xa2, 0x41, 0xa9, 0xe9, 0x99, 0xc5,
-	0x25, 0xa9, 0x45, 0xc1, 0x60, 0xd9, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x25, 0x09, 0x2e,
-	0x31, 0x74, 0x89, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0xa3, 0xe9, 0x8c, 0x5c, 0x82, 0xbe, 0x45,
-	0xa5, 0x61, 0x10, 0x61, 0x10, 0x99, 0x99, 0x9c, 0x2a, 0xe4, 0xcd, 0xc5, 0x87, 0xaa, 0x5e, 0x48,
-	0x5a, 0x0f, 0xe4, 0x34, 0x3d, 0xac, 0xc6, 0x4b, 0xc9, 0x60, 0x97, 0x84, 0x58, 0x21, 0x64, 0xca,
-	0xc5, 0xef, 0x9e, 0x5a, 0x02, 0xb5, 0xa0, 0x24, 0xb1, 0xa4, 0xb4, 0x58, 0x88, 0x0f, 0xa2, 0x01,
-	0x22, 0xe6, 0xe9, 0x22, 0x25, 0x84, 0xcc, 0x87, 0xa8, 0x71, 0x52, 0x8b, 0x52, 0x49, 0xcf, 0x2c,
-	0xc9, 0x28, 0x4d, 0xd2, 0x4b, 0xce, 0xcf, 0xd5, 0x07, 0xb9, 0x51, 0x37, 0x28, 0x40, 0x1f, 0xa4,
-	0x4e, 0xb7, 0x20, 0x49, 0x37, 0x3d, 0x1f, 0x1a, 0x00, 0x49, 0x6c, 0x60, 0xbf, 0x1b, 0x03, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0x1b, 0xf7, 0x38, 0x96, 0x51, 0x01, 0x00, 0x00,
+	// 543 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x94, 0xdf, 0x8e, 0xd2, 0x4e,
+	0x14, 0xc7, 0xb7, 0xc0, 0x6f, 0xc9, 0xef, 0x34, 0xfc, 0xf1, 0xa0, 0xd9, 0x52, 0x31, 0x92, 0x89,
+	0x59, 0x31, 0x06, 0x2a, 0x78, 0xeb, 0xcd, 0x2a, 0x0d, 0x6e, 0x54, 0xc4, 0xe9, 0xb2, 0x66, 0xf7,
+	0x86, 0x14, 0x3a, 0x62, 0x13, 0xe8, 0xd4, 0xce, 0x40, 0x24, 0xc6, 0xc4, 0x78, 0xe1, 0x0b, 0xf8,
+	0x1c, 0x26, 0xbe, 0x8b, 0xaf, 0xe0, 0x83, 0x18, 0xda, 0x12, 0x81, 0x6d, 0xd5, 0x2b, 0xe8, 0x9c,
+	0xcf, 0x9c, 0xf9, 0x9c, 0xce, 0x37, 0x85, 0x8a, 0x60, 0xc1, 0x92, 0x05, 0x46, 0xf4, 0xd3, 0xf2,
+	0x03, 0x2e, 0x39, 0xaa, 0xf3, 0x60, 0xb1, 0x6c, 0x45, 0x4b, 0x7a, 0x6d, 0xca, 0xf9, 0x74, 0xc6,
+	0x0c, 0xdb, 0x77, 0x0d, 0xdb, 0xf3, 0xb8, 0xb4, 0xa5, 0xcb, 0x3d, 0x11, 0xa1, 0x7a, 0x75, 0x67,
+	0xff, 0x68, 0xce, 0x1d, 0x36, 0x8b, 0x4a, 0xe4, 0x16, 0xdc, 0xec, 0x31, 0x49, 0xd9, 0xd4, 0x15,
+	0x92, 0x05, 0xcc, 0xb1, 0x42, 0x44, 0x50, 0xf6, 0x6e, 0xc1, 0x84, 0x24, 0xaf, 0xa0, 0x96, 0x5c,
+	0x16, 0x3e, 0xf7, 0x04, 0xc3, 0x36, 0xe4, 0xa3, 0xa6, 0x42, 0x53, 0xea, 0xd9, 0x86, 0xda, 0x39,
+	0x6a, 0x6d, 0x69, 0xb5, 0x22, 0xfc, 0xd4, 0x7b, 0xc3, 0xe9, 0x86, 0x23, 0xef, 0xa1, 0x3a, 0xf4,
+	0x1d, 0x5b, 0xb2, 0xa8, 0x68, 0x49, 0x5b, 0x2e, 0x36, 0xe7, 0x61, 0x11, 0x32, 0xae, 0xa3, 0x29,
+	0x75, 0xa5, 0x91, 0xa5, 0x19, 0xd7, 0xc1, 0x36, 0x1c, 0x8a, 0x10, 0xd0, 0x32, 0x75, 0xa5, 0x51,
+	0xec, 0x54, 0x13, 0xda, 0xc7, 0x1d, 0x62, 0x10, 0x35, 0xc8, 0xfb, 0x33, 0x7b, 0xb5, 0x56, 0xca,
+	0xd6, 0x95, 0xc6, 0x7f, 0x74, 0xf3, 0x48, 0x6a, 0xa0, 0x27, 0x9d, 0x1c, 0x8d, 0x42, 0xee, 0x43,
+	0x35, 0x5a, 0x37, 0x97, 0xcc, 0x93, 0xc2, 0x92, 0x01, 0xb3, 0xe7, 0x29, 0x5e, 0xe4, 0xbb, 0x02,
+	0xea, 0x16, 0x8d, 0x8f, 0x20, 0x27, 0x57, 0x3e, 0x0b, 0x89, 0x62, 0xa7, 0x91, 0x60, 0x19, 0x72,
+	0xdb, 0xff, 0xcf, 0x56, 0x3e, 0xa3, 0xe1, 0x2e, 0x32, 0x81, 0xd2, 0x5e, 0x01, 0x55, 0xc8, 0x0f,
+	0xfb, 0xcf, 0xfa, 0x2f, 0x5f, 0xf7, 0xcb, 0x07, 0x58, 0x04, 0xa0, 0x66, 0xef, 0xd4, 0x3a, 0x33,
+	0xa9, 0xd9, 0x2d, 0x2b, 0x58, 0x02, 0xd5, 0x32, 0xe9, 0xb9, 0x49, 0x47, 0xdd, 0x35, 0x90, 0xc1,
+	0x02, 0xfc, 0x1f, 0x2f, 0x0c, 0x07, 0xe5, 0x2c, 0x56, 0xa0, 0x34, 0x78, 0x7e, 0x72, 0x61, 0x52,
+	0x6b, 0xf4, 0xe4, 0xe9, 0x49, 0xbf, 0x67, 0x76, 0xcb, 0xb9, 0xce, 0xb7, 0x1c, 0x5c, 0x7b, 0x11,
+	0x2c, 0xce, 0xe3, 0xe1, 0x59, 0xb0, 0x74, 0x27, 0x0c, 0x87, 0x50, 0xdc, 0xdc, 0x6e, 0x54, 0xc0,
+	0xb4, 0x1b, 0xd4, 0x6f, 0x24, 0x15, 0xba, 0xa4, 0xf2, 0xf9, 0xc7, 0xcf, 0xaf, 0x99, 0x02, 0x51,
+	0x8d, 0x65, 0x3b, 0x4e, 0x98, 0xc0, 0x4f, 0x0a, 0x5c, 0x4f, 0x0a, 0x0e, 0xee, 0xbe, 0x9a, 0x3f,
+	0x44, 0x4f, 0xbf, 0xf7, 0x0f, 0x64, 0x7c, 0x75, 0xb1, 0x02, 0xee, 0x28, 0x5c, 0x40, 0xa1, 0xc7,
+	0xe4, 0x6f, 0x7f, 0x4c, 0xf6, 0xd7, 0xd3, 0xe6, 0x25, 0x5a, 0xd8, 0x15, 0xb1, 0xbc, 0xd5, 0xd5,
+	0xf8, 0xe0, 0x3a, 0x1f, 0xf1, 0x8b, 0x02, 0x78, 0x35, 0x49, 0x78, 0xbc, 0xd3, 0x29, 0x35, 0xe4,
+	0xfa, 0xdd, 0xbf, 0x72, 0xf1, 0x5c, 0xb7, 0x43, 0x83, 0x6a, 0xe7, 0x68, 0xdf, 0xc0, 0x88, 0xb3,
+	0x7e, 0x09, 0x78, 0x35, 0xb3, 0x7b, 0x1e, 0xa9, 0xa1, 0xd6, 0xb5, 0x34, 0x8e, 0x1c, 0x3c, 0x50,
+	0x1e, 0x1f, 0x5f, 0xde, 0x99, 0xba, 0xf2, 0xed, 0x62, 0xdc, 0x9a, 0xf0, 0xb9, 0xb1, 0x4e, 0x4e,
+	0x93, 0x0e, 0x8c, 0xf5, 0x8e, 0xa6, 0x3f, 0x6e, 0x4e, 0x79, 0x2c, 0x34, 0x3e, 0x0c, 0x3f, 0x24,
+	0x0f, 0x7f, 0x05, 0x00, 0x00, 0xff, 0xff, 0xfd, 0xb8, 0xb1, 0x9b, 0xa5, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -126,10 +368,16 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVServerServiceClient interface {
-	// Register instance of server for further managing
-	RegisterServer(ctx context.Context, in *RegisterServerRequest, opts ...grpc.CallOption) (*RegisterServerResponse, error)
-	// Get game server status
-	GetServerStatus(ctx context.Context, in *ServerID, opts ...grpc.CallOption) (*ServerStatus, error)
+	// Register instance of server for further managing.
+	RegisterServer(ctx context.Context, in *ServerInfo, opts ...grpc.CallOption) (*ServerID, error)
+	// Get all registered servers.
+	GetRegisteredServers(ctx context.Context, in *GetRegisteredServersRequest, opts ...grpc.CallOption) (*GetRegisteredServersResponse, error)
+	// Get game server status.
+	GetServerInfo(ctx context.Context, in *ServerID, opts ...grpc.CallOption) (*ServerInfo, error)
+	// Update game server status.
+	UpdateServerStatus(ctx context.Context, in *UpdateServerStatusRequest, opts ...grpc.CallOption) (*UpdateServerStatusResponse, error)
+	// Stream of server events. Events are streamed back in real-time for chosen server.
+	ServerEventsStream(ctx context.Context, in *ServerEventsStreamRequest, opts ...grpc.CallOption) (MruVServerService_ServerEventsStreamClient, error)
 }
 
 type mruVServerServiceClient struct {
@@ -140,41 +388,106 @@ func NewMruVServerServiceClient(cc *grpc.ClientConn) MruVServerServiceClient {
 	return &mruVServerServiceClient{cc}
 }
 
-func (c *mruVServerServiceClient) RegisterServer(ctx context.Context, in *RegisterServerRequest, opts ...grpc.CallOption) (*RegisterServerResponse, error) {
-	out := new(RegisterServerResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVServerService/RegisterServer", in, out, opts...)
+func (c *mruVServerServiceClient) RegisterServer(ctx context.Context, in *ServerInfo, opts ...grpc.CallOption) (*ServerID, error) {
+	out := new(ServerID)
+	err := c.cc.Invoke(ctx, "/mruv.server.MruVServerService/RegisterServer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVServerServiceClient) GetServerStatus(ctx context.Context, in *ServerID, opts ...grpc.CallOption) (*ServerStatus, error) {
-	out := new(ServerStatus)
-	err := c.cc.Invoke(ctx, "/mruv.MruVServerService/GetServerStatus", in, out, opts...)
+func (c *mruVServerServiceClient) GetRegisteredServers(ctx context.Context, in *GetRegisteredServersRequest, opts ...grpc.CallOption) (*GetRegisteredServersResponse, error) {
+	out := new(GetRegisteredServersResponse)
+	err := c.cc.Invoke(ctx, "/mruv.server.MruVServerService/GetRegisteredServers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
+}
+
+func (c *mruVServerServiceClient) GetServerInfo(ctx context.Context, in *ServerID, opts ...grpc.CallOption) (*ServerInfo, error) {
+	out := new(ServerInfo)
+	err := c.cc.Invoke(ctx, "/mruv.server.MruVServerService/GetServerInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVServerServiceClient) UpdateServerStatus(ctx context.Context, in *UpdateServerStatusRequest, opts ...grpc.CallOption) (*UpdateServerStatusResponse, error) {
+	out := new(UpdateServerStatusResponse)
+	err := c.cc.Invoke(ctx, "/mruv.server.MruVServerService/UpdateServerStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVServerServiceClient) ServerEventsStream(ctx context.Context, in *ServerEventsStreamRequest, opts ...grpc.CallOption) (MruVServerService_ServerEventsStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_MruVServerService_serviceDesc.Streams[0], "/mruv.server.MruVServerService/ServerEventsStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &mruVServerServiceServerEventsStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type MruVServerService_ServerEventsStreamClient interface {
+	Recv() (*ServerEvent, error)
+	grpc.ClientStream
+}
+
+type mruVServerServiceServerEventsStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *mruVServerServiceServerEventsStreamClient) Recv() (*ServerEvent, error) {
+	m := new(ServerEvent)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // MruVServerServiceServer is the server API for MruVServerService service.
 type MruVServerServiceServer interface {
-	// Register instance of server for further managing
-	RegisterServer(context.Context, *RegisterServerRequest) (*RegisterServerResponse, error)
-	// Get game server status
-	GetServerStatus(context.Context, *ServerID) (*ServerStatus, error)
+	// Register instance of server for further managing.
+	RegisterServer(context.Context, *ServerInfo) (*ServerID, error)
+	// Get all registered servers.
+	GetRegisteredServers(context.Context, *GetRegisteredServersRequest) (*GetRegisteredServersResponse, error)
+	// Get game server status.
+	GetServerInfo(context.Context, *ServerID) (*ServerInfo, error)
+	// Update game server status.
+	UpdateServerStatus(context.Context, *UpdateServerStatusRequest) (*UpdateServerStatusResponse, error)
+	// Stream of server events. Events are streamed back in real-time for chosen server.
+	ServerEventsStream(*ServerEventsStreamRequest, MruVServerService_ServerEventsStreamServer) error
 }
 
 // UnimplementedMruVServerServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedMruVServerServiceServer struct {
 }
 
-func (*UnimplementedMruVServerServiceServer) RegisterServer(ctx context.Context, req *RegisterServerRequest) (*RegisterServerResponse, error) {
+func (*UnimplementedMruVServerServiceServer) RegisterServer(ctx context.Context, req *ServerInfo) (*ServerID, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterServer not implemented")
 }
-func (*UnimplementedMruVServerServiceServer) GetServerStatus(ctx context.Context, req *ServerID) (*ServerStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetServerStatus not implemented")
+func (*UnimplementedMruVServerServiceServer) GetRegisteredServers(ctx context.Context, req *GetRegisteredServersRequest) (*GetRegisteredServersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRegisteredServers not implemented")
+}
+func (*UnimplementedMruVServerServiceServer) GetServerInfo(ctx context.Context, req *ServerID) (*ServerInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetServerInfo not implemented")
+}
+func (*UnimplementedMruVServerServiceServer) UpdateServerStatus(ctx context.Context, req *UpdateServerStatusRequest) (*UpdateServerStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateServerStatus not implemented")
+}
+func (*UnimplementedMruVServerServiceServer) ServerEventsStream(req *ServerEventsStreamRequest, srv MruVServerService_ServerEventsStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method ServerEventsStream not implemented")
 }
 
 func RegisterMruVServerServiceServer(s *grpc.Server, srv MruVServerServiceServer) {
@@ -182,7 +495,7 @@ func RegisterMruVServerServiceServer(s *grpc.Server, srv MruVServerServiceServer
 }
 
 func _MruVServerService_RegisterServer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterServerRequest)
+	in := new(ServerInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -191,34 +504,91 @@ func _MruVServerService_RegisterServer_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVServerService/RegisterServer",
+		FullMethod: "/mruv.server.MruVServerService/RegisterServer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVServerServiceServer).RegisterServer(ctx, req.(*RegisterServerRequest))
+		return srv.(MruVServerServiceServer).RegisterServer(ctx, req.(*ServerInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVServerService_GetServerStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MruVServerService_GetRegisteredServers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRegisteredServersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVServerServiceServer).GetRegisteredServers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.server.MruVServerService/GetRegisteredServers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVServerServiceServer).GetRegisteredServers(ctx, req.(*GetRegisteredServersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVServerService_GetServerInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ServerID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVServerServiceServer).GetServerStatus(ctx, in)
+		return srv.(MruVServerServiceServer).GetServerInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVServerService/GetServerStatus",
+		FullMethod: "/mruv.server.MruVServerService/GetServerInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVServerServiceServer).GetServerStatus(ctx, req.(*ServerID))
+		return srv.(MruVServerServiceServer).GetServerInfo(ctx, req.(*ServerID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MruVServerService_UpdateServerStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateServerStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVServerServiceServer).UpdateServerStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.server.MruVServerService/UpdateServerStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVServerServiceServer).UpdateServerStatus(ctx, req.(*UpdateServerStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVServerService_ServerEventsStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ServerEventsStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(MruVServerServiceServer).ServerEventsStream(m, &mruVServerServiceServerEventsStreamServer{stream})
+}
+
+type MruVServerService_ServerEventsStreamServer interface {
+	Send(*ServerEvent) error
+	grpc.ServerStream
+}
+
+type mruVServerServiceServerEventsStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *mruVServerServiceServerEventsStreamServer) Send(m *ServerEvent) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _MruVServerService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "mruv.MruVServerService",
+	ServiceName: "mruv.server.MruVServerService",
 	HandlerType: (*MruVServerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -226,10 +596,24 @@ var _MruVServerService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVServerService_RegisterServer_Handler,
 		},
 		{
-			MethodName: "GetServerStatus",
-			Handler:    _MruVServerService_GetServerStatus_Handler,
+			MethodName: "GetRegisteredServers",
+			Handler:    _MruVServerService_GetRegisteredServers_Handler,
+		},
+		{
+			MethodName: "GetServerInfo",
+			Handler:    _MruVServerService_GetServerInfo_Handler,
+		},
+		{
+			MethodName: "UpdateServerStatus",
+			Handler:    _MruVServerService_UpdateServerStatus_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ServerEventsStream",
+			Handler:       _MruVServerService_ServerEventsStream_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "server/server.proto",
 }

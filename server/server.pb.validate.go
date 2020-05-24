@@ -36,10 +36,10 @@ var (
 // define the regex for a UUID once up-front
 var _server_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on RegisterServerRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on GetRegisteredServersRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RegisterServerRequest) Validate() error {
+func (m *GetRegisteredServersRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -47,9 +47,10 @@ func (m *RegisterServerRequest) Validate() error {
 	return nil
 }
 
-// RegisterServerRequestValidationError is the validation error returned by
-// RegisterServerRequest.Validate if the designated constraints aren't met.
-type RegisterServerRequestValidationError struct {
+// GetRegisteredServersRequestValidationError is the validation error returned
+// by GetRegisteredServersRequest.Validate if the designated constraints
+// aren't met.
+type GetRegisteredServersRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -57,24 +58,24 @@ type RegisterServerRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RegisterServerRequestValidationError) Field() string { return e.field }
+func (e GetRegisteredServersRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RegisterServerRequestValidationError) Reason() string { return e.reason }
+func (e GetRegisteredServersRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RegisterServerRequestValidationError) Cause() error { return e.cause }
+func (e GetRegisteredServersRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RegisterServerRequestValidationError) Key() bool { return e.key }
+func (e GetRegisteredServersRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RegisterServerRequestValidationError) ErrorName() string {
-	return "RegisterServerRequestValidationError"
+func (e GetRegisteredServersRequestValidationError) ErrorName() string {
+	return "GetRegisteredServersRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RegisterServerRequestValidationError) Error() string {
+func (e GetRegisteredServersRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -86,14 +87,14 @@ func (e RegisterServerRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRegisterServerRequest.%s: %s%s",
+		"invalid %sGetRegisteredServersRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RegisterServerRequestValidationError{}
+var _ error = GetRegisteredServersRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -101,22 +102,38 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RegisterServerRequestValidationError{}
+} = GetRegisteredServersRequestValidationError{}
 
-// Validate checks the field values on RegisterServerResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on GetRegisteredServersResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *RegisterServerResponse) Validate() error {
+func (m *GetRegisteredServersResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	for idx, item := range m.GetServers() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetRegisteredServersResponseValidationError{
+					field:  fmt.Sprintf("Servers[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
 }
 
-// RegisterServerResponseValidationError is the validation error returned by
-// RegisterServerResponse.Validate if the designated constraints aren't met.
-type RegisterServerResponseValidationError struct {
+// GetRegisteredServersResponseValidationError is the validation error returned
+// by GetRegisteredServersResponse.Validate if the designated constraints
+// aren't met.
+type GetRegisteredServersResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -124,24 +141,24 @@ type RegisterServerResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RegisterServerResponseValidationError) Field() string { return e.field }
+func (e GetRegisteredServersResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RegisterServerResponseValidationError) Reason() string { return e.reason }
+func (e GetRegisteredServersResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RegisterServerResponseValidationError) Cause() error { return e.cause }
+func (e GetRegisteredServersResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RegisterServerResponseValidationError) Key() bool { return e.key }
+func (e GetRegisteredServersResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RegisterServerResponseValidationError) ErrorName() string {
-	return "RegisterServerResponseValidationError"
+func (e GetRegisteredServersResponseValidationError) ErrorName() string {
+	return "GetRegisteredServersResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RegisterServerResponseValidationError) Error() string {
+func (e GetRegisteredServersResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -153,14 +170,14 @@ func (e RegisterServerResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRegisterServerResponse.%s: %s%s",
+		"invalid %sGetRegisteredServersResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RegisterServerResponseValidationError{}
+var _ error = GetRegisteredServersResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -168,4 +185,280 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RegisterServerResponseValidationError{}
+} = GetRegisteredServersResponseValidationError{}
+
+// Validate checks the field values on UpdateServerStatusRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateServerStatusRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for Status
+
+	// no validation rules for Players
+
+	return nil
+}
+
+// UpdateServerStatusRequestValidationError is the validation error returned by
+// UpdateServerStatusRequest.Validate if the designated constraints aren't met.
+type UpdateServerStatusRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateServerStatusRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateServerStatusRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateServerStatusRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateServerStatusRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateServerStatusRequestValidationError) ErrorName() string {
+	return "UpdateServerStatusRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateServerStatusRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateServerStatusRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateServerStatusRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateServerStatusRequestValidationError{}
+
+// Validate checks the field values on UpdateServerStatusResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateServerStatusResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// UpdateServerStatusResponseValidationError is the validation error returned
+// by UpdateServerStatusResponse.Validate if the designated constraints aren't met.
+type UpdateServerStatusResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateServerStatusResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateServerStatusResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateServerStatusResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateServerStatusResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateServerStatusResponseValidationError) ErrorName() string {
+	return "UpdateServerStatusResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateServerStatusResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateServerStatusResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateServerStatusResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateServerStatusResponseValidationError{}
+
+// Validate checks the field values on ServerEventsStreamRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ServerEventsStreamRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// ServerEventsStreamRequestValidationError is the validation error returned by
+// ServerEventsStreamRequest.Validate if the designated constraints aren't met.
+type ServerEventsStreamRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServerEventsStreamRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServerEventsStreamRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServerEventsStreamRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServerEventsStreamRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServerEventsStreamRequestValidationError) ErrorName() string {
+	return "ServerEventsStreamRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ServerEventsStreamRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServerEventsStreamRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServerEventsStreamRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServerEventsStreamRequestValidationError{}
+
+// Validate checks the field values on ServerEvent with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *ServerEvent) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Type
+
+	return nil
+}
+
+// ServerEventValidationError is the validation error returned by
+// ServerEvent.Validate if the designated constraints aren't met.
+type ServerEventValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ServerEventValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ServerEventValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ServerEventValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ServerEventValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ServerEventValidationError) ErrorName() string { return "ServerEventValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ServerEventValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sServerEvent.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ServerEventValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ServerEventValidationError{}
