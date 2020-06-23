@@ -26,7 +26,491 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-//requests & response messages
+type DeathType int32
+
+const (
+	DeathType_DEATH_TYPE_NONE    DeathType = 0
+	DeathType_DEATH_TYPE_BW      DeathType = 1
+	DeathType_DEATH_TYPE_BW_KILL DeathType = 2
+	DeathType_DEATH_TYPE_CK      DeathType = 3
+)
+
+var DeathType_name = map[int32]string{
+	0: "DEATH_TYPE_NONE",
+	1: "DEATH_TYPE_BW",
+	2: "DEATH_TYPE_BW_KILL",
+	3: "DEATH_TYPE_CK",
+}
+
+var DeathType_value = map[string]int32{
+	"DEATH_TYPE_NONE":    0,
+	"DEATH_TYPE_BW":      1,
+	"DEATH_TYPE_BW_KILL": 2,
+	"DEATH_TYPE_CK":      3,
+}
+
+func (x DeathType) String() string {
+	return proto.EnumName(DeathType_name, int32(x))
+}
+
+func (DeathType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{0}
+}
+
+type Character struct {
+	Id                   uint32           `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerId              uint32           `protobuf:"varint,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	FirstName            string           `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	SecondName           string           `protobuf:"bytes,4,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
+	Age                  uint32           `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
+	Sex                  uint32           `protobuf:"varint,6,opt,name=sex,proto3" json:"sex,omitempty"`
+	Position             *common.Position `protobuf:"bytes,7,opt,name=position,proto3" json:"position,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *Character) Reset()         { *m = Character{} }
+func (m *Character) String() string { return proto.CompactTextString(m) }
+func (*Character) ProtoMessage()    {}
+func (*Character) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{0}
+}
+
+func (m *Character) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Character.Unmarshal(m, b)
+}
+func (m *Character) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Character.Marshal(b, m, deterministic)
+}
+func (m *Character) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Character.Merge(m, src)
+}
+func (m *Character) XXX_Size() int {
+	return xxx_messageInfo_Character.Size(m)
+}
+func (m *Character) XXX_DiscardUnknown() {
+	xxx_messageInfo_Character.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Character proto.InternalMessageInfo
+
+func (m *Character) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *Character) GetOwnerId() uint32 {
+	if m != nil {
+		return m.OwnerId
+	}
+	return 0
+}
+
+func (m *Character) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *Character) GetSecondName() string {
+	if m != nil {
+		return m.SecondName
+	}
+	return ""
+}
+
+func (m *Character) GetAge() uint32 {
+	if m != nil {
+		return m.Age
+	}
+	return 0
+}
+
+func (m *Character) GetSex() uint32 {
+	if m != nil {
+		return m.Sex
+	}
+	return 0
+}
+
+func (m *Character) GetPosition() *common.Position {
+	if m != nil {
+		return m.Position
+	}
+	return nil
+}
+
+type CharacterID struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CharacterID) Reset()         { *m = CharacterID{} }
+func (m *CharacterID) String() string { return proto.CompactTextString(m) }
+func (*CharacterID) ProtoMessage()    {}
+func (*CharacterID) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{1}
+}
+
+func (m *CharacterID) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CharacterID.Unmarshal(m, b)
+}
+func (m *CharacterID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CharacterID.Marshal(b, m, deterministic)
+}
+func (m *CharacterID) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CharacterID.Merge(m, src)
+}
+func (m *CharacterID) XXX_Size() int {
+	return xxx_messageInfo_CharacterID.Size(m)
+}
+func (m *CharacterID) XXX_DiscardUnknown() {
+	xxx_messageInfo_CharacterID.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CharacterID proto.InternalMessageInfo
+
+func (m *CharacterID) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// Request message for rpc `CreateCharacter`.
+type CreateCharacterRequest struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerId              uint32   `protobuf:"varint,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	FirstName            string   `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	SecondName           string   `protobuf:"bytes,4,opt,name=second_name,json=secondName,proto3" json:"second_name,omitempty"`
+	Age                  uint32   `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
+	Sex                  uint32   `protobuf:"varint,6,opt,name=sex,proto3" json:"sex,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateCharacterRequest) Reset()         { *m = CreateCharacterRequest{} }
+func (m *CreateCharacterRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateCharacterRequest) ProtoMessage()    {}
+func (*CreateCharacterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{2}
+}
+
+func (m *CreateCharacterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateCharacterRequest.Unmarshal(m, b)
+}
+func (m *CreateCharacterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateCharacterRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateCharacterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateCharacterRequest.Merge(m, src)
+}
+func (m *CreateCharacterRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateCharacterRequest.Size(m)
+}
+func (m *CreateCharacterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateCharacterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateCharacterRequest proto.InternalMessageInfo
+
+func (m *CreateCharacterRequest) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *CreateCharacterRequest) GetOwnerId() uint32 {
+	if m != nil {
+		return m.OwnerId
+	}
+	return 0
+}
+
+func (m *CreateCharacterRequest) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *CreateCharacterRequest) GetSecondName() string {
+	if m != nil {
+		return m.SecondName
+	}
+	return ""
+}
+
+func (m *CreateCharacterRequest) GetAge() uint32 {
+	if m != nil {
+		return m.Age
+	}
+	return 0
+}
+
+func (m *CreateCharacterRequest) GetSex() uint32 {
+	if m != nil {
+		return m.Sex
+	}
+	return 0
+}
+
+// Response message for rpc `CreateCharacter`.
+type CreateCharacterResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateCharacterResponse) Reset()         { *m = CreateCharacterResponse{} }
+func (m *CreateCharacterResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateCharacterResponse) ProtoMessage()    {}
+func (*CreateCharacterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{3}
+}
+
+func (m *CreateCharacterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateCharacterResponse.Unmarshal(m, b)
+}
+func (m *CreateCharacterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateCharacterResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateCharacterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateCharacterResponse.Merge(m, src)
+}
+func (m *CreateCharacterResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateCharacterResponse.Size(m)
+}
+func (m *CreateCharacterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateCharacterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateCharacterResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetCharacter`.
+type GetCharacterRequest struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCharacterRequest) Reset()         { *m = GetCharacterRequest{} }
+func (m *GetCharacterRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCharacterRequest) ProtoMessage()    {}
+func (*GetCharacterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{4}
+}
+
+func (m *GetCharacterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCharacterRequest.Unmarshal(m, b)
+}
+func (m *GetCharacterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCharacterRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCharacterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCharacterRequest.Merge(m, src)
+}
+func (m *GetCharacterRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCharacterRequest.Size(m)
+}
+func (m *GetCharacterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCharacterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCharacterRequest proto.InternalMessageInfo
+
+func (m *GetCharacterRequest) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// Response message for rpc `GetCharacter`.
+type GetCharacterResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCharacterResponse) Reset()         { *m = GetCharacterResponse{} }
+func (m *GetCharacterResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCharacterResponse) ProtoMessage()    {}
+func (*GetCharacterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{5}
+}
+
+func (m *GetCharacterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCharacterResponse.Unmarshal(m, b)
+}
+func (m *GetCharacterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCharacterResponse.Marshal(b, m, deterministic)
+}
+func (m *GetCharacterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCharacterResponse.Merge(m, src)
+}
+func (m *GetCharacterResponse) XXX_Size() int {
+	return xxx_messageInfo_GetCharacterResponse.Size(m)
+}
+func (m *GetCharacterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCharacterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCharacterResponse proto.InternalMessageInfo
+
+// Request message for rpc `UpdateCharacter`.
+type UpdateCharacterRequest struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateCharacterRequest) Reset()         { *m = UpdateCharacterRequest{} }
+func (m *UpdateCharacterRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateCharacterRequest) ProtoMessage()    {}
+func (*UpdateCharacterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{6}
+}
+
+func (m *UpdateCharacterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateCharacterRequest.Unmarshal(m, b)
+}
+func (m *UpdateCharacterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateCharacterRequest.Marshal(b, m, deterministic)
+}
+func (m *UpdateCharacterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateCharacterRequest.Merge(m, src)
+}
+func (m *UpdateCharacterRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateCharacterRequest.Size(m)
+}
+func (m *UpdateCharacterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateCharacterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateCharacterRequest proto.InternalMessageInfo
+
+func (m *UpdateCharacterRequest) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// Response message for rpc `UpdateCharacter`.
+type UpdateCharacterResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateCharacterResponse) Reset()         { *m = UpdateCharacterResponse{} }
+func (m *UpdateCharacterResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateCharacterResponse) ProtoMessage()    {}
+func (*UpdateCharacterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{7}
+}
+
+func (m *UpdateCharacterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateCharacterResponse.Unmarshal(m, b)
+}
+func (m *UpdateCharacterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateCharacterResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateCharacterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateCharacterResponse.Merge(m, src)
+}
+func (m *UpdateCharacterResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateCharacterResponse.Size(m)
+}
+func (m *UpdateCharacterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateCharacterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateCharacterResponse proto.InternalMessageInfo
+
+// Request message for rpc `DeleteCharacter`.
+type DeleteCharacterRequest struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteCharacterRequest) Reset()         { *m = DeleteCharacterRequest{} }
+func (m *DeleteCharacterRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteCharacterRequest) ProtoMessage()    {}
+func (*DeleteCharacterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{8}
+}
+
+func (m *DeleteCharacterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteCharacterRequest.Unmarshal(m, b)
+}
+func (m *DeleteCharacterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteCharacterRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteCharacterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteCharacterRequest.Merge(m, src)
+}
+func (m *DeleteCharacterRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteCharacterRequest.Size(m)
+}
+func (m *DeleteCharacterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteCharacterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteCharacterRequest proto.InternalMessageInfo
+
+func (m *DeleteCharacterRequest) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// Response message for rpc `DeleteCharacter`.
+type DeleteCharacterResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteCharacterResponse) Reset()         { *m = DeleteCharacterResponse{} }
+func (m *DeleteCharacterResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteCharacterResponse) ProtoMessage()    {}
+func (*DeleteCharacterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8cc9875990e6028d, []int{9}
+}
+
+func (m *DeleteCharacterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteCharacterResponse.Unmarshal(m, b)
+}
+func (m *DeleteCharacterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteCharacterResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteCharacterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteCharacterResponse.Merge(m, src)
+}
+func (m *DeleteCharacterResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteCharacterResponse.Size(m)
+}
+func (m *DeleteCharacterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteCharacterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteCharacterResponse proto.InternalMessageInfo
+
 type DeathStreamRequest struct {
 	DeathTypes           []DeathType `protobuf:"varint,1,rep,packed,name=death_types,json=deathTypes,proto3,enum=mruv.DeathType" json:"death_types,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -38,7 +522,7 @@ func (m *DeathStreamRequest) Reset()         { *m = DeathStreamRequest{} }
 func (m *DeathStreamRequest) String() string { return proto.CompactTextString(m) }
 func (*DeathStreamRequest) ProtoMessage()    {}
 func (*DeathStreamRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8cc9875990e6028d, []int{0}
+	return fileDescriptor_8cc9875990e6028d, []int{10}
 }
 
 func (m *DeathStreamRequest) XXX_Unmarshal(b []byte) error {
@@ -78,7 +562,7 @@ func (m *DeathStreamResponse) Reset()         { *m = DeathStreamResponse{} }
 func (m *DeathStreamResponse) String() string { return proto.CompactTextString(m) }
 func (*DeathStreamResponse) ProtoMessage()    {}
 func (*DeathStreamResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8cc9875990e6028d, []int{1}
+	return fileDescriptor_8cc9875990e6028d, []int{11}
 }
 
 func (m *DeathStreamResponse) XXX_Unmarshal(b []byte) error {
@@ -114,6 +598,17 @@ func (m *DeathStreamResponse) GetDeathType() DeathType {
 }
 
 func init() {
+	proto.RegisterEnum("mruv.DeathType", DeathType_name, DeathType_value)
+	proto.RegisterType((*Character)(nil), "mruv.Character")
+	proto.RegisterType((*CharacterID)(nil), "mruv.CharacterID")
+	proto.RegisterType((*CreateCharacterRequest)(nil), "mruv.CreateCharacterRequest")
+	proto.RegisterType((*CreateCharacterResponse)(nil), "mruv.CreateCharacterResponse")
+	proto.RegisterType((*GetCharacterRequest)(nil), "mruv.GetCharacterRequest")
+	proto.RegisterType((*GetCharacterResponse)(nil), "mruv.GetCharacterResponse")
+	proto.RegisterType((*UpdateCharacterRequest)(nil), "mruv.UpdateCharacterRequest")
+	proto.RegisterType((*UpdateCharacterResponse)(nil), "mruv.UpdateCharacterResponse")
+	proto.RegisterType((*DeleteCharacterRequest)(nil), "mruv.DeleteCharacterRequest")
+	proto.RegisterType((*DeleteCharacterResponse)(nil), "mruv.DeleteCharacterResponse")
 	proto.RegisterType((*DeathStreamRequest)(nil), "mruv.DeathStreamRequest")
 	proto.RegisterType((*DeathStreamResponse)(nil), "mruv.DeathStreamResponse")
 }
@@ -121,37 +616,54 @@ func init() {
 func init() { proto.RegisterFile("characters/characters.proto", fileDescriptor_8cc9875990e6028d) }
 
 var fileDescriptor_8cc9875990e6028d = []byte{
-	// 467 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x93, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0xc7, 0x71, 0xf9, 0x90, 0xba, 0xad, 0x9a, 0x76, 0x42, 0x82, 0x71, 0x00, 0xa5, 0xe6, 0x12,
-	0x22, 0xc5, 0x2e, 0xe5, 0x0d, 0x68, 0x45, 0x84, 0x50, 0x45, 0xe5, 0x54, 0x3d, 0x70, 0x29, 0x1b,
-	0x67, 0x14, 0x1b, 0xd9, 0x5e, 0xb3, 0x3b, 0xb6, 0x54, 0x21, 0x2e, 0xbc, 0x00, 0x07, 0x1e, 0x8d,
-	0x57, 0xe0, 0x41, 0x90, 0xbf, 0xe2, 0xd8, 0x58, 0xa8, 0xb7, 0xf5, 0x7f, 0x66, 0x7e, 0xff, 0x59,
-	0xcf, 0x2c, 0x1b, 0xb9, 0x1e, 0x97, 0xdc, 0x25, 0x94, 0xca, 0xae, 0x8f, 0x56, 0x2c, 0x05, 0x09,
-	0x78, 0x10, 0xca, 0x24, 0x35, 0x9e, 0xad, 0x85, 0x58, 0x07, 0x68, 0xf3, 0xd8, 0xb7, 0x79, 0x14,
-	0x09, 0xe2, 0xe4, 0x8b, 0xa8, 0xcc, 0x31, 0xfa, 0xae, 0x08, 0x43, 0x11, 0xd9, 0x1e, 0xf2, 0x80,
-	0xbc, 0x52, 0x3c, 0xee, 0xa4, 0xde, 0x84, 0x62, 0x85, 0x41, 0x91, 0x62, 0xbe, 0x63, 0x70, 0x8e,
-	0x9c, 0xbc, 0x05, 0x49, 0xe4, 0xa1, 0x83, 0x5f, 0x13, 0x54, 0x04, 0x27, 0x6c, 0x6f, 0x95, 0xa9,
-	0x37, 0x74, 0x1b, 0xa3, 0xd2, 0xb5, 0xf1, 0xfd, 0xc9, 0xc1, 0x69, 0xcf, 0xca, 0xfa, 0xb0, 0xf2,
-	0xf4, 0xab, 0xdb, 0x18, 0x1d, 0xb6, 0xaa, 0x8e, 0xca, 0x24, 0xd6, 0x6f, 0x70, 0x54, 0x2c, 0x22,
-	0x85, 0x30, 0x63, 0xbb, 0x1b, 0x63, 0x5d, 0x1b, 0x6b, 0x93, 0xbd, 0x0a, 0x73, 0x56, 0xc9, 0x4e,
-	0x9d, 0x01, 0x16, 0x63, 0xb5, 0xaf, 0xbe, 0x33, 0xd6, 0xba, 0x6c, 0x77, 0x37, 0xb6, 0xa7, 0x3f,
-	0x1f, 0xb2, 0xc1, 0x85, 0x4c, 0xae, 0x37, 0x30, 0xb5, 0x40, 0x99, 0xfa, 0x2e, 0xc2, 0x05, 0xeb,
-	0x9d, 0x49, 0xe4, 0x84, 0x9b, 0x10, 0xb4, 0x8d, 0x8d, 0xa3, 0x96, 0xf0, 0xfe, 0xdc, 0x1c, 0xfe,
-	0xf8, 0xfd, 0xe7, 0xd7, 0xce, 0xa1, 0x79, 0x60, 0xa7, 0xaf, 0xb7, 0x7e, 0x19, 0x7c, 0x64, 0xfb,
-	0x73, 0xa4, 0x9a, 0xf5, 0x6f, 0xa9, 0xd1, 0xc6, 0x9b, 0xa3, 0x9c, 0x35, 0x80, 0x7e, 0x93, 0x65,
-	0x7f, 0xf3, 0x57, 0xdf, 0xe1, 0x8a, 0xf5, 0x1c, 0x0c, 0x45, 0x8a, 0xff, 0x65, 0x76, 0x74, 0x58,
-	0x52, 0xa7, 0x9d, 0x54, 0x9f, 0x0d, 0x2f, 0x51, 0x86, 0x3c, 0xc2, 0xa8, 0x6e, 0xf6, 0x83, 0x1f,
-	0x04, 0x77, 0x84, 0xbf, 0xca, 0xe1, 0x2f, 0xa7, 0xc7, 0x2d, 0x78, 0x5c, 0x41, 0x33, 0x56, 0x61,
-	0x35, 0x67, 0xfb, 0xf9, 0x48, 0x54, 0x31, 0x71, 0xd0, 0xb7, 0xc6, 0xd4, 0x58, 0x26, 0xe3, 0x69,
-	0x47, 0xa4, 0x58, 0x0f, 0xf3, 0xde, 0x89, 0x06, 0x5f, 0xd8, 0xe1, 0x1c, 0xa9, 0x9c, 0xdb, 0x82,
-	0x38, 0x25, 0x0a, 0x8c, 0xa2, 0xa4, 0x21, 0x56, 0xb8, 0x51, 0x67, 0xac, 0x04, 0x3e, 0xcf, 0x2f,
-	0xf0, 0x04, 0x06, 0xad, 0x0b, 0xa8, 0x82, 0xfb, 0x99, 0x1d, 0xd5, 0x5e, 0xd7, 0x28, 0x95, 0x2f,
-	0x22, 0x78, 0x5c, 0x00, 0xcb, 0xcf, 0xca, 0x66, 0xd0, 0x52, 0x4b, 0x83, 0x17, 0xb9, 0x81, 0x0e,
-	0xc3, 0x96, 0x41, 0x5a, 0xe4, 0xbd, 0x9d, 0x7e, 0x9a, 0xac, 0x7d, 0xf2, 0x92, 0xa5, 0xe5, 0x8a,
-	0xd0, 0xce, 0x76, 0x73, 0xe6, 0x5c, 0xda, 0x19, 0x6a, 0x16, 0x2f, 0x67, 0x6b, 0xb1, 0x55, 0xb3,
-	0x7c, 0x94, 0x3f, 0xc1, 0x37, 0x7f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x52, 0xbd, 0x01, 0xfe, 0xfd,
-	0x03, 0x00, 0x00,
+	// 737 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x55, 0x5d, 0x72, 0xda, 0x48,
+	0x18, 0xb4, 0xc0, 0x6b, 0x9b, 0x0f, 0x1b, 0xf0, 0x60, 0xb0, 0xc0, 0x66, 0x97, 0xd5, 0xd6, 0x56,
+	0xb1, 0x54, 0x81, 0xbc, 0xec, 0x09, 0xd6, 0xc6, 0xeb, 0xa5, 0xec, 0x38, 0x14, 0x76, 0x9c, 0x4a,
+	0x1e, 0x42, 0x06, 0x34, 0x06, 0x25, 0x48, 0xa3, 0x68, 0x06, 0x62, 0x57, 0x2a, 0x2f, 0xb9, 0x42,
+	0x0e, 0x91, 0x63, 0xe4, 0x2d, 0x17, 0xc8, 0x15, 0x72, 0x90, 0x94, 0x46, 0x23, 0x7e, 0x84, 0xa8,
+	0xf8, 0x31, 0x6f, 0xa3, 0xfe, 0x5a, 0xdd, 0xd3, 0x9a, 0x1e, 0x80, 0x83, 0xfe, 0x10, 0xbb, 0xb8,
+	0xcf, 0x89, 0xcb, 0xf4, 0xd9, 0xb2, 0xee, 0xb8, 0x94, 0x53, 0xb4, 0x6e, 0xb9, 0xe3, 0x49, 0xf1,
+	0x70, 0x40, 0xe9, 0x60, 0x44, 0x74, 0xec, 0x98, 0x3a, 0xb6, 0x6d, 0xca, 0x31, 0x37, 0xa9, 0x2d,
+	0x39, 0xc5, 0x6c, 0x9f, 0x5a, 0x16, 0xb5, 0xf5, 0x21, 0xc1, 0x23, 0x3e, 0x94, 0xe0, 0x9e, 0x04,
+	0x99, 0x83, 0xb9, 0x89, 0x47, 0x3e, 0xaa, 0x7d, 0x51, 0x20, 0x71, 0x12, 0x78, 0xa0, 0x14, 0xc4,
+	0x4c, 0x43, 0x55, 0xca, 0x4a, 0x65, 0xa7, 0x13, 0x33, 0x0d, 0x54, 0x80, 0x2d, 0xfa, 0xd6, 0x26,
+	0x6e, 0xd7, 0x34, 0xd4, 0x98, 0x40, 0x37, 0xc5, 0x73, 0xcb, 0x40, 0x25, 0x80, 0x5b, 0xd3, 0x65,
+	0xbc, 0x6b, 0x63, 0x8b, 0xa8, 0xf1, 0xb2, 0x52, 0x49, 0x74, 0x12, 0x02, 0xb9, 0xc4, 0x16, 0x41,
+	0xbf, 0x41, 0x92, 0x91, 0x3e, 0xb5, 0x0d, 0x7f, 0xbe, 0x2e, 0xe6, 0xe0, 0x43, 0x82, 0x90, 0x81,
+	0x38, 0x1e, 0x10, 0xf5, 0x17, 0xa1, 0xea, 0x2d, 0x3d, 0x84, 0x91, 0x3b, 0x75, 0xc3, 0x47, 0x18,
+	0xb9, 0x43, 0x55, 0xd8, 0x72, 0x28, 0x33, 0xbd, 0x68, 0xea, 0x66, 0x59, 0xa9, 0x24, 0x1b, 0xa9,
+	0xba, 0x17, 0xbf, 0xde, 0x96, 0x68, 0x67, 0x3a, 0xd7, 0x4a, 0x90, 0x9c, 0xe6, 0x68, 0x35, 0xc3,
+	0x49, 0xb4, 0x4f, 0x0a, 0xe4, 0x4f, 0x5c, 0x82, 0x39, 0x99, 0xb2, 0x3a, 0xe4, 0xcd, 0x98, 0x30,
+	0xfe, 0x93, 0x85, 0xd6, 0x0a, 0xb0, 0xbf, 0xb4, 0x51, 0xe6, 0x50, 0x9b, 0x11, 0xed, 0x4f, 0xc8,
+	0x9e, 0x11, 0xfe, 0xa3, 0x00, 0x5a, 0x1e, 0xf6, 0x16, 0x69, 0xf2, 0xf5, 0x0a, 0xe4, 0x9f, 0x38,
+	0xc6, 0x03, 0x3e, 0x81, 0xb7, 0x87, 0x25, 0xe6, 0x4c, 0xa4, 0x49, 0x46, 0xe4, 0x61, 0x22, 0x4b,
+	0x4c, 0x29, 0xf2, 0x1f, 0xa0, 0x26, 0xc1, 0x7c, 0x78, 0xc5, 0x5d, 0x82, 0xad, 0x40, 0xe0, 0x08,
+	0x92, 0x86, 0x87, 0x76, 0xf9, 0xbd, 0x43, 0x98, 0xaa, 0x94, 0xe3, 0x95, 0x54, 0x23, 0xed, 0x9f,
+	0xb8, 0xa0, 0x5f, 0xdf, 0x3b, 0xa4, 0x03, 0x46, 0xb0, 0x64, 0x1a, 0x87, 0xec, 0x82, 0x8e, 0x2f,
+	0x8f, 0x6a, 0x90, 0x98, 0xde, 0x1b, 0xb1, 0xa1, 0x64, 0x20, 0x33, 0xdb, 0xca, 0x8c, 0x81, 0xea,
+	0x00, 0x33, 0x5f, 0x71, 0xe4, 0x11, 0xb6, 0x89, 0xa9, 0x6d, 0xf5, 0x05, 0x24, 0xa6, 0x38, 0xca,
+	0x42, 0xba, 0x79, 0xfa, 0xef, 0xf5, 0xff, 0xdd, 0xeb, 0x67, 0xed, 0xd3, 0xee, 0xe5, 0xe3, 0xcb,
+	0xd3, 0xcc, 0x1a, 0xda, 0x85, 0x9d, 0x39, 0xf0, 0xf8, 0x69, 0x46, 0x41, 0x79, 0x40, 0x0b, 0x50,
+	0xf7, 0xbc, 0x75, 0x71, 0x91, 0x89, 0x85, 0xa8, 0x27, 0xe7, 0x99, 0x78, 0xe3, 0xf3, 0x06, 0xe4,
+	0x1e, 0xb9, 0xe3, 0x9b, 0xe9, 0x66, 0xd9, 0x15, 0x71, 0x27, 0x66, 0x9f, 0xa0, 0x5b, 0x48, 0x87,
+	0xba, 0x81, 0x0e, 0x65, 0xb0, 0xc8, 0x6e, 0x17, 0x4b, 0x2b, 0xa6, 0xf2, 0x1c, 0xf2, 0x1f, 0xbe,
+	0x7e, 0xfb, 0x18, 0xcb, 0x68, 0x29, 0x7d, 0xf2, 0xf7, 0xdc, 0x4f, 0x0d, 0xea, 0xc1, 0xf6, 0x7c,
+	0x83, 0x50, 0xc1, 0x97, 0x89, 0x28, 0x5f, 0xb1, 0x18, 0x35, 0x92, 0xf2, 0x07, 0x42, 0x3e, 0x87,
+	0xb2, 0x8b, 0xf2, 0xfa, 0x3b, 0xd3, 0x78, 0x8f, 0x5e, 0x43, 0x3a, 0xd4, 0xb1, 0x20, 0x4b, 0x74,
+	0x49, 0x83, 0x2c, 0xab, 0x8a, 0x29, 0xcd, 0x1a, 0xab, 0xcc, 0x42, 0x5d, 0x0c, 0xcc, 0xa2, 0xcb,
+	0x1c, 0x98, 0xad, 0x2a, 0xb0, 0x34, 0xab, 0x46, 0x9a, 0x99, 0x90, 0x6f, 0x13, 0xd7, 0xc2, 0x36,
+	0xb1, 0x67, 0x1f, 0xe5, 0xdc, 0x1c, 0x8d, 0xd0, 0x6e, 0xa8, 0x85, 0xad, 0x66, 0x71, 0x19, 0xd2,
+	0xfe, 0x12, 0xe2, 0x7f, 0x54, 0x7f, 0x0f, 0x89, 0x3b, 0x81, 0xa8, 0xa7, 0xe5, 0x5b, 0x9d, 0xc1,
+	0xb6, 0xa8, 0x22, 0xf3, 0x6f, 0x00, 0x52, 0xe7, 0x6a, 0xbb, 0x70, 0xb9, 0x8a, 0x85, 0x88, 0x89,
+	0x0c, 0xb3, 0x76, 0xa4, 0xa0, 0x57, 0x90, 0x39, 0x23, 0x5c, 0xf6, 0xec, 0x8a, 0x63, 0x3e, 0x66,
+	0x48, 0x1e, 0xed, 0x02, 0x18, 0xc8, 0x1d, 0x44, 0xce, 0xa4, 0x60, 0x49, 0x04, 0xd8, 0x47, 0xb9,
+	0x50, 0x00, 0xe6, 0xeb, 0xbe, 0x84, 0xdd, 0x99, 0xd7, 0x0d, 0x71, 0x99, 0x49, 0x6d, 0xb4, 0xe7,
+	0x0b, 0xca, 0xc7, 0xc0, 0x26, 0x17, 0x42, 0xa5, 0xc1, 0xaf, 0xc2, 0x40, 0x45, 0xf9, 0x90, 0xc1,
+	0xc4, 0xe7, 0x1d, 0x57, 0x9f, 0x57, 0x06, 0x26, 0x1f, 0x8e, 0x7b, 0xf5, 0x3e, 0xb5, 0x74, 0xef,
+	0x2e, 0xd5, 0x3a, 0x6d, 0xdd, 0x93, 0xaa, 0x39, 0xbd, 0xda, 0x80, 0xce, 0xbd, 0xd3, 0xdb, 0x10,
+	0x7f, 0x84, 0xff, 0x7c, 0x0f, 0x00, 0x00, 0xff, 0xff, 0x71, 0x4c, 0x36, 0xf7, 0x76, 0x07, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -166,12 +678,17 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVCharactersServiceClient interface {
-	//CRUD
-	CreateCharacter(ctx context.Context, in *Character, opts ...grpc.CallOption) (*CharacterID, error)
-	GetCharacter(ctx context.Context, in *CharacterID, opts ...grpc.CallOption) (*Character, error)
-	RemoveCharacter(ctx context.Context, in *CharacterID, opts ...grpc.CallOption) (*CharacterID, error)
-	//Deaths
+	// Create a character.
+	CreateCharacter(ctx context.Context, in *CreateCharacterRequest, opts ...grpc.CallOption) (*CreateCharacterResponse, error)
+	// Get a character.
+	GetCharacter(ctx context.Context, in *GetCharacterRequest, opts ...grpc.CallOption) (*GetCharacterResponse, error)
+	// Update a character.
+	UpdateCharacter(ctx context.Context, in *UpdateCharacterRequest, opts ...grpc.CallOption) (*UpdateCharacterResponse, error)
+	// Delete a character.
+	DeleteCharacter(ctx context.Context, in *DeleteCharacterRequest, opts ...grpc.CallOption) (*DeleteCharacterResponse, error)
+	// Kill a character. A character that is killed cannot be played anymore.
 	PermanentCharacterKill(ctx context.Context, in *CharacterID, opts ...grpc.CallOption) (*CharacterID, error)
+	// Stream of deaths.
 	DeathsStream(ctx context.Context, in *DeathStreamRequest, opts ...grpc.CallOption) (MruVCharactersService_DeathsStreamClient, error)
 	//Service status
 	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
@@ -186,8 +703,8 @@ func NewMruVCharactersServiceClient(cc *grpc.ClientConn) MruVCharactersServiceCl
 	return &mruVCharactersServiceClient{cc}
 }
 
-func (c *mruVCharactersServiceClient) CreateCharacter(ctx context.Context, in *Character, opts ...grpc.CallOption) (*CharacterID, error) {
-	out := new(CharacterID)
+func (c *mruVCharactersServiceClient) CreateCharacter(ctx context.Context, in *CreateCharacterRequest, opts ...grpc.CallOption) (*CreateCharacterResponse, error) {
+	out := new(CreateCharacterResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/CreateCharacter", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -195,8 +712,8 @@ func (c *mruVCharactersServiceClient) CreateCharacter(ctx context.Context, in *C
 	return out, nil
 }
 
-func (c *mruVCharactersServiceClient) GetCharacter(ctx context.Context, in *CharacterID, opts ...grpc.CallOption) (*Character, error) {
-	out := new(Character)
+func (c *mruVCharactersServiceClient) GetCharacter(ctx context.Context, in *GetCharacterRequest, opts ...grpc.CallOption) (*GetCharacterResponse, error) {
+	out := new(GetCharacterResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/GetCharacter", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -204,9 +721,18 @@ func (c *mruVCharactersServiceClient) GetCharacter(ctx context.Context, in *Char
 	return out, nil
 }
 
-func (c *mruVCharactersServiceClient) RemoveCharacter(ctx context.Context, in *CharacterID, opts ...grpc.CallOption) (*CharacterID, error) {
-	out := new(CharacterID)
-	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/RemoveCharacter", in, out, opts...)
+func (c *mruVCharactersServiceClient) UpdateCharacter(ctx context.Context, in *UpdateCharacterRequest, opts ...grpc.CallOption) (*UpdateCharacterResponse, error) {
+	out := new(UpdateCharacterResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/UpdateCharacter", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVCharactersServiceClient) DeleteCharacter(ctx context.Context, in *DeleteCharacterRequest, opts ...grpc.CallOption) (*DeleteCharacterResponse, error) {
+	out := new(DeleteCharacterResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVCharactersService/DeleteCharacter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -274,12 +800,17 @@ func (c *mruVCharactersServiceClient) GetServiceVersion(ctx context.Context, in 
 
 // MruVCharactersServiceServer is the server API for MruVCharactersService service.
 type MruVCharactersServiceServer interface {
-	//CRUD
-	CreateCharacter(context.Context, *Character) (*CharacterID, error)
-	GetCharacter(context.Context, *CharacterID) (*Character, error)
-	RemoveCharacter(context.Context, *CharacterID) (*CharacterID, error)
-	//Deaths
+	// Create a character.
+	CreateCharacter(context.Context, *CreateCharacterRequest) (*CreateCharacterResponse, error)
+	// Get a character.
+	GetCharacter(context.Context, *GetCharacterRequest) (*GetCharacterResponse, error)
+	// Update a character.
+	UpdateCharacter(context.Context, *UpdateCharacterRequest) (*UpdateCharacterResponse, error)
+	// Delete a character.
+	DeleteCharacter(context.Context, *DeleteCharacterRequest) (*DeleteCharacterResponse, error)
+	// Kill a character. A character that is killed cannot be played anymore.
 	PermanentCharacterKill(context.Context, *CharacterID) (*CharacterID, error)
+	// Stream of deaths.
 	DeathsStream(*DeathStreamRequest, MruVCharactersService_DeathsStreamServer) error
 	//Service status
 	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
@@ -290,14 +821,17 @@ type MruVCharactersServiceServer interface {
 type UnimplementedMruVCharactersServiceServer struct {
 }
 
-func (*UnimplementedMruVCharactersServiceServer) CreateCharacter(ctx context.Context, req *Character) (*CharacterID, error) {
+func (*UnimplementedMruVCharactersServiceServer) CreateCharacter(ctx context.Context, req *CreateCharacterRequest) (*CreateCharacterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCharacter not implemented")
 }
-func (*UnimplementedMruVCharactersServiceServer) GetCharacter(ctx context.Context, req *CharacterID) (*Character, error) {
+func (*UnimplementedMruVCharactersServiceServer) GetCharacter(ctx context.Context, req *GetCharacterRequest) (*GetCharacterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCharacter not implemented")
 }
-func (*UnimplementedMruVCharactersServiceServer) RemoveCharacter(ctx context.Context, req *CharacterID) (*CharacterID, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveCharacter not implemented")
+func (*UnimplementedMruVCharactersServiceServer) UpdateCharacter(ctx context.Context, req *UpdateCharacterRequest) (*UpdateCharacterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCharacter not implemented")
+}
+func (*UnimplementedMruVCharactersServiceServer) DeleteCharacter(ctx context.Context, req *DeleteCharacterRequest) (*DeleteCharacterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacter not implemented")
 }
 func (*UnimplementedMruVCharactersServiceServer) PermanentCharacterKill(ctx context.Context, req *CharacterID) (*CharacterID, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PermanentCharacterKill not implemented")
@@ -317,7 +851,7 @@ func RegisterMruVCharactersServiceServer(s *grpc.Server, srv MruVCharactersServi
 }
 
 func _MruVCharactersService_CreateCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Character)
+	in := new(CreateCharacterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -329,13 +863,13 @@ func _MruVCharactersService_CreateCharacter_Handler(srv interface{}, ctx context
 		FullMethod: "/mruv.MruVCharactersService/CreateCharacter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVCharactersServiceServer).CreateCharacter(ctx, req.(*Character))
+		return srv.(MruVCharactersServiceServer).CreateCharacter(ctx, req.(*CreateCharacterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVCharactersService_GetCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CharacterID)
+	in := new(GetCharacterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -347,25 +881,43 @@ func _MruVCharactersService_GetCharacter_Handler(srv interface{}, ctx context.Co
 		FullMethod: "/mruv.MruVCharactersService/GetCharacter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVCharactersServiceServer).GetCharacter(ctx, req.(*CharacterID))
+		return srv.(MruVCharactersServiceServer).GetCharacter(ctx, req.(*GetCharacterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVCharactersService_RemoveCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CharacterID)
+func _MruVCharactersService_UpdateCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCharacterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVCharactersServiceServer).RemoveCharacter(ctx, in)
+		return srv.(MruVCharactersServiceServer).UpdateCharacter(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVCharactersService/RemoveCharacter",
+		FullMethod: "/mruv.MruVCharactersService/UpdateCharacter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVCharactersServiceServer).RemoveCharacter(ctx, req.(*CharacterID))
+		return srv.(MruVCharactersServiceServer).UpdateCharacter(ctx, req.(*UpdateCharacterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVCharactersService_DeleteCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCharacterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVCharactersServiceServer).DeleteCharacter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVCharactersService/DeleteCharacter",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVCharactersServiceServer).DeleteCharacter(ctx, req.(*DeleteCharacterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -458,8 +1010,12 @@ var _MruVCharactersService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVCharactersService_GetCharacter_Handler,
 		},
 		{
-			MethodName: "RemoveCharacter",
-			Handler:    _MruVCharactersService_RemoveCharacter_Handler,
+			MethodName: "UpdateCharacter",
+			Handler:    _MruVCharactersService_UpdateCharacter_Handler,
+		},
+		{
+			MethodName: "DeleteCharacter",
+			Handler:    _MruVCharactersService_DeleteCharacter_Handler,
 		},
 		{
 			MethodName: "PermanentCharacterKill",

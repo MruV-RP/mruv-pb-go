@@ -329,7 +329,7 @@ func (m *DeletePositionResponse) GetSuccess() bool {
 	return false
 }
 
-// Get outgits request message.
+// Get outfits request message.
 type GetOutfitsRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Category             string   `protobuf:"bytes,2,opt,name=category,proto3" json:"category,omitempty"`

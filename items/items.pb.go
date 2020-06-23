@@ -1009,52 +1009,52 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVItemServiceClient interface {
-	//Create new item.
+	// Create new item.
 	CreateItem(ctx context.Context, in *Item, opts ...grpc.CallOption) (*ItemID, error)
-	//Get item by id.
+	// Get item by id.
 	GetItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*Item, error)
-	//Delete item by id.
+	// Delete item by id.
 	DeleteItem(ctx context.Context, in *ItemID, opts ...grpc.CallOption) (*ItemID, error)
-	//Gets all items.
+	// Gets all items.
 	GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error)
-	//Create item type.
+	// Create item type.
 	CreateItemType(ctx context.Context, in *ItemType, opts ...grpc.CallOption) (*ItemTypeID, error)
-	//Get item type by id.
+	// Get item type by id.
 	GetItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemType, error)
-	//Delete item type by id.
+	// Delete item type by id.
 	DeleteItemType(ctx context.Context, in *ItemTypeID, opts ...grpc.CallOption) (*ItemTypeID, error)
-	//Gets all item types.
+	// Gets all item types.
 	GetItemTypes(ctx context.Context, in *GetItemTypesRequest, opts ...grpc.CallOption) (*GetItemTypesResponse, error)
-	//Create container.
+	// Create container.
 	CreateContainer(ctx context.Context, in *Container, opts ...grpc.CallOption) (*ContainerID, error)
-	//Get container by id.
+	// Get container by id.
 	GetContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*Container, error)
-	//Delete container by id.
+	// Delete container by id.
 	DeleteContainer(ctx context.Context, in *ContainerID, opts ...grpc.CallOption) (*ContainerID, error)
-	//Get all containers.
+	// Get all containers.
 	GetContainers(ctx context.Context, in *GetContainersRequest, opts ...grpc.CallOption) (*GetContainersResponse, error)
-	//Create container type.
+	// Create a container type.
 	CreateContainerType(ctx context.Context, in *ContainerType, opts ...grpc.CallOption) (*ContainerTypeID, error)
-	//Get container type by id.
+	// Get a container type by id.
 	GetContainerType(ctx context.Context, in *ContainerTypeID, opts ...grpc.CallOption) (*ContainerType, error)
-	//Detele container type by id.
+	// Delete a container type by id.
 	DeleteContainerType(ctx context.Context, in *ContainerTypeID, opts ...grpc.CallOption) (*ContainerTypeID, error)
-	//Get all container types.
+	// Get all container types.
 	GetContainerTypes(ctx context.Context, in *GetContainerTypesRequest, opts ...grpc.CallOption) (*GetContainerTypesResponse, error)
-	//Get items inside a container.
+	// Get items inside a container.
 	GetContainerItems(ctx context.Context, in *GetContainerItemsRequest, opts ...grpc.CallOption) (*GetContainerItemsResponse, error)
-	//Pull item from container.
+	// Pull an item from container.
 	PullItem(ctx context.Context, in *PullItemRequest, opts ...grpc.CallOption) (*Item, error)
-	//Put item into container.
+	// Put an item into container.
 	PutItem(ctx context.Context, in *PutItemRequest, opts ...grpc.CallOption) (*PutItemResponse, error)
-	//Sort items inside container.
-	//This procedure change order of items inside container.
+	// Sort items inside container.
+	// This procedure change order of items inside container.
 	SortItems(ctx context.Context, in *SortItemsRequest, opts ...grpc.CallOption) (*SortItemsResponse, error)
-	//Retrieves from the container the list of items nearest to the given position.
+	// Retrieves from the container the list of items nearest to the given position.
 	GetNearestItems(ctx context.Context, in *GetNearestItemsRequest, opts ...grpc.CallOption) (*GetNearestItemsResponse, error)
-	//Trigger action associated with the item usage.
+	// Trigger action associated with the item usage.
 	UseItem(ctx context.Context, in *UseItemRequest, opts ...grpc.CallOption) (*UseItemResponse, error)
-	//Get service health status.
+	// Get service health status.
 	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
 	//Get service current version.
 	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
@@ -1286,52 +1286,52 @@ func (c *mruVItemServiceClient) GetServiceVersion(ctx context.Context, in *commo
 
 // MruVItemServiceServer is the server API for MruVItemService service.
 type MruVItemServiceServer interface {
-	//Create new item.
+	// Create new item.
 	CreateItem(context.Context, *Item) (*ItemID, error)
-	//Get item by id.
+	// Get item by id.
 	GetItem(context.Context, *ItemID) (*Item, error)
-	//Delete item by id.
+	// Delete item by id.
 	DeleteItem(context.Context, *ItemID) (*ItemID, error)
-	//Gets all items.
+	// Gets all items.
 	GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error)
-	//Create item type.
+	// Create item type.
 	CreateItemType(context.Context, *ItemType) (*ItemTypeID, error)
-	//Get item type by id.
+	// Get item type by id.
 	GetItemType(context.Context, *ItemTypeID) (*ItemType, error)
-	//Delete item type by id.
+	// Delete item type by id.
 	DeleteItemType(context.Context, *ItemTypeID) (*ItemTypeID, error)
-	//Gets all item types.
+	// Gets all item types.
 	GetItemTypes(context.Context, *GetItemTypesRequest) (*GetItemTypesResponse, error)
-	//Create container.
+	// Create container.
 	CreateContainer(context.Context, *Container) (*ContainerID, error)
-	//Get container by id.
+	// Get container by id.
 	GetContainer(context.Context, *ContainerID) (*Container, error)
-	//Delete container by id.
+	// Delete container by id.
 	DeleteContainer(context.Context, *ContainerID) (*ContainerID, error)
-	//Get all containers.
+	// Get all containers.
 	GetContainers(context.Context, *GetContainersRequest) (*GetContainersResponse, error)
-	//Create container type.
+	// Create a container type.
 	CreateContainerType(context.Context, *ContainerType) (*ContainerTypeID, error)
-	//Get container type by id.
+	// Get a container type by id.
 	GetContainerType(context.Context, *ContainerTypeID) (*ContainerType, error)
-	//Detele container type by id.
+	// Delete a container type by id.
 	DeleteContainerType(context.Context, *ContainerTypeID) (*ContainerTypeID, error)
-	//Get all container types.
+	// Get all container types.
 	GetContainerTypes(context.Context, *GetContainerTypesRequest) (*GetContainerTypesResponse, error)
-	//Get items inside a container.
+	// Get items inside a container.
 	GetContainerItems(context.Context, *GetContainerItemsRequest) (*GetContainerItemsResponse, error)
-	//Pull item from container.
+	// Pull an item from container.
 	PullItem(context.Context, *PullItemRequest) (*Item, error)
-	//Put item into container.
+	// Put an item into container.
 	PutItem(context.Context, *PutItemRequest) (*PutItemResponse, error)
-	//Sort items inside container.
-	//This procedure change order of items inside container.
+	// Sort items inside container.
+	// This procedure change order of items inside container.
 	SortItems(context.Context, *SortItemsRequest) (*SortItemsResponse, error)
-	//Retrieves from the container the list of items nearest to the given position.
+	// Retrieves from the container the list of items nearest to the given position.
 	GetNearestItems(context.Context, *GetNearestItemsRequest) (*GetNearestItemsResponse, error)
-	//Trigger action associated with the item usage.
+	// Trigger action associated with the item usage.
 	UseItem(context.Context, *UseItemRequest) (*UseItemResponse, error)
-	//Get service health status.
+	// Get service health status.
 	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
 	//Get service current version.
 	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)

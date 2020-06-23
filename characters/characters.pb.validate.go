@@ -36,6 +36,713 @@ var (
 // define the regex for a UUID once up-front
 var _characters_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on Character with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Character) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for OwnerId
+
+	// no validation rules for FirstName
+
+	// no validation rules for SecondName
+
+	// no validation rules for Age
+
+	// no validation rules for Sex
+
+	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CharacterValidationError{
+				field:  "Position",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CharacterValidationError is the validation error returned by
+// Character.Validate if the designated constraints aren't met.
+type CharacterValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CharacterValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CharacterValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CharacterValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CharacterValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CharacterValidationError) ErrorName() string { return "CharacterValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CharacterValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCharacter.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CharacterValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CharacterValidationError{}
+
+// Validate checks the field values on CharacterID with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *CharacterID) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// CharacterIDValidationError is the validation error returned by
+// CharacterID.Validate if the designated constraints aren't met.
+type CharacterIDValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CharacterIDValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CharacterIDValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CharacterIDValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CharacterIDValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CharacterIDValidationError) ErrorName() string { return "CharacterIDValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CharacterIDValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCharacterID.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CharacterIDValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CharacterIDValidationError{}
+
+// Validate checks the field values on CreateCharacterRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateCharacterRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for OwnerId
+
+	// no validation rules for FirstName
+
+	// no validation rules for SecondName
+
+	// no validation rules for Age
+
+	// no validation rules for Sex
+
+	return nil
+}
+
+// CreateCharacterRequestValidationError is the validation error returned by
+// CreateCharacterRequest.Validate if the designated constraints aren't met.
+type CreateCharacterRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCharacterRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCharacterRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCharacterRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCharacterRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCharacterRequestValidationError) ErrorName() string {
+	return "CreateCharacterRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCharacterRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCharacterRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCharacterRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCharacterRequestValidationError{}
+
+// Validate checks the field values on CreateCharacterResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CreateCharacterResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// CreateCharacterResponseValidationError is the validation error returned by
+// CreateCharacterResponse.Validate if the designated constraints aren't met.
+type CreateCharacterResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateCharacterResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateCharacterResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateCharacterResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateCharacterResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateCharacterResponseValidationError) ErrorName() string {
+	return "CreateCharacterResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateCharacterResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateCharacterResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateCharacterResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateCharacterResponseValidationError{}
+
+// Validate checks the field values on GetCharacterRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetCharacterRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// GetCharacterRequestValidationError is the validation error returned by
+// GetCharacterRequest.Validate if the designated constraints aren't met.
+type GetCharacterRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCharacterRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCharacterRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCharacterRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCharacterRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCharacterRequestValidationError) ErrorName() string {
+	return "GetCharacterRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCharacterRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCharacterRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCharacterRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCharacterRequestValidationError{}
+
+// Validate checks the field values on GetCharacterResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetCharacterResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// GetCharacterResponseValidationError is the validation error returned by
+// GetCharacterResponse.Validate if the designated constraints aren't met.
+type GetCharacterResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetCharacterResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetCharacterResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetCharacterResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetCharacterResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetCharacterResponseValidationError) ErrorName() string {
+	return "GetCharacterResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetCharacterResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetCharacterResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetCharacterResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetCharacterResponseValidationError{}
+
+// Validate checks the field values on UpdateCharacterRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateCharacterRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// UpdateCharacterRequestValidationError is the validation error returned by
+// UpdateCharacterRequest.Validate if the designated constraints aren't met.
+type UpdateCharacterRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateCharacterRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateCharacterRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateCharacterRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateCharacterRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateCharacterRequestValidationError) ErrorName() string {
+	return "UpdateCharacterRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateCharacterRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateCharacterRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateCharacterRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateCharacterRequestValidationError{}
+
+// Validate checks the field values on UpdateCharacterResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *UpdateCharacterResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// UpdateCharacterResponseValidationError is the validation error returned by
+// UpdateCharacterResponse.Validate if the designated constraints aren't met.
+type UpdateCharacterResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateCharacterResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateCharacterResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateCharacterResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateCharacterResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateCharacterResponseValidationError) ErrorName() string {
+	return "UpdateCharacterResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateCharacterResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateCharacterResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateCharacterResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateCharacterResponseValidationError{}
+
+// Validate checks the field values on DeleteCharacterRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteCharacterRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// DeleteCharacterRequestValidationError is the validation error returned by
+// DeleteCharacterRequest.Validate if the designated constraints aren't met.
+type DeleteCharacterRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCharacterRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCharacterRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCharacterRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCharacterRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCharacterRequestValidationError) ErrorName() string {
+	return "DeleteCharacterRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCharacterRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCharacterRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCharacterRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCharacterRequestValidationError{}
+
+// Validate checks the field values on DeleteCharacterResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteCharacterResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// DeleteCharacterResponseValidationError is the validation error returned by
+// DeleteCharacterResponse.Validate if the designated constraints aren't met.
+type DeleteCharacterResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCharacterResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCharacterResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCharacterResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCharacterResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCharacterResponseValidationError) ErrorName() string {
+	return "DeleteCharacterResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCharacterResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCharacterResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCharacterResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCharacterResponseValidationError{}
+
 // Validate checks the field values on DeathStreamRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
