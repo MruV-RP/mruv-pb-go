@@ -544,3 +544,143 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetAccountCharactersResponseValidationError{}
+
+// Validate checks the field values on IsAccountExistsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *IsAccountExistsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Login
+
+	return nil
+}
+
+// IsAccountExistsRequestValidationError is the validation error returned by
+// IsAccountExistsRequest.Validate if the designated constraints aren't met.
+type IsAccountExistsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IsAccountExistsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IsAccountExistsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IsAccountExistsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IsAccountExistsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IsAccountExistsRequestValidationError) ErrorName() string {
+	return "IsAccountExistsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e IsAccountExistsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIsAccountExistsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IsAccountExistsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IsAccountExistsRequestValidationError{}
+
+// Validate checks the field values on IsAccountExistsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *IsAccountExistsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Exists
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// IsAccountExistsResponseValidationError is the validation error returned by
+// IsAccountExistsResponse.Validate if the designated constraints aren't met.
+type IsAccountExistsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IsAccountExistsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IsAccountExistsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IsAccountExistsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IsAccountExistsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IsAccountExistsResponseValidationError) ErrorName() string {
+	return "IsAccountExistsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e IsAccountExistsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIsAccountExistsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IsAccountExistsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IsAccountExistsResponseValidationError{}
