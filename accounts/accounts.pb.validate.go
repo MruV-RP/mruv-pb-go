@@ -36,144 +36,6 @@ var (
 // define the regex for a UUID once up-front
 var _accounts_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on AccountID with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *AccountID) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Id
-
-	return nil
-}
-
-// AccountIDValidationError is the validation error returned by
-// AccountID.Validate if the designated constraints aren't met.
-type AccountIDValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AccountIDValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AccountIDValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AccountIDValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AccountIDValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AccountIDValidationError) ErrorName() string { return "AccountIDValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AccountIDValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAccountID.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AccountIDValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AccountIDValidationError{}
-
-// Validate checks the field values on Account with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
-func (m *Account) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Id
-
-	// no validation rules for Login
-
-	// no validation rules for Nick
-
-	// no validation rules for Email
-
-	return nil
-}
-
-// AccountValidationError is the validation error returned by Account.Validate
-// if the designated constraints aren't met.
-type AccountValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AccountValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AccountValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AccountValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AccountValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AccountValidationError) ErrorName() string { return "AccountValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AccountValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAccount.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AccountValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AccountValidationError{}
-
 // Validate checks the field values on RegisterAccountRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -182,17 +44,11 @@ func (m *RegisterAccountRequest) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetAccount()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RegisterAccountRequestValidationError{
-				field:  "Account",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Login
 
 	// no validation rules for Password
+
+	// no validation rules for Email
 
 	return nil
 }
@@ -462,27 +318,222 @@ var _ interface {
 	ErrorName() string
 } = LogInResponseValidationError{}
 
+// Validate checks the field values on GetAccountRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *GetAccountRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Login
+
+	return nil
+}
+
+// GetAccountRequestValidationError is the validation error returned by
+// GetAccountRequest.Validate if the designated constraints aren't met.
+type GetAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAccountRequestValidationError) ErrorName() string {
+	return "GetAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAccountRequestValidationError{}
+
+// Validate checks the field values on GetAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetAccountResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Login
+
+	// no validation rules for Email
+
+	return nil
+}
+
+// GetAccountResponseValidationError is the validation error returned by
+// GetAccountResponse.Validate if the designated constraints aren't met.
+type GetAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAccountResponseValidationError) ErrorName() string {
+	return "GetAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAccountResponseValidationError{}
+
+// Validate checks the field values on GetAccountCharactersRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetAccountCharactersRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Login
+
+	return nil
+}
+
+// GetAccountCharactersRequestValidationError is the validation error returned
+// by GetAccountCharactersRequest.Validate if the designated constraints
+// aren't met.
+type GetAccountCharactersRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetAccountCharactersRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetAccountCharactersRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetAccountCharactersRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetAccountCharactersRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetAccountCharactersRequestValidationError) ErrorName() string {
+	return "GetAccountCharactersRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetAccountCharactersRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetAccountCharactersRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetAccountCharactersRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetAccountCharactersRequestValidationError{}
+
 // Validate checks the field values on GetAccountCharactersResponse with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
 func (m *GetAccountCharactersResponse) Validate() error {
 	if m == nil {
 		return nil
-	}
-
-	for idx, item := range m.GetCharacters() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetAccountCharactersResponseValidationError{
-					field:  fmt.Sprintf("Characters[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	return nil
@@ -545,10 +596,10 @@ var _ interface {
 	ErrorName() string
 } = GetAccountCharactersResponseValidationError{}
 
-// Validate checks the field values on IsAccountExistsRequest with the rules
+// Validate checks the field values on IsAccountExistRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *IsAccountExistsRequest) Validate() error {
+func (m *IsAccountExistRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -558,9 +609,9 @@ func (m *IsAccountExistsRequest) Validate() error {
 	return nil
 }
 
-// IsAccountExistsRequestValidationError is the validation error returned by
-// IsAccountExistsRequest.Validate if the designated constraints aren't met.
-type IsAccountExistsRequestValidationError struct {
+// IsAccountExistRequestValidationError is the validation error returned by
+// IsAccountExistRequest.Validate if the designated constraints aren't met.
+type IsAccountExistRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -568,24 +619,24 @@ type IsAccountExistsRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e IsAccountExistsRequestValidationError) Field() string { return e.field }
+func (e IsAccountExistRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e IsAccountExistsRequestValidationError) Reason() string { return e.reason }
+func (e IsAccountExistRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e IsAccountExistsRequestValidationError) Cause() error { return e.cause }
+func (e IsAccountExistRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e IsAccountExistsRequestValidationError) Key() bool { return e.key }
+func (e IsAccountExistRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e IsAccountExistsRequestValidationError) ErrorName() string {
-	return "IsAccountExistsRequestValidationError"
+func (e IsAccountExistRequestValidationError) ErrorName() string {
+	return "IsAccountExistRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e IsAccountExistsRequestValidationError) Error() string {
+func (e IsAccountExistRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -597,14 +648,14 @@ func (e IsAccountExistsRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sIsAccountExistsRequest.%s: %s%s",
+		"invalid %sIsAccountExistRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = IsAccountExistsRequestValidationError{}
+var _ error = IsAccountExistRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -612,12 +663,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = IsAccountExistsRequestValidationError{}
+} = IsAccountExistRequestValidationError{}
 
-// Validate checks the field values on IsAccountExistsResponse with the rules
+// Validate checks the field values on IsAccountExistResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *IsAccountExistsResponse) Validate() error {
+func (m *IsAccountExistResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -629,9 +680,9 @@ func (m *IsAccountExistsResponse) Validate() error {
 	return nil
 }
 
-// IsAccountExistsResponseValidationError is the validation error returned by
-// IsAccountExistsResponse.Validate if the designated constraints aren't met.
-type IsAccountExistsResponseValidationError struct {
+// IsAccountExistResponseValidationError is the validation error returned by
+// IsAccountExistResponse.Validate if the designated constraints aren't met.
+type IsAccountExistResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -639,24 +690,24 @@ type IsAccountExistsResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e IsAccountExistsResponseValidationError) Field() string { return e.field }
+func (e IsAccountExistResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e IsAccountExistsResponseValidationError) Reason() string { return e.reason }
+func (e IsAccountExistResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e IsAccountExistsResponseValidationError) Cause() error { return e.cause }
+func (e IsAccountExistResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e IsAccountExistsResponseValidationError) Key() bool { return e.key }
+func (e IsAccountExistResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e IsAccountExistsResponseValidationError) ErrorName() string {
-	return "IsAccountExistsResponseValidationError"
+func (e IsAccountExistResponseValidationError) ErrorName() string {
+	return "IsAccountExistResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e IsAccountExistsResponseValidationError) Error() string {
+func (e IsAccountExistResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -668,14 +719,14 @@ func (e IsAccountExistsResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sIsAccountExistsResponse.%s: %s%s",
+		"invalid %sIsAccountExistResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = IsAccountExistsResponseValidationError{}
+var _ error = IsAccountExistResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -683,4 +734,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = IsAccountExistsResponseValidationError{}
+} = IsAccountExistResponseValidationError{}

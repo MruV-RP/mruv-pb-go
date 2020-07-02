@@ -6,7 +6,6 @@ package accounts
 import (
 	context "context"
 	fmt "fmt"
-	characters "github.com/MruV-RP/mruv-pb-go/characters"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
@@ -26,111 +25,11 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type AccountID struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AccountID) Reset()         { *m = AccountID{} }
-func (m *AccountID) String() string { return proto.CompactTextString(m) }
-func (*AccountID) ProtoMessage()    {}
-func (*AccountID) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{0}
-}
-
-func (m *AccountID) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AccountID.Unmarshal(m, b)
-}
-func (m *AccountID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AccountID.Marshal(b, m, deterministic)
-}
-func (m *AccountID) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AccountID.Merge(m, src)
-}
-func (m *AccountID) XXX_Size() int {
-	return xxx_messageInfo_AccountID.Size(m)
-}
-func (m *AccountID) XXX_DiscardUnknown() {
-	xxx_messageInfo_AccountID.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AccountID proto.InternalMessageInfo
-
-func (m *AccountID) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-type Account struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Login                string   `protobuf:"bytes,2,opt,name=login,proto3" json:"login,omitempty"`
-	Nick                 string   `protobuf:"bytes,3,opt,name=nick,proto3" json:"nick,omitempty"`
-	Email                string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Account) Reset()         { *m = Account{} }
-func (m *Account) String() string { return proto.CompactTextString(m) }
-func (*Account) ProtoMessage()    {}
-func (*Account) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{1}
-}
-
-func (m *Account) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Account.Unmarshal(m, b)
-}
-func (m *Account) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Account.Marshal(b, m, deterministic)
-}
-func (m *Account) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Account.Merge(m, src)
-}
-func (m *Account) XXX_Size() int {
-	return xxx_messageInfo_Account.Size(m)
-}
-func (m *Account) XXX_DiscardUnknown() {
-	xxx_messageInfo_Account.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Account proto.InternalMessageInfo
-
-func (m *Account) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-func (m *Account) GetLogin() string {
-	if m != nil {
-		return m.Login
-	}
-	return ""
-}
-
-func (m *Account) GetNick() string {
-	if m != nil {
-		return m.Nick
-	}
-	return ""
-}
-
-func (m *Account) GetEmail() string {
-	if m != nil {
-		return m.Email
-	}
-	return ""
-}
-
+// Request message for rpc `RegisterAccount`.
 type RegisterAccountRequest struct {
-	Account              *Account `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
 	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Email                string   `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -140,7 +39,7 @@ func (m *RegisterAccountRequest) Reset()         { *m = RegisterAccountRequest{}
 func (m *RegisterAccountRequest) String() string { return proto.CompactTextString(m) }
 func (*RegisterAccountRequest) ProtoMessage()    {}
 func (*RegisterAccountRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{2}
+	return fileDescriptor_5da251b36fd5e693, []int{0}
 }
 
 func (m *RegisterAccountRequest) XXX_Unmarshal(b []byte) error {
@@ -161,11 +60,11 @@ func (m *RegisterAccountRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RegisterAccountRequest proto.InternalMessageInfo
 
-func (m *RegisterAccountRequest) GetAccount() *Account {
+func (m *RegisterAccountRequest) GetLogin() string {
 	if m != nil {
-		return m.Account
+		return m.Login
 	}
-	return nil
+	return ""
 }
 
 func (m *RegisterAccountRequest) GetPassword() string {
@@ -175,6 +74,14 @@ func (m *RegisterAccountRequest) GetPassword() string {
 	return ""
 }
 
+func (m *RegisterAccountRequest) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+// Response message for rpc `RegisterAccount`.
 type RegisterAccountResponse struct {
 	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	AccountId            uint32   `protobuf:"varint,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
@@ -187,7 +94,7 @@ func (m *RegisterAccountResponse) Reset()         { *m = RegisterAccountResponse
 func (m *RegisterAccountResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterAccountResponse) ProtoMessage()    {}
 func (*RegisterAccountResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{3}
+	return fileDescriptor_5da251b36fd5e693, []int{1}
 }
 
 func (m *RegisterAccountResponse) XXX_Unmarshal(b []byte) error {
@@ -222,6 +129,7 @@ func (m *RegisterAccountResponse) GetAccountId() uint32 {
 	return 0
 }
 
+// Request message for rpc `LogIn`.
 type LogInRequest struct {
 	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
 	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
@@ -234,7 +142,7 @@ func (m *LogInRequest) Reset()         { *m = LogInRequest{} }
 func (m *LogInRequest) String() string { return proto.CompactTextString(m) }
 func (*LogInRequest) ProtoMessage()    {}
 func (*LogInRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{4}
+	return fileDescriptor_5da251b36fd5e693, []int{2}
 }
 
 func (m *LogInRequest) XXX_Unmarshal(b []byte) error {
@@ -269,6 +177,7 @@ func (m *LogInRequest) GetPassword() string {
 	return ""
 }
 
+// Response message for rpc `LogIn`.
 type LogInResponse struct {
 	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	AccountId            uint32   `protobuf:"varint,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
@@ -281,7 +190,7 @@ func (m *LogInResponse) Reset()         { *m = LogInResponse{} }
 func (m *LogInResponse) String() string { return proto.CompactTextString(m) }
 func (*LogInResponse) ProtoMessage()    {}
 func (*LogInResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{5}
+	return fileDescriptor_5da251b36fd5e693, []int{3}
 }
 
 func (m *LogInResponse) XXX_Unmarshal(b []byte) error {
@@ -316,18 +225,147 @@ func (m *LogInResponse) GetAccountId() uint32 {
 	return 0
 }
 
+// Request message for rpc `GetAccount`.
+type GetAccountRequest struct {
+	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAccountRequest) Reset()         { *m = GetAccountRequest{} }
+func (m *GetAccountRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAccountRequest) ProtoMessage()    {}
+func (*GetAccountRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5da251b36fd5e693, []int{4}
+}
+
+func (m *GetAccountRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAccountRequest.Unmarshal(m, b)
+}
+func (m *GetAccountRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAccountRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAccountRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAccountRequest.Merge(m, src)
+}
+func (m *GetAccountRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAccountRequest.Size(m)
+}
+func (m *GetAccountRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAccountRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAccountRequest proto.InternalMessageInfo
+
+func (m *GetAccountRequest) GetLogin() string {
+	if m != nil {
+		return m.Login
+	}
+	return ""
+}
+
+// Response message for rpc `GetAccount`.
+type GetAccountResponse struct {
+	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAccountResponse) Reset()         { *m = GetAccountResponse{} }
+func (m *GetAccountResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAccountResponse) ProtoMessage()    {}
+func (*GetAccountResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5da251b36fd5e693, []int{5}
+}
+
+func (m *GetAccountResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAccountResponse.Unmarshal(m, b)
+}
+func (m *GetAccountResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAccountResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAccountResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAccountResponse.Merge(m, src)
+}
+func (m *GetAccountResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAccountResponse.Size(m)
+}
+func (m *GetAccountResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAccountResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAccountResponse proto.InternalMessageInfo
+
+func (m *GetAccountResponse) GetLogin() string {
+	if m != nil {
+		return m.Login
+	}
+	return ""
+}
+
+func (m *GetAccountResponse) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+// Request message for rpc `GetAccountCharacters`.
+type GetAccountCharactersRequest struct {
+	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAccountCharactersRequest) Reset()         { *m = GetAccountCharactersRequest{} }
+func (m *GetAccountCharactersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAccountCharactersRequest) ProtoMessage()    {}
+func (*GetAccountCharactersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5da251b36fd5e693, []int{6}
+}
+
+func (m *GetAccountCharactersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAccountCharactersRequest.Unmarshal(m, b)
+}
+func (m *GetAccountCharactersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAccountCharactersRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAccountCharactersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAccountCharactersRequest.Merge(m, src)
+}
+func (m *GetAccountCharactersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAccountCharactersRequest.Size(m)
+}
+func (m *GetAccountCharactersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAccountCharactersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAccountCharactersRequest proto.InternalMessageInfo
+
+func (m *GetAccountCharactersRequest) GetLogin() string {
+	if m != nil {
+		return m.Login
+	}
+	return ""
+}
+
+// Response message for rpc `GetAccountCharacters`.
 type GetAccountCharactersResponse struct {
-	Characters           []*characters.Character `protobuf:"bytes,1,rep,name=characters,proto3" json:"characters,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
-	XXX_unrecognized     []byte                  `json:"-"`
-	XXX_sizecache        int32                   `json:"-"`
+	CharacterIds         []uint32 `protobuf:"varint,1,rep,packed,name=character_ids,json=characterIds,proto3" json:"character_ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *GetAccountCharactersResponse) Reset()         { *m = GetAccountCharactersResponse{} }
 func (m *GetAccountCharactersResponse) String() string { return proto.CompactTextString(m) }
 func (*GetAccountCharactersResponse) ProtoMessage()    {}
 func (*GetAccountCharactersResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{6}
+	return fileDescriptor_5da251b36fd5e693, []int{7}
 }
 
 func (m *GetAccountCharactersResponse) XXX_Unmarshal(b []byte) error {
@@ -348,55 +386,55 @@ func (m *GetAccountCharactersResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetAccountCharactersResponse proto.InternalMessageInfo
 
-func (m *GetAccountCharactersResponse) GetCharacters() []*characters.Character {
+func (m *GetAccountCharactersResponse) GetCharacterIds() []uint32 {
 	if m != nil {
-		return m.Characters
+		return m.CharacterIds
 	}
 	return nil
 }
 
-// Request message for rpc `IsAccountExists`.
-type IsAccountExistsRequest struct {
+// Request message for rpc `IsAccountExist`.
+type IsAccountExistRequest struct {
 	Login                string   `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *IsAccountExistsRequest) Reset()         { *m = IsAccountExistsRequest{} }
-func (m *IsAccountExistsRequest) String() string { return proto.CompactTextString(m) }
-func (*IsAccountExistsRequest) ProtoMessage()    {}
-func (*IsAccountExistsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{7}
+func (m *IsAccountExistRequest) Reset()         { *m = IsAccountExistRequest{} }
+func (m *IsAccountExistRequest) String() string { return proto.CompactTextString(m) }
+func (*IsAccountExistRequest) ProtoMessage()    {}
+func (*IsAccountExistRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5da251b36fd5e693, []int{8}
 }
 
-func (m *IsAccountExistsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IsAccountExistsRequest.Unmarshal(m, b)
+func (m *IsAccountExistRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsAccountExistRequest.Unmarshal(m, b)
 }
-func (m *IsAccountExistsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IsAccountExistsRequest.Marshal(b, m, deterministic)
+func (m *IsAccountExistRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsAccountExistRequest.Marshal(b, m, deterministic)
 }
-func (m *IsAccountExistsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IsAccountExistsRequest.Merge(m, src)
+func (m *IsAccountExistRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsAccountExistRequest.Merge(m, src)
 }
-func (m *IsAccountExistsRequest) XXX_Size() int {
-	return xxx_messageInfo_IsAccountExistsRequest.Size(m)
+func (m *IsAccountExistRequest) XXX_Size() int {
+	return xxx_messageInfo_IsAccountExistRequest.Size(m)
 }
-func (m *IsAccountExistsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_IsAccountExistsRequest.DiscardUnknown(m)
+func (m *IsAccountExistRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsAccountExistRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_IsAccountExistsRequest proto.InternalMessageInfo
+var xxx_messageInfo_IsAccountExistRequest proto.InternalMessageInfo
 
-func (m *IsAccountExistsRequest) GetLogin() string {
+func (m *IsAccountExistRequest) GetLogin() string {
 	if m != nil {
 		return m.Login
 	}
 	return ""
 }
 
-// Response message for rpc `IsAccountExists`.
-type IsAccountExistsResponse struct {
+// Response message for rpc `IsAccountExist`.
+type IsAccountExistResponse struct {
 	Exists               bool     `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
 	Id                   uint32   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -404,39 +442,39 @@ type IsAccountExistsResponse struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *IsAccountExistsResponse) Reset()         { *m = IsAccountExistsResponse{} }
-func (m *IsAccountExistsResponse) String() string { return proto.CompactTextString(m) }
-func (*IsAccountExistsResponse) ProtoMessage()    {}
-func (*IsAccountExistsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5da251b36fd5e693, []int{8}
+func (m *IsAccountExistResponse) Reset()         { *m = IsAccountExistResponse{} }
+func (m *IsAccountExistResponse) String() string { return proto.CompactTextString(m) }
+func (*IsAccountExistResponse) ProtoMessage()    {}
+func (*IsAccountExistResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5da251b36fd5e693, []int{9}
 }
 
-func (m *IsAccountExistsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IsAccountExistsResponse.Unmarshal(m, b)
+func (m *IsAccountExistResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsAccountExistResponse.Unmarshal(m, b)
 }
-func (m *IsAccountExistsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IsAccountExistsResponse.Marshal(b, m, deterministic)
+func (m *IsAccountExistResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsAccountExistResponse.Marshal(b, m, deterministic)
 }
-func (m *IsAccountExistsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IsAccountExistsResponse.Merge(m, src)
+func (m *IsAccountExistResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsAccountExistResponse.Merge(m, src)
 }
-func (m *IsAccountExistsResponse) XXX_Size() int {
-	return xxx_messageInfo_IsAccountExistsResponse.Size(m)
+func (m *IsAccountExistResponse) XXX_Size() int {
+	return xxx_messageInfo_IsAccountExistResponse.Size(m)
 }
-func (m *IsAccountExistsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_IsAccountExistsResponse.DiscardUnknown(m)
+func (m *IsAccountExistResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsAccountExistResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_IsAccountExistsResponse proto.InternalMessageInfo
+var xxx_messageInfo_IsAccountExistResponse proto.InternalMessageInfo
 
-func (m *IsAccountExistsResponse) GetExists() bool {
+func (m *IsAccountExistResponse) GetExists() bool {
 	if m != nil {
 		return m.Exists
 	}
 	return false
 }
 
-func (m *IsAccountExistsResponse) GetId() uint32 {
+func (m *IsAccountExistResponse) GetId() uint32 {
 	if m != nil {
 		return m.Id
 	}
@@ -444,53 +482,54 @@ func (m *IsAccountExistsResponse) GetId() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*AccountID)(nil), "mruv.AccountID")
-	proto.RegisterType((*Account)(nil), "mruv.Account")
 	proto.RegisterType((*RegisterAccountRequest)(nil), "mruv.RegisterAccountRequest")
 	proto.RegisterType((*RegisterAccountResponse)(nil), "mruv.RegisterAccountResponse")
 	proto.RegisterType((*LogInRequest)(nil), "mruv.LogInRequest")
 	proto.RegisterType((*LogInResponse)(nil), "mruv.LogInResponse")
+	proto.RegisterType((*GetAccountRequest)(nil), "mruv.GetAccountRequest")
+	proto.RegisterType((*GetAccountResponse)(nil), "mruv.GetAccountResponse")
+	proto.RegisterType((*GetAccountCharactersRequest)(nil), "mruv.GetAccountCharactersRequest")
 	proto.RegisterType((*GetAccountCharactersResponse)(nil), "mruv.GetAccountCharactersResponse")
-	proto.RegisterType((*IsAccountExistsRequest)(nil), "mruv.IsAccountExistsRequest")
-	proto.RegisterType((*IsAccountExistsResponse)(nil), "mruv.IsAccountExistsResponse")
+	proto.RegisterType((*IsAccountExistRequest)(nil), "mruv.IsAccountExistRequest")
+	proto.RegisterType((*IsAccountExistResponse)(nil), "mruv.IsAccountExistResponse")
 }
 
 func init() { proto.RegisterFile("accounts/accounts.proto", fileDescriptor_5da251b36fd5e693) }
 
 var fileDescriptor_5da251b36fd5e693 = []byte{
-	// 512 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0x96, 0x9d, 0xb4, 0x69, 0xa6, 0x84, 0x48, 0xdb, 0x2a, 0xb1, 0xdc, 0x54, 0x04, 0x1f, 0x68,
-	0x0e, 0xc4, 0x0b, 0xe1, 0x05, 0x28, 0x14, 0x81, 0xc5, 0xaf, 0x8c, 0x84, 0x04, 0x12, 0x42, 0x8e,
-	0xbd, 0x72, 0x57, 0x24, 0x5e, 0xe3, 0x5d, 0xa7, 0x48, 0x88, 0x0b, 0x57, 0x8e, 0x3c, 0x1a, 0xaf,
-	0xc0, 0x83, 0xa0, 0x78, 0xc7, 0xce, 0x6f, 0x73, 0xe9, 0x6d, 0x67, 0xe6, 0xdb, 0x6f, 0xbf, 0xf9,
-	0x66, 0x6c, 0xe8, 0x06, 0x61, 0x28, 0xf2, 0x44, 0x49, 0x5a, 0x1e, 0xdc, 0x34, 0x13, 0x4a, 0x90,
-	0xfa, 0x34, 0xcb, 0x67, 0x76, 0x2f, 0x16, 0x22, 0x9e, 0x30, 0x1a, 0xa4, 0x9c, 0x06, 0x49, 0x22,
-	0x54, 0xa0, 0xb8, 0x48, 0x10, 0x63, 0x9f, 0x84, 0x97, 0x41, 0x16, 0x84, 0x8a, 0x65, 0x92, 0x2e,
-	0x8e, 0xba, 0xe8, 0x9c, 0x40, 0xf3, 0x5c, 0x53, 0x7a, 0x17, 0xe4, 0x36, 0x98, 0x3c, 0xb2, 0x8c,
-	0xbe, 0x31, 0x68, 0xf9, 0x26, 0x8f, 0x9c, 0x8f, 0xd0, 0xc0, 0xe2, 0x7a, 0x89, 0x1c, 0xc3, 0xde,
-	0x44, 0xc4, 0x3c, 0xb1, 0xcc, 0xbe, 0x31, 0x68, 0xfa, 0x3a, 0x20, 0x04, 0xea, 0x09, 0x0f, 0xbf,
-	0x5a, 0xb5, 0x22, 0x59, 0x9c, 0xe7, 0x48, 0x36, 0x0d, 0xf8, 0xc4, 0xaa, 0x6b, 0x64, 0x11, 0x38,
-	0x9f, 0xa1, 0xe3, 0xb3, 0x98, 0x4b, 0xc5, 0x32, 0x7c, 0xc2, 0x67, 0xdf, 0x72, 0x26, 0x15, 0x39,
-	0x83, 0x06, 0x36, 0x59, 0x3c, 0x77, 0x38, 0x6a, 0xb9, 0xf3, 0x26, 0xdd, 0x12, 0x56, 0x56, 0x89,
-	0x0d, 0x07, 0x69, 0x20, 0xe5, 0x95, 0xc8, 0x22, 0x54, 0x51, 0xc5, 0x8e, 0x0f, 0xdd, 0x0d, 0x7a,
-	0x99, 0x8a, 0x44, 0x32, 0x62, 0x41, 0x43, 0xe6, 0x61, 0xc8, 0xa4, 0x2c, 0xf8, 0x0f, 0xfc, 0x32,
-	0x24, 0xa7, 0x00, 0xc8, 0xfd, 0x85, 0x6b, 0xca, 0x96, 0xdf, 0xc4, 0x8c, 0x17, 0x39, 0x8f, 0xe1,
-	0xd6, 0x2b, 0x11, 0x7b, 0x49, 0x29, 0xb4, 0xb2, 0xc0, 0x58, 0xb6, 0x60, 0x97, 0xaa, 0x17, 0xd0,
-	0x42, 0x86, 0x9b, 0x6a, 0x79, 0x0b, 0xbd, 0xe7, 0x4c, 0x61, 0x6b, 0x4f, 0xab, 0xa1, 0x56, 0xc4,
-	0x14, 0x60, 0x31, 0x6a, 0xcb, 0xe8, 0xd7, 0x06, 0x87, 0xa3, 0xb6, 0xf6, 0xb1, 0x42, 0xfb, 0x4b,
-	0x10, 0xc7, 0x85, 0x8e, 0x27, 0x91, 0xef, 0xd9, 0x77, 0x2e, 0x95, 0xdc, 0xd9, 0xa6, 0x73, 0x0e,
-	0xdd, 0x0d, 0x3c, 0xbe, 0xdd, 0x81, 0x7d, 0x56, 0x64, 0xb0, 0x27, 0x8c, 0x70, 0x85, 0xcc, 0x72,
-	0x85, 0x46, 0xbf, 0x6b, 0x70, 0xf4, 0x3a, 0xcb, 0x3f, 0x20, 0x8b, 0x7c, 0xcf, 0xb2, 0x19, 0x0f,
-	0x19, 0x79, 0x03, 0xed, 0xb5, 0xd9, 0x91, 0x9e, 0x96, 0xbe, 0x7d, 0x63, 0xec, 0xd3, 0x6b, 0xaa,
-	0xa8, 0xe7, 0x01, 0xec, 0x15, 0xae, 0x13, 0xa2, 0x71, 0xcb, 0x43, 0xb4, 0x8f, 0x56, 0x72, 0x78,
-	0xe3, 0x0a, 0xda, 0x6b, 0xcd, 0x95, 0x0a, 0xb6, 0x7b, 0x54, 0x2a, 0xb8, 0xc6, 0x11, 0xe7, 0xec,
-	0xd7, 0xdf, 0x7f, 0x7f, 0xcc, 0xbb, 0xe4, 0x0e, 0x9d, 0x3d, 0xac, 0xbe, 0x60, 0xfa, 0xa3, 0x70,
-	0xf2, 0x27, 0xcd, 0x50, 0x37, 0x8b, 0xc8, 0x7d, 0x80, 0xc5, 0x58, 0x49, 0x7b, 0x65, 0xf1, 0xbd,
-	0x0b, 0x7b, 0xf5, 0x4b, 0x20, 0x2f, 0xe1, 0x78, 0xdb, 0x12, 0x6c, 0xde, 0x73, 0x74, 0x62, 0xd7,
-	0xc6, 0x3c, 0x19, 0x7c, 0xba, 0x17, 0x73, 0x75, 0x99, 0x8f, 0xdd, 0x50, 0x4c, 0xe9, 0x7c, 0x2e,
-	0x43, 0xff, 0x1d, 0x9d, 0xdf, 0x1b, 0xa6, 0xe3, 0x61, 0x2c, 0x2a, 0xdd, 0xe3, 0xfd, 0xe2, 0xcf,
-	0xf1, 0xe8, 0x7f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x1d, 0xc3, 0x29, 0xe0, 0x95, 0x04, 0x00, 0x00,
+	// 511 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0x5b, 0x6e, 0xd3, 0x40,
+	0x14, 0x55, 0xdc, 0x07, 0xed, 0x55, 0x53, 0xc4, 0x6d, 0x9a, 0x58, 0xae, 0x23, 0xe8, 0x20, 0x41,
+	0xf8, 0x48, 0x2c, 0xe8, 0x06, 0x0a, 0x15, 0x82, 0x48, 0x45, 0x42, 0x46, 0xe2, 0x03, 0x09, 0x15,
+	0xc7, 0x1e, 0xb9, 0x23, 0x25, 0x1e, 0x33, 0x33, 0x0e, 0x48, 0x88, 0x1f, 0x3e, 0xd8, 0x00, 0x1b,
+	0x61, 0x2f, 0x6c, 0x81, 0x85, 0x20, 0xcf, 0x4c, 0xdc, 0x3c, 0x4c, 0x89, 0xe8, 0x9f, 0xef, 0xeb,
+	0x9c, 0x7b, 0x8f, 0x8f, 0x0d, 0x9d, 0x28, 0x8e, 0x79, 0x91, 0x29, 0x19, 0xcc, 0x1e, 0x06, 0xb9,
+	0xe0, 0x8a, 0xe3, 0xe6, 0x44, 0x14, 0x53, 0xcf, 0x4f, 0x39, 0x4f, 0xc7, 0x34, 0x88, 0x72, 0x16,
+	0x44, 0x59, 0xc6, 0x55, 0xa4, 0x18, 0xcf, 0x6c, 0x0f, 0xf9, 0x00, 0xed, 0x90, 0xa6, 0x4c, 0x2a,
+	0x2a, 0x9e, 0x9a, 0xe9, 0x90, 0x7e, 0x2c, 0xa8, 0x54, 0xd8, 0x82, 0xad, 0x31, 0x4f, 0x59, 0xe6,
+	0x36, 0xee, 0x35, 0x7a, 0xbb, 0xa1, 0x09, 0xd0, 0x83, 0x9d, 0x3c, 0x92, 0xf2, 0x13, 0x17, 0x89,
+	0xeb, 0xe8, 0x42, 0x15, 0x97, 0x13, 0x74, 0x12, 0xb1, 0xb1, 0xbb, 0x61, 0x26, 0x74, 0x40, 0x42,
+	0xe8, 0xac, 0x30, 0xc8, 0x9c, 0x67, 0x92, 0xa2, 0x0b, 0xb7, 0x64, 0x11, 0xc7, 0x54, 0x4a, 0x4d,
+	0xb2, 0x13, 0xce, 0x42, 0xec, 0x02, 0xd8, 0x63, 0x2e, 0x98, 0x21, 0x6a, 0x86, 0xbb, 0x36, 0x33,
+	0x4c, 0xc8, 0x29, 0xec, 0x9d, 0xf3, 0x74, 0x98, 0xfd, 0xf7, 0xae, 0xe4, 0x25, 0x34, 0x2d, 0xc2,
+	0x4d, 0x77, 0x79, 0x04, 0x77, 0x5e, 0x50, 0xb5, 0x8e, 0x78, 0xe4, 0x14, 0x70, 0xbe, 0xd5, 0x32,
+	0xd7, 0x2f, 0x5f, 0x89, 0xe9, 0xcc, 0x8b, 0x79, 0x02, 0x47, 0x57, 0x08, 0x67, 0x97, 0x91, 0x88,
+	0x62, 0x45, 0x85, 0xbc, 0x9e, 0xf6, 0x0c, 0xfc, 0xfa, 0x21, 0xbb, 0xc0, 0x7d, 0x68, 0xc6, 0xb3,
+	0xec, 0x05, 0x4b, 0x4a, 0x01, 0x36, 0x7a, 0xcd, 0x70, 0xaf, 0x4a, 0x0e, 0x13, 0x49, 0xfa, 0x70,
+	0x38, 0x94, 0x16, 0xe3, 0xf9, 0x67, 0x26, 0xff, 0x79, 0x6a, 0x7b, 0xb9, 0xdd, 0xb2, 0xb5, 0x61,
+	0x9b, 0x96, 0x89, 0x99, 0xce, 0x36, 0xc2, 0x7d, 0x70, 0x2a, 0x79, 0x1d, 0x96, 0x3c, 0xf9, 0xb9,
+	0x09, 0x07, 0xaf, 0x44, 0xf1, 0xd6, 0x82, 0xc8, 0x37, 0x54, 0x4c, 0x59, 0x4c, 0x71, 0x02, 0xb7,
+	0x97, 0xfc, 0x84, 0xfe, 0xa0, 0x74, 0xfa, 0xa0, 0xde, 0xc8, 0x5e, 0xf7, 0x2f, 0x55, 0xb3, 0x0f,
+	0xe9, 0x7e, 0xfb, 0xf5, 0xfb, 0x87, 0xd3, 0x21, 0x87, 0xc1, 0xf4, 0x71, 0xf5, 0x05, 0x05, 0xc2,
+	0x76, 0xe3, 0x39, 0x6c, 0x69, 0xa3, 0x20, 0x1a, 0x98, 0x79, 0xdf, 0x79, 0x07, 0x0b, 0x39, 0x0b,
+	0xe8, 0x69, 0xc0, 0x16, 0xc1, 0x05, 0x40, 0xf3, 0x56, 0x15, 0xec, 0x2f, 0xca, 0x82, 0x47, 0x06,
+	0xa2, 0x56, 0x5b, 0xcf, 0xaf, 0x2f, 0x5a, 0xa2, 0x87, 0x9a, 0xe8, 0x18, 0xef, 0x2e, 0x10, 0x7d,
+	0xd1, 0x4c, 0x5f, 0xab, 0x0b, 0x68, 0x82, 0xef, 0x01, 0xae, 0x0c, 0x80, 0x1d, 0x03, 0xba, 0x62,
+	0x5a, 0xcf, 0x5d, 0x2d, 0x58, 0x26, 0x5f, 0x33, 0xb5, 0xb1, 0x55, 0xc7, 0x84, 0xdf, 0x1b, 0xd0,
+	0xaa, 0x33, 0x18, 0x1e, 0x2f, 0x03, 0xae, 0x38, 0xd6, 0x23, 0xd7, 0xb5, 0xac, 0x75, 0x67, 0xe5,
+	0x52, 0xf9, 0xac, 0xf7, 0xee, 0x41, 0xca, 0xd4, 0x65, 0x31, 0x1a, 0xc4, 0x7c, 0x12, 0x94, 0xe6,
+	0xe9, 0x87, 0xaf, 0x83, 0x92, 0xa0, 0x9f, 0x8f, 0xfa, 0x29, 0xaf, 0x86, 0x47, 0xdb, 0xfa, 0xef,
+	0x77, 0xf2, 0x27, 0x00, 0x00, 0xff, 0xff, 0xea, 0x8c, 0x75, 0x75, 0x3c, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -505,12 +544,16 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVAccountsServiceClient interface {
+	// Register a new account.
 	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
+	// Sign into an existing account.
 	LogIn(ctx context.Context, in *LogInRequest, opts ...grpc.CallOption) (*LogInResponse, error)
-	// Check, is account with specified login exists. If yes, it returns account id.
-	IsAccountExists(ctx context.Context, in *IsAccountExistsRequest, opts ...grpc.CallOption) (*IsAccountExistsResponse, error)
-	GetAccount(ctx context.Context, in *AccountID, opts ...grpc.CallOption) (*Account, error)
-	GetAccountCharacters(ctx context.Context, in *AccountID, opts ...grpc.CallOption) (*GetAccountCharactersResponse, error)
+	// Check, is account with specified login exist. If yes, it returns account id.
+	IsAccountExist(ctx context.Context, in *IsAccountExistRequest, opts ...grpc.CallOption) (*IsAccountExistResponse, error)
+	// Get an account.
+	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
+	// Get an account characters.
+	GetAccountCharacters(ctx context.Context, in *GetAccountCharactersRequest, opts ...grpc.CallOption) (*GetAccountCharactersResponse, error)
 }
 
 type mruVAccountsServiceClient struct {
@@ -539,17 +582,17 @@ func (c *mruVAccountsServiceClient) LogIn(ctx context.Context, in *LogInRequest,
 	return out, nil
 }
 
-func (c *mruVAccountsServiceClient) IsAccountExists(ctx context.Context, in *IsAccountExistsRequest, opts ...grpc.CallOption) (*IsAccountExistsResponse, error) {
-	out := new(IsAccountExistsResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVAccountsService/IsAccountExists", in, out, opts...)
+func (c *mruVAccountsServiceClient) IsAccountExist(ctx context.Context, in *IsAccountExistRequest, opts ...grpc.CallOption) (*IsAccountExistResponse, error) {
+	out := new(IsAccountExistResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVAccountsService/IsAccountExist", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVAccountsServiceClient) GetAccount(ctx context.Context, in *AccountID, opts ...grpc.CallOption) (*Account, error) {
-	out := new(Account)
+func (c *mruVAccountsServiceClient) GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error) {
+	out := new(GetAccountResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVAccountsService/GetAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -557,7 +600,7 @@ func (c *mruVAccountsServiceClient) GetAccount(ctx context.Context, in *AccountI
 	return out, nil
 }
 
-func (c *mruVAccountsServiceClient) GetAccountCharacters(ctx context.Context, in *AccountID, opts ...grpc.CallOption) (*GetAccountCharactersResponse, error) {
+func (c *mruVAccountsServiceClient) GetAccountCharacters(ctx context.Context, in *GetAccountCharactersRequest, opts ...grpc.CallOption) (*GetAccountCharactersResponse, error) {
 	out := new(GetAccountCharactersResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVAccountsService/GetAccountCharacters", in, out, opts...)
 	if err != nil {
@@ -568,12 +611,16 @@ func (c *mruVAccountsServiceClient) GetAccountCharacters(ctx context.Context, in
 
 // MruVAccountsServiceServer is the server API for MruVAccountsService service.
 type MruVAccountsServiceServer interface {
+	// Register a new account.
 	RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
+	// Sign into an existing account.
 	LogIn(context.Context, *LogInRequest) (*LogInResponse, error)
-	// Check, is account with specified login exists. If yes, it returns account id.
-	IsAccountExists(context.Context, *IsAccountExistsRequest) (*IsAccountExistsResponse, error)
-	GetAccount(context.Context, *AccountID) (*Account, error)
-	GetAccountCharacters(context.Context, *AccountID) (*GetAccountCharactersResponse, error)
+	// Check, is account with specified login exist. If yes, it returns account id.
+	IsAccountExist(context.Context, *IsAccountExistRequest) (*IsAccountExistResponse, error)
+	// Get an account.
+	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
+	// Get an account characters.
+	GetAccountCharacters(context.Context, *GetAccountCharactersRequest) (*GetAccountCharactersResponse, error)
 }
 
 // UnimplementedMruVAccountsServiceServer can be embedded to have forward compatible implementations.
@@ -586,13 +633,13 @@ func (*UnimplementedMruVAccountsServiceServer) RegisterAccount(ctx context.Conte
 func (*UnimplementedMruVAccountsServiceServer) LogIn(ctx context.Context, req *LogInRequest) (*LogInResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LogIn not implemented")
 }
-func (*UnimplementedMruVAccountsServiceServer) IsAccountExists(ctx context.Context, req *IsAccountExistsRequest) (*IsAccountExistsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IsAccountExists not implemented")
+func (*UnimplementedMruVAccountsServiceServer) IsAccountExist(ctx context.Context, req *IsAccountExistRequest) (*IsAccountExistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsAccountExist not implemented")
 }
-func (*UnimplementedMruVAccountsServiceServer) GetAccount(ctx context.Context, req *AccountID) (*Account, error) {
+func (*UnimplementedMruVAccountsServiceServer) GetAccount(ctx context.Context, req *GetAccountRequest) (*GetAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
 }
-func (*UnimplementedMruVAccountsServiceServer) GetAccountCharacters(ctx context.Context, req *AccountID) (*GetAccountCharactersResponse, error) {
+func (*UnimplementedMruVAccountsServiceServer) GetAccountCharacters(ctx context.Context, req *GetAccountCharactersRequest) (*GetAccountCharactersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccountCharacters not implemented")
 }
 
@@ -636,26 +683,26 @@ func _MruVAccountsService_LogIn_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVAccountsService_IsAccountExists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsAccountExistsRequest)
+func _MruVAccountsService_IsAccountExist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsAccountExistRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVAccountsServiceServer).IsAccountExists(ctx, in)
+		return srv.(MruVAccountsServiceServer).IsAccountExist(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVAccountsService/IsAccountExists",
+		FullMethod: "/mruv.MruVAccountsService/IsAccountExist",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVAccountsServiceServer).IsAccountExists(ctx, req.(*IsAccountExistsRequest))
+		return srv.(MruVAccountsServiceServer).IsAccountExist(ctx, req.(*IsAccountExistRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVAccountsService_GetAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountID)
+	in := new(GetAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -667,13 +714,13 @@ func _MruVAccountsService_GetAccount_Handler(srv interface{}, ctx context.Contex
 		FullMethod: "/mruv.MruVAccountsService/GetAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVAccountsServiceServer).GetAccount(ctx, req.(*AccountID))
+		return srv.(MruVAccountsServiceServer).GetAccount(ctx, req.(*GetAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVAccountsService_GetAccountCharacters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountID)
+	in := new(GetAccountCharactersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -685,7 +732,7 @@ func _MruVAccountsService_GetAccountCharacters_Handler(srv interface{}, ctx cont
 		FullMethod: "/mruv.MruVAccountsService/GetAccountCharacters",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVAccountsServiceServer).GetAccountCharacters(ctx, req.(*AccountID))
+		return srv.(MruVAccountsServiceServer).GetAccountCharacters(ctx, req.(*GetAccountCharactersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -703,8 +750,8 @@ var _MruVAccountsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVAccountsService_LogIn_Handler,
 		},
 		{
-			MethodName: "IsAccountExists",
-			Handler:    _MruVAccountsService_IsAccountExists_Handler,
+			MethodName: "IsAccountExist",
+			Handler:    _MruVAccountsService_IsAccountExist_Handler,
 		},
 		{
 			MethodName: "GetAccount",
