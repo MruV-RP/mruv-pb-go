@@ -55,15 +55,13 @@ func (m *Character) Validate() error {
 
 	// no validation rules for Sex
 
-	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CharacterValidationError{
-				field:  "Position",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for ClothesId
+
+	// no validation rules for X
+
+	// no validation rules for Y
+
+	// no validation rules for Z
 
 	return nil
 }
@@ -426,15 +424,13 @@ func (m *GetCharacterResponse) Validate() error {
 
 	// no validation rules for Sex
 
-	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetCharacterResponseValidationError{
-				field:  "Position",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for ClothesId
+
+	// no validation rules for X
+
+	// no validation rules for Y
+
+	// no validation rules for Z
 
 	return nil
 }
@@ -766,6 +762,144 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteCharacterResponseValidationError{}
+
+// Validate checks the field values on ChangeClothesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ChangeClothesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for ClothesId
+
+	return nil
+}
+
+// ChangeClothesRequestValidationError is the validation error returned by
+// ChangeClothesRequest.Validate if the designated constraints aren't met.
+type ChangeClothesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChangeClothesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChangeClothesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChangeClothesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChangeClothesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChangeClothesRequestValidationError) ErrorName() string {
+	return "ChangeClothesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChangeClothesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChangeClothesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChangeClothesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChangeClothesRequestValidationError{}
+
+// Validate checks the field values on ChangeClothesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ChangeClothesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// ChangeClothesResponseValidationError is the validation error returned by
+// ChangeClothesResponse.Validate if the designated constraints aren't met.
+type ChangeClothesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChangeClothesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChangeClothesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChangeClothesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChangeClothesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChangeClothesResponseValidationError) ErrorName() string {
+	return "ChangeClothesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChangeClothesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChangeClothesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChangeClothesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChangeClothesResponseValidationError{}
 
 // Validate checks the field values on DeathStreamRequest with the rules
 // defined in the proto definition for this message. If any rules are

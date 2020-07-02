@@ -26,212 +26,381 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type PermissionID struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+// Owner types.
+type OwnerType int32
+
+const (
+	OwnerType_OWNER_TYPE_UNKNOWN   OwnerType = 0
+	OwnerType_OWNER_TYPE_ACCOUNT   OwnerType = 1
+	OwnerType_OWNER_TYPE_CHARACTER OwnerType = 2
+	OwnerType_OWNER_TYPE_GROUP     OwnerType = 3
+)
+
+var OwnerType_name = map[int32]string{
+	0: "OWNER_TYPE_UNKNOWN",
+	1: "OWNER_TYPE_ACCOUNT",
+	2: "OWNER_TYPE_CHARACTER",
+	3: "OWNER_TYPE_GROUP",
 }
 
-func (m *PermissionID) Reset()         { *m = PermissionID{} }
-func (m *PermissionID) String() string { return proto.CompactTextString(m) }
-func (*PermissionID) ProtoMessage()    {}
-func (*PermissionID) Descriptor() ([]byte, []int) {
+var OwnerType_value = map[string]int32{
+	"OWNER_TYPE_UNKNOWN":   0,
+	"OWNER_TYPE_ACCOUNT":   1,
+	"OWNER_TYPE_CHARACTER": 2,
+	"OWNER_TYPE_GROUP":     3,
+}
+
+func (x OwnerType) String() string {
+	return proto.EnumName(OwnerType_name, int32(x))
+}
+
+func (OwnerType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_c041880a4c61bab6, []int{0}
 }
 
-func (m *PermissionID) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PermissionID.Unmarshal(m, b)
-}
-func (m *PermissionID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PermissionID.Marshal(b, m, deterministic)
-}
-func (m *PermissionID) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PermissionID.Merge(m, src)
-}
-func (m *PermissionID) XXX_Size() int {
-	return xxx_messageInfo_PermissionID.Size(m)
-}
-func (m *PermissionID) XXX_DiscardUnknown() {
-	xxx_messageInfo_PermissionID.DiscardUnknown(m)
+// Member type.
+type MemberType int32
+
+const (
+	MemberType_MEMBER_TYPE_UNKNOWN   MemberType = 0
+	MemberType_MEMBER_TYPE_ACCOUNT   MemberType = 1
+	MemberType_MEMBER_TYPE_CHARACTER MemberType = 2
+)
+
+var MemberType_name = map[int32]string{
+	0: "MEMBER_TYPE_UNKNOWN",
+	1: "MEMBER_TYPE_ACCOUNT",
+	2: "MEMBER_TYPE_CHARACTER",
 }
 
-var xxx_messageInfo_PermissionID proto.InternalMessageInfo
-
-func (m *PermissionID) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
+var MemberType_value = map[string]int32{
+	"MEMBER_TYPE_UNKNOWN":   0,
+	"MEMBER_TYPE_ACCOUNT":   1,
+	"MEMBER_TYPE_CHARACTER": 2,
 }
 
-type Permission struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Role                 string   `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+func (x MemberType) String() string {
+	return proto.EnumName(MemberType_name, int32(x))
 }
 
-func (m *Permission) Reset()         { *m = Permission{} }
-func (m *Permission) String() string { return proto.CompactTextString(m) }
-func (*Permission) ProtoMessage()    {}
-func (*Permission) Descriptor() ([]byte, []int) {
+func (MemberType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_c041880a4c61bab6, []int{1}
 }
 
-func (m *Permission) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Permission.Unmarshal(m, b)
-}
-func (m *Permission) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Permission.Marshal(b, m, deterministic)
-}
-func (m *Permission) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Permission.Merge(m, src)
-}
-func (m *Permission) XXX_Size() int {
-	return xxx_messageInfo_Permission.Size(m)
-}
-func (m *Permission) XXX_DiscardUnknown() {
-	xxx_messageInfo_Permission.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Permission proto.InternalMessageInfo
-
-func (m *Permission) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-func (m *Permission) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Permission) GetRole() string {
-	if m != nil {
-		return m.Role
-	}
-	return ""
-}
-
-type GroupID struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+// Request message for rpc `CreateGroup`.
+type CreateGroupRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GroupID) Reset()         { *m = GroupID{} }
-func (m *GroupID) String() string { return proto.CompactTextString(m) }
-func (*GroupID) ProtoMessage()    {}
-func (*GroupID) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{2}
+func (m *CreateGroupRequest) Reset()         { *m = CreateGroupRequest{} }
+func (m *CreateGroupRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateGroupRequest) ProtoMessage()    {}
+func (*CreateGroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{0}
 }
 
-func (m *GroupID) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GroupID.Unmarshal(m, b)
+func (m *CreateGroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateGroupRequest.Unmarshal(m, b)
 }
-func (m *GroupID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GroupID.Marshal(b, m, deterministic)
+func (m *CreateGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateGroupRequest.Marshal(b, m, deterministic)
 }
-func (m *GroupID) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GroupID.Merge(m, src)
+func (m *CreateGroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateGroupRequest.Merge(m, src)
 }
-func (m *GroupID) XXX_Size() int {
-	return xxx_messageInfo_GroupID.Size(m)
+func (m *CreateGroupRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateGroupRequest.Size(m)
 }
-func (m *GroupID) XXX_DiscardUnknown() {
-	xxx_messageInfo_GroupID.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GroupID proto.InternalMessageInfo
-
-func (m *GroupID) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
+func (m *CreateGroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateGroupRequest.DiscardUnknown(m)
 }
 
-type Group struct {
-	Id                   uint32        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string        `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Description          string        `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
-	Permissions          []*Permission `protobuf:"bytes,5,rep,name=permissions,proto3" json:"permissions,omitempty"`
-	Members              []uint32      `protobuf:"varint,6,rep,packed,name=members,proto3" json:"members,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
-}
+var xxx_messageInfo_CreateGroupRequest proto.InternalMessageInfo
 
-func (m *Group) Reset()         { *m = Group{} }
-func (m *Group) String() string { return proto.CompactTextString(m) }
-func (*Group) ProtoMessage()    {}
-func (*Group) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{3}
-}
-
-func (m *Group) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Group.Unmarshal(m, b)
-}
-func (m *Group) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Group.Marshal(b, m, deterministic)
-}
-func (m *Group) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Group.Merge(m, src)
-}
-func (m *Group) XXX_Size() int {
-	return xxx_messageInfo_Group.Size(m)
-}
-func (m *Group) XXX_DiscardUnknown() {
-	xxx_messageInfo_Group.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Group proto.InternalMessageInfo
-
-func (m *Group) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-func (m *Group) GetName() string {
+func (m *CreateGroupRequest) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Group) GetDescription() string {
+// Response message for rpc `CreateGroup`.
+type CreateGroupResponse struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateGroupResponse) Reset()         { *m = CreateGroupResponse{} }
+func (m *CreateGroupResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateGroupResponse) ProtoMessage()    {}
+func (*CreateGroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{1}
+}
+
+func (m *CreateGroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateGroupResponse.Unmarshal(m, b)
+}
+func (m *CreateGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateGroupResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateGroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateGroupResponse.Merge(m, src)
+}
+func (m *CreateGroupResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateGroupResponse.Size(m)
+}
+func (m *CreateGroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateGroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateGroupResponse proto.InternalMessageInfo
+
+func (m *CreateGroupResponse) GetGroupId() uint32 {
 	if m != nil {
-		return m.Description
+		return m.GroupId
+	}
+	return 0
+}
+
+// Request message for rpc `GetGroup`.
+type GetGroupRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetGroupRequest) Reset()         { *m = GetGroupRequest{} }
+func (m *GetGroupRequest) String() string { return proto.CompactTextString(m) }
+func (*GetGroupRequest) ProtoMessage()    {}
+func (*GetGroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{2}
+}
+
+func (m *GetGroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetGroupRequest.Unmarshal(m, b)
+}
+func (m *GetGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetGroupRequest.Marshal(b, m, deterministic)
+}
+func (m *GetGroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetGroupRequest.Merge(m, src)
+}
+func (m *GetGroupRequest) XXX_Size() int {
+	return xxx_messageInfo_GetGroupRequest.Size(m)
+}
+func (m *GetGroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetGroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetGroupRequest proto.InternalMessageInfo
+
+func (m *GetGroupRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `GetGroup`.
+type GetGroupResponse struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetGroupResponse) Reset()         { *m = GetGroupResponse{} }
+func (m *GetGroupResponse) String() string { return proto.CompactTextString(m) }
+func (*GetGroupResponse) ProtoMessage()    {}
+func (*GetGroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{3}
+}
+
+func (m *GetGroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetGroupResponse.Unmarshal(m, b)
+}
+func (m *GetGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetGroupResponse.Marshal(b, m, deterministic)
+}
+func (m *GetGroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetGroupResponse.Merge(m, src)
+}
+func (m *GetGroupResponse) XXX_Size() int {
+	return xxx_messageInfo_GetGroupResponse.Size(m)
+}
+func (m *GetGroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetGroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetGroupResponse proto.InternalMessageInfo
+
+func (m *GetGroupResponse) GetName() string {
+	if m != nil {
+		return m.Name
 	}
 	return ""
 }
 
-func (m *Group) GetPermissions() []*Permission {
-	if m != nil {
-		return m.Permissions
-	}
-	return nil
+// Request message for rpc `UpdateGroup`.
+type UpdateGroupRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Group) GetMembers() []uint32 {
-	if m != nil {
-		return m.Members
-	}
-	return nil
+func (m *UpdateGroupRequest) Reset()         { *m = UpdateGroupRequest{} }
+func (m *UpdateGroupRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateGroupRequest) ProtoMessage()    {}
+func (*UpdateGroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{4}
 }
 
+func (m *UpdateGroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateGroupRequest.Unmarshal(m, b)
+}
+func (m *UpdateGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateGroupRequest.Marshal(b, m, deterministic)
+}
+func (m *UpdateGroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateGroupRequest.Merge(m, src)
+}
+func (m *UpdateGroupRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateGroupRequest.Size(m)
+}
+func (m *UpdateGroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateGroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateGroupRequest proto.InternalMessageInfo
+
+func (m *UpdateGroupRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *UpdateGroupRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+// Response message for rpc `UpdateGroup`.
+type UpdateGroupResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateGroupResponse) Reset()         { *m = UpdateGroupResponse{} }
+func (m *UpdateGroupResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateGroupResponse) ProtoMessage()    {}
+func (*UpdateGroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{5}
+}
+
+func (m *UpdateGroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateGroupResponse.Unmarshal(m, b)
+}
+func (m *UpdateGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateGroupResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateGroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateGroupResponse.Merge(m, src)
+}
+func (m *UpdateGroupResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateGroupResponse.Size(m)
+}
+func (m *UpdateGroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateGroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateGroupResponse proto.InternalMessageInfo
+
+// Request message for rpc `DeleteGroup`.
+type DeleteGroupRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteGroupRequest) Reset()         { *m = DeleteGroupRequest{} }
+func (m *DeleteGroupRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteGroupRequest) ProtoMessage()    {}
+func (*DeleteGroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{6}
+}
+
+func (m *DeleteGroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteGroupRequest.Unmarshal(m, b)
+}
+func (m *DeleteGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteGroupRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteGroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteGroupRequest.Merge(m, src)
+}
+func (m *DeleteGroupRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteGroupRequest.Size(m)
+}
+func (m *DeleteGroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteGroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteGroupRequest proto.InternalMessageInfo
+
+func (m *DeleteGroupRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `DeleteGroup`.
+type DeleteGroupResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteGroupResponse) Reset()         { *m = DeleteGroupResponse{} }
+func (m *DeleteGroupResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteGroupResponse) ProtoMessage()    {}
+func (*DeleteGroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{7}
+}
+
+func (m *DeleteGroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteGroupResponse.Unmarshal(m, b)
+}
+func (m *DeleteGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteGroupResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteGroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteGroupResponse.Merge(m, src)
+}
+func (m *DeleteGroupResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteGroupResponse.Size(m)
+}
+func (m *DeleteGroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteGroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteGroupResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetGroups`.
 type GetGroupsRequest struct {
-	Limit                uint32   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -241,7 +410,7 @@ func (m *GetGroupsRequest) Reset()         { *m = GetGroupsRequest{} }
 func (m *GetGroupsRequest) String() string { return proto.CompactTextString(m) }
 func (*GetGroupsRequest) ProtoMessage()    {}
 func (*GetGroupsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{4}
+	return fileDescriptor_c041880a4c61bab6, []int{8}
 }
 
 func (m *GetGroupsRequest) XXX_Unmarshal(b []byte) error {
@@ -262,25 +431,19 @@ func (m *GetGroupsRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetGroupsRequest proto.InternalMessageInfo
 
-func (m *GetGroupsRequest) GetLimit() uint32 {
-	if m != nil {
-		return m.Limit
-	}
-	return 0
-}
-
+// Response message for rpc `GetGroups`.
 type GetGroupsResponse struct {
-	Groups               []*Group `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Groups               []*GetGroupResponse `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
 func (m *GetGroupsResponse) Reset()         { *m = GetGroupsResponse{} }
 func (m *GetGroupsResponse) String() string { return proto.CompactTextString(m) }
 func (*GetGroupsResponse) ProtoMessage()    {}
 func (*GetGroupsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{5}
+	return fileDescriptor_c041880a4c61bab6, []int{9}
 }
 
 func (m *GetGroupsResponse) XXX_Unmarshal(b []byte) error {
@@ -301,190 +464,1209 @@ func (m *GetGroupsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetGroupsResponse proto.InternalMessageInfo
 
-func (m *GetGroupsResponse) GetGroups() []*Group {
+func (m *GetGroupsResponse) GetGroups() []*GetGroupResponse {
 	if m != nil {
 		return m.Groups
 	}
 	return nil
 }
 
-type AddGroupMemberRequest struct {
+// Request message for rpc `AssignOwner`.
+type AssignOwnerRequest struct {
+	GroupId              uint32    `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OwnerType            OwnerType `protobuf:"varint,3,opt,name=owner_type,json=ownerType,proto3,enum=mruv.OwnerType" json:"owner_type,omitempty"`
+	OwnerId              uint32    `protobuf:"varint,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *AssignOwnerRequest) Reset()         { *m = AssignOwnerRequest{} }
+func (m *AssignOwnerRequest) String() string { return proto.CompactTextString(m) }
+func (*AssignOwnerRequest) ProtoMessage()    {}
+func (*AssignOwnerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{10}
+}
+
+func (m *AssignOwnerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssignOwnerRequest.Unmarshal(m, b)
+}
+func (m *AssignOwnerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssignOwnerRequest.Marshal(b, m, deterministic)
+}
+func (m *AssignOwnerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssignOwnerRequest.Merge(m, src)
+}
+func (m *AssignOwnerRequest) XXX_Size() int {
+	return xxx_messageInfo_AssignOwnerRequest.Size(m)
+}
+func (m *AssignOwnerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssignOwnerRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AssignOwnerRequest proto.InternalMessageInfo
+
+func (m *AssignOwnerRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *AssignOwnerRequest) GetOwnerType() OwnerType {
+	if m != nil {
+		return m.OwnerType
+	}
+	return OwnerType_OWNER_TYPE_UNKNOWN
+}
+
+func (m *AssignOwnerRequest) GetOwnerId() uint32 {
+	if m != nil {
+		return m.OwnerId
+	}
+	return 0
+}
+
+// Response message for rpc `AssignOwner`.
+type AssignOwnerResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AddGroupMemberRequest) Reset()         { *m = AddGroupMemberRequest{} }
-func (m *AddGroupMemberRequest) String() string { return proto.CompactTextString(m) }
-func (*AddGroupMemberRequest) ProtoMessage()    {}
-func (*AddGroupMemberRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{6}
+func (m *AssignOwnerResponse) Reset()         { *m = AssignOwnerResponse{} }
+func (m *AssignOwnerResponse) String() string { return proto.CompactTextString(m) }
+func (*AssignOwnerResponse) ProtoMessage()    {}
+func (*AssignOwnerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{11}
 }
 
-func (m *AddGroupMemberRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddGroupMemberRequest.Unmarshal(m, b)
+func (m *AssignOwnerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssignOwnerResponse.Unmarshal(m, b)
 }
-func (m *AddGroupMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddGroupMemberRequest.Marshal(b, m, deterministic)
+func (m *AssignOwnerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssignOwnerResponse.Marshal(b, m, deterministic)
 }
-func (m *AddGroupMemberRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddGroupMemberRequest.Merge(m, src)
+func (m *AssignOwnerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssignOwnerResponse.Merge(m, src)
 }
-func (m *AddGroupMemberRequest) XXX_Size() int {
-	return xxx_messageInfo_AddGroupMemberRequest.Size(m)
+func (m *AssignOwnerResponse) XXX_Size() int {
+	return xxx_messageInfo_AssignOwnerResponse.Size(m)
 }
-func (m *AddGroupMemberRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddGroupMemberRequest.DiscardUnknown(m)
+func (m *AssignOwnerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssignOwnerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AddGroupMemberRequest proto.InternalMessageInfo
+var xxx_messageInfo_AssignOwnerResponse proto.InternalMessageInfo
 
-type AddGroupMemberResponse struct {
+// Request message for rpc `GetOwner`.
+type GetOwnerRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AddGroupMemberResponse) Reset()         { *m = AddGroupMemberResponse{} }
-func (m *AddGroupMemberResponse) String() string { return proto.CompactTextString(m) }
-func (*AddGroupMemberResponse) ProtoMessage()    {}
-func (*AddGroupMemberResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{7}
+func (m *GetOwnerRequest) Reset()         { *m = GetOwnerRequest{} }
+func (m *GetOwnerRequest) String() string { return proto.CompactTextString(m) }
+func (*GetOwnerRequest) ProtoMessage()    {}
+func (*GetOwnerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{12}
 }
 
-func (m *AddGroupMemberResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddGroupMemberResponse.Unmarshal(m, b)
+func (m *GetOwnerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetOwnerRequest.Unmarshal(m, b)
 }
-func (m *AddGroupMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddGroupMemberResponse.Marshal(b, m, deterministic)
+func (m *GetOwnerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetOwnerRequest.Marshal(b, m, deterministic)
 }
-func (m *AddGroupMemberResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddGroupMemberResponse.Merge(m, src)
+func (m *GetOwnerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetOwnerRequest.Merge(m, src)
 }
-func (m *AddGroupMemberResponse) XXX_Size() int {
-	return xxx_messageInfo_AddGroupMemberResponse.Size(m)
+func (m *GetOwnerRequest) XXX_Size() int {
+	return xxx_messageInfo_GetOwnerRequest.Size(m)
 }
-func (m *AddGroupMemberResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddGroupMemberResponse.DiscardUnknown(m)
+func (m *GetOwnerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetOwnerRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AddGroupMemberResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetOwnerRequest proto.InternalMessageInfo
 
-type RemoveGroupMemberRequest struct {
+func (m *GetOwnerRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `GetOwner`.
+type GetOwnerResponse struct {
+	OwnerId              uint32    `protobuf:"varint,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	OwnerType            OwnerType `protobuf:"varint,2,opt,name=owner_type,json=ownerType,proto3,enum=mruv.OwnerType" json:"owner_type,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *GetOwnerResponse) Reset()         { *m = GetOwnerResponse{} }
+func (m *GetOwnerResponse) String() string { return proto.CompactTextString(m) }
+func (*GetOwnerResponse) ProtoMessage()    {}
+func (*GetOwnerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{13}
+}
+
+func (m *GetOwnerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetOwnerResponse.Unmarshal(m, b)
+}
+func (m *GetOwnerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetOwnerResponse.Marshal(b, m, deterministic)
+}
+func (m *GetOwnerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetOwnerResponse.Merge(m, src)
+}
+func (m *GetOwnerResponse) XXX_Size() int {
+	return xxx_messageInfo_GetOwnerResponse.Size(m)
+}
+func (m *GetOwnerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetOwnerResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetOwnerResponse proto.InternalMessageInfo
+
+func (m *GetOwnerResponse) GetOwnerId() uint32 {
+	if m != nil {
+		return m.OwnerId
+	}
+	return 0
+}
+
+func (m *GetOwnerResponse) GetOwnerType() OwnerType {
+	if m != nil {
+		return m.OwnerType
+	}
+	return OwnerType_OWNER_TYPE_UNKNOWN
+}
+
+// Request message for rpc `AddMember`.
+type AddMemberRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	MemberId             uint32   `protobuf:"varint,2,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RemoveGroupMemberRequest) Reset()         { *m = RemoveGroupMemberRequest{} }
-func (m *RemoveGroupMemberRequest) String() string { return proto.CompactTextString(m) }
-func (*RemoveGroupMemberRequest) ProtoMessage()    {}
-func (*RemoveGroupMemberRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{8}
+func (m *AddMemberRequest) Reset()         { *m = AddMemberRequest{} }
+func (m *AddMemberRequest) String() string { return proto.CompactTextString(m) }
+func (*AddMemberRequest) ProtoMessage()    {}
+func (*AddMemberRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{14}
 }
 
-func (m *RemoveGroupMemberRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RemoveGroupMemberRequest.Unmarshal(m, b)
+func (m *AddMemberRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddMemberRequest.Unmarshal(m, b)
 }
-func (m *RemoveGroupMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RemoveGroupMemberRequest.Marshal(b, m, deterministic)
+func (m *AddMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddMemberRequest.Marshal(b, m, deterministic)
 }
-func (m *RemoveGroupMemberRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RemoveGroupMemberRequest.Merge(m, src)
+func (m *AddMemberRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddMemberRequest.Merge(m, src)
 }
-func (m *RemoveGroupMemberRequest) XXX_Size() int {
-	return xxx_messageInfo_RemoveGroupMemberRequest.Size(m)
+func (m *AddMemberRequest) XXX_Size() int {
+	return xxx_messageInfo_AddMemberRequest.Size(m)
 }
-func (m *RemoveGroupMemberRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RemoveGroupMemberRequest.DiscardUnknown(m)
+func (m *AddMemberRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddMemberRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RemoveGroupMemberRequest proto.InternalMessageInfo
+var xxx_messageInfo_AddMemberRequest proto.InternalMessageInfo
 
-type RemoveGroupMemberResponse struct {
+func (m *AddMemberRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *AddMemberRequest) GetMemberId() uint32 {
+	if m != nil {
+		return m.MemberId
+	}
+	return 0
+}
+
+// Response message for rpc `AddMember`.
+type AddMemberResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RemoveGroupMemberResponse) Reset()         { *m = RemoveGroupMemberResponse{} }
-func (m *RemoveGroupMemberResponse) String() string { return proto.CompactTextString(m) }
-func (*RemoveGroupMemberResponse) ProtoMessage()    {}
-func (*RemoveGroupMemberResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c041880a4c61bab6, []int{9}
+func (m *AddMemberResponse) Reset()         { *m = AddMemberResponse{} }
+func (m *AddMemberResponse) String() string { return proto.CompactTextString(m) }
+func (*AddMemberResponse) ProtoMessage()    {}
+func (*AddMemberResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{15}
 }
 
-func (m *RemoveGroupMemberResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RemoveGroupMemberResponse.Unmarshal(m, b)
+func (m *AddMemberResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddMemberResponse.Unmarshal(m, b)
 }
-func (m *RemoveGroupMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RemoveGroupMemberResponse.Marshal(b, m, deterministic)
+func (m *AddMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddMemberResponse.Marshal(b, m, deterministic)
 }
-func (m *RemoveGroupMemberResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RemoveGroupMemberResponse.Merge(m, src)
+func (m *AddMemberResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddMemberResponse.Merge(m, src)
 }
-func (m *RemoveGroupMemberResponse) XXX_Size() int {
-	return xxx_messageInfo_RemoveGroupMemberResponse.Size(m)
+func (m *AddMemberResponse) XXX_Size() int {
+	return xxx_messageInfo_AddMemberResponse.Size(m)
 }
-func (m *RemoveGroupMemberResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RemoveGroupMemberResponse.DiscardUnknown(m)
+func (m *AddMemberResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddMemberResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RemoveGroupMemberResponse proto.InternalMessageInfo
+var xxx_messageInfo_AddMemberResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetMembers`.
+type GetMembersRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetMembersRequest) Reset()         { *m = GetMembersRequest{} }
+func (m *GetMembersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetMembersRequest) ProtoMessage()    {}
+func (*GetMembersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{16}
+}
+
+func (m *GetMembersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetMembersRequest.Unmarshal(m, b)
+}
+func (m *GetMembersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetMembersRequest.Marshal(b, m, deterministic)
+}
+func (m *GetMembersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetMembersRequest.Merge(m, src)
+}
+func (m *GetMembersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetMembersRequest.Size(m)
+}
+func (m *GetMembersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetMembersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetMembersRequest proto.InternalMessageInfo
+
+func (m *GetMembersRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `GetMembers`.
+type GetMembersResponse struct {
+	MemberType           MemberType `protobuf:"varint,1,opt,name=member_type,json=memberType,proto3,enum=mruv.MemberType" json:"member_type,omitempty"`
+	MemberIds            []uint32   `protobuf:"varint,2,rep,packed,name=member_ids,json=memberIds,proto3" json:"member_ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *GetMembersResponse) Reset()         { *m = GetMembersResponse{} }
+func (m *GetMembersResponse) String() string { return proto.CompactTextString(m) }
+func (*GetMembersResponse) ProtoMessage()    {}
+func (*GetMembersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{17}
+}
+
+func (m *GetMembersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetMembersResponse.Unmarshal(m, b)
+}
+func (m *GetMembersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetMembersResponse.Marshal(b, m, deterministic)
+}
+func (m *GetMembersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetMembersResponse.Merge(m, src)
+}
+func (m *GetMembersResponse) XXX_Size() int {
+	return xxx_messageInfo_GetMembersResponse.Size(m)
+}
+func (m *GetMembersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetMembersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetMembersResponse proto.InternalMessageInfo
+
+func (m *GetMembersResponse) GetMemberType() MemberType {
+	if m != nil {
+		return m.MemberType
+	}
+	return MemberType_MEMBER_TYPE_UNKNOWN
+}
+
+func (m *GetMembersResponse) GetMemberIds() []uint32 {
+	if m != nil {
+		return m.MemberIds
+	}
+	return nil
+}
+
+// Request message for rpc `RemoveMember`.
+type RemoveMemberRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	MemberId             uint32   `protobuf:"varint,2,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveMemberRequest) Reset()         { *m = RemoveMemberRequest{} }
+func (m *RemoveMemberRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveMemberRequest) ProtoMessage()    {}
+func (*RemoveMemberRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{18}
+}
+
+func (m *RemoveMemberRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveMemberRequest.Unmarshal(m, b)
+}
+func (m *RemoveMemberRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveMemberRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveMemberRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveMemberRequest.Merge(m, src)
+}
+func (m *RemoveMemberRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveMemberRequest.Size(m)
+}
+func (m *RemoveMemberRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveMemberRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveMemberRequest proto.InternalMessageInfo
+
+func (m *RemoveMemberRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *RemoveMemberRequest) GetMemberId() uint32 {
+	if m != nil {
+		return m.MemberId
+	}
+	return 0
+}
+
+// Response message for rpc `RemoveMember`.
+type RemoveMemberResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveMemberResponse) Reset()         { *m = RemoveMemberResponse{} }
+func (m *RemoveMemberResponse) String() string { return proto.CompactTextString(m) }
+func (*RemoveMemberResponse) ProtoMessage()    {}
+func (*RemoveMemberResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{19}
+}
+
+func (m *RemoveMemberResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveMemberResponse.Unmarshal(m, b)
+}
+func (m *RemoveMemberResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveMemberResponse.Marshal(b, m, deterministic)
+}
+func (m *RemoveMemberResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveMemberResponse.Merge(m, src)
+}
+func (m *RemoveMemberResponse) XXX_Size() int {
+	return xxx_messageInfo_RemoveMemberResponse.Size(m)
+}
+func (m *RemoveMemberResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveMemberResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveMemberResponse proto.InternalMessageInfo
+
+// Request message for rpc `AddPermission`.
+type AddPermissionRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Definition           string   `protobuf:"bytes,3,opt,name=definition,proto3" json:"definition,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddPermissionRequest) Reset()         { *m = AddPermissionRequest{} }
+func (m *AddPermissionRequest) String() string { return proto.CompactTextString(m) }
+func (*AddPermissionRequest) ProtoMessage()    {}
+func (*AddPermissionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{20}
+}
+
+func (m *AddPermissionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddPermissionRequest.Unmarshal(m, b)
+}
+func (m *AddPermissionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddPermissionRequest.Marshal(b, m, deterministic)
+}
+func (m *AddPermissionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddPermissionRequest.Merge(m, src)
+}
+func (m *AddPermissionRequest) XXX_Size() int {
+	return xxx_messageInfo_AddPermissionRequest.Size(m)
+}
+func (m *AddPermissionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddPermissionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddPermissionRequest proto.InternalMessageInfo
+
+func (m *AddPermissionRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *AddPermissionRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AddPermissionRequest) GetDefinition() string {
+	if m != nil {
+		return m.Definition
+	}
+	return ""
+}
+
+// Response message for rpc `AddPermission`.
+type AddPermissionResponse struct {
+	PermissionId         uint32   `protobuf:"varint,1,opt,name=permission_id,json=permissionId,proto3" json:"permission_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddPermissionResponse) Reset()         { *m = AddPermissionResponse{} }
+func (m *AddPermissionResponse) String() string { return proto.CompactTextString(m) }
+func (*AddPermissionResponse) ProtoMessage()    {}
+func (*AddPermissionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{21}
+}
+
+func (m *AddPermissionResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddPermissionResponse.Unmarshal(m, b)
+}
+func (m *AddPermissionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddPermissionResponse.Marshal(b, m, deterministic)
+}
+func (m *AddPermissionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddPermissionResponse.Merge(m, src)
+}
+func (m *AddPermissionResponse) XXX_Size() int {
+	return xxx_messageInfo_AddPermissionResponse.Size(m)
+}
+func (m *AddPermissionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddPermissionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddPermissionResponse proto.InternalMessageInfo
+
+func (m *AddPermissionResponse) GetPermissionId() uint32 {
+	if m != nil {
+		return m.PermissionId
+	}
+	return 0
+}
+
+// Request message for rpc `GetPermissions`.
+type GetPermissionsRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetPermissionsRequest) Reset()         { *m = GetPermissionsRequest{} }
+func (m *GetPermissionsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetPermissionsRequest) ProtoMessage()    {}
+func (*GetPermissionsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{22}
+}
+
+func (m *GetPermissionsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetPermissionsRequest.Unmarshal(m, b)
+}
+func (m *GetPermissionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetPermissionsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetPermissionsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPermissionsRequest.Merge(m, src)
+}
+func (m *GetPermissionsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetPermissionsRequest.Size(m)
+}
+func (m *GetPermissionsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPermissionsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetPermissionsRequest proto.InternalMessageInfo
+
+func (m *GetPermissionsRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `GetPermissions`.
+type GetPermissionsResponse struct {
+	Permissions          []*GetPermissionsResponse_Permission `protobuf:"bytes,1,rep,name=permissions,proto3" json:"permissions,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                             `json:"-"`
+	XXX_unrecognized     []byte                               `json:"-"`
+	XXX_sizecache        int32                                `json:"-"`
+}
+
+func (m *GetPermissionsResponse) Reset()         { *m = GetPermissionsResponse{} }
+func (m *GetPermissionsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetPermissionsResponse) ProtoMessage()    {}
+func (*GetPermissionsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{23}
+}
+
+func (m *GetPermissionsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetPermissionsResponse.Unmarshal(m, b)
+}
+func (m *GetPermissionsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetPermissionsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetPermissionsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPermissionsResponse.Merge(m, src)
+}
+func (m *GetPermissionsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetPermissionsResponse.Size(m)
+}
+func (m *GetPermissionsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPermissionsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetPermissionsResponse proto.InternalMessageInfo
+
+func (m *GetPermissionsResponse) GetPermissions() []*GetPermissionsResponse_Permission {
+	if m != nil {
+		return m.Permissions
+	}
+	return nil
+}
+
+type GetPermissionsResponse_Permission struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Definition           string   `protobuf:"bytes,3,opt,name=definition,proto3" json:"definition,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetPermissionsResponse_Permission) Reset()         { *m = GetPermissionsResponse_Permission{} }
+func (m *GetPermissionsResponse_Permission) String() string { return proto.CompactTextString(m) }
+func (*GetPermissionsResponse_Permission) ProtoMessage()    {}
+func (*GetPermissionsResponse_Permission) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{23, 0}
+}
+
+func (m *GetPermissionsResponse_Permission) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetPermissionsResponse_Permission.Unmarshal(m, b)
+}
+func (m *GetPermissionsResponse_Permission) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetPermissionsResponse_Permission.Marshal(b, m, deterministic)
+}
+func (m *GetPermissionsResponse_Permission) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPermissionsResponse_Permission.Merge(m, src)
+}
+func (m *GetPermissionsResponse_Permission) XXX_Size() int {
+	return xxx_messageInfo_GetPermissionsResponse_Permission.Size(m)
+}
+func (m *GetPermissionsResponse_Permission) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPermissionsResponse_Permission.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetPermissionsResponse_Permission proto.InternalMessageInfo
+
+func (m *GetPermissionsResponse_Permission) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *GetPermissionsResponse_Permission) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *GetPermissionsResponse_Permission) GetDefinition() string {
+	if m != nil {
+		return m.Definition
+	}
+	return ""
+}
+
+// Request message for rpc `RemovePermission`.
+type RemovePermissionRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	PermissionId         uint32   `protobuf:"varint,2,opt,name=permission_id,json=permissionId,proto3" json:"permission_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemovePermissionRequest) Reset()         { *m = RemovePermissionRequest{} }
+func (m *RemovePermissionRequest) String() string { return proto.CompactTextString(m) }
+func (*RemovePermissionRequest) ProtoMessage()    {}
+func (*RemovePermissionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{24}
+}
+
+func (m *RemovePermissionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemovePermissionRequest.Unmarshal(m, b)
+}
+func (m *RemovePermissionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemovePermissionRequest.Marshal(b, m, deterministic)
+}
+func (m *RemovePermissionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemovePermissionRequest.Merge(m, src)
+}
+func (m *RemovePermissionRequest) XXX_Size() int {
+	return xxx_messageInfo_RemovePermissionRequest.Size(m)
+}
+func (m *RemovePermissionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemovePermissionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemovePermissionRequest proto.InternalMessageInfo
+
+func (m *RemovePermissionRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *RemovePermissionRequest) GetPermissionId() uint32 {
+	if m != nil {
+		return m.PermissionId
+	}
+	return 0
+}
+
+// Response message for rpc `RemovePermission`.
+type RemovePermissionResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemovePermissionResponse) Reset()         { *m = RemovePermissionResponse{} }
+func (m *RemovePermissionResponse) String() string { return proto.CompactTextString(m) }
+func (*RemovePermissionResponse) ProtoMessage()    {}
+func (*RemovePermissionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{25}
+}
+
+func (m *RemovePermissionResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemovePermissionResponse.Unmarshal(m, b)
+}
+func (m *RemovePermissionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemovePermissionResponse.Marshal(b, m, deterministic)
+}
+func (m *RemovePermissionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemovePermissionResponse.Merge(m, src)
+}
+func (m *RemovePermissionResponse) XXX_Size() int {
+	return xxx_messageInfo_RemovePermissionResponse.Size(m)
+}
+func (m *RemovePermissionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemovePermissionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemovePermissionResponse proto.InternalMessageInfo
+
+// Request message for rpc `AddSubgroup`.
+type AddSubgroupRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	SubgroupId           uint32   `protobuf:"varint,2,opt,name=subgroup_id,json=subgroupId,proto3" json:"subgroup_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddSubgroupRequest) Reset()         { *m = AddSubgroupRequest{} }
+func (m *AddSubgroupRequest) String() string { return proto.CompactTextString(m) }
+func (*AddSubgroupRequest) ProtoMessage()    {}
+func (*AddSubgroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{26}
+}
+
+func (m *AddSubgroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddSubgroupRequest.Unmarshal(m, b)
+}
+func (m *AddSubgroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddSubgroupRequest.Marshal(b, m, deterministic)
+}
+func (m *AddSubgroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddSubgroupRequest.Merge(m, src)
+}
+func (m *AddSubgroupRequest) XXX_Size() int {
+	return xxx_messageInfo_AddSubgroupRequest.Size(m)
+}
+func (m *AddSubgroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddSubgroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddSubgroupRequest proto.InternalMessageInfo
+
+func (m *AddSubgroupRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *AddSubgroupRequest) GetSubgroupId() uint32 {
+	if m != nil {
+		return m.SubgroupId
+	}
+	return 0
+}
+
+// Response message for rpc `AddSubgroup`.
+type AddSubgroupResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddSubgroupResponse) Reset()         { *m = AddSubgroupResponse{} }
+func (m *AddSubgroupResponse) String() string { return proto.CompactTextString(m) }
+func (*AddSubgroupResponse) ProtoMessage()    {}
+func (*AddSubgroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{27}
+}
+
+func (m *AddSubgroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddSubgroupResponse.Unmarshal(m, b)
+}
+func (m *AddSubgroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddSubgroupResponse.Marshal(b, m, deterministic)
+}
+func (m *AddSubgroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddSubgroupResponse.Merge(m, src)
+}
+func (m *AddSubgroupResponse) XXX_Size() int {
+	return xxx_messageInfo_AddSubgroupResponse.Size(m)
+}
+func (m *AddSubgroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddSubgroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddSubgroupResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetSubgroups`.
+type GetSubgroupsRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSubgroupsRequest) Reset()         { *m = GetSubgroupsRequest{} }
+func (m *GetSubgroupsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetSubgroupsRequest) ProtoMessage()    {}
+func (*GetSubgroupsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{28}
+}
+
+func (m *GetSubgroupsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSubgroupsRequest.Unmarshal(m, b)
+}
+func (m *GetSubgroupsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSubgroupsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetSubgroupsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSubgroupsRequest.Merge(m, src)
+}
+func (m *GetSubgroupsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetSubgroupsRequest.Size(m)
+}
+func (m *GetSubgroupsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSubgroupsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSubgroupsRequest proto.InternalMessageInfo
+
+func (m *GetSubgroupsRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+// Response message for rpc `GetSubgroups`.
+type GetSubgroupsResponse struct {
+	SubgroupIds          []uint32 `protobuf:"varint,1,rep,packed,name=subgroup_ids,json=subgroupIds,proto3" json:"subgroup_ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSubgroupsResponse) Reset()         { *m = GetSubgroupsResponse{} }
+func (m *GetSubgroupsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetSubgroupsResponse) ProtoMessage()    {}
+func (*GetSubgroupsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{29}
+}
+
+func (m *GetSubgroupsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSubgroupsResponse.Unmarshal(m, b)
+}
+func (m *GetSubgroupsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSubgroupsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetSubgroupsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSubgroupsResponse.Merge(m, src)
+}
+func (m *GetSubgroupsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetSubgroupsResponse.Size(m)
+}
+func (m *GetSubgroupsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSubgroupsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSubgroupsResponse proto.InternalMessageInfo
+
+func (m *GetSubgroupsResponse) GetSubgroupIds() []uint32 {
+	if m != nil {
+		return m.SubgroupIds
+	}
+	return nil
+}
+
+// Request message for rpc `RemoveSubgroup`.
+type RemoveSubgroupRequest struct {
+	GroupId              uint32   `protobuf:"varint,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	SubgroupId           uint32   `protobuf:"varint,2,opt,name=subgroup_id,json=subgroupId,proto3" json:"subgroup_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveSubgroupRequest) Reset()         { *m = RemoveSubgroupRequest{} }
+func (m *RemoveSubgroupRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveSubgroupRequest) ProtoMessage()    {}
+func (*RemoveSubgroupRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{30}
+}
+
+func (m *RemoveSubgroupRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSubgroupRequest.Unmarshal(m, b)
+}
+func (m *RemoveSubgroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSubgroupRequest.Marshal(b, m, deterministic)
+}
+func (m *RemoveSubgroupRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSubgroupRequest.Merge(m, src)
+}
+func (m *RemoveSubgroupRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveSubgroupRequest.Size(m)
+}
+func (m *RemoveSubgroupRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSubgroupRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveSubgroupRequest proto.InternalMessageInfo
+
+func (m *RemoveSubgroupRequest) GetGroupId() uint32 {
+	if m != nil {
+		return m.GroupId
+	}
+	return 0
+}
+
+func (m *RemoveSubgroupRequest) GetSubgroupId() uint32 {
+	if m != nil {
+		return m.SubgroupId
+	}
+	return 0
+}
+
+// Response message for rpc `RemoveSubgroup`.
+type RemoveSubgroupResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RemoveSubgroupResponse) Reset()         { *m = RemoveSubgroupResponse{} }
+func (m *RemoveSubgroupResponse) String() string { return proto.CompactTextString(m) }
+func (*RemoveSubgroupResponse) ProtoMessage()    {}
+func (*RemoveSubgroupResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{31}
+}
+
+func (m *RemoveSubgroupResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSubgroupResponse.Unmarshal(m, b)
+}
+func (m *RemoveSubgroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSubgroupResponse.Marshal(b, m, deterministic)
+}
+func (m *RemoveSubgroupResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSubgroupResponse.Merge(m, src)
+}
+func (m *RemoveSubgroupResponse) XXX_Size() int {
+	return xxx_messageInfo_RemoveSubgroupResponse.Size(m)
+}
+func (m *RemoveSubgroupResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSubgroupResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RemoveSubgroupResponse proto.InternalMessageInfo
+
+// Request message for rpc `IsPermitted`.
+type IsPermittedRequest struct {
+	MemberId             uint32     `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	MemberType           MemberType `protobuf:"varint,2,opt,name=member_type,json=memberType,proto3,enum=mruv.MemberType" json:"member_type,omitempty"`
+	Action               string     `protobuf:"bytes,3,opt,name=action,proto3" json:"action,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *IsPermittedRequest) Reset()         { *m = IsPermittedRequest{} }
+func (m *IsPermittedRequest) String() string { return proto.CompactTextString(m) }
+func (*IsPermittedRequest) ProtoMessage()    {}
+func (*IsPermittedRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{32}
+}
+
+func (m *IsPermittedRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsPermittedRequest.Unmarshal(m, b)
+}
+func (m *IsPermittedRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsPermittedRequest.Marshal(b, m, deterministic)
+}
+func (m *IsPermittedRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsPermittedRequest.Merge(m, src)
+}
+func (m *IsPermittedRequest) XXX_Size() int {
+	return xxx_messageInfo_IsPermittedRequest.Size(m)
+}
+func (m *IsPermittedRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsPermittedRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IsPermittedRequest proto.InternalMessageInfo
+
+func (m *IsPermittedRequest) GetMemberId() uint32 {
+	if m != nil {
+		return m.MemberId
+	}
+	return 0
+}
+
+func (m *IsPermittedRequest) GetMemberType() MemberType {
+	if m != nil {
+		return m.MemberType
+	}
+	return MemberType_MEMBER_TYPE_UNKNOWN
+}
+
+func (m *IsPermittedRequest) GetAction() string {
+	if m != nil {
+		return m.Action
+	}
+	return ""
+}
+
+// Response message for rpc `IsPermitted`.
+type IsPermittedResponse struct {
+	Permitted            bool     `protobuf:"varint,1,opt,name=permitted,proto3" json:"permitted,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *IsPermittedResponse) Reset()         { *m = IsPermittedResponse{} }
+func (m *IsPermittedResponse) String() string { return proto.CompactTextString(m) }
+func (*IsPermittedResponse) ProtoMessage()    {}
+func (*IsPermittedResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c041880a4c61bab6, []int{33}
+}
+
+func (m *IsPermittedResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsPermittedResponse.Unmarshal(m, b)
+}
+func (m *IsPermittedResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsPermittedResponse.Marshal(b, m, deterministic)
+}
+func (m *IsPermittedResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsPermittedResponse.Merge(m, src)
+}
+func (m *IsPermittedResponse) XXX_Size() int {
+	return xxx_messageInfo_IsPermittedResponse.Size(m)
+}
+func (m *IsPermittedResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsPermittedResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IsPermittedResponse proto.InternalMessageInfo
+
+func (m *IsPermittedResponse) GetPermitted() bool {
+	if m != nil {
+		return m.Permitted
+	}
+	return false
+}
 
 func init() {
-	proto.RegisterType((*PermissionID)(nil), "mruv.PermissionID")
-	proto.RegisterType((*Permission)(nil), "mruv.Permission")
-	proto.RegisterType((*GroupID)(nil), "mruv.GroupID")
-	proto.RegisterType((*Group)(nil), "mruv.Group")
+	proto.RegisterEnum("mruv.OwnerType", OwnerType_name, OwnerType_value)
+	proto.RegisterEnum("mruv.MemberType", MemberType_name, MemberType_value)
+	proto.RegisterType((*CreateGroupRequest)(nil), "mruv.CreateGroupRequest")
+	proto.RegisterType((*CreateGroupResponse)(nil), "mruv.CreateGroupResponse")
+	proto.RegisterType((*GetGroupRequest)(nil), "mruv.GetGroupRequest")
+	proto.RegisterType((*GetGroupResponse)(nil), "mruv.GetGroupResponse")
+	proto.RegisterType((*UpdateGroupRequest)(nil), "mruv.UpdateGroupRequest")
+	proto.RegisterType((*UpdateGroupResponse)(nil), "mruv.UpdateGroupResponse")
+	proto.RegisterType((*DeleteGroupRequest)(nil), "mruv.DeleteGroupRequest")
+	proto.RegisterType((*DeleteGroupResponse)(nil), "mruv.DeleteGroupResponse")
 	proto.RegisterType((*GetGroupsRequest)(nil), "mruv.GetGroupsRequest")
 	proto.RegisterType((*GetGroupsResponse)(nil), "mruv.GetGroupsResponse")
-	proto.RegisterType((*AddGroupMemberRequest)(nil), "mruv.AddGroupMemberRequest")
-	proto.RegisterType((*AddGroupMemberResponse)(nil), "mruv.AddGroupMemberResponse")
-	proto.RegisterType((*RemoveGroupMemberRequest)(nil), "mruv.RemoveGroupMemberRequest")
-	proto.RegisterType((*RemoveGroupMemberResponse)(nil), "mruv.RemoveGroupMemberResponse")
+	proto.RegisterType((*AssignOwnerRequest)(nil), "mruv.AssignOwnerRequest")
+	proto.RegisterType((*AssignOwnerResponse)(nil), "mruv.AssignOwnerResponse")
+	proto.RegisterType((*GetOwnerRequest)(nil), "mruv.GetOwnerRequest")
+	proto.RegisterType((*GetOwnerResponse)(nil), "mruv.GetOwnerResponse")
+	proto.RegisterType((*AddMemberRequest)(nil), "mruv.AddMemberRequest")
+	proto.RegisterType((*AddMemberResponse)(nil), "mruv.AddMemberResponse")
+	proto.RegisterType((*GetMembersRequest)(nil), "mruv.GetMembersRequest")
+	proto.RegisterType((*GetMembersResponse)(nil), "mruv.GetMembersResponse")
+	proto.RegisterType((*RemoveMemberRequest)(nil), "mruv.RemoveMemberRequest")
+	proto.RegisterType((*RemoveMemberResponse)(nil), "mruv.RemoveMemberResponse")
+	proto.RegisterType((*AddPermissionRequest)(nil), "mruv.AddPermissionRequest")
+	proto.RegisterType((*AddPermissionResponse)(nil), "mruv.AddPermissionResponse")
+	proto.RegisterType((*GetPermissionsRequest)(nil), "mruv.GetPermissionsRequest")
+	proto.RegisterType((*GetPermissionsResponse)(nil), "mruv.GetPermissionsResponse")
+	proto.RegisterType((*GetPermissionsResponse_Permission)(nil), "mruv.GetPermissionsResponse.Permission")
+	proto.RegisterType((*RemovePermissionRequest)(nil), "mruv.RemovePermissionRequest")
+	proto.RegisterType((*RemovePermissionResponse)(nil), "mruv.RemovePermissionResponse")
+	proto.RegisterType((*AddSubgroupRequest)(nil), "mruv.AddSubgroupRequest")
+	proto.RegisterType((*AddSubgroupResponse)(nil), "mruv.AddSubgroupResponse")
+	proto.RegisterType((*GetSubgroupsRequest)(nil), "mruv.GetSubgroupsRequest")
+	proto.RegisterType((*GetSubgroupsResponse)(nil), "mruv.GetSubgroupsResponse")
+	proto.RegisterType((*RemoveSubgroupRequest)(nil), "mruv.RemoveSubgroupRequest")
+	proto.RegisterType((*RemoveSubgroupResponse)(nil), "mruv.RemoveSubgroupResponse")
+	proto.RegisterType((*IsPermittedRequest)(nil), "mruv.IsPermittedRequest")
+	proto.RegisterType((*IsPermittedResponse)(nil), "mruv.IsPermittedResponse")
 }
 
 func init() { proto.RegisterFile("groups/groups.proto", fileDescriptor_c041880a4c61bab6) }
 
 var fileDescriptor_c041880a4c61bab6 = []byte{
-	// 574 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x54, 0xcf, 0x6e, 0xda, 0x4e,
-	0x10, 0xfe, 0xf1, 0x37, 0xbf, 0x8c, 0x43, 0x1a, 0x06, 0x12, 0x8c, 0x89, 0x52, 0xe4, 0x56, 0x15,
-	0xaa, 0x04, 0x56, 0xe9, 0xa5, 0x97, 0xaa, 0x6a, 0x8b, 0x14, 0xe5, 0x80, 0x84, 0x1c, 0x89, 0x43,
-	0xd5, 0x8b, 0xc1, 0x5b, 0x58, 0x09, 0x7b, 0x5d, 0xaf, 0xcd, 0xa5, 0xea, 0xa5, 0xaf, 0xd0, 0x4b,
-	0xa5, 0x3e, 0x56, 0x5f, 0xa1, 0x0f, 0x52, 0x79, 0x77, 0x0d, 0xc6, 0x98, 0x93, 0xbd, 0xf3, 0xcd,
-	0xf7, 0xcd, 0x37, 0x3b, 0xa3, 0x85, 0xd6, 0x2a, 0x64, 0x71, 0xc0, 0x2d, 0xf9, 0x19, 0x05, 0x21,
-	0x8b, 0x18, 0x56, 0xbd, 0x30, 0xde, 0x1a, 0xb7, 0x2b, 0xc6, 0x56, 0x1b, 0x62, 0x39, 0x01, 0xb5,
-	0x1c, 0xdf, 0x67, 0x91, 0x13, 0x51, 0xe6, 0xab, 0x1c, 0xa3, 0xb5, 0x64, 0x9e, 0xc7, 0x7c, 0x6b,
-	0x4d, 0x9c, 0x4d, 0xb4, 0x96, 0x41, 0xf3, 0x0e, 0x2e, 0x66, 0x24, 0xf4, 0x28, 0xe7, 0x94, 0xf9,
-	0x0f, 0x13, 0xbc, 0x84, 0x32, 0x75, 0xf5, 0x52, 0xbf, 0x34, 0x68, 0xd8, 0x65, 0xea, 0x9a, 0x13,
-	0x80, 0x3d, 0x9e, 0x47, 0x11, 0xa1, 0xea, 0x3b, 0x1e, 0xd1, 0xcb, 0xfd, 0xd2, 0xe0, 0xdc, 0x16,
-	0xff, 0x49, 0x2c, 0x64, 0x1b, 0xa2, 0x57, 0x64, 0x2c, 0xf9, 0x37, 0xbb, 0x70, 0x76, 0x9f, 0xd8,
-	0x2d, 0x28, 0xf0, 0xbb, 0x04, 0x35, 0x81, 0x9d, 0x14, 0xaf, 0x64, 0xc4, 0xfb, 0xa0, 0xb9, 0x84,
-	0x2f, 0x43, 0x1a, 0x24, 0x9d, 0xe9, 0x55, 0x01, 0x65, 0x43, 0x38, 0x06, 0x2d, 0xd8, 0x19, 0xe6,
-	0x7a, 0xad, 0x5f, 0x19, 0x68, 0xe3, 0xab, 0x51, 0x72, 0x3f, 0xa3, 0x7d, 0x27, 0x76, 0x36, 0x09,
-	0x75, 0x38, 0xf3, 0x88, 0xb7, 0x20, 0x21, 0xd7, 0xeb, 0xfd, 0xca, 0xa0, 0x61, 0xa7, 0x47, 0x73,
-	0x00, 0x57, 0xf7, 0x24, 0x12, 0xfe, 0xb8, 0x4d, 0xbe, 0xc6, 0x84, 0x47, 0xd8, 0x86, 0xda, 0x86,
-	0x7a, 0x34, 0x52, 0x56, 0xe5, 0xc1, 0x7c, 0x03, 0xcd, 0x4c, 0x26, 0x0f, 0x98, 0xcf, 0x09, 0x3e,
-	0x83, 0xba, 0x1c, 0x93, 0x5e, 0x12, 0x3e, 0x34, 0xe9, 0x43, 0x64, 0xd9, 0x0a, 0x32, 0x3b, 0x70,
-	0xfd, 0xde, 0x75, 0x45, 0x6c, 0x2a, 0xca, 0xaa, 0x42, 0xa6, 0x0e, 0x37, 0x79, 0x40, 0xea, 0x9a,
-	0x06, 0xe8, 0x36, 0xf1, 0xd8, 0x96, 0x14, 0xb0, 0x7a, 0xd0, 0x2d, 0xc0, 0x24, 0x71, 0xfc, 0xab,
-	0x06, 0xcd, 0x69, 0x18, 0xcf, 0xa5, 0xcf, 0x47, 0x12, 0x6e, 0xe9, 0x92, 0xe0, 0x5b, 0xd0, 0x3e,
-	0x86, 0xc4, 0x89, 0x24, 0x05, 0xb3, 0x2e, 0x8d, 0x46, 0xe6, 0xf0, 0x30, 0x31, 0xf1, 0xc7, 0x9f,
-	0xbf, 0x3f, 0xcb, 0x17, 0x26, 0x58, 0xdb, 0x57, 0x6a, 0x05, 0xf1, 0x1d, 0xfc, 0x9f, 0xb6, 0x8e,
-	0x87, 0xe9, 0x46, 0x56, 0xca, 0xec, 0x08, 0x6e, 0x13, 0x9f, 0xec, 0xb9, 0xd6, 0x37, 0xea, 0x7e,
-	0xc7, 0x09, 0x68, 0x13, 0xb2, 0x21, 0x69, 0xfd, 0x9c, 0x46, 0xce, 0x81, 0x52, 0x79, 0x79, 0xa4,
-	0x32, 0x83, 0xf3, 0xdd, 0x04, 0xf0, 0x46, 0x91, 0x72, 0xc3, 0x33, 0x3a, 0x47, 0x71, 0x75, 0xa5,
-	0xaa, 0x31, 0xcc, 0x36, 0x36, 0x85, 0xcb, 0xc3, 0x01, 0x60, 0x4f, 0xd2, 0x0b, 0xe7, 0x65, 0xdc,
-	0x16, 0x83, 0xaa, 0xc0, 0x7f, 0x38, 0x87, 0xe6, 0xd1, 0x64, 0xf0, 0x4e, 0x92, 0x4e, 0x8d, 0xd3,
-	0x78, 0x7a, 0x12, 0xdf, 0xe9, 0x7e, 0x11, 0x4b, 0xaa, 0x86, 0xf9, 0x18, 0x39, 0x51, 0xcc, 0xd1,
-	0x90, 0xb4, 0x83, 0x60, 0x2a, 0xd9, 0x2b, 0xc4, 0x94, 0x5c, 0x57, 0xdc, 0x43, 0x0b, 0x9b, 0x99,
-	0xeb, 0xe5, 0x52, 0xf3, 0xb3, 0x58, 0x71, 0x45, 0x9b, 0x93, 0x50, 0x3c, 0x09, 0x6d, 0x29, 0xa6,
-	0x8e, 0x69, 0x89, 0xeb, 0x5c, 0x34, 0xdd, 0x5b, 0x21, 0xde, 0x46, 0xcc, 0x88, 0x6f, 0x65, 0xce,
-	0x87, 0x17, 0x9f, 0x9e, 0xaf, 0x68, 0xb4, 0x8e, 0x17, 0xa3, 0x25, 0xf3, 0xac, 0x64, 0x49, 0x87,
-	0xf6, 0xcc, 0x4a, 0x64, 0x86, 0xc1, 0x62, 0xb8, 0x62, 0x2a, 0x7f, 0x51, 0x17, 0x0f, 0xd7, 0xeb,
-	0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x93, 0x17, 0x16, 0xda, 0x08, 0x05, 0x00, 0x00,
+	// 1283 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x58, 0xdd, 0x52, 0xdb, 0x46,
+	0x14, 0xae, 0x4d, 0x26, 0xc1, 0xc7, 0x98, 0x98, 0xe3, 0x1f, 0x8c, 0x08, 0x09, 0x88, 0x36, 0x71,
+	0xdc, 0x62, 0x01, 0x99, 0x5e, 0x74, 0xa6, 0x37, 0x8e, 0xcb, 0x50, 0xda, 0x01, 0x3c, 0xe2, 0x27,
+	0xa5, 0xd3, 0x96, 0x31, 0x68, 0x31, 0x9a, 0x62, 0xcb, 0xb5, 0x64, 0xb7, 0x94, 0x70, 0x93, 0x27,
+	0xe8, 0x4c, 0x9f, 0xa5, 0x4f, 0xd2, 0x57, 0xe8, 0x83, 0x74, 0xbc, 0x3f, 0xd2, 0xae, 0x24, 0x13,
+	0x91, 0xc9, 0x55, 0xac, 0xb3, 0x67, 0xbf, 0xef, 0xfc, 0xec, 0xee, 0xf9, 0x08, 0x14, 0x3a, 0x03,
+	0x67, 0xd8, 0x77, 0x0d, 0xf6, 0x4f, 0xbd, 0x3f, 0x70, 0x3c, 0x07, 0x1f, 0x74, 0x07, 0xc3, 0x91,
+	0xf6, 0xa4, 0xe3, 0x38, 0x9d, 0x2b, 0x62, 0xb4, 0xfb, 0xb6, 0xd1, 0xee, 0xf5, 0x1c, 0xaf, 0xed,
+	0xd9, 0x4e, 0x8f, 0xfb, 0x68, 0x85, 0x73, 0xa7, 0xdb, 0x75, 0x7a, 0xc6, 0x25, 0x69, 0x5f, 0x79,
+	0x97, 0xcc, 0xa8, 0x57, 0x01, 0x9b, 0x03, 0xd2, 0xf6, 0xc8, 0xf6, 0x18, 0xce, 0x24, 0xbf, 0x0d,
+	0x89, 0xeb, 0x21, 0xc2, 0x83, 0x5e, 0xbb, 0x4b, 0x2a, 0xa9, 0xe5, 0x54, 0x35, 0x63, 0xd2, 0xdf,
+	0xfa, 0x3a, 0x14, 0x14, 0x4f, 0xb7, 0xef, 0xf4, 0x5c, 0x82, 0x0b, 0x30, 0x4d, 0x23, 0x39, 0xb5,
+	0x2d, 0xea, 0x9e, 0x33, 0x1f, 0xd1, 0xef, 0x1d, 0x4b, 0xff, 0x02, 0x1e, 0x6f, 0x13, 0x4f, 0x01,
+	0xbe, 0xc3, 0xfb, 0x39, 0xe4, 0x03, 0x6f, 0x0e, 0x1e, 0x17, 0x47, 0x13, 0xf0, 0xa8, 0x6f, 0x85,
+	0x23, 0x9e, 0x0c, 0xec, 0x83, 0xa4, 0x25, 0x90, 0x12, 0x14, 0x14, 0x10, 0xc6, 0xa7, 0x1b, 0x80,
+	0xdf, 0x90, 0x2b, 0x92, 0x18, 0x7b, 0x8c, 0xa3, 0x6c, 0xe0, 0x38, 0x18, 0xe4, 0xe2, 0x72, 0x14,
+	0xbd, 0x09, 0x73, 0x92, 0x8d, 0x27, 0x58, 0x87, 0x87, 0xac, 0x8f, 0x95, 0xd4, 0xf2, 0x54, 0x35,
+	0xbb, 0x59, 0xae, 0x8f, 0x1b, 0x59, 0x0f, 0x17, 0xc2, 0xe4, 0x5e, 0xfa, 0x9f, 0x80, 0x0d, 0xd7,
+	0xb5, 0x3b, 0xbd, 0xfd, 0xdf, 0x7b, 0x64, 0x90, 0x20, 0xf9, 0x3a, 0x80, 0x33, 0x76, 0x3d, 0xf5,
+	0xae, 0xfb, 0xa4, 0x32, 0xb5, 0x9c, 0xaa, 0xce, 0x6e, 0x3e, 0x66, 0x24, 0x14, 0xe2, 0xf0, 0xba,
+	0x4f, 0xcc, 0x8c, 0x23, 0x7e, 0x8e, 0xa1, 0x98, 0xbf, 0x6d, 0xd1, 0x82, 0xe5, 0xcc, 0x47, 0xf4,
+	0x9b, 0xe5, 0xaa, 0x70, 0xf3, 0x5c, 0x59, 0x97, 0x13, 0xc6, 0xa3, 0xff, 0x4c, 0x2b, 0xa3, 0x20,
+	0x28, 0x9c, 0x29, 0x85, 0x33, 0x14, 0x7e, 0xfa, 0x7d, 0xe1, 0xeb, 0xdf, 0x41, 0xbe, 0x61, 0x59,
+	0xbb, 0xa4, 0x7b, 0x96, 0xa8, 0x3a, 0x8b, 0x90, 0xe9, 0x52, 0xdf, 0x20, 0xdd, 0x69, 0x66, 0xd8,
+	0xb1, 0xf4, 0x02, 0xcc, 0x49, 0x58, 0x3c, 0xdb, 0x3a, 0xed, 0x22, 0x33, 0xba, 0x09, 0xf2, 0xbd,
+	0x00, 0x94, 0xfd, 0x79, 0xc6, 0x1b, 0x90, 0xe5, 0xbc, 0x34, 0xaf, 0x14, 0xcd, 0x2b, 0xcf, 0xf2,
+	0x62, 0xbe, 0x34, 0x31, 0xe8, 0xfa, 0xbf, 0x71, 0x09, 0xc0, 0x0f, 0xd5, 0xad, 0xa4, 0x97, 0xa7,
+	0xaa, 0x39, 0x33, 0x23, 0x62, 0x75, 0xf5, 0x5d, 0x28, 0x98, 0xa4, 0xeb, 0x8c, 0xc8, 0xc7, 0xc9,
+	0xbd, 0x0c, 0x45, 0x15, 0x8e, 0xa7, 0x4f, 0xa0, 0xd8, 0xb0, 0xac, 0x16, 0x19, 0x74, 0x6d, 0xd7,
+	0xb5, 0x9d, 0xde, 0x87, 0x5d, 0x3f, 0x7c, 0x0a, 0x60, 0x91, 0x0b, 0xbb, 0x67, 0x8f, 0xdf, 0x27,
+	0x7a, 0x2a, 0x33, 0xa6, 0x64, 0xd1, 0xbf, 0x86, 0x52, 0x88, 0x86, 0x17, 0x6e, 0x15, 0x72, 0x7d,
+	0xdf, 0x1a, 0x90, 0xcd, 0x04, 0xc6, 0x1d, 0x4b, 0xdf, 0x84, 0xd2, 0x36, 0xf1, 0x82, 0xdd, 0x49,
+	0xfa, 0xf4, 0x4f, 0x0a, 0xca, 0xe1, 0x4d, 0x9c, 0x73, 0x07, 0xb2, 0x01, 0xbc, 0xb8, 0xa8, 0x2f,
+	0xfc, 0x8b, 0x1a, 0xb3, 0xa5, 0x2e, 0x45, 0x2e, 0xef, 0xd5, 0x5a, 0x00, 0xc1, 0x12, 0xce, 0x42,
+	0xda, 0x0f, 0x24, 0x6d, 0x7f, 0x58, 0xa5, 0x4e, 0x60, 0x9e, 0x35, 0xea, 0x5e, 0x3d, 0x89, 0x94,
+	0x31, 0x1d, 0x53, 0x46, 0x0d, 0x2a, 0x51, 0x68, 0x7e, 0x0e, 0x5a, 0x80, 0x0d, 0xcb, 0x3a, 0x18,
+	0x9e, 0x75, 0x12, 0x3e, 0xc2, 0xcf, 0x20, 0xeb, 0x72, 0xef, 0x80, 0x0f, 0x84, 0x89, 0xbf, 0x2e,
+	0x32, 0x22, 0x27, 0x5a, 0x87, 0xc2, 0x36, 0xf1, 0x84, 0x39, 0x49, 0x27, 0xbf, 0x82, 0xa2, 0xba,
+	0x83, 0xb7, 0x71, 0x05, 0x66, 0xa4, 0x08, 0x58, 0x1f, 0x73, 0x66, 0x36, 0x08, 0xc1, 0xd5, 0x0f,
+	0xa0, 0xc4, 0x32, 0xfe, 0x98, 0x89, 0x55, 0xa0, 0x1c, 0x06, 0xe5, 0xb9, 0xbd, 0x05, 0xdc, 0x71,
+	0x69, 0x71, 0x3d, 0x8f, 0x58, 0x82, 0x4b, 0xb9, 0x97, 0x29, 0xf5, 0x5e, 0x86, 0x1f, 0x8e, 0x74,
+	0x82, 0x87, 0xa3, 0x0c, 0x0f, 0xdb, 0xe7, 0xd2, 0xe9, 0xe1, 0x5f, 0xfa, 0x2b, 0x28, 0x28, 0xec,
+	0xbc, 0x4c, 0x4f, 0x20, 0xd3, 0x17, 0x46, 0x4a, 0x3f, 0x6d, 0x06, 0x86, 0xda, 0xaf, 0x90, 0xf1,
+	0xdf, 0x5d, 0x2c, 0x03, 0xee, 0xbf, 0xd9, 0xdb, 0x32, 0x4f, 0x0f, 0x4f, 0x5a, 0x5b, 0xa7, 0x47,
+	0x7b, 0xdf, 0xef, 0xed, 0xbf, 0xd9, 0xcb, 0x7f, 0x12, 0xb2, 0x37, 0x9a, 0xcd, 0xfd, 0xa3, 0xbd,
+	0xc3, 0x7c, 0x0a, 0x2b, 0x50, 0x94, 0xec, 0xcd, 0x6f, 0x1b, 0x66, 0xa3, 0x79, 0xb8, 0x65, 0xe6,
+	0xd3, 0x58, 0x84, 0xbc, 0xb4, 0xb2, 0x6d, 0xee, 0x1f, 0xb5, 0xf2, 0x53, 0xb5, 0x13, 0x80, 0x20,
+	0x27, 0x9c, 0x87, 0xc2, 0xee, 0xd6, 0xee, 0xeb, 0x28, 0x5d, 0x68, 0x21, 0xe0, 0x5b, 0x80, 0x92,
+	0xbc, 0x20, 0x11, 0x6e, 0xfe, 0x95, 0x87, 0xb9, 0xdd, 0xc1, 0xf0, 0x98, 0x8d, 0xe3, 0x03, 0x32,
+	0x18, 0xd9, 0xe7, 0x04, 0x8f, 0x21, 0x2b, 0x49, 0x1c, 0xac, 0xb0, 0xba, 0x46, 0xf5, 0x91, 0xb6,
+	0x10, 0xb3, 0x22, 0x46, 0xff, 0xbb, 0x7f, 0xff, 0xfb, 0x3b, 0x3d, 0xa3, 0x83, 0x31, 0xda, 0xe0,
+	0x1a, 0x0d, 0x7f, 0x80, 0x69, 0x31, 0xd1, 0xb1, 0x14, 0x9e, 0xf0, 0x0c, 0x71, 0xc2, 0xe0, 0xd7,
+	0x97, 0x28, 0xdc, 0x3c, 0x96, 0x02, 0x38, 0xe3, 0x46, 0x9c, 0xb6, 0x5b, 0x6c, 0x43, 0x56, 0xd2,
+	0x31, 0x22, 0xe2, 0xa8, 0x3e, 0x12, 0x11, 0xc7, 0x89, 0x1e, 0x4e, 0xb1, 0x39, 0x99, 0x42, 0x92,
+	0x38, 0x82, 0x22, 0x2a, 0x93, 0x04, 0x45, 0x9c, 0x1e, 0xe2, 0x14, 0xb5, 0x09, 0x14, 0x2d, 0xc8,
+	0xf8, 0xd2, 0x08, 0x43, 0x95, 0x10, 0x57, 0x5e, 0x9b, 0x8f, 0xd8, 0xd5, 0x8a, 0xa3, 0x5c, 0xf1,
+	0x0e, 0x64, 0x25, 0xad, 0x22, 0x82, 0x8e, 0x4a, 0x27, 0x11, 0x74, 0x9c, 0xb0, 0x59, 0xa5, 0xb8,
+	0x4b, 0xda, 0x62, 0x6c, 0xd0, 0x06, 0x15, 0x1d, 0xf8, 0x0b, 0x6d, 0x2d, 0x63, 0x09, 0x5a, 0xab,
+	0x50, 0x94, 0xc3, 0x66, 0x15, 0x1f, 0xef, 0xc4, 0x77, 0x20, 0xe3, 0x8b, 0x10, 0x51, 0x9a, 0xb0,
+	0xc2, 0x11, 0xa5, 0x89, 0xaa, 0x95, 0x0d, 0x4a, 0xf1, 0xb9, 0xfe, 0x32, 0x9e, 0x82, 0xbd, 0x12,
+	0xae, 0x71, 0xe3, 0x3f, 0x38, 0xb7, 0x78, 0x01, 0x10, 0x08, 0x16, 0x0c, 0x8a, 0xae, 0x4a, 0x1e,
+	0xad, 0x12, 0x5d, 0xe0, 0x9c, 0x9f, 0x51, 0xce, 0x67, 0xb8, 0x74, 0x27, 0x27, 0xfe, 0x01, 0x33,
+	0xb2, 0xc2, 0x40, 0xde, 0x88, 0x18, 0x11, 0xa3, 0x69, 0x71, 0x4b, 0x6a, 0x86, 0xb5, 0x7b, 0x64,
+	0xe8, 0x42, 0x4e, 0x11, 0x17, 0xa8, 0xf9, 0xe5, 0x8b, 0x0c, 0x51, 0x6d, 0x31, 0x76, 0x8d, 0x93,
+	0xbf, 0xa4, 0xe4, 0xab, 0xfa, 0x4a, 0x3c, 0xb9, 0x34, 0xf9, 0x71, 0x04, 0xb3, 0xaa, 0x56, 0xc0,
+	0xc5, 0x78, 0x05, 0xc1, 0x68, 0x9f, 0xdc, 0x25, 0x2f, 0x04, 0x2f, 0x26, 0xe0, 0x7d, 0x0b, 0xf9,
+	0xf0, 0x10, 0xc7, 0x25, 0xb9, 0x9e, 0xd1, 0x94, 0x9f, 0x4e, 0x5a, 0x56, 0xd9, 0x6b, 0x09, 0xd8,
+	0xaf, 0x21, 0x2b, 0x0d, 0x75, 0xff, 0x1a, 0x46, 0x94, 0x83, 0x7f, 0x0d, 0x63, 0x14, 0xc0, 0x97,
+	0x94, 0xce, 0xd0, 0xd7, 0xe2, 0xe9, 0xc4, 0xa4, 0x75, 0x8d, 0x1b, 0x69, 0x0e, 0xdf, 0x62, 0x0f,
+	0x66, 0x64, 0x19, 0x20, 0xce, 0x57, 0x8c, 0x98, 0x10, 0xe7, 0x2b, 0x4e, 0x35, 0xe8, 0x2f, 0x28,
+	0xfb, 0x0a, 0x3e, 0x7b, 0x0f, 0x3b, 0xbe, 0x4b, 0xc1, 0xac, 0x3a, 0xe7, 0x45, 0x87, 0x63, 0x25,
+	0x85, 0xe8, 0xf0, 0x04, 0x69, 0xc0, 0x93, 0xae, 0xdd, 0x33, 0x69, 0x0f, 0xb2, 0xd2, 0x4c, 0x17,
+	0xf5, 0x8e, 0x8a, 0x0c, 0x51, 0xef, 0x18, 0x01, 0xa0, 0xaf, 0x53, 0xea, 0x1a, 0x56, 0x25, 0xea,
+	0x98, 0x6b, 0x64, 0xf8, 0xa2, 0x00, 0x2f, 0xe8, 0xdf, 0x74, 0x7c, 0x88, 0x1e, 0x78, 0x6d, 0x6f,
+	0xe8, 0x8a, 0x3b, 0xa5, 0x18, 0x43, 0x77, 0x2a, 0xb4, 0xc6, 0xe9, 0x17, 0x28, 0x7d, 0x01, 0xe7,
+	0x24, 0x7a, 0x97, 0x61, 0xfe, 0x44, 0xff, 0xf6, 0xe2, 0xdb, 0x8e, 0xc9, 0x80, 0x1e, 0xe6, 0x22,
+	0x03, 0xe3, 0x9f, 0x82, 0xa2, 0x14, 0xb2, 0x72, 0x70, 0x8d, 0x82, 0x17, 0x11, 0x25, 0xf0, 0x11,
+	0xf3, 0x79, 0xfd, 0xfc, 0xc7, 0x4f, 0x3b, 0xb6, 0x77, 0x39, 0x3c, 0xab, 0x9f, 0x3b, 0x5d, 0x63,
+	0x2c, 0x0e, 0xd6, 0xcc, 0x96, 0x31, 0x86, 0x59, 0xeb, 0x9f, 0xad, 0x75, 0x1c, 0xee, 0x7f, 0xf6,
+	0x90, 0xfe, 0xc7, 0xc9, 0xab, 0xff, 0x03, 0x00, 0x00, 0xff, 0xff, 0x96, 0x68, 0xc6, 0x61, 0x88,
+	0x11, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -499,13 +1681,40 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVGroupsServiceClient interface {
-	//CRUD
-	CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*GroupID, error)
-	GetGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*Group, error)
-	DeleteGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*GroupID, error)
+	// Create a group.
+	CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupResponse, error)
+	// Get a  group.
+	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupResponse, error)
+	// Update a group.
+	UpdateGroup(ctx context.Context, in *UpdateGroupRequest, opts ...grpc.CallOption) (*UpdateGroupResponse, error)
+	// Delete a group.
+	DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteGroupResponse, error)
+	// Get all groups.
 	GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...grpc.CallOption) (*GetGroupsResponse, error)
-	AddGroupMember(ctx context.Context, in *AddGroupMemberRequest, opts ...grpc.CallOption) (*AddGroupMemberResponse, error)
-	RemoveGroupMember(ctx context.Context, in *RemoveGroupMemberRequest, opts ...grpc.CallOption) (*RemoveGroupMemberResponse, error)
+	// Assign an owner. Group can have only one owner. Owner can be a player, a group or an account.
+	AssignOwner(ctx context.Context, in *AssignOwnerRequest, opts ...grpc.CallOption) (*AssignOwnerResponse, error)
+	// Get group owner.
+	GetOwner(ctx context.Context, in *GetOwnerRequest, opts ...grpc.CallOption) (*GetOwnerResponse, error)
+	// Add a group member.
+	AddMember(ctx context.Context, in *AddMemberRequest, opts ...grpc.CallOption) (*AddMemberResponse, error)
+	// Get a group member.
+	GetMembers(ctx context.Context, in *GetMembersRequest, opts ...grpc.CallOption) (*GetMembersResponse, error)
+	// Remove a group member.
+	RemoveMember(ctx context.Context, in *RemoveMemberRequest, opts ...grpc.CallOption) (*RemoveMemberResponse, error)
+	// Add a permission to a group.
+	AddPermission(ctx context.Context, in *AddPermissionRequest, opts ...grpc.CallOption) (*AddPermissionResponse, error)
+	// Get all group permissions.
+	GetPermissions(ctx context.Context, in *GetPermissionsRequest, opts ...grpc.CallOption) (*GetPermissionsResponse, error)
+	// Remove group permission.
+	RemovePermission(ctx context.Context, in *RemovePermissionRequest, opts ...grpc.CallOption) (*RemovePermissionResponse, error)
+	// Add a subgroup to a group.
+	AddSubgroup(ctx context.Context, in *AddSubgroupRequest, opts ...grpc.CallOption) (*AddSubgroupResponse, error)
+	// Get all subgroups.
+	GetSubgroups(ctx context.Context, in *GetSubgroupsRequest, opts ...grpc.CallOption) (*GetSubgroupsResponse, error)
+	// Remove a subgroup from group.
+	RemoveSubgroup(ctx context.Context, in *RemoveSubgroupRequest, opts ...grpc.CallOption) (*RemoveSubgroupResponse, error)
+	// Check is member of a group is permitted to do specific action.
+	IsPermitted(ctx context.Context, in *IsPermittedRequest, opts ...grpc.CallOption) (*IsPermittedResponse, error)
 	//Service status
 	GetServiceStatus(ctx context.Context, in *common.ServiceStatusRequest, opts ...grpc.CallOption) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(ctx context.Context, in *common.VersionRequest, opts ...grpc.CallOption) (*common.VersionResponse, error)
@@ -519,8 +1728,8 @@ func NewMruVGroupsServiceClient(cc *grpc.ClientConn) MruVGroupsServiceClient {
 	return &mruVGroupsServiceClient{cc}
 }
 
-func (c *mruVGroupsServiceClient) CreateGroup(ctx context.Context, in *Group, opts ...grpc.CallOption) (*GroupID, error) {
-	out := new(GroupID)
+func (c *mruVGroupsServiceClient) CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupResponse, error) {
+	out := new(CreateGroupResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/CreateGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -528,8 +1737,8 @@ func (c *mruVGroupsServiceClient) CreateGroup(ctx context.Context, in *Group, op
 	return out, nil
 }
 
-func (c *mruVGroupsServiceClient) GetGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*Group, error) {
-	out := new(Group)
+func (c *mruVGroupsServiceClient) GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupResponse, error) {
+	out := new(GetGroupResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -537,8 +1746,17 @@ func (c *mruVGroupsServiceClient) GetGroup(ctx context.Context, in *GroupID, opt
 	return out, nil
 }
 
-func (c *mruVGroupsServiceClient) DeleteGroup(ctx context.Context, in *GroupID, opts ...grpc.CallOption) (*GroupID, error) {
-	out := new(GroupID)
+func (c *mruVGroupsServiceClient) UpdateGroup(ctx context.Context, in *UpdateGroupRequest, opts ...grpc.CallOption) (*UpdateGroupResponse, error) {
+	out := new(UpdateGroupResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/UpdateGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteGroupResponse, error) {
+	out := new(DeleteGroupResponse)
 	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/DeleteGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -555,18 +1773,108 @@ func (c *mruVGroupsServiceClient) GetGroups(ctx context.Context, in *GetGroupsRe
 	return out, nil
 }
 
-func (c *mruVGroupsServiceClient) AddGroupMember(ctx context.Context, in *AddGroupMemberRequest, opts ...grpc.CallOption) (*AddGroupMemberResponse, error) {
-	out := new(AddGroupMemberResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AddGroupMember", in, out, opts...)
+func (c *mruVGroupsServiceClient) AssignOwner(ctx context.Context, in *AssignOwnerRequest, opts ...grpc.CallOption) (*AssignOwnerResponse, error) {
+	out := new(AssignOwnerResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AssignOwner", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *mruVGroupsServiceClient) RemoveGroupMember(ctx context.Context, in *RemoveGroupMemberRequest, opts ...grpc.CallOption) (*RemoveGroupMemberResponse, error) {
-	out := new(RemoveGroupMemberResponse)
-	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/RemoveGroupMember", in, out, opts...)
+func (c *mruVGroupsServiceClient) GetOwner(ctx context.Context, in *GetOwnerRequest, opts ...grpc.CallOption) (*GetOwnerResponse, error) {
+	out := new(GetOwnerResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetOwner", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) AddMember(ctx context.Context, in *AddMemberRequest, opts ...grpc.CallOption) (*AddMemberResponse, error) {
+	out := new(AddMemberResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AddMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) GetMembers(ctx context.Context, in *GetMembersRequest, opts ...grpc.CallOption) (*GetMembersResponse, error) {
+	out := new(GetMembersResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) RemoveMember(ctx context.Context, in *RemoveMemberRequest, opts ...grpc.CallOption) (*RemoveMemberResponse, error) {
+	out := new(RemoveMemberResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/RemoveMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) AddPermission(ctx context.Context, in *AddPermissionRequest, opts ...grpc.CallOption) (*AddPermissionResponse, error) {
+	out := new(AddPermissionResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AddPermission", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) GetPermissions(ctx context.Context, in *GetPermissionsRequest, opts ...grpc.CallOption) (*GetPermissionsResponse, error) {
+	out := new(GetPermissionsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetPermissions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) RemovePermission(ctx context.Context, in *RemovePermissionRequest, opts ...grpc.CallOption) (*RemovePermissionResponse, error) {
+	out := new(RemovePermissionResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/RemovePermission", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) AddSubgroup(ctx context.Context, in *AddSubgroupRequest, opts ...grpc.CallOption) (*AddSubgroupResponse, error) {
+	out := new(AddSubgroupResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/AddSubgroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) GetSubgroups(ctx context.Context, in *GetSubgroupsRequest, opts ...grpc.CallOption) (*GetSubgroupsResponse, error) {
+	out := new(GetSubgroupsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/GetSubgroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) RemoveSubgroup(ctx context.Context, in *RemoveSubgroupRequest, opts ...grpc.CallOption) (*RemoveSubgroupResponse, error) {
+	out := new(RemoveSubgroupResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/RemoveSubgroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVGroupsServiceClient) IsPermitted(ctx context.Context, in *IsPermittedRequest, opts ...grpc.CallOption) (*IsPermittedResponse, error) {
+	out := new(IsPermittedResponse)
+	err := c.cc.Invoke(ctx, "/mruv.MruVGroupsService/IsPermitted", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -593,13 +1901,40 @@ func (c *mruVGroupsServiceClient) GetServiceVersion(ctx context.Context, in *com
 
 // MruVGroupsServiceServer is the server API for MruVGroupsService service.
 type MruVGroupsServiceServer interface {
-	//CRUD
-	CreateGroup(context.Context, *Group) (*GroupID, error)
-	GetGroup(context.Context, *GroupID) (*Group, error)
-	DeleteGroup(context.Context, *GroupID) (*GroupID, error)
+	// Create a group.
+	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupResponse, error)
+	// Get a  group.
+	GetGroup(context.Context, *GetGroupRequest) (*GetGroupResponse, error)
+	// Update a group.
+	UpdateGroup(context.Context, *UpdateGroupRequest) (*UpdateGroupResponse, error)
+	// Delete a group.
+	DeleteGroup(context.Context, *DeleteGroupRequest) (*DeleteGroupResponse, error)
+	// Get all groups.
 	GetGroups(context.Context, *GetGroupsRequest) (*GetGroupsResponse, error)
-	AddGroupMember(context.Context, *AddGroupMemberRequest) (*AddGroupMemberResponse, error)
-	RemoveGroupMember(context.Context, *RemoveGroupMemberRequest) (*RemoveGroupMemberResponse, error)
+	// Assign an owner. Group can have only one owner. Owner can be a player, a group or an account.
+	AssignOwner(context.Context, *AssignOwnerRequest) (*AssignOwnerResponse, error)
+	// Get group owner.
+	GetOwner(context.Context, *GetOwnerRequest) (*GetOwnerResponse, error)
+	// Add a group member.
+	AddMember(context.Context, *AddMemberRequest) (*AddMemberResponse, error)
+	// Get a group member.
+	GetMembers(context.Context, *GetMembersRequest) (*GetMembersResponse, error)
+	// Remove a group member.
+	RemoveMember(context.Context, *RemoveMemberRequest) (*RemoveMemberResponse, error)
+	// Add a permission to a group.
+	AddPermission(context.Context, *AddPermissionRequest) (*AddPermissionResponse, error)
+	// Get all group permissions.
+	GetPermissions(context.Context, *GetPermissionsRequest) (*GetPermissionsResponse, error)
+	// Remove group permission.
+	RemovePermission(context.Context, *RemovePermissionRequest) (*RemovePermissionResponse, error)
+	// Add a subgroup to a group.
+	AddSubgroup(context.Context, *AddSubgroupRequest) (*AddSubgroupResponse, error)
+	// Get all subgroups.
+	GetSubgroups(context.Context, *GetSubgroupsRequest) (*GetSubgroupsResponse, error)
+	// Remove a subgroup from group.
+	RemoveSubgroup(context.Context, *RemoveSubgroupRequest) (*RemoveSubgroupResponse, error)
+	// Check is member of a group is permitted to do specific action.
+	IsPermitted(context.Context, *IsPermittedRequest) (*IsPermittedResponse, error)
 	//Service status
 	GetServiceStatus(context.Context, *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error)
 	GetServiceVersion(context.Context, *common.VersionRequest) (*common.VersionResponse, error)
@@ -609,23 +1944,56 @@ type MruVGroupsServiceServer interface {
 type UnimplementedMruVGroupsServiceServer struct {
 }
 
-func (*UnimplementedMruVGroupsServiceServer) CreateGroup(ctx context.Context, req *Group) (*GroupID, error) {
+func (*UnimplementedMruVGroupsServiceServer) CreateGroup(ctx context.Context, req *CreateGroupRequest) (*CreateGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGroup not implemented")
 }
-func (*UnimplementedMruVGroupsServiceServer) GetGroup(ctx context.Context, req *GroupID) (*Group, error) {
+func (*UnimplementedMruVGroupsServiceServer) GetGroup(ctx context.Context, req *GetGroupRequest) (*GetGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
 }
-func (*UnimplementedMruVGroupsServiceServer) DeleteGroup(ctx context.Context, req *GroupID) (*GroupID, error) {
+func (*UnimplementedMruVGroupsServiceServer) UpdateGroup(ctx context.Context, req *UpdateGroupRequest) (*UpdateGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateGroup not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) DeleteGroup(ctx context.Context, req *DeleteGroupRequest) (*DeleteGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteGroup not implemented")
 }
 func (*UnimplementedMruVGroupsServiceServer) GetGroups(ctx context.Context, req *GetGroupsRequest) (*GetGroupsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroups not implemented")
 }
-func (*UnimplementedMruVGroupsServiceServer) AddGroupMember(ctx context.Context, req *AddGroupMemberRequest) (*AddGroupMemberResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddGroupMember not implemented")
+func (*UnimplementedMruVGroupsServiceServer) AssignOwner(ctx context.Context, req *AssignOwnerRequest) (*AssignOwnerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssignOwner not implemented")
 }
-func (*UnimplementedMruVGroupsServiceServer) RemoveGroupMember(ctx context.Context, req *RemoveGroupMemberRequest) (*RemoveGroupMemberResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveGroupMember not implemented")
+func (*UnimplementedMruVGroupsServiceServer) GetOwner(ctx context.Context, req *GetOwnerRequest) (*GetOwnerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOwner not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) AddMember(ctx context.Context, req *AddMemberRequest) (*AddMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddMember not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) GetMembers(ctx context.Context, req *GetMembersRequest) (*GetMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMembers not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) RemoveMember(ctx context.Context, req *RemoveMemberRequest) (*RemoveMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveMember not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) AddPermission(ctx context.Context, req *AddPermissionRequest) (*AddPermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddPermission not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) GetPermissions(ctx context.Context, req *GetPermissionsRequest) (*GetPermissionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPermissions not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) RemovePermission(ctx context.Context, req *RemovePermissionRequest) (*RemovePermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemovePermission not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) AddSubgroup(ctx context.Context, req *AddSubgroupRequest) (*AddSubgroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddSubgroup not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) GetSubgroups(ctx context.Context, req *GetSubgroupsRequest) (*GetSubgroupsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSubgroups not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) RemoveSubgroup(ctx context.Context, req *RemoveSubgroupRequest) (*RemoveSubgroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubgroup not implemented")
+}
+func (*UnimplementedMruVGroupsServiceServer) IsPermitted(ctx context.Context, req *IsPermittedRequest) (*IsPermittedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsPermitted not implemented")
 }
 func (*UnimplementedMruVGroupsServiceServer) GetServiceStatus(ctx context.Context, req *common.ServiceStatusRequest) (*common.ServiceStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceStatus not implemented")
@@ -639,7 +2007,7 @@ func RegisterMruVGroupsServiceServer(s *grpc.Server, srv MruVGroupsServiceServer
 }
 
 func _MruVGroupsService_CreateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Group)
+	in := new(CreateGroupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -651,13 +2019,13 @@ func _MruVGroupsService_CreateGroup_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/mruv.MruVGroupsService/CreateGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).CreateGroup(ctx, req.(*Group))
+		return srv.(MruVGroupsServiceServer).CreateGroup(ctx, req.(*CreateGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVGroupsService_GetGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupID)
+	in := new(GetGroupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -669,13 +2037,31 @@ func _MruVGroupsService_GetGroup_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/mruv.MruVGroupsService/GetGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).GetGroup(ctx, req.(*GroupID))
+		return srv.(MruVGroupsServiceServer).GetGroup(ctx, req.(*GetGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_UpdateGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).UpdateGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/UpdateGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).UpdateGroup(ctx, req.(*UpdateGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVGroupsService_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GroupID)
+	in := new(DeleteGroupRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -687,7 +2073,7 @@ func _MruVGroupsService_DeleteGroup_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/mruv.MruVGroupsService/DeleteGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).DeleteGroup(ctx, req.(*GroupID))
+		return srv.(MruVGroupsServiceServer).DeleteGroup(ctx, req.(*DeleteGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -710,38 +2096,218 @@ func _MruVGroupsService_GetGroups_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVGroupsService_AddGroupMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddGroupMemberRequest)
+func _MruVGroupsService_AssignOwner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssignOwnerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVGroupsServiceServer).AddGroupMember(ctx, in)
+		return srv.(MruVGroupsServiceServer).AssignOwner(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVGroupsService/AddGroupMember",
+		FullMethod: "/mruv.MruVGroupsService/AssignOwner",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).AddGroupMember(ctx, req.(*AddGroupMemberRequest))
+		return srv.(MruVGroupsServiceServer).AssignOwner(ctx, req.(*AssignOwnerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MruVGroupsService_RemoveGroupMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveGroupMemberRequest)
+func _MruVGroupsService_GetOwner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOwnerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MruVGroupsServiceServer).RemoveGroupMember(ctx, in)
+		return srv.(MruVGroupsServiceServer).GetOwner(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mruv.MruVGroupsService/RemoveGroupMember",
+		FullMethod: "/mruv.MruVGroupsService/GetOwner",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVGroupsServiceServer).RemoveGroupMember(ctx, req.(*RemoveGroupMemberRequest))
+		return srv.(MruVGroupsServiceServer).GetOwner(ctx, req.(*GetOwnerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_AddMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).AddMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/AddMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).AddMember(ctx, req.(*AddMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_GetMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMembersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).GetMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/GetMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).GetMembers(ctx, req.(*GetMembersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_RemoveMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).RemoveMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/RemoveMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).RemoveMember(ctx, req.(*RemoveMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_AddPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddPermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).AddPermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/AddPermission",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).AddPermission(ctx, req.(*AddPermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_GetPermissions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPermissionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).GetPermissions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/GetPermissions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).GetPermissions(ctx, req.(*GetPermissionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_RemovePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemovePermissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).RemovePermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/RemovePermission",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).RemovePermission(ctx, req.(*RemovePermissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_AddSubgroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddSubgroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).AddSubgroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/AddSubgroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).AddSubgroup(ctx, req.(*AddSubgroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_GetSubgroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSubgroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).GetSubgroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/GetSubgroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).GetSubgroups(ctx, req.(*GetSubgroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_RemoveSubgroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSubgroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).RemoveSubgroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/RemoveSubgroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).RemoveSubgroup(ctx, req.(*RemoveSubgroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVGroupsService_IsPermitted_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsPermittedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVGroupsServiceServer).IsPermitted(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.MruVGroupsService/IsPermitted",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVGroupsServiceServer).IsPermitted(ctx, req.(*IsPermittedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -795,6 +2361,10 @@ var _MruVGroupsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVGroupsService_GetGroup_Handler,
 		},
 		{
+			MethodName: "UpdateGroup",
+			Handler:    _MruVGroupsService_UpdateGroup_Handler,
+		},
+		{
 			MethodName: "DeleteGroup",
 			Handler:    _MruVGroupsService_DeleteGroup_Handler,
 		},
@@ -803,12 +2373,52 @@ var _MruVGroupsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MruVGroupsService_GetGroups_Handler,
 		},
 		{
-			MethodName: "AddGroupMember",
-			Handler:    _MruVGroupsService_AddGroupMember_Handler,
+			MethodName: "AssignOwner",
+			Handler:    _MruVGroupsService_AssignOwner_Handler,
 		},
 		{
-			MethodName: "RemoveGroupMember",
-			Handler:    _MruVGroupsService_RemoveGroupMember_Handler,
+			MethodName: "GetOwner",
+			Handler:    _MruVGroupsService_GetOwner_Handler,
+		},
+		{
+			MethodName: "AddMember",
+			Handler:    _MruVGroupsService_AddMember_Handler,
+		},
+		{
+			MethodName: "GetMembers",
+			Handler:    _MruVGroupsService_GetMembers_Handler,
+		},
+		{
+			MethodName: "RemoveMember",
+			Handler:    _MruVGroupsService_RemoveMember_Handler,
+		},
+		{
+			MethodName: "AddPermission",
+			Handler:    _MruVGroupsService_AddPermission_Handler,
+		},
+		{
+			MethodName: "GetPermissions",
+			Handler:    _MruVGroupsService_GetPermissions_Handler,
+		},
+		{
+			MethodName: "RemovePermission",
+			Handler:    _MruVGroupsService_RemovePermission_Handler,
+		},
+		{
+			MethodName: "AddSubgroup",
+			Handler:    _MruVGroupsService_AddSubgroup_Handler,
+		},
+		{
+			MethodName: "GetSubgroups",
+			Handler:    _MruVGroupsService_GetSubgroups_Handler,
+		},
+		{
+			MethodName: "RemoveSubgroup",
+			Handler:    _MruVGroupsService_RemoveSubgroup_Handler,
+		},
+		{
+			MethodName: "IsPermitted",
+			Handler:    _MruVGroupsService_IsPermitted_Handler,
 		},
 		{
 			MethodName: "GetServiceStatus",
