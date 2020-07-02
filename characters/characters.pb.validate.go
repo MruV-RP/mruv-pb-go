@@ -276,6 +276,8 @@ func (m *CreateCharacterResponse) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Id
+
 	return nil
 }
 
@@ -410,6 +412,28 @@ var _ interface {
 func (m *GetCharacterResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for OwnerId
+
+	// no validation rules for FirstName
+
+	// no validation rules for SecondName
+
+	// no validation rules for Age
+
+	// no validation rules for Sex
+
+	if v, ok := interface{}(m.GetPosition()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetCharacterResponseValidationError{
+				field:  "Position",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
