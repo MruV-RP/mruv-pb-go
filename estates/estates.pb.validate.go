@@ -49,6 +49,8 @@ func (m *Estate) Validate() error {
 
 	// no validation rules for Description
 
+	// no validation rules for ProductId
+
 	return nil
 }
 

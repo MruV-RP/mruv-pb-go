@@ -132,6 +132,16 @@ func (m *CreateEntranceRequest) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetEntrance()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateEntranceRequestValidationError{
+				field:  "Entrance",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
