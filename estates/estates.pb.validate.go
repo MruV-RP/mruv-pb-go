@@ -670,6 +670,21 @@ func (m *GetEstatesResponse) Validate() error {
 		return nil
 	}
 
+	for idx, item := range m.GetEstates() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetEstatesResponseValidationError{
+					field:  fmt.Sprintf("Estates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -806,8 +821,6 @@ func (m *AddGateResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for GateCount
-
 	return nil
 }
 
@@ -865,10 +878,10 @@ var _ interface {
 	ErrorName() string
 } = AddGateResponseValidationError{}
 
-// Validate checks the field values on DeleteGateRequest with the rules defined
+// Validate checks the field values on RemoveGateRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.
-func (m *DeleteGateRequest) Validate() error {
+func (m *RemoveGateRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -880,9 +893,9 @@ func (m *DeleteGateRequest) Validate() error {
 	return nil
 }
 
-// DeleteGateRequestValidationError is the validation error returned by
-// DeleteGateRequest.Validate if the designated constraints aren't met.
-type DeleteGateRequestValidationError struct {
+// RemoveGateRequestValidationError is the validation error returned by
+// RemoveGateRequest.Validate if the designated constraints aren't met.
+type RemoveGateRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -890,24 +903,24 @@ type DeleteGateRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteGateRequestValidationError) Field() string { return e.field }
+func (e RemoveGateRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteGateRequestValidationError) Reason() string { return e.reason }
+func (e RemoveGateRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteGateRequestValidationError) Cause() error { return e.cause }
+func (e RemoveGateRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteGateRequestValidationError) Key() bool { return e.key }
+func (e RemoveGateRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteGateRequestValidationError) ErrorName() string {
-	return "DeleteGateRequestValidationError"
+func (e RemoveGateRequestValidationError) ErrorName() string {
+	return "RemoveGateRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeleteGateRequestValidationError) Error() string {
+func (e RemoveGateRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -919,14 +932,14 @@ func (e DeleteGateRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteGateRequest.%s: %s%s",
+		"invalid %sRemoveGateRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteGateRequestValidationError{}
+var _ error = RemoveGateRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -934,24 +947,22 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteGateRequestValidationError{}
+} = RemoveGateRequestValidationError{}
 
-// Validate checks the field values on DeleteGateResponse with the rules
+// Validate checks the field values on RemoveGateResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *DeleteGateResponse) Validate() error {
+func (m *RemoveGateResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	// no validation rules for GateCount
-
 	return nil
 }
 
-// DeleteGateResponseValidationError is the validation error returned by
-// DeleteGateResponse.Validate if the designated constraints aren't met.
-type DeleteGateResponseValidationError struct {
+// RemoveGateResponseValidationError is the validation error returned by
+// RemoveGateResponse.Validate if the designated constraints aren't met.
+type RemoveGateResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -959,24 +970,24 @@ type DeleteGateResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteGateResponseValidationError) Field() string { return e.field }
+func (e RemoveGateResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteGateResponseValidationError) Reason() string { return e.reason }
+func (e RemoveGateResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteGateResponseValidationError) Cause() error { return e.cause }
+func (e RemoveGateResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteGateResponseValidationError) Key() bool { return e.key }
+func (e RemoveGateResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteGateResponseValidationError) ErrorName() string {
-	return "DeleteGateResponseValidationError"
+func (e RemoveGateResponseValidationError) ErrorName() string {
+	return "RemoveGateResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e DeleteGateResponseValidationError) Error() string {
+func (e RemoveGateResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -988,14 +999,14 @@ func (e DeleteGateResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteGateResponse.%s: %s%s",
+		"invalid %sRemoveGateResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteGateResponseValidationError{}
+var _ error = RemoveGateResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1003,7 +1014,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteGateResponseValidationError{}
+} = RemoveGateResponseValidationError{}
 
 // Validate checks the field values on GetEstateGatesRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1082,13 +1093,13 @@ func (m *GetEstateGatesResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetEstates() {
+	for idx, item := range m.GetGates() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GetEstateGatesResponseValidationError{
-					field:  fmt.Sprintf("Estates[%v]", idx),
+					field:  fmt.Sprintf("Gates[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1235,8 +1246,6 @@ func (m *AddEntranceResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for EntranceCount
-
 	return nil
 }
 
@@ -1375,8 +1384,6 @@ func (m *RemoveEntranceResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for EntranceCount
-
 	return nil
 }
 
@@ -1511,6 +1518,21 @@ var _ interface {
 func (m *GetEstateEntrancesResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	for idx, item := range m.GetEntrances() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetEstateEntrancesResponseValidationError{
+					field:  fmt.Sprintf("Entrances[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil

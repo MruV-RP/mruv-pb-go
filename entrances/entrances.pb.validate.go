@@ -36,6 +36,92 @@ var (
 // define the regex for a UUID once up-front
 var _entrances_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on Entrance with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Entrance) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Name
+
+	if v, ok := interface{}(m.GetOut()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EntranceValidationError{
+				field:  "Out",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetIn()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return EntranceValidationError{
+				field:  "In",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// EntranceValidationError is the validation error returned by
+// Entrance.Validate if the designated constraints aren't met.
+type EntranceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EntranceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EntranceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EntranceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EntranceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EntranceValidationError) ErrorName() string { return "EntranceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EntranceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEntrance.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EntranceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EntranceValidationError{}
+
 // Validate checks the field values on CreateEntranceRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -273,9 +359,25 @@ func (m *GetEntranceResponse) Validate() error {
 
 	// no validation rules for Name
 
-	// no validation rules for InSpotId
+	if v, ok := interface{}(m.GetInSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetEntranceResponseValidationError{
+				field:  "InSpot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for OutSpotId
+	if v, ok := interface{}(m.GetOutSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetEntranceResponseValidationError{
+				field:  "OutSpot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
