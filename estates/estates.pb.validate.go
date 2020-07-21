@@ -599,7 +599,9 @@ func (m *GetEstatesRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	// no validation rules for From
+
+	// no validation rules for Limit
 
 	return nil
 }
@@ -1078,6 +1080,21 @@ var _ interface {
 func (m *GetEstateGatesResponse) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	for idx, item := range m.GetEstates() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetEstateGatesResponseValidationError{
+					field:  fmt.Sprintf("Estates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil

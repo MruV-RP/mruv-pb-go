@@ -209,6 +209,8 @@ func (m *CreateEntranceResponse) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Id
+
 	return nil
 }
 
