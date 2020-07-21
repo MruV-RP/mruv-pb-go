@@ -36,10 +36,9 @@ var (
 // define the regex for a UUID once up-front
 var _spots_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
-// Validate checks the field values on CreateSpotRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *CreateSpotRequest) Validate() error {
+// Validate checks the field values on Spot with the rules defined in the proto
+// definition for this message. If any rules are violated, an error is returned.
+func (m *Spot) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -61,6 +60,81 @@ func (m *CreateSpotRequest) Validate() error {
 	// no validation rules for Vw
 
 	// no validation rules for Int
+
+	return nil
+}
+
+// SpotValidationError is the validation error returned by Spot.Validate if the
+// designated constraints aren't met.
+type SpotValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpotValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpotValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpotValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpotValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpotValidationError) ErrorName() string { return "SpotValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SpotValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpot.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpotValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpotValidationError{}
+
+// Validate checks the field values on CreateSpotRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *CreateSpotRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateSpotRequestValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -265,23 +339,15 @@ func (m *GetSpotResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
-
-	// no validation rules for Message
-
-	// no validation rules for Icon
-
-	// no validation rules for Marker
-
-	// no validation rules for X
-
-	// no validation rules for Y
-
-	// no validation rules for Z
-
-	// no validation rules for Vw
-
-	// no validation rules for Int
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetSpotResponseValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -350,23 +416,15 @@ func (m *UpdateSpotRequest) Validate() error {
 
 	// no validation rules for Id
 
-	// no validation rules for Name
-
-	// no validation rules for Message
-
-	// no validation rules for Icon
-
-	// no validation rules for Marker
-
-	// no validation rules for X
-
-	// no validation rules for Y
-
-	// no validation rules for Z
-
-	// no validation rules for Vw
-
-	// no validation rules for Int
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateSpotRequestValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
