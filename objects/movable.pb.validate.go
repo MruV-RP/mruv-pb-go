@@ -57,6 +57,8 @@ func (m *State) Validate() error {
 
 	// no validation rules for Rz
 
+	// no validation rules for TransitionSpeed
+
 	return nil
 }
 

@@ -25,188 +25,27 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// SA-MP Object type data structure.
-type ObjectModel struct {
-	Model                uint32   `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
-	ModelName            string   `protobuf:"bytes,2,opt,name=model_name,json=modelName,proto3" json:"model_name,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Category             string   `protobuf:"bytes,13,opt,name=category,proto3" json:"category,omitempty"`
-	ProductId            uint32   `protobuf:"varint,4,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	Length               float64  `protobuf:"fixed64,5,opt,name=length,proto3" json:"length,omitempty"`
-	Width                float64  `protobuf:"fixed64,6,opt,name=width,proto3" json:"width,omitempty"`
-	Height               float64  `protobuf:"fixed64,7,opt,name=height,proto3" json:"height,omitempty"`
-	Size                 float64  `protobuf:"fixed64,8,opt,name=size,proto3" json:"size,omitempty"`
-	Tags                 []string `protobuf:"bytes,9,rep,name=tags,proto3" json:"tags,omitempty"`
-	HasCollision         bool     `protobuf:"varint,10,opt,name=has_collision,json=hasCollision,proto3" json:"has_collision,omitempty"`
-	BreaksOnHit          bool     `protobuf:"varint,11,opt,name=breaks_on_hit,json=breaksOnHit,proto3" json:"breaks_on_hit,omitempty"`
-	HasAnimation         bool     `protobuf:"varint,12,opt,name=has_animation,json=hasAnimation,proto3" json:"has_animation,omitempty"`
-	VisibleByTime        bool     `protobuf:"varint,16,opt,name=visible_by_time,json=visibleByTime,proto3" json:"visible_by_time,omitempty"`
-	VisibleFrom          uint32   `protobuf:"varint,17,opt,name=visible_from,json=visibleFrom,proto3" json:"visible_from,omitempty"`
-	VisibleTo            uint32   `protobuf:"varint,18,opt,name=visible_to,json=visibleTo,proto3" json:"visible_to,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ObjectModel) Reset()         { *m = ObjectModel{} }
-func (m *ObjectModel) String() string { return proto.CompactTextString(m) }
-func (*ObjectModel) ProtoMessage()    {}
-func (*ObjectModel) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{0}
-}
-
-func (m *ObjectModel) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ObjectModel.Unmarshal(m, b)
-}
-func (m *ObjectModel) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ObjectModel.Marshal(b, m, deterministic)
-}
-func (m *ObjectModel) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ObjectModel.Merge(m, src)
-}
-func (m *ObjectModel) XXX_Size() int {
-	return xxx_messageInfo_ObjectModel.Size(m)
-}
-func (m *ObjectModel) XXX_DiscardUnknown() {
-	xxx_messageInfo_ObjectModel.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ObjectModel proto.InternalMessageInfo
-
-func (m *ObjectModel) GetModel() uint32 {
-	if m != nil {
-		return m.Model
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetModelName() string {
-	if m != nil {
-		return m.ModelName
-	}
-	return ""
-}
-
-func (m *ObjectModel) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *ObjectModel) GetCategory() string {
-	if m != nil {
-		return m.Category
-	}
-	return ""
-}
-
-func (m *ObjectModel) GetProductId() uint32 {
-	if m != nil {
-		return m.ProductId
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetLength() float64 {
-	if m != nil {
-		return m.Length
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetWidth() float64 {
-	if m != nil {
-		return m.Width
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetHeight() float64 {
-	if m != nil {
-		return m.Height
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetSize() float64 {
-	if m != nil {
-		return m.Size
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetTags() []string {
-	if m != nil {
-		return m.Tags
-	}
-	return nil
-}
-
-func (m *ObjectModel) GetHasCollision() bool {
-	if m != nil {
-		return m.HasCollision
-	}
-	return false
-}
-
-func (m *ObjectModel) GetBreaksOnHit() bool {
-	if m != nil {
-		return m.BreaksOnHit
-	}
-	return false
-}
-
-func (m *ObjectModel) GetHasAnimation() bool {
-	if m != nil {
-		return m.HasAnimation
-	}
-	return false
-}
-
-func (m *ObjectModel) GetVisibleByTime() bool {
-	if m != nil {
-		return m.VisibleByTime
-	}
-	return false
-}
-
-func (m *ObjectModel) GetVisibleFrom() uint32 {
-	if m != nil {
-		return m.VisibleFrom
-	}
-	return 0
-}
-
-func (m *ObjectModel) GetVisibleTo() uint32 {
-	if m != nil {
-		return m.VisibleTo
-	}
-	return 0
-}
-
 // SA-MP Dynamic object data structure.
 type Object struct {
-	Model    uint32  `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
-	EstateId uint32  `protobuf:"varint,2,opt,name=estate_id,json=estateId,proto3" json:"estate_id,omitempty"`
-	X        float32 `protobuf:"fixed32,3,opt,name=x,proto3" json:"x,omitempty"`
-	Y        float32 `protobuf:"fixed32,4,opt,name=y,proto3" json:"y,omitempty"`
-	Z        float32 `protobuf:"fixed32,5,opt,name=z,proto3" json:"z,omitempty"`
-	Rx       float32 `protobuf:"fixed32,6,opt,name=rx,proto3" json:"rx,omitempty"`
-	Ry       float32 `protobuf:"fixed32,7,opt,name=ry,proto3" json:"ry,omitempty"`
-	Rz       float32 `protobuf:"fixed32,8,opt,name=rz,proto3" json:"rz,omitempty"`
+	Model uint32  `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
+	X     float32 `protobuf:"fixed32,2,opt,name=x,proto3" json:"x,omitempty"`
+	Y     float32 `protobuf:"fixed32,3,opt,name=y,proto3" json:"y,omitempty"`
+	Z     float32 `protobuf:"fixed32,4,opt,name=z,proto3" json:"z,omitempty"`
+	Rx    float32 `protobuf:"fixed32,5,opt,name=rx,proto3" json:"rx,omitempty"`
+	Ry    float32 `protobuf:"fixed32,6,opt,name=ry,proto3" json:"ry,omitempty"`
+	Rz    float32 `protobuf:"fixed32,7,opt,name=rz,proto3" json:"rz,omitempty"`
 	// Virtual world id for which object will be visible. Set -1 to be visible for all.
-	WorldId int32 `protobuf:"varint,9,opt,name=world_id,json=worldId,proto3" json:"world_id,omitempty"`
+	WorldId int32 `protobuf:"varint,8,opt,name=world_id,json=worldId,proto3" json:"world_id,omitempty"`
 	// Interior id for which object will be visible. Set -1 to be visible for all.
-	InteriorId int32 `protobuf:"varint,10,opt,name=interior_id,json=interiorId,proto3" json:"interior_id,omitempty"`
+	InteriorId int32 `protobuf:"varint,9,opt,name=interior_id,json=interiorId,proto3" json:"interior_id,omitempty"`
 	// SA-MP player id for which object will be visible. Set -1 to be visible for all.
-	PlayerId int32 `protobuf:"varint,11,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
+	PlayerId int32 `protobuf:"varint,10,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
 	// Dynamic area id for which object will be visible. Set -1 to be visible for all.
-	AreaId int32 `protobuf:"varint,12,opt,name=area_id,json=areaId,proto3" json:"area_id,omitempty"`
+	AreaId int32 `protobuf:"varint,11,opt,name=area_id,json=areaId,proto3" json:"area_id,omitempty"`
 	// Default streamer setting is 300.0
-	StreamDistance float32 `protobuf:"fixed32,13,opt,name=stream_distance,json=streamDistance,proto3" json:"stream_distance,omitempty"`
+	StreamDistance float32 `protobuf:"fixed32,12,opt,name=stream_distance,json=streamDistance,proto3" json:"stream_distance,omitempty"`
 	// Default streamer setting is 0.0 = default game draw distance
-	DrawDistance         float32  `protobuf:"fixed32,14,opt,name=draw_distance,json=drawDistance,proto3" json:"draw_distance,omitempty"`
+	DrawDistance         float32  `protobuf:"fixed32,13,opt,name=draw_distance,json=drawDistance,proto3" json:"draw_distance,omitempty"`
 	Priority             int32    `protobuf:"varint,15,opt,name=priority,proto3" json:"priority,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -217,7 +56,7 @@ func (m *Object) Reset()         { *m = Object{} }
 func (m *Object) String() string { return proto.CompactTextString(m) }
 func (*Object) ProtoMessage()    {}
 func (*Object) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{1}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{0}
 }
 
 func (m *Object) XXX_Unmarshal(b []byte) error {
@@ -241,13 +80,6 @@ var xxx_messageInfo_Object proto.InternalMessageInfo
 func (m *Object) GetModel() uint32 {
 	if m != nil {
 		return m.Model
-	}
-	return 0
-}
-
-func (m *Object) GetEstateId() uint32 {
-	if m != nil {
-		return m.EstateId
 	}
 	return 0
 }
@@ -343,310 +175,6 @@ func (m *Object) GetPriority() int32 {
 	return 0
 }
 
-// Request message for rpc `CreateObjectModel`.
-type CreateObjectModelRequest struct {
-	ObjectType           *ObjectModel `protobuf:"bytes,1,opt,name=object_type,json=objectType,proto3" json:"object_type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
-}
-
-func (m *CreateObjectModelRequest) Reset()         { *m = CreateObjectModelRequest{} }
-func (m *CreateObjectModelRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateObjectModelRequest) ProtoMessage()    {}
-func (*CreateObjectModelRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{2}
-}
-
-func (m *CreateObjectModelRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateObjectModelRequest.Unmarshal(m, b)
-}
-func (m *CreateObjectModelRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateObjectModelRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateObjectModelRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateObjectModelRequest.Merge(m, src)
-}
-func (m *CreateObjectModelRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateObjectModelRequest.Size(m)
-}
-func (m *CreateObjectModelRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateObjectModelRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateObjectModelRequest proto.InternalMessageInfo
-
-func (m *CreateObjectModelRequest) GetObjectType() *ObjectModel {
-	if m != nil {
-		return m.ObjectType
-	}
-	return nil
-}
-
-// Response message for rpc `CreateObjectModel`.
-type CreateObjectModelResponse struct {
-	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *CreateObjectModelResponse) Reset()         { *m = CreateObjectModelResponse{} }
-func (m *CreateObjectModelResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateObjectModelResponse) ProtoMessage()    {}
-func (*CreateObjectModelResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{3}
-}
-
-func (m *CreateObjectModelResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateObjectModelResponse.Unmarshal(m, b)
-}
-func (m *CreateObjectModelResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateObjectModelResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateObjectModelResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateObjectModelResponse.Merge(m, src)
-}
-func (m *CreateObjectModelResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateObjectModelResponse.Size(m)
-}
-func (m *CreateObjectModelResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateObjectModelResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateObjectModelResponse proto.InternalMessageInfo
-
-func (m *CreateObjectModelResponse) GetId() uint32 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-// Request message for rpc `GetObjectModel`.
-type GetObjectModelRequest struct {
-	Model                uint32   `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetObjectModelRequest) Reset()         { *m = GetObjectModelRequest{} }
-func (m *GetObjectModelRequest) String() string { return proto.CompactTextString(m) }
-func (*GetObjectModelRequest) ProtoMessage()    {}
-func (*GetObjectModelRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{4}
-}
-
-func (m *GetObjectModelRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetObjectModelRequest.Unmarshal(m, b)
-}
-func (m *GetObjectModelRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetObjectModelRequest.Marshal(b, m, deterministic)
-}
-func (m *GetObjectModelRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetObjectModelRequest.Merge(m, src)
-}
-func (m *GetObjectModelRequest) XXX_Size() int {
-	return xxx_messageInfo_GetObjectModelRequest.Size(m)
-}
-func (m *GetObjectModelRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetObjectModelRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetObjectModelRequest proto.InternalMessageInfo
-
-func (m *GetObjectModelRequest) GetModel() uint32 {
-	if m != nil {
-		return m.Model
-	}
-	return 0
-}
-
-// Response message for rpc `GetObjectModel`.
-type GetObjectModelResponse struct {
-	ObjectType           *ObjectModel `protobuf:"bytes,1,opt,name=object_type,json=objectType,proto3" json:"object_type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
-}
-
-func (m *GetObjectModelResponse) Reset()         { *m = GetObjectModelResponse{} }
-func (m *GetObjectModelResponse) String() string { return proto.CompactTextString(m) }
-func (*GetObjectModelResponse) ProtoMessage()    {}
-func (*GetObjectModelResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{5}
-}
-
-func (m *GetObjectModelResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetObjectModelResponse.Unmarshal(m, b)
-}
-func (m *GetObjectModelResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetObjectModelResponse.Marshal(b, m, deterministic)
-}
-func (m *GetObjectModelResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetObjectModelResponse.Merge(m, src)
-}
-func (m *GetObjectModelResponse) XXX_Size() int {
-	return xxx_messageInfo_GetObjectModelResponse.Size(m)
-}
-func (m *GetObjectModelResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetObjectModelResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetObjectModelResponse proto.InternalMessageInfo
-
-func (m *GetObjectModelResponse) GetObjectType() *ObjectModel {
-	if m != nil {
-		return m.ObjectType
-	}
-	return nil
-}
-
-// Request message for rpc `UpdateObjectModel`.
-type UpdateObjectModelRequest struct {
-	ObjectType           *ObjectModel `protobuf:"bytes,1,opt,name=object_type,json=objectType,proto3" json:"object_type,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
-}
-
-func (m *UpdateObjectModelRequest) Reset()         { *m = UpdateObjectModelRequest{} }
-func (m *UpdateObjectModelRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateObjectModelRequest) ProtoMessage()    {}
-func (*UpdateObjectModelRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{6}
-}
-
-func (m *UpdateObjectModelRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateObjectModelRequest.Unmarshal(m, b)
-}
-func (m *UpdateObjectModelRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateObjectModelRequest.Marshal(b, m, deterministic)
-}
-func (m *UpdateObjectModelRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateObjectModelRequest.Merge(m, src)
-}
-func (m *UpdateObjectModelRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateObjectModelRequest.Size(m)
-}
-func (m *UpdateObjectModelRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateObjectModelRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateObjectModelRequest proto.InternalMessageInfo
-
-func (m *UpdateObjectModelRequest) GetObjectType() *ObjectModel {
-	if m != nil {
-		return m.ObjectType
-	}
-	return nil
-}
-
-// Response message for rpc `UpdateObjectModel`.
-type UpdateObjectModelResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UpdateObjectModelResponse) Reset()         { *m = UpdateObjectModelResponse{} }
-func (m *UpdateObjectModelResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateObjectModelResponse) ProtoMessage()    {}
-func (*UpdateObjectModelResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{7}
-}
-
-func (m *UpdateObjectModelResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateObjectModelResponse.Unmarshal(m, b)
-}
-func (m *UpdateObjectModelResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateObjectModelResponse.Marshal(b, m, deterministic)
-}
-func (m *UpdateObjectModelResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateObjectModelResponse.Merge(m, src)
-}
-func (m *UpdateObjectModelResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateObjectModelResponse.Size(m)
-}
-func (m *UpdateObjectModelResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateObjectModelResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateObjectModelResponse proto.InternalMessageInfo
-
-// Request message for rpc `DeleteObjectModel`.
-type DeleteObjectModelRequest struct {
-	Model                uint32   `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteObjectModelRequest) Reset()         { *m = DeleteObjectModelRequest{} }
-func (m *DeleteObjectModelRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteObjectModelRequest) ProtoMessage()    {}
-func (*DeleteObjectModelRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{8}
-}
-
-func (m *DeleteObjectModelRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteObjectModelRequest.Unmarshal(m, b)
-}
-func (m *DeleteObjectModelRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteObjectModelRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteObjectModelRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteObjectModelRequest.Merge(m, src)
-}
-func (m *DeleteObjectModelRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteObjectModelRequest.Size(m)
-}
-func (m *DeleteObjectModelRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteObjectModelRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteObjectModelRequest proto.InternalMessageInfo
-
-func (m *DeleteObjectModelRequest) GetModel() uint32 {
-	if m != nil {
-		return m.Model
-	}
-	return 0
-}
-
-// Response message for rpc `DeleteObjectModel`.
-type DeleteObjectModelResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteObjectModelResponse) Reset()         { *m = DeleteObjectModelResponse{} }
-func (m *DeleteObjectModelResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteObjectModelResponse) ProtoMessage()    {}
-func (*DeleteObjectModelResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{9}
-}
-
-func (m *DeleteObjectModelResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteObjectModelResponse.Unmarshal(m, b)
-}
-func (m *DeleteObjectModelResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteObjectModelResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteObjectModelResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteObjectModelResponse.Merge(m, src)
-}
-func (m *DeleteObjectModelResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteObjectModelResponse.Size(m)
-}
-func (m *DeleteObjectModelResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteObjectModelResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteObjectModelResponse proto.InternalMessageInfo
-
 // Request message for rpc `CreateObject`.
 type CreateObjectRequest struct {
 	Object               *Object  `protobuf:"bytes,1,opt,name=object,proto3" json:"object,omitempty"`
@@ -659,7 +187,7 @@ func (m *CreateObjectRequest) Reset()         { *m = CreateObjectRequest{} }
 func (m *CreateObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateObjectRequest) ProtoMessage()    {}
 func (*CreateObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{10}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{1}
 }
 
 func (m *CreateObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -699,7 +227,7 @@ func (m *CreateObjectResponse) Reset()         { *m = CreateObjectResponse{} }
 func (m *CreateObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateObjectResponse) ProtoMessage()    {}
 func (*CreateObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{11}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{2}
 }
 
 func (m *CreateObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -739,7 +267,7 @@ func (m *GetObjectRequest) Reset()         { *m = GetObjectRequest{} }
 func (m *GetObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*GetObjectRequest) ProtoMessage()    {}
 func (*GetObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{12}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{3}
 }
 
 func (m *GetObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -779,7 +307,7 @@ func (m *GetObjectResponse) Reset()         { *m = GetObjectResponse{} }
 func (m *GetObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*GetObjectResponse) ProtoMessage()    {}
 func (*GetObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{13}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{4}
 }
 
 func (m *GetObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -820,7 +348,7 @@ func (m *UpdateObjectRequest) Reset()         { *m = UpdateObjectRequest{} }
 func (m *UpdateObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateObjectRequest) ProtoMessage()    {}
 func (*UpdateObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{14}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{5}
 }
 
 func (m *UpdateObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -866,7 +394,7 @@ func (m *UpdateObjectResponse) Reset()         { *m = UpdateObjectResponse{} }
 func (m *UpdateObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateObjectResponse) ProtoMessage()    {}
 func (*UpdateObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{15}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{6}
 }
 
 func (m *UpdateObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -899,7 +427,7 @@ func (m *DeleteObjectRequest) Reset()         { *m = DeleteObjectRequest{} }
 func (m *DeleteObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteObjectRequest) ProtoMessage()    {}
 func (*DeleteObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{16}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{7}
 }
 
 func (m *DeleteObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -938,7 +466,7 @@ func (m *DeleteObjectResponse) Reset()         { *m = DeleteObjectResponse{} }
 func (m *DeleteObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteObjectResponse) ProtoMessage()    {}
 func (*DeleteObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{17}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{8}
 }
 
 func (m *DeleteObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -960,16 +488,7 @@ func (m *DeleteObjectResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_DeleteObjectResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*ObjectModel)(nil), "mruv.objects.ObjectModel")
 	proto.RegisterType((*Object)(nil), "mruv.objects.Object")
-	proto.RegisterType((*CreateObjectModelRequest)(nil), "mruv.objects.CreateObjectModelRequest")
-	proto.RegisterType((*CreateObjectModelResponse)(nil), "mruv.objects.CreateObjectModelResponse")
-	proto.RegisterType((*GetObjectModelRequest)(nil), "mruv.objects.GetObjectModelRequest")
-	proto.RegisterType((*GetObjectModelResponse)(nil), "mruv.objects.GetObjectModelResponse")
-	proto.RegisterType((*UpdateObjectModelRequest)(nil), "mruv.objects.UpdateObjectModelRequest")
-	proto.RegisterType((*UpdateObjectModelResponse)(nil), "mruv.objects.UpdateObjectModelResponse")
-	proto.RegisterType((*DeleteObjectModelRequest)(nil), "mruv.objects.DeleteObjectModelRequest")
-	proto.RegisterType((*DeleteObjectModelResponse)(nil), "mruv.objects.DeleteObjectModelResponse")
 	proto.RegisterType((*CreateObjectRequest)(nil), "mruv.objects.CreateObjectRequest")
 	proto.RegisterType((*CreateObjectResponse)(nil), "mruv.objects.CreateObjectResponse")
 	proto.RegisterType((*GetObjectRequest)(nil), "mruv.objects.GetObjectRequest")
@@ -983,70 +502,42 @@ func init() {
 func init() { proto.RegisterFile("objects/objects.proto", fileDescriptor_7ad3a201d0ccaa04) }
 
 var fileDescriptor_7ad3a201d0ccaa04 = []byte{
-	// 1005 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0x5d, 0x73, 0xdb, 0x44,
-	0x14, 0x1d, 0xa9, 0x8d, 0x63, 0x5f, 0x2b, 0x1f, 0xde, 0xa4, 0xc9, 0xda, 0x01, 0xe2, 0x2a, 0x24,
-	0xf1, 0xb4, 0xc4, 0x86, 0xf0, 0xc6, 0x5b, 0x9b, 0x0e, 0xe0, 0x87, 0x52, 0x46, 0x0d, 0x79, 0xe0,
-	0xc5, 0xb3, 0xb6, 0x16, 0x7b, 0xc1, 0xd2, 0x0a, 0x69, 0x9d, 0x44, 0x2e, 0x79, 0x61, 0x86, 0x1f,
-	0xc0, 0xf0, 0xd3, 0x78, 0xe0, 0x99, 0x19, 0xfe, 0x00, 0xff, 0x80, 0xd9, 0xd5, 0xca, 0x91, 0x65,
-	0xa9, 0xc0, 0xc0, 0x53, 0x74, 0xcf, 0x1e, 0xdf, 0x73, 0xf6, 0x9e, 0xbd, 0x33, 0x81, 0x47, 0x7c,
-	0xf8, 0x2d, 0x1d, 0x89, 0xa8, 0xa7, 0xff, 0x76, 0x83, 0x90, 0x0b, 0x8e, 0x2c, 0x2f, 0x9c, 0x5d,
-	0x77, 0x35, 0xd6, 0x7a, 0x67, 0xcc, 0xf9, 0x78, 0x4a, 0x7b, 0x24, 0x60, 0x3d, 0xe2, 0xfb, 0x5c,
-	0x10, 0xc1, 0xb8, 0xaf, 0xb9, 0xf6, 0x6f, 0x0f, 0xa0, 0xfe, 0x4a, 0x31, 0x5f, 0x72, 0x97, 0x4e,
-	0xd1, 0x2e, 0xac, 0x79, 0xf2, 0x03, 0x1b, 0x6d, 0xa3, 0xb3, 0xe1, 0x24, 0x05, 0x7a, 0x17, 0x40,
-	0x7d, 0x0c, 0x7c, 0xe2, 0x51, 0x6c, 0xb6, 0x8d, 0x4e, 0xcd, 0xa9, 0x29, 0xe4, 0x0b, 0xe2, 0x51,
-	0x84, 0xe0, 0xa1, 0x3a, 0x78, 0xa0, 0x0e, 0xd4, 0x37, 0x6a, 0x41, 0x75, 0x44, 0x04, 0x1d, 0xf3,
-	0x30, 0xc6, 0x1b, 0x0a, 0x5f, 0xd4, 0xb2, 0x5d, 0x10, 0x72, 0x77, 0x36, 0x12, 0x03, 0xe6, 0xe2,
-	0x87, 0x4a, 0xa9, 0xa6, 0x91, 0xbe, 0x8b, 0xf6, 0xa0, 0x32, 0xa5, 0xfe, 0x58, 0x4c, 0xf0, 0x5a,
-	0xdb, 0xe8, 0x18, 0x8e, 0xae, 0xa4, 0xb7, 0x1b, 0xe6, 0x8a, 0x09, 0xae, 0x28, 0x38, 0x29, 0x24,
-	0x7b, 0x42, 0xd9, 0x78, 0x22, 0xf0, 0x7a, 0xc2, 0x4e, 0x2a, 0x69, 0x2a, 0x62, 0x73, 0x8a, 0xab,
-	0x0a, 0x55, 0xdf, 0x12, 0x13, 0x64, 0x1c, 0xe1, 0x5a, 0xfb, 0x81, 0x34, 0x2a, 0xbf, 0xd1, 0x11,
-	0x6c, 0x4c, 0x48, 0x34, 0x18, 0xf1, 0xe9, 0x94, 0x45, 0x8c, 0xfb, 0x18, 0xda, 0x46, 0xa7, 0xea,
-	0x58, 0x13, 0x12, 0x5d, 0xa4, 0x18, 0xb2, 0x61, 0x63, 0x18, 0x52, 0xf2, 0x5d, 0x34, 0xe0, 0xfe,
-	0x60, 0xc2, 0x04, 0xae, 0x2b, 0x52, 0x3d, 0x01, 0x5f, 0xf9, 0x9f, 0x33, 0x91, 0x36, 0x22, 0x3e,
-	0xf3, 0xd4, 0x88, 0xb1, 0xb5, 0x68, 0xf4, 0x2c, 0xc5, 0xd0, 0x09, 0x6c, 0x5d, 0xb3, 0x88, 0x0d,
-	0xa7, 0x74, 0x30, 0x8c, 0x07, 0x82, 0x79, 0x14, 0x6f, 0x2b, 0xda, 0x86, 0x86, 0x9f, 0xc7, 0x97,
-	0xcc, 0xa3, 0xe8, 0x31, 0x58, 0x29, 0xef, 0x9b, 0x90, 0x7b, 0xb8, 0xa1, 0x86, 0x54, 0xd7, 0xd8,
-	0xa7, 0x21, 0xf7, 0xe4, 0x14, 0x53, 0x8a, 0xe0, 0x18, 0x25, 0x53, 0xd4, 0xc8, 0x25, 0xb7, 0xff,
-	0x34, 0xa1, 0x92, 0x24, 0x5b, 0x12, 0xea, 0x01, 0xd4, 0x68, 0x24, 0x88, 0xa0, 0x32, 0x04, 0x53,
-	0x9d, 0x54, 0x13, 0xa0, 0xef, 0x22, 0x0b, 0x8c, 0x5b, 0x95, 0xa7, 0xe9, 0x18, 0xb7, 0xb2, 0x8a,
-	0x55, 0x4e, 0xa6, 0x63, 0xc4, 0xb2, 0x9a, 0xab, 0x68, 0x4c, 0xc7, 0x98, 0xa3, 0x4d, 0x30, 0xc3,
-	0x5b, 0x15, 0x89, 0xe9, 0x98, 0xe1, 0xad, 0xaa, 0x63, 0x95, 0x85, 0xac, 0x63, 0x55, 0xcf, 0x55,
-	0x0a, 0xb2, 0x9e, 0xa3, 0x26, 0x54, 0x6f, 0x78, 0x38, 0x75, 0xa5, 0x6a, 0xad, 0x6d, 0x74, 0xd6,
-	0x9c, 0x75, 0x55, 0xf7, 0x5d, 0x74, 0x08, 0x75, 0xe6, 0x0b, 0x1a, 0x32, 0x1e, 0xca, 0x53, 0x50,
-	0xa7, 0x90, 0x42, 0x7d, 0x57, 0x5a, 0x0e, 0xa6, 0x24, 0xa6, 0xea, 0xb8, 0xae, 0x8e, 0xab, 0x09,
-	0xd0, 0x77, 0xd1, 0x3e, 0xac, 0x93, 0x90, 0x12, 0x79, 0x64, 0xa9, 0xa3, 0x8a, 0x2c, 0xfb, 0x2e,
-	0x3a, 0x85, 0xad, 0x48, 0x84, 0x94, 0x78, 0x03, 0x97, 0x45, 0x82, 0xf8, 0x23, 0xaa, 0x5e, 0xa4,
-	0xe9, 0x6c, 0x26, 0xf0, 0x0b, 0x8d, 0xca, 0x04, 0xdd, 0x90, 0xdc, 0xdc, 0xd3, 0x36, 0x15, 0xcd,
-	0x92, 0xe0, 0x82, 0xd4, 0x82, 0x6a, 0x20, 0xed, 0x30, 0x11, 0xe3, 0x2d, 0x6d, 0x41, 0xd7, 0xf6,
-	0x15, 0xe0, 0x8b, 0x90, 0x12, 0x41, 0x33, 0x2b, 0xe5, 0xd0, 0xef, 0x67, 0x34, 0x12, 0xe8, 0x13,
-	0xa8, 0x27, 0x2b, 0x39, 0x10, 0x71, 0x40, 0x55, 0x14, 0xf5, 0xf3, 0x66, 0x37, 0xbb, 0xab, 0xdd,
-	0xec, 0xcf, 0x20, 0x01, 0x2f, 0xe3, 0x80, 0xda, 0x4f, 0xa1, 0x59, 0xd0, 0x37, 0x0a, 0xb8, 0x1f,
-	0x51, 0x39, 0x60, 0xe6, 0xea, 0x68, 0x4d, 0xe6, 0xda, 0x67, 0xf0, 0xe8, 0x33, 0x2a, 0x0a, 0x1c,
-	0x14, 0x3e, 0x03, 0xfb, 0x12, 0xf6, 0xf2, 0x74, 0xdd, 0xf8, 0xbf, 0x38, 0xbe, 0x02, 0xfc, 0x55,
-	0xe0, 0xfe, 0xff, 0x93, 0x38, 0x80, 0x66, 0x41, 0xdf, 0xc4, 0xb0, 0xfd, 0x21, 0xe0, 0x17, 0x74,
-	0x4a, 0x0b, 0x45, 0x8b, 0x2f, 0x7f, 0x00, 0xcd, 0x82, 0x5f, 0xe8, 0x76, 0x17, 0xb0, 0x93, 0x9d,
-	0x7a, 0xda, 0xe9, 0x03, 0xa8, 0x24, 0x86, 0xb4, 0xf3, 0xdd, 0x22, 0xe7, 0x8e, 0xe6, 0xd8, 0x27,
-	0xb0, 0xbb, 0xdc, 0xa4, 0x24, 0x35, 0x1b, 0xb6, 0x17, 0x31, 0xa4, 0x4a, 0x79, 0xce, 0x33, 0x68,
-	0x64, 0x38, 0xba, 0xd1, 0xbf, 0xb3, 0xf3, 0x1a, 0x76, 0xb2, 0xf3, 0x2b, 0x51, 0xca, 0x34, 0x35,
-	0xff, 0x41, 0xd3, 0x3d, 0xd8, 0x5d, 0x6e, 0xaa, 0x07, 0x78, 0x0c, 0x3b, 0xd9, 0xe9, 0x96, 0x5d,
-	0x6b, 0x0f, 0x76, 0x97, 0x69, 0xc9, 0xcf, 0xcf, 0x7f, 0x5f, 0x07, 0xf4, 0x32, 0x9c, 0x5d, 0x25,
-	0x70, 0xf4, 0x9a, 0x86, 0xd7, 0x6c, 0x44, 0xd1, 0x1d, 0x34, 0x56, 0x96, 0x01, 0x9d, 0x2c, 0x1b,
-	0x2c, 0xdb, 0xc2, 0xd6, 0xe9, 0xdf, 0xf2, 0xb4, 0xf7, 0xfd, 0x1f, 0x7f, 0xfd, 0xe3, 0x17, 0xb3,
-	0x61, 0x6f, 0xf5, 0xae, 0x3f, 0xea, 0xdd, 0x3f, 0xc0, 0x08, 0xfd, 0x00, 0x9b, 0xcb, 0xfb, 0x82,
-	0x8e, 0x96, 0x7b, 0x16, 0x2e, 0x5f, 0xeb, 0xfd, 0xb7, 0x93, 0xb4, 0xea, 0xa1, 0x52, 0x6d, 0xa2,
-	0xfd, 0x9c, 0x6a, 0xef, 0x8d, 0x7a, 0xaf, 0x77, 0xe8, 0x67, 0x03, 0x1a, 0x2b, 0x0b, 0x90, 0xbf,
-	0x7d, 0xd9, 0xe6, 0xe5, 0x6f, 0x5f, 0xbe, 0x49, 0x4f, 0x95, 0x8f, 0xe3, 0xf3, 0xa3, 0x15, 0x1f,
-	0x99, 0xcd, 0xed, 0x6a, 0x4f, 0x3f, 0x19, 0xd0, 0x58, 0xd9, 0xa2, 0xbc, 0xa7, 0xb2, 0xc5, 0xcc,
-	0x7b, 0x2a, 0x5f, 0x47, 0x3d, 0x9b, 0x27, 0xa5, 0xb3, 0x61, 0x60, 0x65, 0xf3, 0x44, 0x8f, 0xcb,
-	0xb3, 0x4e, 0xc5, 0xed, 0xb7, 0x51, 0xb4, 0x2e, 0x52, 0xba, 0x96, 0x0d, 0xf7, 0xba, 0x88, 0x42,
-	0x6d, 0x91, 0x20, 0x7a, 0xaf, 0x24, 0xda, 0x54, 0xe4, 0xb0, 0xf4, 0x7c, 0xf9, 0xad, 0xa1, 0xcc,
-	0x5b, 0xeb, 0xbd, 0x61, 0xee, 0x1d, 0xe2, 0x60, 0x65, 0x33, 0xca, 0xdf, 0xa8, 0x60, 0x93, 0xf3,
-	0x37, 0x2a, 0xdc, 0x4b, 0xac, 0xf4, 0xd0, 0xf9, 0xf6, 0xbd, 0x5e, 0xb4, 0x10, 0xcc, 0x06, 0x90,
-	0x17, 0x2c, 0xd8, 0xe6, 0xbc, 0x60, 0xd1, 0x26, 0xa7, 0x82, 0x4f, 0x56, 0x04, 0x9f, 0x9f, 0x7e,
-	0x7d, 0x3c, 0x66, 0x62, 0x32, 0x1b, 0x76, 0x47, 0xdc, 0xeb, 0xc9, 0x6d, 0x3f, 0x73, 0xbe, 0xec,
-	0xc9, 0x8e, 0x67, 0xc1, 0xf0, 0x6c, 0xcc, 0x53, 0xf6, 0xb0, 0xa2, 0xfe, 0x5f, 0xfd, 0xf8, 0xaf,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x70, 0x96, 0xf2, 0xa3, 0xf4, 0x0a, 0x00, 0x00,
+	// 553 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xdd, 0x8e, 0xd2, 0x40,
+	0x14, 0x4e, 0xbb, 0xf2, 0x77, 0x28, 0xcb, 0xee, 0x80, 0xee, 0x88, 0xc6, 0xc5, 0x9a, 0x75, 0x89,
+	0x11, 0x1a, 0xf1, 0x09, 0x74, 0x37, 0x31, 0x5c, 0x18, 0x0d, 0x1b, 0xbd, 0xf0, 0x66, 0x53, 0x98,
+	0x09, 0x8e, 0x81, 0x4e, 0x9d, 0x0e, 0x2c, 0xc5, 0x78, 0xe3, 0x2b, 0xf8, 0x52, 0xde, 0xeb, 0x23,
+	0xf8, 0x20, 0x66, 0xa6, 0x03, 0xb4, 0x5d, 0xfc, 0xbb, 0x22, 0xdf, 0x39, 0xdf, 0x9c, 0xef, 0x9c,
+	0xef, 0x0b, 0x85, 0x9b, 0x7c, 0xf4, 0x81, 0x8e, 0x65, 0xe4, 0x99, 0xdf, 0x5e, 0x28, 0xb8, 0xe4,
+	0xc8, 0x99, 0x89, 0xf9, 0xa2, 0x67, 0x6a, 0xad, 0xbb, 0x13, 0xce, 0x27, 0x53, 0xea, 0xf9, 0x21,
+	0xf3, 0xfc, 0x20, 0xe0, 0xd2, 0x97, 0x8c, 0x07, 0x86, 0xeb, 0xfe, 0xb0, 0xa1, 0xf8, 0x4a, 0x33,
+	0x51, 0x13, 0x0a, 0x33, 0x4e, 0xe8, 0x14, 0x5b, 0x6d, 0xab, 0x53, 0x1b, 0x26, 0x00, 0x39, 0x60,
+	0x2d, 0xb1, 0xdd, 0xb6, 0x3a, 0xf6, 0xd0, 0x5a, 0x2a, 0x14, 0xe3, 0xbd, 0x04, 0xc5, 0x0a, 0xad,
+	0xf0, 0x8d, 0x04, 0xad, 0xd0, 0x3e, 0xd8, 0x62, 0x89, 0x0b, 0x1a, 0xda, 0x62, 0xa9, 0x71, 0x8c,
+	0x8b, 0x06, 0xc7, 0x1a, 0xaf, 0x70, 0xc9, 0xe0, 0x15, 0xba, 0x0d, 0xe5, 0x2b, 0x2e, 0xa6, 0xe4,
+	0x92, 0x11, 0x5c, 0x6e, 0x5b, 0x9d, 0xc2, 0xb0, 0xa4, 0xf1, 0x80, 0xa0, 0x63, 0xa8, 0xb2, 0x40,
+	0x52, 0xc1, 0xb8, 0x50, 0xdd, 0x8a, 0xee, 0xc2, 0xba, 0x34, 0x20, 0xe8, 0x0e, 0x54, 0xc2, 0xa9,
+	0x1f, 0x53, 0xdd, 0x06, 0xdd, 0x2e, 0x27, 0x85, 0x01, 0x41, 0x47, 0x50, 0xf2, 0x05, 0xf5, 0x55,
+	0xab, 0xaa, 0x5b, 0x45, 0x05, 0x07, 0x04, 0x9d, 0x42, 0x3d, 0x92, 0x82, 0xfa, 0xb3, 0x4b, 0xc2,
+	0x22, 0xe9, 0x07, 0x63, 0x8a, 0x1d, 0xbd, 0xce, 0x7e, 0x52, 0x3e, 0x37, 0x55, 0xf4, 0x00, 0x6a,
+	0x44, 0xf8, 0x57, 0x5b, 0x5a, 0x4d, 0xd3, 0x1c, 0x55, 0xdc, 0x90, 0x5a, 0x50, 0x0e, 0xd5, 0x3a,
+	0x4c, 0xc6, 0xb8, 0x6e, 0x56, 0x30, 0xd8, 0x3d, 0x83, 0xc6, 0x99, 0xa0, 0xbe, 0xa4, 0x89, 0xb7,
+	0x43, 0xfa, 0x71, 0x4e, 0x23, 0x89, 0x1e, 0x43, 0x31, 0x89, 0x45, 0x7b, 0x5c, 0xed, 0x37, 0x7b,
+	0xe9, 0xa8, 0x7a, 0x86, 0x6c, 0x38, 0xee, 0x43, 0x68, 0x66, 0x87, 0x44, 0x21, 0x0f, 0x22, 0xaa,
+	0x8c, 0x64, 0xc4, 0xa4, 0x64, 0x33, 0xe2, 0xba, 0x70, 0xf0, 0x82, 0xca, 0xac, 0x52, 0x9e, 0xf3,
+	0x0c, 0x0e, 0x53, 0x1c, 0x33, 0xe8, 0xff, 0xd6, 0xb9, 0x80, 0xc6, 0x9b, 0x90, 0x5c, 0xbb, 0x29,
+	0xa7, 0x94, 0x1a, 0x6a, 0xff, 0xc3, 0xd0, 0x5b, 0xd0, 0xcc, 0x0e, 0x4d, 0x56, 0x73, 0x4f, 0xa0,
+	0x71, 0x4e, 0xa7, 0xf4, 0x2f, 0x62, 0xea, 0x79, 0x96, 0x96, 0x3c, 0xef, 0x7f, 0xdb, 0x03, 0xf4,
+	0x52, 0xcc, 0xdf, 0x26, 0xe5, 0xe8, 0x82, 0x8a, 0x05, 0x1b, 0x53, 0xc4, 0xc0, 0x49, 0x3b, 0x8a,
+	0xee, 0x67, 0x77, 0xdb, 0x11, 0x59, 0xcb, 0xfd, 0x13, 0xc5, 0x2c, 0x8b, 0xbe, 0x7c, 0xff, 0xf9,
+	0xd5, 0x76, 0x5c, 0xf0, 0x16, 0x4f, 0xcc, 0x7f, 0x11, 0x51, 0xa8, 0x6c, 0x0c, 0x47, 0xf7, 0xb2,
+	0x43, 0xf2, 0x69, 0xb5, 0x8e, 0x7f, 0xdb, 0x37, 0x0a, 0x47, 0x5a, 0xe1, 0x10, 0xd5, 0xb7, 0x0a,
+	0xde, 0x27, 0x46, 0x3e, 0x23, 0x0e, 0x4e, 0xda, 0xbf, 0xfc, 0x45, 0x3b, 0x02, 0xcb, 0x5f, 0xb4,
+	0xd3, 0x7e, 0xac, 0xf5, 0x50, 0xff, 0x60, 0xab, 0x17, 0x6d, 0x04, 0xd3, 0x8e, 0xe7, 0x05, 0x77,
+	0x84, 0x96, 0x17, 0xdc, 0x15, 0xd8, 0x5a, 0xf0, 0xd1, 0x35, 0xc1, 0xe7, 0xa7, 0xef, 0x4e, 0x26,
+	0x4c, 0xbe, 0x9f, 0x8f, 0x7a, 0x63, 0x3e, 0xf3, 0x54, 0xa8, 0xdd, 0xe1, 0x6b, 0x4f, 0x4d, 0xec,
+	0x86, 0xa3, 0xee, 0x84, 0xaf, 0xd9, 0xa3, 0xa2, 0xfe, 0xa2, 0x3d, 0xfd, 0x15, 0x00, 0x00, 0xff,
+	0xff, 0xd3, 0x75, 0x90, 0xe9, 0x16, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1061,14 +552,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVObjectsServiceClient interface {
-	// Create an object model.
-	CreateObjectModel(ctx context.Context, in *CreateObjectModelRequest, opts ...grpc.CallOption) (*CreateObjectModelResponse, error)
-	// Get an object model.
-	GetObjectModel(ctx context.Context, in *GetObjectModelRequest, opts ...grpc.CallOption) (*GetObjectModelResponse, error)
-	// Update an object model.
-	UpdateObjectModel(ctx context.Context, in *UpdateObjectModelRequest, opts ...grpc.CallOption) (*UpdateObjectModelResponse, error)
-	// Delete an object model.
-	DeleteObjectModel(ctx context.Context, in *DeleteObjectModelRequest, opts ...grpc.CallOption) (*DeleteObjectModelResponse, error)
 	// Create an object.
 	CreateObject(ctx context.Context, in *CreateObjectRequest, opts ...grpc.CallOption) (*CreateObjectResponse, error)
 	// Get an object.
@@ -1085,42 +568,6 @@ type mruVObjectsServiceClient struct {
 
 func NewMruVObjectsServiceClient(cc *grpc.ClientConn) MruVObjectsServiceClient {
 	return &mruVObjectsServiceClient{cc}
-}
-
-func (c *mruVObjectsServiceClient) CreateObjectModel(ctx context.Context, in *CreateObjectModelRequest, opts ...grpc.CallOption) (*CreateObjectModelResponse, error) {
-	out := new(CreateObjectModelResponse)
-	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/CreateObjectModel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *mruVObjectsServiceClient) GetObjectModel(ctx context.Context, in *GetObjectModelRequest, opts ...grpc.CallOption) (*GetObjectModelResponse, error) {
-	out := new(GetObjectModelResponse)
-	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/GetObjectModel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *mruVObjectsServiceClient) UpdateObjectModel(ctx context.Context, in *UpdateObjectModelRequest, opts ...grpc.CallOption) (*UpdateObjectModelResponse, error) {
-	out := new(UpdateObjectModelResponse)
-	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/UpdateObjectModel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *mruVObjectsServiceClient) DeleteObjectModel(ctx context.Context, in *DeleteObjectModelRequest, opts ...grpc.CallOption) (*DeleteObjectModelResponse, error) {
-	out := new(DeleteObjectModelResponse)
-	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/DeleteObjectModel", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *mruVObjectsServiceClient) CreateObject(ctx context.Context, in *CreateObjectRequest, opts ...grpc.CallOption) (*CreateObjectResponse, error) {
@@ -1161,14 +608,6 @@ func (c *mruVObjectsServiceClient) DeleteObject(ctx context.Context, in *DeleteO
 
 // MruVObjectsServiceServer is the server API for MruVObjectsService service.
 type MruVObjectsServiceServer interface {
-	// Create an object model.
-	CreateObjectModel(context.Context, *CreateObjectModelRequest) (*CreateObjectModelResponse, error)
-	// Get an object model.
-	GetObjectModel(context.Context, *GetObjectModelRequest) (*GetObjectModelResponse, error)
-	// Update an object model.
-	UpdateObjectModel(context.Context, *UpdateObjectModelRequest) (*UpdateObjectModelResponse, error)
-	// Delete an object model.
-	DeleteObjectModel(context.Context, *DeleteObjectModelRequest) (*DeleteObjectModelResponse, error)
 	// Create an object.
 	CreateObject(context.Context, *CreateObjectRequest) (*CreateObjectResponse, error)
 	// Get an object.
@@ -1183,18 +622,6 @@ type MruVObjectsServiceServer interface {
 type UnimplementedMruVObjectsServiceServer struct {
 }
 
-func (*UnimplementedMruVObjectsServiceServer) CreateObjectModel(ctx context.Context, req *CreateObjectModelRequest) (*CreateObjectModelResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateObjectModel not implemented")
-}
-func (*UnimplementedMruVObjectsServiceServer) GetObjectModel(ctx context.Context, req *GetObjectModelRequest) (*GetObjectModelResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetObjectModel not implemented")
-}
-func (*UnimplementedMruVObjectsServiceServer) UpdateObjectModel(ctx context.Context, req *UpdateObjectModelRequest) (*UpdateObjectModelResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateObjectModel not implemented")
-}
-func (*UnimplementedMruVObjectsServiceServer) DeleteObjectModel(ctx context.Context, req *DeleteObjectModelRequest) (*DeleteObjectModelResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectModel not implemented")
-}
 func (*UnimplementedMruVObjectsServiceServer) CreateObject(ctx context.Context, req *CreateObjectRequest) (*CreateObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateObject not implemented")
 }
@@ -1210,78 +637,6 @@ func (*UnimplementedMruVObjectsServiceServer) DeleteObject(ctx context.Context, 
 
 func RegisterMruVObjectsServiceServer(s *grpc.Server, srv MruVObjectsServiceServer) {
 	s.RegisterService(&_MruVObjectsService_serviceDesc, srv)
-}
-
-func _MruVObjectsService_CreateObjectModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateObjectModelRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVObjectsServiceServer).CreateObjectModel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.objects.MruVObjectsService/CreateObjectModel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVObjectsServiceServer).CreateObjectModel(ctx, req.(*CreateObjectModelRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _MruVObjectsService_GetObjectModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetObjectModelRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVObjectsServiceServer).GetObjectModel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.objects.MruVObjectsService/GetObjectModel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVObjectsServiceServer).GetObjectModel(ctx, req.(*GetObjectModelRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _MruVObjectsService_UpdateObjectModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateObjectModelRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVObjectsServiceServer).UpdateObjectModel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.objects.MruVObjectsService/UpdateObjectModel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVObjectsServiceServer).UpdateObjectModel(ctx, req.(*UpdateObjectModelRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _MruVObjectsService_DeleteObjectModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteObjectModelRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVObjectsServiceServer).DeleteObjectModel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.objects.MruVObjectsService/DeleteObjectModel",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVObjectsServiceServer).DeleteObjectModel(ctx, req.(*DeleteObjectModelRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVObjectsService_CreateObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1360,22 +715,6 @@ var _MruVObjectsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mruv.objects.MruVObjectsService",
 	HandlerType: (*MruVObjectsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CreateObjectModel",
-			Handler:    _MruVObjectsService_CreateObjectModel_Handler,
-		},
-		{
-			MethodName: "GetObjectModel",
-			Handler:    _MruVObjectsService_GetObjectModel_Handler,
-		},
-		{
-			MethodName: "UpdateObjectModel",
-			Handler:    _MruVObjectsService_UpdateObjectModel_Handler,
-		},
-		{
-			MethodName: "DeleteObjectModel",
-			Handler:    _MruVObjectsService_DeleteObjectModel_Handler,
-		},
 		{
 			MethodName: "CreateObject",
 			Handler:    _MruVObjectsService_CreateObject_Handler,
