@@ -43,10 +43,6 @@ func (m *Gate) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
-
-	// no validation rules for EstateId
-
 	return nil
 }
 
@@ -110,6 +106,23 @@ var _ interface {
 func (m *CreateGateRequest) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	// no validation rules for Name
+
+	for idx, item := range m.GetGateObjects() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateGateRequestValidationError{
+					field:  fmt.Sprintf("GateObjects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	return nil
@@ -178,6 +191,8 @@ func (m *CreateGateResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	// no validation rules for Id
 
 	return nil
 }
@@ -313,7 +328,26 @@ func (m *GetGateResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Id
+	// no validation rules for Name
+
+	for idx, item := range m.GetGateObjects() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetGateResponseValidationError{
+					field:  fmt.Sprintf("GateObjects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Opened
+
+	// no validation rules for Locked
 
 	return nil
 }
@@ -381,6 +415,8 @@ func (m *UpdateGateRequest) Validate() error {
 	}
 
 	// no validation rules for Id
+
+	// no validation rules for Name
 
 	return nil
 }
