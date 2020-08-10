@@ -43,6 +43,37 @@ func (m *Gate) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Name
+
+	for idx, item := range m.GetGateObjects() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GateValidationError{
+					field:  fmt.Sprintf("GateObjects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GateValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Opened
+
+	// no validation rules for Locked
+
 	return nil
 }
 
@@ -123,6 +154,16 @@ func (m *CreateGateRequest) Validate() error {
 			}
 		}
 
+	}
+
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateGateRequestValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
@@ -330,19 +371,14 @@ func (m *GetGateResponse) Validate() error {
 
 	// no validation rules for Name
 
-	for idx, item := range m.GetGateObjects() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GetGateResponseValidationError{
-					field:  fmt.Sprintf("GateObjects[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
+	if v, ok := interface{}(m.GetSpot()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetGateResponseValidationError{
+				field:  "Spot",
+				reason: "embedded message failed validation",
+				cause:  err,
 			}
 		}
-
 	}
 
 	// no validation rules for Opened
@@ -417,6 +453,8 @@ func (m *UpdateGateRequest) Validate() error {
 	// no validation rules for Id
 
 	// no validation rules for Name
+
+	// no validation rules for SpotId
 
 	return nil
 }

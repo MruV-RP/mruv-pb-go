@@ -285,6 +285,8 @@ func (m *GetPlotResponse) Validate() error {
 
 	}
 
+	// no validation rules for Area
+
 	return nil
 }
 
