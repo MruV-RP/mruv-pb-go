@@ -1065,6 +1065,8 @@ func (m *FindNearestEntranceResponse) Validate() error {
 
 	// no validation rules for Distance
 
+	// no validation rules for Inside
+
 	return nil
 }
 
@@ -1256,3 +1258,135 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = EnterResponseValidationError{}
+
+// Validate checks the field values on ExitRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *ExitRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// ExitRequestValidationError is the validation error returned by
+// ExitRequest.Validate if the designated constraints aren't met.
+type ExitRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ExitRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ExitRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ExitRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ExitRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ExitRequestValidationError) ErrorName() string { return "ExitRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ExitRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sExitRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ExitRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ExitRequestValidationError{}
+
+// Validate checks the field values on ExitResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *ExitResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// ExitResponseValidationError is the validation error returned by
+// ExitResponse.Validate if the designated constraints aren't met.
+type ExitResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ExitResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ExitResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ExitResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ExitResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ExitResponseValidationError) ErrorName() string { return "ExitResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ExitResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sExitResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ExitResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ExitResponseValidationError{}
