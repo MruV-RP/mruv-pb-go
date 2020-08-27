@@ -1348,6 +1348,8 @@ func (m *UnBanRequest) Validate() error {
 
 	// no validation rules for BanId
 
+	// no validation rules for Reason
+
 	return nil
 }
 
@@ -1470,6 +1472,140 @@ var _ interface {
 	ErrorName() string
 } = UnBanResponseValidationError{}
 
+// Validate checks the field values on UnBlockRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *UnBlockRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for BlockId
+
+	// no validation rules for Reason
+
+	return nil
+}
+
+// UnBlockRequestValidationError is the validation error returned by
+// UnBlockRequest.Validate if the designated constraints aren't met.
+type UnBlockRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UnBlockRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UnBlockRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UnBlockRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UnBlockRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UnBlockRequestValidationError) ErrorName() string { return "UnBlockRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UnBlockRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUnBlockRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UnBlockRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UnBlockRequestValidationError{}
+
+// Validate checks the field values on UnBlockResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *UnBlockResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// UnBlockResponseValidationError is the validation error returned by
+// UnBlockResponse.Validate if the designated constraints aren't met.
+type UnBlockResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UnBlockResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UnBlockResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UnBlockResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UnBlockResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UnBlockResponseValidationError) ErrorName() string { return "UnBlockResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UnBlockResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUnBlockResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UnBlockResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UnBlockResponseValidationError{}
+
 // Validate checks the field values on UnWarnRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
 // is returned.
@@ -1479,6 +1615,8 @@ func (m *UnWarnRequest) Validate() error {
 	}
 
 	// no validation rules for WarnId
+
+	// no validation rules for Reason
 
 	return nil
 }

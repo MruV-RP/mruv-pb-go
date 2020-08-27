@@ -71,6 +71,8 @@ func (m *Object) Validate() error {
 
 	// no validation rules for Priority
 
+	// no validation rules for EstateId
+
 	return nil
 }
 
