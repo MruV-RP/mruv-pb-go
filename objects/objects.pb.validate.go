@@ -73,6 +73,40 @@ func (m *Object) Validate() error {
 
 	// no validation rules for EstateId
 
+	for key, val := range m.GetMaterials() {
+		_ = val
+
+		// no validation rules for Materials[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectValidationError{
+					field:  fmt.Sprintf("Materials[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for key, val := range m.GetMaterialTexts() {
+		_ = val
+
+		// no validation rules for MaterialTexts[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectValidationError{
+					field:  fmt.Sprintf("MaterialTexts[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	return nil
 }
 
@@ -129,6 +163,159 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ObjectValidationError{}
+
+// Validate checks the field values on Material with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *Material) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ModelId
+
+	// no validation rules for TxdName
+
+	// no validation rules for TextureName
+
+	// no validation rules for MaterialColor
+
+	return nil
+}
+
+// MaterialValidationError is the validation error returned by
+// Material.Validate if the designated constraints aren't met.
+type MaterialValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaterialValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaterialValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaterialValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaterialValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaterialValidationError) ErrorName() string { return "MaterialValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MaterialValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaterial.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaterialValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaterialValidationError{}
+
+// Validate checks the field values on MaterialText with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *MaterialText) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Text
+
+	// no validation rules for MaterialSize
+
+	// no validation rules for FontFace
+
+	// no validation rules for FontSize
+
+	// no validation rules for Bold
+
+	// no validation rules for FontColor
+
+	// no validation rules for BackColor
+
+	// no validation rules for TextAlignment
+
+	return nil
+}
+
+// MaterialTextValidationError is the validation error returned by
+// MaterialText.Validate if the designated constraints aren't met.
+type MaterialTextValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaterialTextValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaterialTextValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaterialTextValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaterialTextValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaterialTextValidationError) ErrorName() string { return "MaterialTextValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MaterialTextValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaterialText.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaterialTextValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaterialTextValidationError{}
 
 // Validate checks the field values on CreateObjectRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -701,3 +888,1034 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteObjectResponseValidationError{}
+
+// Validate checks the field values on AddObjectMaterialRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddObjectMaterialRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	// no validation rules for Index
+
+	if v, ok := interface{}(m.GetMaterial()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddObjectMaterialRequestValidationError{
+				field:  "Material",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// AddObjectMaterialRequestValidationError is the validation error returned by
+// AddObjectMaterialRequest.Validate if the designated constraints aren't met.
+type AddObjectMaterialRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddObjectMaterialRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddObjectMaterialRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddObjectMaterialRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddObjectMaterialRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddObjectMaterialRequestValidationError) ErrorName() string {
+	return "AddObjectMaterialRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddObjectMaterialRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddObjectMaterialRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddObjectMaterialRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddObjectMaterialRequestValidationError{}
+
+// Validate checks the field values on AddObjectMaterialResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddObjectMaterialResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// AddObjectMaterialResponseValidationError is the validation error returned by
+// AddObjectMaterialResponse.Validate if the designated constraints aren't met.
+type AddObjectMaterialResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddObjectMaterialResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddObjectMaterialResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddObjectMaterialResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddObjectMaterialResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddObjectMaterialResponseValidationError) ErrorName() string {
+	return "AddObjectMaterialResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddObjectMaterialResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddObjectMaterialResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddObjectMaterialResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddObjectMaterialResponseValidationError{}
+
+// Validate checks the field values on GetObjectMaterialsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetObjectMaterialsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	return nil
+}
+
+// GetObjectMaterialsRequestValidationError is the validation error returned by
+// GetObjectMaterialsRequest.Validate if the designated constraints aren't met.
+type GetObjectMaterialsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetObjectMaterialsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetObjectMaterialsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetObjectMaterialsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetObjectMaterialsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetObjectMaterialsRequestValidationError) ErrorName() string {
+	return "GetObjectMaterialsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetObjectMaterialsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetObjectMaterialsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetObjectMaterialsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetObjectMaterialsRequestValidationError{}
+
+// Validate checks the field values on GetObjectMaterialsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetObjectMaterialsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetMaterials() {
+		_ = val
+
+		// no validation rules for Materials[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetObjectMaterialsResponseValidationError{
+					field:  fmt.Sprintf("Materials[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// GetObjectMaterialsResponseValidationError is the validation error returned
+// by GetObjectMaterialsResponse.Validate if the designated constraints aren't met.
+type GetObjectMaterialsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetObjectMaterialsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetObjectMaterialsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetObjectMaterialsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetObjectMaterialsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetObjectMaterialsResponseValidationError) ErrorName() string {
+	return "GetObjectMaterialsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetObjectMaterialsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetObjectMaterialsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetObjectMaterialsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetObjectMaterialsResponseValidationError{}
+
+// Validate checks the field values on DeleteObjectMaterialRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteObjectMaterialRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	// no validation rules for Index
+
+	return nil
+}
+
+// DeleteObjectMaterialRequestValidationError is the validation error returned
+// by DeleteObjectMaterialRequest.Validate if the designated constraints
+// aren't met.
+type DeleteObjectMaterialRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteObjectMaterialRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteObjectMaterialRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteObjectMaterialRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteObjectMaterialRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteObjectMaterialRequestValidationError) ErrorName() string {
+	return "DeleteObjectMaterialRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteObjectMaterialRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteObjectMaterialRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteObjectMaterialRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteObjectMaterialRequestValidationError{}
+
+// Validate checks the field values on DeleteObjectMaterialResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteObjectMaterialResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// DeleteObjectMaterialResponseValidationError is the validation error returned
+// by DeleteObjectMaterialResponse.Validate if the designated constraints
+// aren't met.
+type DeleteObjectMaterialResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteObjectMaterialResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteObjectMaterialResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteObjectMaterialResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteObjectMaterialResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteObjectMaterialResponseValidationError) ErrorName() string {
+	return "DeleteObjectMaterialResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteObjectMaterialResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteObjectMaterialResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteObjectMaterialResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteObjectMaterialResponseValidationError{}
+
+// Validate checks the field values on AddObjectMaterialTextRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddObjectMaterialTextRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	// no validation rules for Index
+
+	if v, ok := interface{}(m.GetMaterialText()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddObjectMaterialTextRequestValidationError{
+				field:  "MaterialText",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// AddObjectMaterialTextRequestValidationError is the validation error returned
+// by AddObjectMaterialTextRequest.Validate if the designated constraints
+// aren't met.
+type AddObjectMaterialTextRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddObjectMaterialTextRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddObjectMaterialTextRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddObjectMaterialTextRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddObjectMaterialTextRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddObjectMaterialTextRequestValidationError) ErrorName() string {
+	return "AddObjectMaterialTextRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddObjectMaterialTextRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddObjectMaterialTextRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddObjectMaterialTextRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddObjectMaterialTextRequestValidationError{}
+
+// Validate checks the field values on AddObjectMaterialTextResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddObjectMaterialTextResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// AddObjectMaterialTextResponseValidationError is the validation error
+// returned by AddObjectMaterialTextResponse.Validate if the designated
+// constraints aren't met.
+type AddObjectMaterialTextResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddObjectMaterialTextResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddObjectMaterialTextResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddObjectMaterialTextResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddObjectMaterialTextResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddObjectMaterialTextResponseValidationError) ErrorName() string {
+	return "AddObjectMaterialTextResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddObjectMaterialTextResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddObjectMaterialTextResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddObjectMaterialTextResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddObjectMaterialTextResponseValidationError{}
+
+// Validate checks the field values on GetObjectMaterialTextsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetObjectMaterialTextsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	return nil
+}
+
+// GetObjectMaterialTextsRequestValidationError is the validation error
+// returned by GetObjectMaterialTextsRequest.Validate if the designated
+// constraints aren't met.
+type GetObjectMaterialTextsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetObjectMaterialTextsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetObjectMaterialTextsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetObjectMaterialTextsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetObjectMaterialTextsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetObjectMaterialTextsRequestValidationError) ErrorName() string {
+	return "GetObjectMaterialTextsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetObjectMaterialTextsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetObjectMaterialTextsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetObjectMaterialTextsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetObjectMaterialTextsRequestValidationError{}
+
+// Validate checks the field values on GetObjectMaterialTextsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetObjectMaterialTextsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetMaterialTexts() {
+		_ = val
+
+		// no validation rules for MaterialTexts[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetObjectMaterialTextsResponseValidationError{
+					field:  fmt.Sprintf("MaterialTexts[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// GetObjectMaterialTextsResponseValidationError is the validation error
+// returned by GetObjectMaterialTextsResponse.Validate if the designated
+// constraints aren't met.
+type GetObjectMaterialTextsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetObjectMaterialTextsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetObjectMaterialTextsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetObjectMaterialTextsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetObjectMaterialTextsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetObjectMaterialTextsResponseValidationError) ErrorName() string {
+	return "GetObjectMaterialTextsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetObjectMaterialTextsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetObjectMaterialTextsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetObjectMaterialTextsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetObjectMaterialTextsResponseValidationError{}
+
+// Validate checks the field values on DeleteObjectMaterialTextRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteObjectMaterialTextRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ObjectId
+
+	// no validation rules for Index
+
+	return nil
+}
+
+// DeleteObjectMaterialTextRequestValidationError is the validation error
+// returned by DeleteObjectMaterialTextRequest.Validate if the designated
+// constraints aren't met.
+type DeleteObjectMaterialTextRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteObjectMaterialTextRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteObjectMaterialTextRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteObjectMaterialTextRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteObjectMaterialTextRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteObjectMaterialTextRequestValidationError) ErrorName() string {
+	return "DeleteObjectMaterialTextRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteObjectMaterialTextRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteObjectMaterialTextRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteObjectMaterialTextRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteObjectMaterialTextRequestValidationError{}
+
+// Validate checks the field values on DeleteObjectMaterialTextResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *DeleteObjectMaterialTextResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// DeleteObjectMaterialTextResponseValidationError is the validation error
+// returned by DeleteObjectMaterialTextResponse.Validate if the designated
+// constraints aren't met.
+type DeleteObjectMaterialTextResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteObjectMaterialTextResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteObjectMaterialTextResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteObjectMaterialTextResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteObjectMaterialTextResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteObjectMaterialTextResponseValidationError) ErrorName() string {
+	return "DeleteObjectMaterialTextResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteObjectMaterialTextResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteObjectMaterialTextResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteObjectMaterialTextResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteObjectMaterialTextResponseValidationError{}
+
+// Validate checks the field values on FetchAllRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *FetchAllRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// FetchAllRequestValidationError is the validation error returned by
+// FetchAllRequest.Validate if the designated constraints aren't met.
+type FetchAllRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllRequestValidationError) ErrorName() string { return "FetchAllRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FetchAllRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllRequestValidationError{}
+
+// Validate checks the field values on FetchAllResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *FetchAllResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetObjects() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllResponseValidationError{
+					field:  fmt.Sprintf("Objects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllResponseValidationError is the validation error returned by
+// FetchAllResponse.Validate if the designated constraints aren't met.
+type FetchAllResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllResponseValidationError) ErrorName() string { return "FetchAllResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FetchAllResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllResponseValidationError{}

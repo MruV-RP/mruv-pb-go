@@ -25,6 +25,70 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type MaterialSize int32
+
+const (
+	MaterialSize_OBJECT_MATERIAL_SIZE_0       MaterialSize = 0
+	MaterialSize_OBJECT_MATERIAL_SIZE_32X32   MaterialSize = 10
+	MaterialSize_OBJECT_MATERIAL_SIZE_64X32   MaterialSize = 20
+	MaterialSize_OBJECT_MATERIAL_SIZE_64X64   MaterialSize = 30
+	MaterialSize_OBJECT_MATERIAL_SIZE_128X32  MaterialSize = 40
+	MaterialSize_OBJECT_MATERIAL_SIZE_128X64  MaterialSize = 50
+	MaterialSize_OBJECT_MATERIAL_SIZE_128X128 MaterialSize = 60
+	MaterialSize_OBJECT_MATERIAL_SIZE_256X32  MaterialSize = 70
+	MaterialSize_OBJECT_MATERIAL_SIZE_256X64  MaterialSize = 80
+	MaterialSize_OBJECT_MATERIAL_SIZE_256X128 MaterialSize = 90
+	MaterialSize_OBJECT_MATERIAL_SIZE_256X256 MaterialSize = 100
+	MaterialSize_OBJECT_MATERIAL_SIZE_512X64  MaterialSize = 110
+	MaterialSize_OBJECT_MATERIAL_SIZE_512X128 MaterialSize = 120
+	MaterialSize_OBJECT_MATERIAL_SIZE_512X256 MaterialSize = 130
+	MaterialSize_OBJECT_MATERIAL_SIZE_512X512 MaterialSize = 140
+)
+
+var MaterialSize_name = map[int32]string{
+	0:   "OBJECT_MATERIAL_SIZE_0",
+	10:  "OBJECT_MATERIAL_SIZE_32X32",
+	20:  "OBJECT_MATERIAL_SIZE_64X32",
+	30:  "OBJECT_MATERIAL_SIZE_64X64",
+	40:  "OBJECT_MATERIAL_SIZE_128X32",
+	50:  "OBJECT_MATERIAL_SIZE_128X64",
+	60:  "OBJECT_MATERIAL_SIZE_128X128",
+	70:  "OBJECT_MATERIAL_SIZE_256X32",
+	80:  "OBJECT_MATERIAL_SIZE_256X64",
+	90:  "OBJECT_MATERIAL_SIZE_256X128",
+	100: "OBJECT_MATERIAL_SIZE_256X256",
+	110: "OBJECT_MATERIAL_SIZE_512X64",
+	120: "OBJECT_MATERIAL_SIZE_512X128",
+	130: "OBJECT_MATERIAL_SIZE_512X256",
+	140: "OBJECT_MATERIAL_SIZE_512X512",
+}
+
+var MaterialSize_value = map[string]int32{
+	"OBJECT_MATERIAL_SIZE_0":       0,
+	"OBJECT_MATERIAL_SIZE_32X32":   10,
+	"OBJECT_MATERIAL_SIZE_64X32":   20,
+	"OBJECT_MATERIAL_SIZE_64X64":   30,
+	"OBJECT_MATERIAL_SIZE_128X32":  40,
+	"OBJECT_MATERIAL_SIZE_128X64":  50,
+	"OBJECT_MATERIAL_SIZE_128X128": 60,
+	"OBJECT_MATERIAL_SIZE_256X32":  70,
+	"OBJECT_MATERIAL_SIZE_256X64":  80,
+	"OBJECT_MATERIAL_SIZE_256X128": 90,
+	"OBJECT_MATERIAL_SIZE_256X256": 100,
+	"OBJECT_MATERIAL_SIZE_512X64":  110,
+	"OBJECT_MATERIAL_SIZE_512X128": 120,
+	"OBJECT_MATERIAL_SIZE_512X256": 130,
+	"OBJECT_MATERIAL_SIZE_512X512": 140,
+}
+
+func (x MaterialSize) String() string {
+	return proto.EnumName(MaterialSize_name, int32(x))
+}
+
+func (MaterialSize) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{0}
+}
+
 // SA-MP Dynamic object data structure.
 type Object struct {
 	Model uint32  `protobuf:"varint,1,opt,name=model,proto3" json:"model,omitempty"`
@@ -45,12 +109,14 @@ type Object struct {
 	// Default streamer setting is 300.0
 	StreamDistance float32 `protobuf:"fixed32,12,opt,name=stream_distance,json=streamDistance,proto3" json:"stream_distance,omitempty"`
 	// Default streamer setting is 0.0 = default game draw distance
-	DrawDistance         float32  `protobuf:"fixed32,13,opt,name=draw_distance,json=drawDistance,proto3" json:"draw_distance,omitempty"`
-	Priority             int32    `protobuf:"varint,15,opt,name=priority,proto3" json:"priority,omitempty"`
-	EstateId             uint32   `protobuf:"varint,16,opt,name=estate_id,json=estateId,proto3" json:"estate_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	DrawDistance         float32                  `protobuf:"fixed32,13,opt,name=draw_distance,json=drawDistance,proto3" json:"draw_distance,omitempty"`
+	Priority             int32                    `protobuf:"varint,15,opt,name=priority,proto3" json:"priority,omitempty"`
+	EstateId             uint32                   `protobuf:"varint,16,opt,name=estate_id,json=estateId,proto3" json:"estate_id,omitempty"`
+	Materials            map[uint32]*Material     `protobuf:"bytes,17,rep,name=materials,proto3" json:"materials,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	MaterialTexts        map[uint32]*MaterialText `protobuf:"bytes,18,rep,name=material_texts,json=materialTexts,proto3" json:"material_texts,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
+	XXX_unrecognized     []byte                   `json:"-"`
+	XXX_sizecache        int32                    `json:"-"`
 }
 
 func (m *Object) Reset()         { *m = Object{} }
@@ -183,6 +249,192 @@ func (m *Object) GetEstateId() uint32 {
 	return 0
 }
 
+func (m *Object) GetMaterials() map[uint32]*Material {
+	if m != nil {
+		return m.Materials
+	}
+	return nil
+}
+
+func (m *Object) GetMaterialTexts() map[uint32]*MaterialText {
+	if m != nil {
+		return m.MaterialTexts
+	}
+	return nil
+}
+
+// Replace the texture of an object with the texture from another model in the game.
+type Material struct {
+	// The modelid on which the replacement texture is located. Use 0 for alpha. Use -1 to change the material color without altering the texture.
+	ModelId int32 `protobuf:"varint,1,opt,name=model_id,json=modelId,proto3" json:"model_id,omitempty"`
+	// The name of the txd file which contains the replacement texture (use "none" if not required)
+	TxdName string `protobuf:"bytes,2,opt,name=txd_name,json=txdName,proto3" json:"txd_name,omitempty"`
+	// The name of the texture to use as the replacement (use "none" if not required)
+	TextureName string `protobuf:"bytes,3,opt,name=texture_name,json=textureName,proto3" json:"texture_name,omitempty"`
+	// The object color to set, as an integer or hex in ARGB color format. Using 0 keeps the existing material color.
+	MaterialColor        int32    `protobuf:"varint,4,opt,name=material_color,json=materialColor,proto3" json:"material_color,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Material) Reset()         { *m = Material{} }
+func (m *Material) String() string { return proto.CompactTextString(m) }
+func (*Material) ProtoMessage()    {}
+func (*Material) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{1}
+}
+
+func (m *Material) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Material.Unmarshal(m, b)
+}
+func (m *Material) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Material.Marshal(b, m, deterministic)
+}
+func (m *Material) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Material.Merge(m, src)
+}
+func (m *Material) XXX_Size() int {
+	return xxx_messageInfo_Material.Size(m)
+}
+func (m *Material) XXX_DiscardUnknown() {
+	xxx_messageInfo_Material.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Material proto.InternalMessageInfo
+
+func (m *Material) GetModelId() int32 {
+	if m != nil {
+		return m.ModelId
+	}
+	return 0
+}
+
+func (m *Material) GetTxdName() string {
+	if m != nil {
+		return m.TxdName
+	}
+	return ""
+}
+
+func (m *Material) GetTextureName() string {
+	if m != nil {
+		return m.TextureName
+	}
+	return ""
+}
+
+func (m *Material) GetMaterialColor() int32 {
+	if m != nil {
+		return m.MaterialColor
+	}
+	return 0
+}
+
+// Replace the texture of an object with text.
+type MaterialText struct {
+	// The text to show on the object (MAX 2048 characters).
+	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	// The size of the material (default: 256x128).
+	MaterialSize MaterialSize `protobuf:"varint,2,opt,name=material_size,json=materialSize,proto3,enum=mruv.objects.MaterialSize" json:"material_size,omitempty"`
+	// The font to use (default: Arial).
+	FontFace string `protobuf:"bytes,3,opt,name=font_face,json=fontFace,proto3" json:"font_face,omitempty"`
+	// The size of the text (default: 24) (MAX 255).
+	FontSize uint32 `protobuf:"varint,4,opt,name=font_size,json=fontSize,proto3" json:"font_size,omitempty"`
+	// Bold text. Set to 1 for bold, 0 for not (default: 1).
+	Bold bool `protobuf:"varint,5,opt,name=bold,proto3" json:"bold,omitempty"`
+	// The color of the text, in ARGB format (default: White).
+	FontColor int32 `protobuf:"varint,6,opt,name=font_color,json=fontColor,proto3" json:"font_color,omitempty"`
+	// The background color, in ARGB format (default: None (transparent)).
+	BackColor int32 `protobuf:"varint,7,opt,name=back_color,json=backColor,proto3" json:"back_color,omitempty"`
+	// The alignment of the text (default: left).
+	TextAlignment        int32    `protobuf:"varint,8,opt,name=text_alignment,json=textAlignment,proto3" json:"text_alignment,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *MaterialText) Reset()         { *m = MaterialText{} }
+func (m *MaterialText) String() string { return proto.CompactTextString(m) }
+func (*MaterialText) ProtoMessage()    {}
+func (*MaterialText) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{2}
+}
+
+func (m *MaterialText) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MaterialText.Unmarshal(m, b)
+}
+func (m *MaterialText) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MaterialText.Marshal(b, m, deterministic)
+}
+func (m *MaterialText) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MaterialText.Merge(m, src)
+}
+func (m *MaterialText) XXX_Size() int {
+	return xxx_messageInfo_MaterialText.Size(m)
+}
+func (m *MaterialText) XXX_DiscardUnknown() {
+	xxx_messageInfo_MaterialText.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MaterialText proto.InternalMessageInfo
+
+func (m *MaterialText) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+func (m *MaterialText) GetMaterialSize() MaterialSize {
+	if m != nil {
+		return m.MaterialSize
+	}
+	return MaterialSize_OBJECT_MATERIAL_SIZE_0
+}
+
+func (m *MaterialText) GetFontFace() string {
+	if m != nil {
+		return m.FontFace
+	}
+	return ""
+}
+
+func (m *MaterialText) GetFontSize() uint32 {
+	if m != nil {
+		return m.FontSize
+	}
+	return 0
+}
+
+func (m *MaterialText) GetBold() bool {
+	if m != nil {
+		return m.Bold
+	}
+	return false
+}
+
+func (m *MaterialText) GetFontColor() int32 {
+	if m != nil {
+		return m.FontColor
+	}
+	return 0
+}
+
+func (m *MaterialText) GetBackColor() int32 {
+	if m != nil {
+		return m.BackColor
+	}
+	return 0
+}
+
+func (m *MaterialText) GetTextAlignment() int32 {
+	if m != nil {
+		return m.TextAlignment
+	}
+	return 0
+}
+
 // Request message for rpc `CreateObject`.
 type CreateObjectRequest struct {
 	Object               *Object  `protobuf:"bytes,1,opt,name=object,proto3" json:"object,omitempty"`
@@ -195,7 +447,7 @@ func (m *CreateObjectRequest) Reset()         { *m = CreateObjectRequest{} }
 func (m *CreateObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateObjectRequest) ProtoMessage()    {}
 func (*CreateObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{1}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{3}
 }
 
 func (m *CreateObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -235,7 +487,7 @@ func (m *CreateObjectResponse) Reset()         { *m = CreateObjectResponse{} }
 func (m *CreateObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateObjectResponse) ProtoMessage()    {}
 func (*CreateObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{2}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{4}
 }
 
 func (m *CreateObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -275,7 +527,7 @@ func (m *GetObjectRequest) Reset()         { *m = GetObjectRequest{} }
 func (m *GetObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*GetObjectRequest) ProtoMessage()    {}
 func (*GetObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{3}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{5}
 }
 
 func (m *GetObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -315,7 +567,7 @@ func (m *GetObjectResponse) Reset()         { *m = GetObjectResponse{} }
 func (m *GetObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*GetObjectResponse) ProtoMessage()    {}
 func (*GetObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{4}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{6}
 }
 
 func (m *GetObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -356,7 +608,7 @@ func (m *UpdateObjectRequest) Reset()         { *m = UpdateObjectRequest{} }
 func (m *UpdateObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateObjectRequest) ProtoMessage()    {}
 func (*UpdateObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{5}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{7}
 }
 
 func (m *UpdateObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -402,7 +654,7 @@ func (m *UpdateObjectResponse) Reset()         { *m = UpdateObjectResponse{} }
 func (m *UpdateObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateObjectResponse) ProtoMessage()    {}
 func (*UpdateObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{6}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{8}
 }
 
 func (m *UpdateObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -435,7 +687,7 @@ func (m *DeleteObjectRequest) Reset()         { *m = DeleteObjectRequest{} }
 func (m *DeleteObjectRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteObjectRequest) ProtoMessage()    {}
 func (*DeleteObjectRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{7}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{9}
 }
 
 func (m *DeleteObjectRequest) XXX_Unmarshal(b []byte) error {
@@ -474,7 +726,7 @@ func (m *DeleteObjectResponse) Reset()         { *m = DeleteObjectResponse{} }
 func (m *DeleteObjectResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteObjectResponse) ProtoMessage()    {}
 func (*DeleteObjectResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7ad3a201d0ccaa04, []int{8}
+	return fileDescriptor_7ad3a201d0ccaa04, []int{10}
 }
 
 func (m *DeleteObjectResponse) XXX_Unmarshal(b []byte) error {
@@ -495,8 +747,587 @@ func (m *DeleteObjectResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteObjectResponse proto.InternalMessageInfo
 
+// Request message for rpc `AddObjectMaterial`.
+type AddObjectMaterialRequest struct {
+	ObjectId uint32 `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	// The material index on the object to change (0 to 15)
+	Index                uint32    `protobuf:"varint,2,opt,name=index,proto3" json:"index,omitempty"`
+	Material             *Material `protobuf:"bytes,3,opt,name=material,proto3" json:"material,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *AddObjectMaterialRequest) Reset()         { *m = AddObjectMaterialRequest{} }
+func (m *AddObjectMaterialRequest) String() string { return proto.CompactTextString(m) }
+func (*AddObjectMaterialRequest) ProtoMessage()    {}
+func (*AddObjectMaterialRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{11}
+}
+
+func (m *AddObjectMaterialRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddObjectMaterialRequest.Unmarshal(m, b)
+}
+func (m *AddObjectMaterialRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddObjectMaterialRequest.Marshal(b, m, deterministic)
+}
+func (m *AddObjectMaterialRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddObjectMaterialRequest.Merge(m, src)
+}
+func (m *AddObjectMaterialRequest) XXX_Size() int {
+	return xxx_messageInfo_AddObjectMaterialRequest.Size(m)
+}
+func (m *AddObjectMaterialRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddObjectMaterialRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddObjectMaterialRequest proto.InternalMessageInfo
+
+func (m *AddObjectMaterialRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+func (m *AddObjectMaterialRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *AddObjectMaterialRequest) GetMaterial() *Material {
+	if m != nil {
+		return m.Material
+	}
+	return nil
+}
+
+// Response message for rpc `AddObjectMaterial`.
+type AddObjectMaterialResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddObjectMaterialResponse) Reset()         { *m = AddObjectMaterialResponse{} }
+func (m *AddObjectMaterialResponse) String() string { return proto.CompactTextString(m) }
+func (*AddObjectMaterialResponse) ProtoMessage()    {}
+func (*AddObjectMaterialResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{12}
+}
+
+func (m *AddObjectMaterialResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddObjectMaterialResponse.Unmarshal(m, b)
+}
+func (m *AddObjectMaterialResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddObjectMaterialResponse.Marshal(b, m, deterministic)
+}
+func (m *AddObjectMaterialResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddObjectMaterialResponse.Merge(m, src)
+}
+func (m *AddObjectMaterialResponse) XXX_Size() int {
+	return xxx_messageInfo_AddObjectMaterialResponse.Size(m)
+}
+func (m *AddObjectMaterialResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddObjectMaterialResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddObjectMaterialResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetObjectMaterials`.
+type GetObjectMaterialsRequest struct {
+	ObjectId             uint32   `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetObjectMaterialsRequest) Reset()         { *m = GetObjectMaterialsRequest{} }
+func (m *GetObjectMaterialsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetObjectMaterialsRequest) ProtoMessage()    {}
+func (*GetObjectMaterialsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{13}
+}
+
+func (m *GetObjectMaterialsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetObjectMaterialsRequest.Unmarshal(m, b)
+}
+func (m *GetObjectMaterialsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetObjectMaterialsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetObjectMaterialsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetObjectMaterialsRequest.Merge(m, src)
+}
+func (m *GetObjectMaterialsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetObjectMaterialsRequest.Size(m)
+}
+func (m *GetObjectMaterialsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetObjectMaterialsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetObjectMaterialsRequest proto.InternalMessageInfo
+
+func (m *GetObjectMaterialsRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+// Response message for rpc `GetObjectMaterials`.
+type GetObjectMaterialsResponse struct {
+	// Map of materials, key - material index (0-15)
+	Materials            map[uint32]*Material `protobuf:"bytes,1,rep,name=materials,proto3" json:"materials,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *GetObjectMaterialsResponse) Reset()         { *m = GetObjectMaterialsResponse{} }
+func (m *GetObjectMaterialsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetObjectMaterialsResponse) ProtoMessage()    {}
+func (*GetObjectMaterialsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{14}
+}
+
+func (m *GetObjectMaterialsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetObjectMaterialsResponse.Unmarshal(m, b)
+}
+func (m *GetObjectMaterialsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetObjectMaterialsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetObjectMaterialsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetObjectMaterialsResponse.Merge(m, src)
+}
+func (m *GetObjectMaterialsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetObjectMaterialsResponse.Size(m)
+}
+func (m *GetObjectMaterialsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetObjectMaterialsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetObjectMaterialsResponse proto.InternalMessageInfo
+
+func (m *GetObjectMaterialsResponse) GetMaterials() map[uint32]*Material {
+	if m != nil {
+		return m.Materials
+	}
+	return nil
+}
+
+// Request message for rpc `DeleteObjectMaterial`.
+type DeleteObjectMaterialRequest struct {
+	ObjectId uint32 `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	// The material index on the object to delete (0 to 15).
+	Index                uint32   `protobuf:"varint,2,opt,name=index,proto3" json:"index,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteObjectMaterialRequest) Reset()         { *m = DeleteObjectMaterialRequest{} }
+func (m *DeleteObjectMaterialRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteObjectMaterialRequest) ProtoMessage()    {}
+func (*DeleteObjectMaterialRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{15}
+}
+
+func (m *DeleteObjectMaterialRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteObjectMaterialRequest.Unmarshal(m, b)
+}
+func (m *DeleteObjectMaterialRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteObjectMaterialRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteObjectMaterialRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteObjectMaterialRequest.Merge(m, src)
+}
+func (m *DeleteObjectMaterialRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteObjectMaterialRequest.Size(m)
+}
+func (m *DeleteObjectMaterialRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteObjectMaterialRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteObjectMaterialRequest proto.InternalMessageInfo
+
+func (m *DeleteObjectMaterialRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+func (m *DeleteObjectMaterialRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+// Response message for rpc `DeleteObjectMaterial`.
+type DeleteObjectMaterialResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteObjectMaterialResponse) Reset()         { *m = DeleteObjectMaterialResponse{} }
+func (m *DeleteObjectMaterialResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteObjectMaterialResponse) ProtoMessage()    {}
+func (*DeleteObjectMaterialResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{16}
+}
+
+func (m *DeleteObjectMaterialResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteObjectMaterialResponse.Unmarshal(m, b)
+}
+func (m *DeleteObjectMaterialResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteObjectMaterialResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteObjectMaterialResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteObjectMaterialResponse.Merge(m, src)
+}
+func (m *DeleteObjectMaterialResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteObjectMaterialResponse.Size(m)
+}
+func (m *DeleteObjectMaterialResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteObjectMaterialResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteObjectMaterialResponse proto.InternalMessageInfo
+
+// Request message for rpc `AddObjectMaterialText`.
+type AddObjectMaterialTextRequest struct {
+	ObjectId uint32 `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	// The object's material index to replace with text (0 to 15).
+	Index                uint32        `protobuf:"varint,2,opt,name=index,proto3" json:"index,omitempty"`
+	MaterialText         *MaterialText `protobuf:"bytes,3,opt,name=material_text,json=materialText,proto3" json:"material_text,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *AddObjectMaterialTextRequest) Reset()         { *m = AddObjectMaterialTextRequest{} }
+func (m *AddObjectMaterialTextRequest) String() string { return proto.CompactTextString(m) }
+func (*AddObjectMaterialTextRequest) ProtoMessage()    {}
+func (*AddObjectMaterialTextRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{17}
+}
+
+func (m *AddObjectMaterialTextRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddObjectMaterialTextRequest.Unmarshal(m, b)
+}
+func (m *AddObjectMaterialTextRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddObjectMaterialTextRequest.Marshal(b, m, deterministic)
+}
+func (m *AddObjectMaterialTextRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddObjectMaterialTextRequest.Merge(m, src)
+}
+func (m *AddObjectMaterialTextRequest) XXX_Size() int {
+	return xxx_messageInfo_AddObjectMaterialTextRequest.Size(m)
+}
+func (m *AddObjectMaterialTextRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddObjectMaterialTextRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddObjectMaterialTextRequest proto.InternalMessageInfo
+
+func (m *AddObjectMaterialTextRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+func (m *AddObjectMaterialTextRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *AddObjectMaterialTextRequest) GetMaterialText() *MaterialText {
+	if m != nil {
+		return m.MaterialText
+	}
+	return nil
+}
+
+// Response message for rpc `AddObjectMaterialText`.
+type AddObjectMaterialTextResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddObjectMaterialTextResponse) Reset()         { *m = AddObjectMaterialTextResponse{} }
+func (m *AddObjectMaterialTextResponse) String() string { return proto.CompactTextString(m) }
+func (*AddObjectMaterialTextResponse) ProtoMessage()    {}
+func (*AddObjectMaterialTextResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{18}
+}
+
+func (m *AddObjectMaterialTextResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddObjectMaterialTextResponse.Unmarshal(m, b)
+}
+func (m *AddObjectMaterialTextResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddObjectMaterialTextResponse.Marshal(b, m, deterministic)
+}
+func (m *AddObjectMaterialTextResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddObjectMaterialTextResponse.Merge(m, src)
+}
+func (m *AddObjectMaterialTextResponse) XXX_Size() int {
+	return xxx_messageInfo_AddObjectMaterialTextResponse.Size(m)
+}
+func (m *AddObjectMaterialTextResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddObjectMaterialTextResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddObjectMaterialTextResponse proto.InternalMessageInfo
+
+// Request message for rpc `GetObjectMaterialTexts`.
+type GetObjectMaterialTextsRequest struct {
+	ObjectId             uint32   `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetObjectMaterialTextsRequest) Reset()         { *m = GetObjectMaterialTextsRequest{} }
+func (m *GetObjectMaterialTextsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetObjectMaterialTextsRequest) ProtoMessage()    {}
+func (*GetObjectMaterialTextsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{19}
+}
+
+func (m *GetObjectMaterialTextsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetObjectMaterialTextsRequest.Unmarshal(m, b)
+}
+func (m *GetObjectMaterialTextsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetObjectMaterialTextsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetObjectMaterialTextsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetObjectMaterialTextsRequest.Merge(m, src)
+}
+func (m *GetObjectMaterialTextsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetObjectMaterialTextsRequest.Size(m)
+}
+func (m *GetObjectMaterialTextsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetObjectMaterialTextsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetObjectMaterialTextsRequest proto.InternalMessageInfo
+
+func (m *GetObjectMaterialTextsRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+// Response message for rpc `GetObjectMaterialTexts`.
+type GetObjectMaterialTextsResponse struct {
+	// Map of material texts, key - material index (0-15).
+	MaterialTexts        map[uint32]*MaterialText `protobuf:"bytes,1,rep,name=material_texts,json=materialTexts,proto3" json:"material_texts,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
+	XXX_unrecognized     []byte                   `json:"-"`
+	XXX_sizecache        int32                    `json:"-"`
+}
+
+func (m *GetObjectMaterialTextsResponse) Reset()         { *m = GetObjectMaterialTextsResponse{} }
+func (m *GetObjectMaterialTextsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetObjectMaterialTextsResponse) ProtoMessage()    {}
+func (*GetObjectMaterialTextsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{20}
+}
+
+func (m *GetObjectMaterialTextsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetObjectMaterialTextsResponse.Unmarshal(m, b)
+}
+func (m *GetObjectMaterialTextsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetObjectMaterialTextsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetObjectMaterialTextsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetObjectMaterialTextsResponse.Merge(m, src)
+}
+func (m *GetObjectMaterialTextsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetObjectMaterialTextsResponse.Size(m)
+}
+func (m *GetObjectMaterialTextsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetObjectMaterialTextsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetObjectMaterialTextsResponse proto.InternalMessageInfo
+
+func (m *GetObjectMaterialTextsResponse) GetMaterialTexts() map[uint32]*MaterialText {
+	if m != nil {
+		return m.MaterialTexts
+	}
+	return nil
+}
+
+// Request message for rpc `DeleteObjectMaterialText`.
+type DeleteObjectMaterialTextRequest struct {
+	ObjectId uint32 `protobuf:"varint,1,opt,name=object_id,json=objectId,proto3" json:"object_id,omitempty"`
+	// The object's material index to delete (0 to 15).
+	Index                uint32   `protobuf:"varint,2,opt,name=index,proto3" json:"index,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteObjectMaterialTextRequest) Reset()         { *m = DeleteObjectMaterialTextRequest{} }
+func (m *DeleteObjectMaterialTextRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteObjectMaterialTextRequest) ProtoMessage()    {}
+func (*DeleteObjectMaterialTextRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{21}
+}
+
+func (m *DeleteObjectMaterialTextRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteObjectMaterialTextRequest.Unmarshal(m, b)
+}
+func (m *DeleteObjectMaterialTextRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteObjectMaterialTextRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteObjectMaterialTextRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteObjectMaterialTextRequest.Merge(m, src)
+}
+func (m *DeleteObjectMaterialTextRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteObjectMaterialTextRequest.Size(m)
+}
+func (m *DeleteObjectMaterialTextRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteObjectMaterialTextRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteObjectMaterialTextRequest proto.InternalMessageInfo
+
+func (m *DeleteObjectMaterialTextRequest) GetObjectId() uint32 {
+	if m != nil {
+		return m.ObjectId
+	}
+	return 0
+}
+
+func (m *DeleteObjectMaterialTextRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+// Response message for rpc `DeleteObjectMaterialText`.
+type DeleteObjectMaterialTextResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteObjectMaterialTextResponse) Reset()         { *m = DeleteObjectMaterialTextResponse{} }
+func (m *DeleteObjectMaterialTextResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteObjectMaterialTextResponse) ProtoMessage()    {}
+func (*DeleteObjectMaterialTextResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{22}
+}
+
+func (m *DeleteObjectMaterialTextResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteObjectMaterialTextResponse.Unmarshal(m, b)
+}
+func (m *DeleteObjectMaterialTextResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteObjectMaterialTextResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteObjectMaterialTextResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteObjectMaterialTextResponse.Merge(m, src)
+}
+func (m *DeleteObjectMaterialTextResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteObjectMaterialTextResponse.Size(m)
+}
+func (m *DeleteObjectMaterialTextResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteObjectMaterialTextResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteObjectMaterialTextResponse proto.InternalMessageInfo
+
+// Request message for rpc `FetchAll`.
+type FetchAllRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FetchAllRequest) Reset()         { *m = FetchAllRequest{} }
+func (m *FetchAllRequest) String() string { return proto.CompactTextString(m) }
+func (*FetchAllRequest) ProtoMessage()    {}
+func (*FetchAllRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{23}
+}
+
+func (m *FetchAllRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FetchAllRequest.Unmarshal(m, b)
+}
+func (m *FetchAllRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FetchAllRequest.Marshal(b, m, deterministic)
+}
+func (m *FetchAllRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FetchAllRequest.Merge(m, src)
+}
+func (m *FetchAllRequest) XXX_Size() int {
+	return xxx_messageInfo_FetchAllRequest.Size(m)
+}
+func (m *FetchAllRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FetchAllRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FetchAllRequest proto.InternalMessageInfo
+
+// Response message for rpc `FetchAll`.
+type FetchAllResponse struct {
+	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *FetchAllResponse) Reset()         { *m = FetchAllResponse{} }
+func (m *FetchAllResponse) String() string { return proto.CompactTextString(m) }
+func (*FetchAllResponse) ProtoMessage()    {}
+func (*FetchAllResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7ad3a201d0ccaa04, []int{24}
+}
+
+func (m *FetchAllResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FetchAllResponse.Unmarshal(m, b)
+}
+func (m *FetchAllResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FetchAllResponse.Marshal(b, m, deterministic)
+}
+func (m *FetchAllResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FetchAllResponse.Merge(m, src)
+}
+func (m *FetchAllResponse) XXX_Size() int {
+	return xxx_messageInfo_FetchAllResponse.Size(m)
+}
+func (m *FetchAllResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FetchAllResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FetchAllResponse proto.InternalMessageInfo
+
+func (m *FetchAllResponse) GetObjects() []*Object {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
 func init() {
+	proto.RegisterEnum("mruv.objects.MaterialSize", MaterialSize_name, MaterialSize_value)
 	proto.RegisterType((*Object)(nil), "mruv.objects.Object")
+	proto.RegisterMapType((map[uint32]*MaterialText)(nil), "mruv.objects.Object.MaterialTextsEntry")
+	proto.RegisterMapType((map[uint32]*Material)(nil), "mruv.objects.Object.MaterialsEntry")
+	proto.RegisterType((*Material)(nil), "mruv.objects.Material")
+	proto.RegisterType((*MaterialText)(nil), "mruv.objects.MaterialText")
 	proto.RegisterType((*CreateObjectRequest)(nil), "mruv.objects.CreateObjectRequest")
 	proto.RegisterType((*CreateObjectResponse)(nil), "mruv.objects.CreateObjectResponse")
 	proto.RegisterType((*GetObjectRequest)(nil), "mruv.objects.GetObjectRequest")
@@ -505,48 +1336,118 @@ func init() {
 	proto.RegisterType((*UpdateObjectResponse)(nil), "mruv.objects.UpdateObjectResponse")
 	proto.RegisterType((*DeleteObjectRequest)(nil), "mruv.objects.DeleteObjectRequest")
 	proto.RegisterType((*DeleteObjectResponse)(nil), "mruv.objects.DeleteObjectResponse")
+	proto.RegisterType((*AddObjectMaterialRequest)(nil), "mruv.objects.AddObjectMaterialRequest")
+	proto.RegisterType((*AddObjectMaterialResponse)(nil), "mruv.objects.AddObjectMaterialResponse")
+	proto.RegisterType((*GetObjectMaterialsRequest)(nil), "mruv.objects.GetObjectMaterialsRequest")
+	proto.RegisterType((*GetObjectMaterialsResponse)(nil), "mruv.objects.GetObjectMaterialsResponse")
+	proto.RegisterMapType((map[uint32]*Material)(nil), "mruv.objects.GetObjectMaterialsResponse.MaterialsEntry")
+	proto.RegisterType((*DeleteObjectMaterialRequest)(nil), "mruv.objects.DeleteObjectMaterialRequest")
+	proto.RegisterType((*DeleteObjectMaterialResponse)(nil), "mruv.objects.DeleteObjectMaterialResponse")
+	proto.RegisterType((*AddObjectMaterialTextRequest)(nil), "mruv.objects.AddObjectMaterialTextRequest")
+	proto.RegisterType((*AddObjectMaterialTextResponse)(nil), "mruv.objects.AddObjectMaterialTextResponse")
+	proto.RegisterType((*GetObjectMaterialTextsRequest)(nil), "mruv.objects.GetObjectMaterialTextsRequest")
+	proto.RegisterType((*GetObjectMaterialTextsResponse)(nil), "mruv.objects.GetObjectMaterialTextsResponse")
+	proto.RegisterMapType((map[uint32]*MaterialText)(nil), "mruv.objects.GetObjectMaterialTextsResponse.MaterialTextsEntry")
+	proto.RegisterType((*DeleteObjectMaterialTextRequest)(nil), "mruv.objects.DeleteObjectMaterialTextRequest")
+	proto.RegisterType((*DeleteObjectMaterialTextResponse)(nil), "mruv.objects.DeleteObjectMaterialTextResponse")
+	proto.RegisterType((*FetchAllRequest)(nil), "mruv.objects.FetchAllRequest")
+	proto.RegisterType((*FetchAllResponse)(nil), "mruv.objects.FetchAllResponse")
 }
 
 func init() { proto.RegisterFile("objects/objects.proto", fileDescriptor_7ad3a201d0ccaa04) }
 
 var fileDescriptor_7ad3a201d0ccaa04 = []byte{
-	// 569 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xdd, 0x6e, 0x12, 0x41,
-	0x18, 0xcd, 0x6e, 0x2d, 0x3f, 0x1f, 0x4b, 0xa1, 0x03, 0xda, 0x15, 0x8d, 0xc5, 0x35, 0xb5, 0xc4,
-	0x08, 0x1b, 0xf1, 0x09, 0xb4, 0x4d, 0x0c, 0x17, 0x46, 0x43, 0xa3, 0x17, 0xde, 0x34, 0x0b, 0x33,
-	0xc1, 0x31, 0xb0, 0xb3, 0xce, 0x0e, 0x94, 0xc5, 0x78, 0xe3, 0x2b, 0xf8, 0x52, 0xde, 0xfb, 0x0a,
-	0xbe, 0x80, 0x6f, 0x60, 0xe6, 0x07, 0xd8, 0xdd, 0xe2, 0xdf, 0x55, 0x73, 0xbe, 0xef, 0xec, 0x77,
-	0xce, 0x9c, 0x93, 0x02, 0x37, 0xd9, 0xe8, 0x03, 0x19, 0x8b, 0xd8, 0x37, 0x7f, 0x7b, 0x11, 0x67,
-	0x82, 0x21, 0x67, 0xc6, 0xe7, 0x8b, 0x9e, 0x99, 0xb5, 0xee, 0x4e, 0x18, 0x9b, 0x4c, 0x89, 0x1f,
-	0x44, 0xd4, 0x0f, 0xc2, 0x90, 0x89, 0x40, 0x50, 0x16, 0x1a, 0xae, 0xf7, 0xd3, 0x86, 0xc2, 0x2b,
-	0xc5, 0x44, 0x4d, 0xd8, 0x9f, 0x31, 0x4c, 0xa6, 0xae, 0xd5, 0xb6, 0x3a, 0xd5, 0xa1, 0x06, 0xc8,
-	0x01, 0x6b, 0xe9, 0xda, 0x6d, 0xab, 0x63, 0x0f, 0xad, 0xa5, 0x44, 0x89, 0xbb, 0xa7, 0x51, 0x22,
-	0xd1, 0xca, 0xbd, 0xa1, 0xd1, 0x0a, 0x1d, 0x80, 0xcd, 0x97, 0xee, 0xbe, 0x82, 0x36, 0x5f, 0x2a,
-	0x9c, 0xb8, 0x05, 0x83, 0x13, 0x85, 0x57, 0x6e, 0xd1, 0xe0, 0x15, 0xba, 0x0d, 0xa5, 0x2b, 0xc6,
-	0xa7, 0xf8, 0x92, 0x62, 0xb7, 0xd4, 0xb6, 0x3a, 0xfb, 0xc3, 0xa2, 0xc2, 0x03, 0x8c, 0x8e, 0xa1,
-	0x42, 0x43, 0x41, 0x38, 0x65, 0x5c, 0x6e, 0xcb, 0x6a, 0x0b, 0xeb, 0xd1, 0x00, 0xa3, 0x3b, 0x50,
-	0x8e, 0xa6, 0x41, 0x42, 0xd4, 0x1a, 0xd4, 0xba, 0xa4, 0x07, 0x03, 0x8c, 0x8e, 0xa0, 0x18, 0x70,
-	0x12, 0xc8, 0x55, 0x45, 0xad, 0x0a, 0x12, 0x0e, 0x30, 0x3a, 0x85, 0x5a, 0x2c, 0x38, 0x09, 0x66,
-	0x97, 0x98, 0xc6, 0x22, 0x08, 0xc7, 0xc4, 0x75, 0x94, 0x9d, 0x03, 0x3d, 0x3e, 0x37, 0x53, 0xf4,
-	0x00, 0xaa, 0x98, 0x07, 0x57, 0x5b, 0x5a, 0x55, 0xd1, 0x1c, 0x39, 0xdc, 0x90, 0x5a, 0x50, 0x8a,
-	0xa4, 0x1d, 0x2a, 0x12, 0xb7, 0x66, 0x2c, 0x18, 0x2c, 0xfd, 0x91, 0x58, 0x04, 0x82, 0x48, 0x13,
-	0x75, 0x95, 0x67, 0x49, 0x0f, 0x06, 0xd8, 0x3b, 0x83, 0xc6, 0x19, 0x27, 0x81, 0x20, 0x3a, 0xf8,
-	0x21, 0xf9, 0x38, 0x27, 0xb1, 0x40, 0x8f, 0xa1, 0xa0, 0x3b, 0x53, 0x05, 0x54, 0xfa, 0xcd, 0x5e,
-	0xba, 0xc7, 0x9e, 0x21, 0x1b, 0x8e, 0xf7, 0x10, 0x9a, 0xd9, 0x23, 0x71, 0xc4, 0xc2, 0x98, 0xc8,
-	0x94, 0x29, 0x36, 0x15, 0xda, 0x14, 0x7b, 0x1e, 0xd4, 0x5f, 0x10, 0x91, 0x55, 0xca, 0x73, 0x9e,
-	0xc1, 0x61, 0x8a, 0x63, 0x0e, 0xfd, 0x9f, 0x9d, 0x0b, 0x68, 0xbc, 0x89, 0xf0, 0xb5, 0x37, 0xe5,
-	0x94, 0x52, 0x47, 0xed, 0x7f, 0x38, 0x7a, 0x0b, 0x9a, 0xd9, 0xa3, 0xda, 0x9a, 0x77, 0x02, 0x8d,
-	0x73, 0x32, 0x25, 0x7f, 0x11, 0x93, 0x9f, 0x67, 0x69, 0xfa, 0xf3, 0xfe, 0xb7, 0x3d, 0x40, 0x2f,
-	0xf9, 0xfc, 0xad, 0x1e, 0xc7, 0x17, 0x84, 0x2f, 0xe8, 0x98, 0x20, 0x0a, 0x4e, 0x3a, 0x51, 0x74,
-	0x3f, 0xeb, 0x6d, 0x47, 0x65, 0x2d, 0xef, 0x4f, 0x14, 0x63, 0x16, 0x7d, 0xf9, 0xfe, 0xe3, 0xab,
-	0xed, 0x78, 0xe0, 0x2f, 0x9e, 0x98, 0x7f, 0x54, 0x44, 0xa0, 0xbc, 0x09, 0x1c, 0xdd, 0xcb, 0x1e,
-	0xc9, 0xb7, 0xd5, 0x3a, 0xfe, 0xed, 0xde, 0x28, 0x1c, 0x29, 0x85, 0x43, 0x54, 0xdb, 0x2a, 0xf8,
-	0x9f, 0x28, 0xfe, 0x8c, 0x18, 0x38, 0xe9, 0xfc, 0xf2, 0x2f, 0xda, 0x51, 0x58, 0xfe, 0x45, 0x3b,
-	0xe3, 0x77, 0x95, 0x1e, 0xea, 0xd7, 0xb7, 0x7a, 0xf1, 0x46, 0x30, 0x9d, 0x78, 0x5e, 0x70, 0x47,
-	0x69, 0x79, 0xc1, 0x5d, 0x85, 0xad, 0x05, 0x1f, 0x5d, 0x13, 0x7c, 0x7e, 0xfa, 0xee, 0x64, 0x42,
-	0xc5, 0xfb, 0xf9, 0xa8, 0x37, 0x66, 0x33, 0x5f, 0x96, 0xda, 0x1d, 0xbe, 0xf6, 0xe5, 0xc5, 0x6e,
-	0x34, 0xea, 0x4e, 0xd8, 0x9a, 0x3d, 0x2a, 0xa8, 0x9f, 0xbb, 0xa7, 0xbf, 0x02, 0x00, 0x00, 0xff,
-	0xff, 0xa4, 0xbc, 0x69, 0xb6, 0x33, 0x05, 0x00, 0x00,
+	// 1432 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x58, 0xcb, 0x6e, 0xdb, 0x56,
+	0x13, 0xfe, 0x29, 0xdf, 0xa4, 0x91, 0xe4, 0xd0, 0xc7, 0x8e, 0x7f, 0x86, 0xbe, 0x33, 0x70, 0xec,
+	0x38, 0xb1, 0x14, 0x33, 0xb6, 0x6b, 0x14, 0x01, 0x02, 0xc5, 0x71, 0x0a, 0x15, 0xcd, 0x05, 0xb4,
+	0x53, 0x14, 0x41, 0x51, 0x81, 0x12, 0x8f, 0x1d, 0x26, 0x12, 0xa9, 0x52, 0x94, 0x23, 0x29, 0xf0,
+	0xa2, 0x59, 0x16, 0x05, 0x0a, 0xa4, 0x40, 0xb7, 0x2d, 0xba, 0xea, 0x23, 0xf4, 0x15, 0xba, 0xee,
+	0x2b, 0x14, 0x79, 0x8b, 0x02, 0xc5, 0xb9, 0x50, 0x22, 0x25, 0x52, 0x62, 0x1a, 0x64, 0x15, 0xcd,
+	0xcc, 0x77, 0x66, 0xbe, 0x33, 0x33, 0x9c, 0x39, 0x0e, 0x5c, 0xb6, 0xcb, 0x2f, 0x70, 0xc5, 0x6d,
+	0xe4, 0xf9, 0xbf, 0xb9, 0xba, 0x63, 0xbb, 0x36, 0xca, 0xd4, 0x9c, 0xe6, 0x79, 0x8e, 0xeb, 0xe4,
+	0xc5, 0x33, 0xdb, 0x3e, 0xab, 0xe2, 0xbc, 0x5e, 0x37, 0xf3, 0xba, 0x65, 0xd9, 0xae, 0xee, 0x9a,
+	0xb6, 0xc5, 0xb1, 0xca, 0x1f, 0x13, 0x30, 0xf9, 0x98, 0x22, 0xd1, 0x1c, 0x4c, 0xd4, 0x6c, 0x03,
+	0x57, 0x25, 0x61, 0x55, 0xd8, 0xcc, 0x6a, 0x4c, 0x40, 0x19, 0x10, 0x5a, 0x52, 0x62, 0x55, 0xd8,
+	0x4c, 0x68, 0x42, 0x8b, 0x48, 0x6d, 0x69, 0x8c, 0x49, 0x6d, 0x22, 0x75, 0xa4, 0x71, 0x26, 0x75,
+	0xd0, 0x34, 0x24, 0x9c, 0x96, 0x34, 0x41, 0xc5, 0x84, 0xd3, 0xa2, 0x72, 0x5b, 0x9a, 0xe4, 0x72,
+	0x9b, 0xca, 0x1d, 0x69, 0x8a, 0xcb, 0x1d, 0x74, 0x05, 0x92, 0xaf, 0x6c, 0xa7, 0x6a, 0x94, 0x4c,
+	0x43, 0x4a, 0xae, 0x0a, 0x9b, 0x13, 0xda, 0x14, 0x95, 0x8b, 0x06, 0x5a, 0x81, 0xb4, 0x69, 0xb9,
+	0xd8, 0x31, 0x6d, 0x87, 0x58, 0x53, 0xd4, 0x0a, 0x9e, 0xaa, 0x68, 0xa0, 0x05, 0x48, 0xd5, 0xab,
+	0x7a, 0x1b, 0x53, 0x33, 0x50, 0x73, 0x92, 0x29, 0x8a, 0x06, 0xfa, 0x3f, 0x4c, 0xe9, 0x0e, 0xd6,
+	0x89, 0x29, 0x4d, 0x4d, 0x93, 0x44, 0x2c, 0x1a, 0x68, 0x03, 0x2e, 0x35, 0x5c, 0x07, 0xeb, 0xb5,
+	0x92, 0x61, 0x36, 0x5c, 0xdd, 0xaa, 0x60, 0x29, 0x43, 0xe9, 0x4c, 0x33, 0xf5, 0x7d, 0xae, 0x45,
+	0x57, 0x21, 0x6b, 0x38, 0xfa, 0xab, 0x1e, 0x2c, 0x4b, 0x61, 0x19, 0xa2, 0xec, 0x82, 0x64, 0x48,
+	0xd6, 0x09, 0x1d, 0xd3, 0x6d, 0x4b, 0x97, 0x38, 0x05, 0x2e, 0x13, 0x7e, 0xb8, 0xe1, 0xea, 0x2e,
+	0x26, 0x24, 0x44, 0x9a, 0xcf, 0x24, 0x53, 0x14, 0x0d, 0x54, 0x80, 0x54, 0x4d, 0x27, 0x57, 0xd1,
+	0xab, 0x0d, 0x69, 0x66, 0x75, 0x6c, 0x33, 0xad, 0x5e, 0xcd, 0xf9, 0x6b, 0x96, 0x63, 0x15, 0xc9,
+	0x3d, 0xf4, 0x50, 0x47, 0x96, 0xeb, 0xb4, 0xb5, 0xde, 0x29, 0xf4, 0x08, 0xa6, 0x3d, 0xa1, 0xe4,
+	0xe2, 0x96, 0xdb, 0x90, 0x10, 0xf5, 0xb3, 0x31, 0xd4, 0xcf, 0x09, 0x41, 0x32, 0x5f, 0xd9, 0x9a,
+	0x5f, 0x27, 0x9f, 0xc0, 0x74, 0x30, 0x18, 0x12, 0x61, 0xec, 0x25, 0x6e, 0xf3, 0x5e, 0x20, 0x3f,
+	0xd1, 0x4d, 0x98, 0x38, 0xd7, 0xab, 0x4d, 0x4c, 0xbb, 0x21, 0xad, 0xce, 0x07, 0x43, 0x79, 0xc7,
+	0x35, 0x06, 0xfa, 0x34, 0x71, 0x20, 0xc8, 0x5f, 0x03, 0x1a, 0x0c, 0x1d, 0xe2, 0xf9, 0x56, 0xd0,
+	0xb3, 0x1c, 0xee, 0x99, 0xb8, 0xf0, 0x79, 0x57, 0xbe, 0x17, 0x20, 0xe9, 0xd9, 0x48, 0x33, 0xd1,
+	0x7e, 0x25, 0xf9, 0x16, 0x58, 0x33, 0x51, 0xb9, 0x68, 0x10, 0x93, 0xdb, 0x32, 0x4a, 0x96, 0x5e,
+	0x63, 0x01, 0x52, 0xda, 0x94, 0xdb, 0x32, 0x1e, 0xe9, 0x35, 0x8c, 0xd6, 0x20, 0x43, 0xb2, 0xd7,
+	0x74, 0x30, 0x33, 0x8f, 0x51, 0x73, 0x9a, 0xeb, 0x28, 0x64, 0xdd, 0x97, 0xe9, 0x8a, 0x5d, 0xb5,
+	0x1d, 0xda, 0xf0, 0x13, 0xbd, 0x04, 0x1e, 0x12, 0xa5, 0xf2, 0x73, 0x02, 0x32, 0x7e, 0xa2, 0x08,
+	0xc1, 0x38, 0x71, 0x43, 0xc9, 0xa4, 0x34, 0xfa, 0x1b, 0xdd, 0x85, 0xee, 0xa9, 0x52, 0xc3, 0xec,
+	0x30, 0x3a, 0xd3, 0x51, 0xf7, 0x3d, 0x36, 0x3b, 0x58, 0xcb, 0xd4, 0x7c, 0x12, 0x69, 0xab, 0x53,
+	0xdb, 0x72, 0x4b, 0xa7, 0x7a, 0xc5, 0x23, 0x9b, 0x24, 0x8a, 0x07, 0x7a, 0xa5, 0x67, 0xa4, 0x9e,
+	0xc7, 0x59, 0xcf, 0x11, 0x05, 0x3d, 0x89, 0x60, 0xbc, 0x6c, 0x57, 0x0d, 0xfa, 0x79, 0x26, 0x35,
+	0xfa, 0x1b, 0x2d, 0x01, 0xd0, 0x03, 0xec, 0x5a, 0x93, 0xf4, 0x5a, 0xd4, 0x05, 0xbd, 0x12, 0x31,
+	0x97, 0xf5, 0xca, 0x4b, 0x6e, 0x9e, 0x62, 0x66, 0xa2, 0x61, 0xe6, 0x75, 0x98, 0x26, 0x97, 0x2a,
+	0xe9, 0x55, 0xf3, 0xcc, 0xaa, 0x61, 0xcb, 0xe5, 0x1f, 0x71, 0x96, 0x68, 0x0b, 0x9e, 0x52, 0x39,
+	0x84, 0xd9, 0x43, 0x07, 0xeb, 0x2e, 0x66, 0xbd, 0xa8, 0xe1, 0x6f, 0x9b, 0xb8, 0xe1, 0xa2, 0x9b,
+	0x30, 0xc9, 0xee, 0x4b, 0x13, 0x94, 0x56, 0xe7, 0xc2, 0x1a, 0x57, 0xe3, 0x18, 0xe5, 0x1a, 0xcc,
+	0x05, 0x9d, 0x34, 0xea, 0xb6, 0xd5, 0xc0, 0x64, 0xa4, 0xf0, 0x7a, 0x67, 0xb5, 0x84, 0x69, 0x28,
+	0x0a, 0x88, 0x9f, 0x61, 0x37, 0x18, 0xa9, 0x1f, 0x53, 0x80, 0x19, 0x1f, 0x86, 0x3b, 0x7a, 0x3f,
+	0x3a, 0xc7, 0x30, 0xfb, 0xb4, 0x6e, 0x0c, 0xdc, 0xa9, 0x2f, 0x92, 0xcf, 0x69, 0x22, 0x86, 0xd3,
+	0x79, 0x98, 0x0b, 0x3a, 0x65, 0xd4, 0x94, 0x75, 0x98, 0xbd, 0x8f, 0xab, 0x78, 0x44, 0x30, 0x72,
+	0x3c, 0x08, 0xe3, 0xc7, 0xbf, 0x13, 0x40, 0x2a, 0x18, 0x06, 0xd3, 0x76, 0x3f, 0x52, 0xee, 0x64,
+	0x01, 0x52, 0x2c, 0x7a, 0xa9, 0xeb, 0x2b, 0xc9, 0x14, 0x45, 0x83, 0xec, 0x03, 0xd3, 0x32, 0x30,
+	0x9b, 0xfe, 0x59, 0x8d, 0x09, 0x48, 0x85, 0xa4, 0xd7, 0x92, 0xb4, 0x03, 0xa3, 0x07, 0x41, 0x17,
+	0xa7, 0x2c, 0xc0, 0x95, 0x10, 0x0a, 0x9c, 0xe0, 0x01, 0x5c, 0xe9, 0xd6, 0xa3, 0x3b, 0x83, 0xe2,
+	0x10, 0x54, 0xfe, 0x14, 0x40, 0x0e, 0x3b, 0xca, 0x6b, 0xfa, 0xd4, 0x3f, 0x66, 0x05, 0x3a, 0x1e,
+	0x3f, 0x09, 0x52, 0x8d, 0x3e, 0x1c, 0x3d, 0x7a, 0x3f, 0xce, 0xa8, 0x54, 0x9e, 0xc0, 0x82, 0xbf,
+	0x7c, 0x1f, 0x5e, 0x28, 0x65, 0x19, 0x16, 0xc3, 0x3d, 0xf2, 0xbc, 0xbf, 0x15, 0x60, 0x71, 0xa0,
+	0x2a, 0x74, 0xc6, 0xfe, 0xf7, 0xe6, 0xf0, 0x0f, 0x38, 0x3a, 0xfd, 0xc6, 0x46, 0x0e, 0xf4, 0x8c,
+	0x7f, 0x11, 0x29, 0x2b, 0xb0, 0x14, 0xc1, 0x89, 0xb3, 0xbe, 0x03, 0x4b, 0x03, 0x55, 0xa3, 0xbb,
+	0x25, 0x56, 0xc7, 0xbc, 0x13, 0x60, 0x39, 0xea, 0x38, 0xef, 0x9a, 0xd3, 0x81, 0xcd, 0xca, 0x5a,
+	0xe7, 0xee, 0x88, 0xd6, 0x09, 0x78, 0x89, 0xb1, 0x71, 0x3f, 0xee, 0x6e, 0x3c, 0x81, 0x95, 0xb0,
+	0xe2, 0x7f, 0x58, 0x79, 0x15, 0x05, 0x56, 0xa3, 0xbd, 0xf2, 0x02, 0xcd, 0xc0, 0xa5, 0x07, 0xd8,
+	0xad, 0x3c, 0x2f, 0x54, 0xbd, 0xe6, 0x55, 0xee, 0x81, 0xd8, 0x53, 0xf1, 0x34, 0xe7, 0x60, 0x8a,
+	0xdf, 0x81, 0xe7, 0x37, 0x7c, 0x38, 0x7a, 0xa0, 0xad, 0x7f, 0xc6, 0x7a, 0xfb, 0x95, 0x2e, 0x34,
+	0x19, 0xe6, 0x1f, 0xdf, 0xfb, 0xfc, 0xe8, 0xf0, 0xa4, 0xf4, 0xb0, 0x70, 0x72, 0xa4, 0x15, 0x0b,
+	0x5f, 0x94, 0x8e, 0x8b, 0xcf, 0x8e, 0x4a, 0xb7, 0xc4, 0xff, 0xa1, 0x65, 0x90, 0x43, 0x6d, 0xb7,
+	0xd5, 0xaf, 0x6e, 0xab, 0x22, 0x44, 0xda, 0xf7, 0x77, 0x89, 0x7d, 0x6e, 0x98, 0x7d, 0x7f, 0x57,
+	0x5c, 0x46, 0x2b, 0xb0, 0x10, 0x6a, 0xdf, 0x51, 0x0f, 0x88, 0x83, 0xcd, 0xa1, 0x80, 0xfd, 0x5d,
+	0x51, 0x45, 0xab, 0xb0, 0x18, 0x09, 0xd8, 0x51, 0x0f, 0xc4, 0x3b, 0x91, 0x2e, 0xd4, 0xbd, 0x7d,
+	0x12, 0xe3, 0xc1, 0x50, 0xc0, 0xfe, 0xae, 0xf8, 0x24, 0x32, 0x06, 0x01, 0x90, 0x18, 0xcf, 0x86,
+	0x22, 0xd4, 0xbd, 0x7d, 0xd1, 0x88, 0x0c, 0xb2, 0xb7, 0xa3, 0x92, 0x20, 0x56, 0xa4, 0x0b, 0x02,
+	0x20, 0x41, 0x5a, 0x68, 0x6d, 0x08, 0x82, 0x04, 0x79, 0x23, 0x0c, 0x85, 0xec, 0xed, 0xa8, 0xe2,
+	0x0f, 0x82, 0xfa, 0x2e, 0x0d, 0xe8, 0xa1, 0xd3, 0xfc, 0x92, 0xf5, 0x45, 0xe3, 0x18, 0x3b, 0xe7,
+	0x66, 0x05, 0xa3, 0x17, 0x90, 0xf1, 0x3f, 0x0c, 0xd0, 0x5a, 0xb0, 0x8b, 0x42, 0x5e, 0x1e, 0xb2,
+	0x32, 0x0c, 0xc2, 0x9b, 0x78, 0xf6, 0xcd, 0x5f, 0x7f, 0xff, 0x94, 0xc8, 0x2a, 0xe9, 0xfc, 0xf9,
+	0x8e, 0xf7, 0xc7, 0x15, 0x3a, 0x85, 0x54, 0xf7, 0xab, 0x47, 0xcb, 0x11, 0xe3, 0xc0, 0x8b, 0xb2,
+	0x12, 0x69, 0xe7, 0x21, 0x24, 0x1a, 0x02, 0x21, 0xd1, 0x17, 0x22, 0xff, 0xda, 0x34, 0x2e, 0x90,
+	0x0d, 0x19, 0xff, 0x43, 0xa0, 0xff, 0x4e, 0x21, 0x2f, 0x8f, 0xfe, 0x3b, 0x85, 0xbe, 0x23, 0x78,
+	0x40, 0x35, 0x34, 0xa0, 0xff, 0xb3, 0xee, 0x0f, 0x18, 0xf2, 0xfa, 0xe8, 0x0f, 0x18, 0xfa, 0xf2,
+	0xe0, 0x01, 0xb7, 0x06, 0x03, 0xfe, 0x28, 0xc0, 0xcc, 0xc0, 0x98, 0x47, 0xd7, 0x82, 0x3e, 0xa3,
+	0x1e, 0x2d, 0xf2, 0xc6, 0x48, 0x1c, 0x27, 0x70, 0x9d, 0x12, 0xb8, 0x2a, 0xaf, 0x05, 0x08, 0x74,
+	0x87, 0xde, 0x45, 0xbe, 0xf7, 0xf7, 0xd4, 0x5b, 0x01, 0xd0, 0xe0, 0x6b, 0x00, 0x6d, 0x8c, 0x7e,
+	0x2f, 0x30, 0x4e, 0x9b, 0x71, 0x1f, 0x16, 0x1e, 0x29, 0x14, 0x83, 0xd4, 0xaf, 0x42, 0xf0, 0x4d,
+	0xd7, 0xcd, 0xd4, 0xf5, 0xe8, 0xec, 0xf7, 0x27, 0x6b, 0x2b, 0x0e, 0x94, 0x53, 0xdb, 0xa1, 0xd4,
+	0x6e, 0x6c, 0x5d, 0x1f, 0x49, 0x2d, 0xff, 0x9a, 0x2e, 0x84, 0x0b, 0xf4, 0x8b, 0x00, 0x97, 0x43,
+	0x17, 0x36, 0xda, 0x1a, 0x51, 0x25, 0xdf, 0x2a, 0x92, 0x6f, 0xc4, 0xc2, 0x72, 0x96, 0xdb, 0x94,
+	0xe5, 0x86, 0xbc, 0x3e, 0x8a, 0x25, 0x5d, 0xab, 0xe8, 0x37, 0x01, 0xe6, 0xc3, 0x97, 0x35, 0xba,
+	0x11, 0x6f, 0xa5, 0x33, 0x8e, 0x37, 0xdf, 0x67, 0xff, 0x7b, 0x24, 0x51, 0x4c, 0x92, 0xbf, 0x0b,
+	0x20, 0x45, 0x6d, 0x56, 0xb4, 0x3d, 0xba, 0x84, 0xfe, 0x64, 0xe6, 0xe2, 0xc2, 0x83, 0x54, 0xb7,
+	0x62, 0x52, 0xfd, 0x06, 0x92, 0xde, 0x32, 0x47, 0x4b, 0xc1, 0x50, 0x7d, 0x7b, 0x5f, 0x5e, 0x8e,
+	0x32, 0x07, 0xa7, 0x2c, 0xf2, 0x4f, 0xd9, 0x7b, 0x1b, 0xcf, 0xd6, 0xcf, 0x4c, 0xf7, 0x79, 0xb3,
+	0x9c, 0xab, 0xd8, 0xb5, 0x3c, 0x19, 0xf9, 0xdb, 0xda, 0x93, 0x3c, 0x71, 0xb4, 0x5d, 0x2f, 0x6f,
+	0x9f, 0xd9, 0x1e, 0xb0, 0x3c, 0x49, 0xff, 0x03, 0xeb, 0xf6, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff,
+	0xde, 0xdb, 0x44, 0xbe, 0x05, 0x13, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -569,6 +1470,20 @@ type MruVObjectsServiceClient interface {
 	UpdateObject(ctx context.Context, in *UpdateObjectRequest, opts ...grpc.CallOption) (*UpdateObjectResponse, error)
 	// Delete an object.
 	DeleteObject(ctx context.Context, in *DeleteObjectRequest, opts ...grpc.CallOption) (*DeleteObjectResponse, error)
+	// Add a material to existing object.
+	AddObjectMaterial(ctx context.Context, in *AddObjectMaterialRequest, opts ...grpc.CallOption) (*AddObjectMaterialResponse, error)
+	// Get all object materials.
+	GetObjectMaterials(ctx context.Context, in *GetObjectMaterialsRequest, opts ...grpc.CallOption) (*GetObjectMaterialsResponse, error)
+	// Delete a material assigned to an object.
+	DeleteObjectMaterial(ctx context.Context, in *DeleteObjectMaterialRequest, opts ...grpc.CallOption) (*DeleteObjectMaterialResponse, error)
+	// Add a material text to existing object.
+	AddObjectMaterialText(ctx context.Context, in *AddObjectMaterialTextRequest, opts ...grpc.CallOption) (*AddObjectMaterialTextResponse, error)
+	// Get all object material texts.
+	GetObjectMaterialTexts(ctx context.Context, in *GetObjectMaterialTextsRequest, opts ...grpc.CallOption) (*GetObjectMaterialTextsResponse, error)
+	// Delete a material text assigned to an object.
+	DeleteObjectMaterialText(ctx context.Context, in *DeleteObjectMaterialTextRequest, opts ...grpc.CallOption) (*DeleteObjectMaterialTextResponse, error)
+	// Fetch all existing objects.
+	FetchAll(ctx context.Context, in *FetchAllRequest, opts ...grpc.CallOption) (*FetchAllResponse, error)
 }
 
 type mruVObjectsServiceClient struct {
@@ -615,6 +1530,69 @@ func (c *mruVObjectsServiceClient) DeleteObject(ctx context.Context, in *DeleteO
 	return out, nil
 }
 
+func (c *mruVObjectsServiceClient) AddObjectMaterial(ctx context.Context, in *AddObjectMaterialRequest, opts ...grpc.CallOption) (*AddObjectMaterialResponse, error) {
+	out := new(AddObjectMaterialResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/AddObjectMaterial", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) GetObjectMaterials(ctx context.Context, in *GetObjectMaterialsRequest, opts ...grpc.CallOption) (*GetObjectMaterialsResponse, error) {
+	out := new(GetObjectMaterialsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/GetObjectMaterials", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) DeleteObjectMaterial(ctx context.Context, in *DeleteObjectMaterialRequest, opts ...grpc.CallOption) (*DeleteObjectMaterialResponse, error) {
+	out := new(DeleteObjectMaterialResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/DeleteObjectMaterial", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) AddObjectMaterialText(ctx context.Context, in *AddObjectMaterialTextRequest, opts ...grpc.CallOption) (*AddObjectMaterialTextResponse, error) {
+	out := new(AddObjectMaterialTextResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/AddObjectMaterialText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) GetObjectMaterialTexts(ctx context.Context, in *GetObjectMaterialTextsRequest, opts ...grpc.CallOption) (*GetObjectMaterialTextsResponse, error) {
+	out := new(GetObjectMaterialTextsResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/GetObjectMaterialTexts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) DeleteObjectMaterialText(ctx context.Context, in *DeleteObjectMaterialTextRequest, opts ...grpc.CallOption) (*DeleteObjectMaterialTextResponse, error) {
+	out := new(DeleteObjectMaterialTextResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/DeleteObjectMaterialText", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mruVObjectsServiceClient) FetchAll(ctx context.Context, in *FetchAllRequest, opts ...grpc.CallOption) (*FetchAllResponse, error) {
+	out := new(FetchAllResponse)
+	err := c.cc.Invoke(ctx, "/mruv.objects.MruVObjectsService/FetchAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MruVObjectsServiceServer is the server API for MruVObjectsService service.
 type MruVObjectsServiceServer interface {
 	// Create an object.
@@ -625,6 +1603,20 @@ type MruVObjectsServiceServer interface {
 	UpdateObject(context.Context, *UpdateObjectRequest) (*UpdateObjectResponse, error)
 	// Delete an object.
 	DeleteObject(context.Context, *DeleteObjectRequest) (*DeleteObjectResponse, error)
+	// Add a material to existing object.
+	AddObjectMaterial(context.Context, *AddObjectMaterialRequest) (*AddObjectMaterialResponse, error)
+	// Get all object materials.
+	GetObjectMaterials(context.Context, *GetObjectMaterialsRequest) (*GetObjectMaterialsResponse, error)
+	// Delete a material assigned to an object.
+	DeleteObjectMaterial(context.Context, *DeleteObjectMaterialRequest) (*DeleteObjectMaterialResponse, error)
+	// Add a material text to existing object.
+	AddObjectMaterialText(context.Context, *AddObjectMaterialTextRequest) (*AddObjectMaterialTextResponse, error)
+	// Get all object material texts.
+	GetObjectMaterialTexts(context.Context, *GetObjectMaterialTextsRequest) (*GetObjectMaterialTextsResponse, error)
+	// Delete a material text assigned to an object.
+	DeleteObjectMaterialText(context.Context, *DeleteObjectMaterialTextRequest) (*DeleteObjectMaterialTextResponse, error)
+	// Fetch all existing objects.
+	FetchAll(context.Context, *FetchAllRequest) (*FetchAllResponse, error)
 }
 
 // UnimplementedMruVObjectsServiceServer can be embedded to have forward compatible implementations.
@@ -642,6 +1634,27 @@ func (*UnimplementedMruVObjectsServiceServer) UpdateObject(ctx context.Context, 
 }
 func (*UnimplementedMruVObjectsServiceServer) DeleteObject(ctx context.Context, req *DeleteObjectRequest) (*DeleteObjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteObject not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) AddObjectMaterial(ctx context.Context, req *AddObjectMaterialRequest) (*AddObjectMaterialResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddObjectMaterial not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) GetObjectMaterials(ctx context.Context, req *GetObjectMaterialsRequest) (*GetObjectMaterialsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectMaterials not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) DeleteObjectMaterial(ctx context.Context, req *DeleteObjectMaterialRequest) (*DeleteObjectMaterialResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectMaterial not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) AddObjectMaterialText(ctx context.Context, req *AddObjectMaterialTextRequest) (*AddObjectMaterialTextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddObjectMaterialText not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) GetObjectMaterialTexts(ctx context.Context, req *GetObjectMaterialTextsRequest) (*GetObjectMaterialTextsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetObjectMaterialTexts not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) DeleteObjectMaterialText(ctx context.Context, req *DeleteObjectMaterialTextRequest) (*DeleteObjectMaterialTextResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteObjectMaterialText not implemented")
+}
+func (*UnimplementedMruVObjectsServiceServer) FetchAll(ctx context.Context, req *FetchAllRequest) (*FetchAllResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FetchAll not implemented")
 }
 
 func RegisterMruVObjectsServiceServer(s *grpc.Server, srv MruVObjectsServiceServer) {
@@ -720,6 +1733,132 @@ func _MruVObjectsService_DeleteObject_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MruVObjectsService_AddObjectMaterial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddObjectMaterialRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).AddObjectMaterial(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/AddObjectMaterial",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).AddObjectMaterial(ctx, req.(*AddObjectMaterialRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_GetObjectMaterials_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectMaterialsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).GetObjectMaterials(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/GetObjectMaterials",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).GetObjectMaterials(ctx, req.(*GetObjectMaterialsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_DeleteObjectMaterial_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteObjectMaterialRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).DeleteObjectMaterial(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/DeleteObjectMaterial",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).DeleteObjectMaterial(ctx, req.(*DeleteObjectMaterialRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_AddObjectMaterialText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddObjectMaterialTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).AddObjectMaterialText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/AddObjectMaterialText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).AddObjectMaterialText(ctx, req.(*AddObjectMaterialTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_GetObjectMaterialTexts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetObjectMaterialTextsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).GetObjectMaterialTexts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/GetObjectMaterialTexts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).GetObjectMaterialTexts(ctx, req.(*GetObjectMaterialTextsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_DeleteObjectMaterialText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteObjectMaterialTextRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).DeleteObjectMaterialText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/DeleteObjectMaterialText",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).DeleteObjectMaterialText(ctx, req.(*DeleteObjectMaterialTextRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MruVObjectsService_FetchAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FetchAllRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MruVObjectsServiceServer).FetchAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mruv.objects.MruVObjectsService/FetchAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MruVObjectsServiceServer).FetchAll(ctx, req.(*FetchAllRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MruVObjectsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mruv.objects.MruVObjectsService",
 	HandlerType: (*MruVObjectsServiceServer)(nil),
@@ -739,6 +1878,34 @@ var _MruVObjectsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteObject",
 			Handler:    _MruVObjectsService_DeleteObject_Handler,
+		},
+		{
+			MethodName: "AddObjectMaterial",
+			Handler:    _MruVObjectsService_AddObjectMaterial_Handler,
+		},
+		{
+			MethodName: "GetObjectMaterials",
+			Handler:    _MruVObjectsService_GetObjectMaterials_Handler,
+		},
+		{
+			MethodName: "DeleteObjectMaterial",
+			Handler:    _MruVObjectsService_DeleteObjectMaterial_Handler,
+		},
+		{
+			MethodName: "AddObjectMaterialText",
+			Handler:    _MruVObjectsService_AddObjectMaterialText_Handler,
+		},
+		{
+			MethodName: "GetObjectMaterialTexts",
+			Handler:    _MruVObjectsService_GetObjectMaterialTexts_Handler,
+		},
+		{
+			MethodName: "DeleteObjectMaterialText",
+			Handler:    _MruVObjectsService_DeleteObjectMaterialText_Handler,
+		},
+		{
+			MethodName: "FetchAll",
+			Handler:    _MruVObjectsService_FetchAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
