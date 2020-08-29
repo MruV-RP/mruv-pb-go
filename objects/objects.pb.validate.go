@@ -179,6 +179,8 @@ func (m *Material) Validate() error {
 
 	// no validation rules for MaterialColor
 
+	// no validation rules for EstateId
+
 	return nil
 }
 
@@ -316,6 +318,81 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MaterialTextValidationError{}
+
+// Validate checks the field values on RemovedBuilding with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *RemovedBuilding) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Model
+
+	// no validation rules for X
+
+	// no validation rules for Y
+
+	// no validation rules for Z
+
+	// no validation rules for Radius
+
+	return nil
+}
+
+// RemovedBuildingValidationError is the validation error returned by
+// RemovedBuilding.Validate if the designated constraints aren't met.
+type RemovedBuildingValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemovedBuildingValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemovedBuildingValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemovedBuildingValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemovedBuildingValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemovedBuildingValidationError) ErrorName() string { return "RemovedBuildingValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RemovedBuildingValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemovedBuilding.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemovedBuildingValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemovedBuildingValidationError{}
 
 // Validate checks the field values on CreateObjectRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1774,6 +1851,442 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteObjectMaterialTextResponseValidationError{}
+
+// Validate checks the field values on AddRemoveBuildingRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddRemoveBuildingRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetRemovedBuilding()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddRemoveBuildingRequestValidationError{
+				field:  "RemovedBuilding",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// AddRemoveBuildingRequestValidationError is the validation error returned by
+// AddRemoveBuildingRequest.Validate if the designated constraints aren't met.
+type AddRemoveBuildingRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddRemoveBuildingRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddRemoveBuildingRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddRemoveBuildingRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddRemoveBuildingRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddRemoveBuildingRequestValidationError) ErrorName() string {
+	return "AddRemoveBuildingRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddRemoveBuildingRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddRemoveBuildingRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddRemoveBuildingRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddRemoveBuildingRequestValidationError{}
+
+// Validate checks the field values on AddRemoveBuildingResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *AddRemoveBuildingResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// AddRemoveBuildingResponseValidationError is the validation error returned by
+// AddRemoveBuildingResponse.Validate if the designated constraints aren't met.
+type AddRemoveBuildingResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddRemoveBuildingResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddRemoveBuildingResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddRemoveBuildingResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddRemoveBuildingResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddRemoveBuildingResponseValidationError) ErrorName() string {
+	return "AddRemoveBuildingResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddRemoveBuildingResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddRemoveBuildingResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddRemoveBuildingResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddRemoveBuildingResponseValidationError{}
+
+// Validate checks the field values on GetRemovedBuildingsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetRemovedBuildingsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for EstateId
+
+	return nil
+}
+
+// GetRemovedBuildingsRequestValidationError is the validation error returned
+// by GetRemovedBuildingsRequest.Validate if the designated constraints aren't met.
+type GetRemovedBuildingsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRemovedBuildingsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRemovedBuildingsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRemovedBuildingsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRemovedBuildingsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRemovedBuildingsRequestValidationError) ErrorName() string {
+	return "GetRemovedBuildingsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRemovedBuildingsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRemovedBuildingsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRemovedBuildingsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRemovedBuildingsRequestValidationError{}
+
+// Validate checks the field values on GetRemovedBuildingsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *GetRemovedBuildingsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetRemovedBuilding() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetRemovedBuildingsResponseValidationError{
+					field:  fmt.Sprintf("RemovedBuilding[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// GetRemovedBuildingsResponseValidationError is the validation error returned
+// by GetRemovedBuildingsResponse.Validate if the designated constraints
+// aren't met.
+type GetRemovedBuildingsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRemovedBuildingsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRemovedBuildingsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRemovedBuildingsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRemovedBuildingsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRemovedBuildingsResponseValidationError) ErrorName() string {
+	return "GetRemovedBuildingsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRemovedBuildingsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRemovedBuildingsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRemovedBuildingsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRemovedBuildingsResponseValidationError{}
+
+// Validate checks the field values on DeleteRemoveBuildingRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteRemoveBuildingRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	return nil
+}
+
+// DeleteRemoveBuildingRequestValidationError is the validation error returned
+// by DeleteRemoveBuildingRequest.Validate if the designated constraints
+// aren't met.
+type DeleteRemoveBuildingRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRemoveBuildingRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRemoveBuildingRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRemoveBuildingRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRemoveBuildingRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRemoveBuildingRequestValidationError) ErrorName() string {
+	return "DeleteRemoveBuildingRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRemoveBuildingRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRemoveBuildingRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRemoveBuildingRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRemoveBuildingRequestValidationError{}
+
+// Validate checks the field values on DeleteRemoveBuildingResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *DeleteRemoveBuildingResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// DeleteRemoveBuildingResponseValidationError is the validation error returned
+// by DeleteRemoveBuildingResponse.Validate if the designated constraints
+// aren't met.
+type DeleteRemoveBuildingResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRemoveBuildingResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRemoveBuildingResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRemoveBuildingResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRemoveBuildingResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRemoveBuildingResponseValidationError) ErrorName() string {
+	return "DeleteRemoveBuildingResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRemoveBuildingResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRemoveBuildingResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRemoveBuildingResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRemoveBuildingResponseValidationError{}
 
 // Validate checks the field values on FetchAllRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, an
