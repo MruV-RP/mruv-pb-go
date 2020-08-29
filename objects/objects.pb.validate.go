@@ -179,8 +179,6 @@ func (m *Material) Validate() error {
 
 	// no validation rules for MaterialColor
 
-	// no validation rules for EstateId
-
 	return nil
 }
 
@@ -336,6 +334,8 @@ func (m *RemovedBuilding) Validate() error {
 	// no validation rules for Z
 
 	// no validation rules for Radius
+
+	// no validation rules for EstateId
 
 	return nil
 }
