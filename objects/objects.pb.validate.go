@@ -2296,6 +2296,8 @@ func (m *FetchAllRequest) Validate() error {
 		return nil
 	}
 
+	// no validation rules for ChunkSize
+
 	return nil
 }
 
@@ -2361,13 +2363,15 @@ func (m *FetchAllResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetObjects() {
-		_, _ = idx, item
+	for key, val := range m.GetObjects() {
+		_ = val
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		// no validation rules for Objects[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return FetchAllResponseValidationError{
-					field:  fmt.Sprintf("Objects[%v]", idx),
+					field:  fmt.Sprintf("Objects[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
