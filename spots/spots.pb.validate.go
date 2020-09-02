@@ -687,3 +687,156 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteSpotResponseValidationError{}
+
+// Validate checks the field values on FetchAllSpotsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllSpotsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllSpotsRequestValidationError is the validation error returned by
+// FetchAllSpotsRequest.Validate if the designated constraints aren't met.
+type FetchAllSpotsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllSpotsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllSpotsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllSpotsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllSpotsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllSpotsRequestValidationError) ErrorName() string {
+	return "FetchAllSpotsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllSpotsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllSpotsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllSpotsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllSpotsRequestValidationError{}
+
+// Validate checks the field values on FetchAllSpotsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllSpotsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetSpots() {
+		_ = val
+
+		// no validation rules for Spots[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllSpotsResponseValidationError{
+					field:  fmt.Sprintf("Spots[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllSpotsResponseValidationError is the validation error returned by
+// FetchAllSpotsResponse.Validate if the designated constraints aren't met.
+type FetchAllSpotsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllSpotsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllSpotsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllSpotsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllSpotsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllSpotsResponseValidationError) ErrorName() string {
+	return "FetchAllSpotsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllSpotsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllSpotsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllSpotsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllSpotsResponseValidationError{}

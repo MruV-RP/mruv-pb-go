@@ -1390,3 +1390,156 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ExitResponseValidationError{}
+
+// Validate checks the field values on FetchAllEntrancesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllEntrancesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllEntrancesRequestValidationError is the validation error returned by
+// FetchAllEntrancesRequest.Validate if the designated constraints aren't met.
+type FetchAllEntrancesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllEntrancesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllEntrancesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllEntrancesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllEntrancesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllEntrancesRequestValidationError) ErrorName() string {
+	return "FetchAllEntrancesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllEntrancesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllEntrancesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllEntrancesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllEntrancesRequestValidationError{}
+
+// Validate checks the field values on FetchAllEntrancesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllEntrancesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetEntrances() {
+		_ = val
+
+		// no validation rules for Entrances[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllEntrancesResponseValidationError{
+					field:  fmt.Sprintf("Entrances[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllEntrancesResponseValidationError is the validation error returned by
+// FetchAllEntrancesResponse.Validate if the designated constraints aren't met.
+type FetchAllEntrancesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllEntrancesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllEntrancesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllEntrancesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllEntrancesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllEntrancesResponseValidationError) ErrorName() string {
+	return "FetchAllEntrancesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllEntrancesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllEntrancesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllEntrancesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllEntrancesResponseValidationError{}

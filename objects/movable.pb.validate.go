@@ -1239,3 +1239,158 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = MoveObjectPreviousResponseValidationError{}
+
+// Validate checks the field values on FetchAllMovableObjectsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllMovableObjectsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllMovableObjectsRequestValidationError is the validation error
+// returned by FetchAllMovableObjectsRequest.Validate if the designated
+// constraints aren't met.
+type FetchAllMovableObjectsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllMovableObjectsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllMovableObjectsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllMovableObjectsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllMovableObjectsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllMovableObjectsRequestValidationError) ErrorName() string {
+	return "FetchAllMovableObjectsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllMovableObjectsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllMovableObjectsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllMovableObjectsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllMovableObjectsRequestValidationError{}
+
+// Validate checks the field values on FetchAllMovableObjectsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllMovableObjectsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetMovableObjects() {
+		_ = val
+
+		// no validation rules for MovableObjects[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllMovableObjectsResponseValidationError{
+					field:  fmt.Sprintf("MovableObjects[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllMovableObjectsResponseValidationError is the validation error
+// returned by FetchAllMovableObjectsResponse.Validate if the designated
+// constraints aren't met.
+type FetchAllMovableObjectsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllMovableObjectsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllMovableObjectsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllMovableObjectsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllMovableObjectsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllMovableObjectsResponseValidationError) ErrorName() string {
+	return "FetchAllMovableObjectsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllMovableObjectsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllMovableObjectsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllMovableObjectsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllMovableObjectsResponseValidationError{}

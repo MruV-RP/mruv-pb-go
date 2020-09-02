@@ -700,3 +700,156 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteObjectModelResponseValidationError{}
+
+// Validate checks the field values on FetchAllModelsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllModelsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllModelsRequestValidationError is the validation error returned by
+// FetchAllModelsRequest.Validate if the designated constraints aren't met.
+type FetchAllModelsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllModelsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllModelsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllModelsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllModelsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllModelsRequestValidationError) ErrorName() string {
+	return "FetchAllModelsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllModelsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllModelsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllModelsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllModelsRequestValidationError{}
+
+// Validate checks the field values on FetchAllModelsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllModelsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetModels() {
+		_ = val
+
+		// no validation rules for Models[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllModelsResponseValidationError{
+					field:  fmt.Sprintf("Models[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllModelsResponseValidationError is the validation error returned by
+// FetchAllModelsResponse.Validate if the designated constraints aren't met.
+type FetchAllModelsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllModelsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllModelsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllModelsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllModelsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllModelsResponseValidationError) ErrorName() string {
+	return "FetchAllModelsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllModelsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllModelsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllModelsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllModelsResponseValidationError{}

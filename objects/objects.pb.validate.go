@@ -2075,13 +2075,13 @@ func (m *GetRemovedBuildingsResponse) Validate() error {
 		return nil
 	}
 
-	for idx, item := range m.GetRemovedBuilding() {
+	for idx, item := range m.GetRemovedBuildings() {
 		_, _ = idx, item
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GetRemovedBuildingsResponseValidationError{
-					field:  fmt.Sprintf("RemovedBuilding[%v]", idx),
+					field:  fmt.Sprintf("RemovedBuildings[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -2288,22 +2288,24 @@ var _ interface {
 	ErrorName() string
 } = DeleteRemoveBuildingResponseValidationError{}
 
-// Validate checks the field values on FetchAllRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *FetchAllRequest) Validate() error {
+// Validate checks the field values on FetchAllObjectsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllObjectsRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
 	// no validation rules for ChunkSize
 
+	// no validation rules for EstateId
+
 	return nil
 }
 
-// FetchAllRequestValidationError is the validation error returned by
-// FetchAllRequest.Validate if the designated constraints aren't met.
-type FetchAllRequestValidationError struct {
+// FetchAllObjectsRequestValidationError is the validation error returned by
+// FetchAllObjectsRequest.Validate if the designated constraints aren't met.
+type FetchAllObjectsRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2311,22 +2313,24 @@ type FetchAllRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchAllRequestValidationError) Field() string { return e.field }
+func (e FetchAllObjectsRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchAllRequestValidationError) Reason() string { return e.reason }
+func (e FetchAllObjectsRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchAllRequestValidationError) Cause() error { return e.cause }
+func (e FetchAllObjectsRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchAllRequestValidationError) Key() bool { return e.key }
+func (e FetchAllObjectsRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchAllRequestValidationError) ErrorName() string { return "FetchAllRequestValidationError" }
+func (e FetchAllObjectsRequestValidationError) ErrorName() string {
+	return "FetchAllObjectsRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e FetchAllRequestValidationError) Error() string {
+func (e FetchAllObjectsRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2338,14 +2342,14 @@ func (e FetchAllRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchAllRequest.%s: %s%s",
+		"invalid %sFetchAllObjectsRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchAllRequestValidationError{}
+var _ error = FetchAllObjectsRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -2353,12 +2357,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchAllRequestValidationError{}
+} = FetchAllObjectsRequestValidationError{}
 
-// Validate checks the field values on FetchAllResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *FetchAllResponse) Validate() error {
+// Validate checks the field values on FetchAllObjectsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllObjectsResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -2370,7 +2374,7 @@ func (m *FetchAllResponse) Validate() error {
 
 		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return FetchAllResponseValidationError{
+				return FetchAllObjectsResponseValidationError{
 					field:  fmt.Sprintf("Objects[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2383,9 +2387,9 @@ func (m *FetchAllResponse) Validate() error {
 	return nil
 }
 
-// FetchAllResponseValidationError is the validation error returned by
-// FetchAllResponse.Validate if the designated constraints aren't met.
-type FetchAllResponseValidationError struct {
+// FetchAllObjectsResponseValidationError is the validation error returned by
+// FetchAllObjectsResponse.Validate if the designated constraints aren't met.
+type FetchAllObjectsResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2393,22 +2397,24 @@ type FetchAllResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e FetchAllResponseValidationError) Field() string { return e.field }
+func (e FetchAllObjectsResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FetchAllResponseValidationError) Reason() string { return e.reason }
+func (e FetchAllObjectsResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FetchAllResponseValidationError) Cause() error { return e.cause }
+func (e FetchAllObjectsResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FetchAllResponseValidationError) Key() bool { return e.key }
+func (e FetchAllObjectsResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FetchAllResponseValidationError) ErrorName() string { return "FetchAllResponseValidationError" }
+func (e FetchAllObjectsResponseValidationError) ErrorName() string {
+	return "FetchAllObjectsResponseValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e FetchAllResponseValidationError) Error() string {
+func (e FetchAllObjectsResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2420,14 +2426,14 @@ func (e FetchAllResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFetchAllResponse.%s: %s%s",
+		"invalid %sFetchAllObjectsResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FetchAllResponseValidationError{}
+var _ error = FetchAllObjectsResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -2435,4 +2441,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FetchAllResponseValidationError{}
+} = FetchAllObjectsResponseValidationError{}

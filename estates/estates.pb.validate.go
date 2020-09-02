@@ -108,6 +108,144 @@ var _ interface {
 	ErrorName() string
 } = EstateValidationError{}
 
+// Validate checks the field values on FullEstate with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *FullEstate) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	for key, val := range m.GetObjects() {
+		_ = val
+
+		// no validation rules for Objects[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FullEstateValidationError{
+					field:  fmt.Sprintf("Objects[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for key, val := range m.GetRemovedBuildings() {
+		_ = val
+
+		// no validation rules for RemovedBuildings[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FullEstateValidationError{
+					field:  fmt.Sprintf("RemovedBuildings[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for key, val := range m.GetEntrances() {
+		_ = val
+
+		// no validation rules for Entrances[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FullEstateValidationError{
+					field:  fmt.Sprintf("Entrances[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for key, val := range m.GetGates() {
+		_ = val
+
+		// no validation rules for Gates[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FullEstateValidationError{
+					field:  fmt.Sprintf("Gates[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FullEstateValidationError is the validation error returned by
+// FullEstate.Validate if the designated constraints aren't met.
+type FullEstateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FullEstateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FullEstateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FullEstateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FullEstateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FullEstateValidationError) ErrorName() string { return "FullEstateValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FullEstateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFullEstate.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FullEstateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FullEstateValidationError{}
+
 // Validate checks the field values on CreateEstateRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -1593,3 +1731,154 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetEstateEntrancesResponseValidationError{}
+
+// Validate checks the field values on FetchAllEstatesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllEstatesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllEstatesRequestValidationError is the validation error returned by
+// FetchAllEstatesRequest.Validate if the designated constraints aren't met.
+type FetchAllEstatesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllEstatesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllEstatesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllEstatesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllEstatesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllEstatesRequestValidationError) ErrorName() string {
+	return "FetchAllEstatesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllEstatesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllEstatesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllEstatesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllEstatesRequestValidationError{}
+
+// Validate checks the field values on FetchAllEstatesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllEstatesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetEstates() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllEstatesResponseValidationError{
+					field:  fmt.Sprintf("Estates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllEstatesResponseValidationError is the validation error returned by
+// FetchAllEstatesResponse.Validate if the designated constraints aren't met.
+type FetchAllEstatesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllEstatesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllEstatesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllEstatesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllEstatesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllEstatesResponseValidationError) ErrorName() string {
+	return "FetchAllEstatesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllEstatesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllEstatesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllEstatesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllEstatesResponseValidationError{}

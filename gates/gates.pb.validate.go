@@ -1406,3 +1406,156 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FindNearestGateResponseValidationError{}
+
+// Validate checks the field values on FetchAllGatesRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllGatesRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ChunkSize
+
+	return nil
+}
+
+// FetchAllGatesRequestValidationError is the validation error returned by
+// FetchAllGatesRequest.Validate if the designated constraints aren't met.
+type FetchAllGatesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllGatesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllGatesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllGatesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllGatesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllGatesRequestValidationError) ErrorName() string {
+	return "FetchAllGatesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllGatesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllGatesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllGatesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllGatesRequestValidationError{}
+
+// Validate checks the field values on FetchAllGatesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *FetchAllGatesResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for key, val := range m.GetGates() {
+		_ = val
+
+		// no validation rules for Gates[key]
+
+		if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchAllGatesResponseValidationError{
+					field:  fmt.Sprintf("Gates[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// FetchAllGatesResponseValidationError is the validation error returned by
+// FetchAllGatesResponse.Validate if the designated constraints aren't met.
+type FetchAllGatesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchAllGatesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchAllGatesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchAllGatesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchAllGatesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchAllGatesResponseValidationError) ErrorName() string {
+	return "FetchAllGatesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchAllGatesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchAllGatesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchAllGatesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchAllGatesResponseValidationError{}
