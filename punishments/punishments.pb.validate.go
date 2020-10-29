@@ -36,6 +36,87 @@ var (
 // define the regex for a UUID once up-front
 var _punishments_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on PunishmentMessage with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *PunishmentMessage) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Player
+
+	// no validation rules for Character
+
+	// no validation rules for ExpirationDate
+
+	// no validation rules for Reason
+
+	// no validation rules for Admin
+
+	// no validation rules for Date
+
+	// no validation rules for Active
+
+	return nil
+}
+
+// PunishmentMessageValidationError is the validation error returned by
+// PunishmentMessage.Validate if the designated constraints aren't met.
+type PunishmentMessageValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PunishmentMessageValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PunishmentMessageValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PunishmentMessageValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PunishmentMessageValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PunishmentMessageValidationError) ErrorName() string {
+	return "PunishmentMessageValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PunishmentMessageValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPunishmentMessage.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PunishmentMessageValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PunishmentMessageValidationError{}
+
 // Validate checks the field values on BanMessage with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
 func (m *BanMessage) Validate() error {
@@ -638,6 +719,144 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UnAdminJailMessageValidationError{}
+
+// Validate checks the field values on PunishRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PunishRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Player
+
+	// no validation rules for Character
+
+	// no validation rules for Reason
+
+	// no validation rules for Admin
+
+	return nil
+}
+
+// PunishRequestValidationError is the validation error returned by
+// PunishRequest.Validate if the designated constraints aren't met.
+type PunishRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PunishRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PunishRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PunishRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PunishRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PunishRequestValidationError) ErrorName() string { return "PunishRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PunishRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPunishRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PunishRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PunishRequestValidationError{}
+
+// Validate checks the field values on PunishResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *PunishResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// PunishResponseValidationError is the validation error returned by
+// PunishResponse.Validate if the designated constraints aren't met.
+type PunishResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PunishResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PunishResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PunishResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PunishResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PunishResponseValidationError) ErrorName() string { return "PunishResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PunishResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPunishResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PunishResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PunishResponseValidationError{}
 
 // Validate checks the field values on BanRequest with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -1350,6 +1569,8 @@ func (m *UnBanRequest) Validate() error {
 
 	// no validation rules for Reason
 
+	// no validation rules for AdminId
+
 	return nil
 }
 
@@ -1483,6 +1704,8 @@ func (m *UnBlockRequest) Validate() error {
 	// no validation rules for BlockId
 
 	// no validation rules for Reason
+
+	// no validation rules for AdminId
 
 	return nil
 }
@@ -1618,6 +1841,8 @@ func (m *UnWarnRequest) Validate() error {
 
 	// no validation rules for Reason
 
+	// no validation rules for AdminId
+
 	return nil
 }
 
@@ -1749,6 +1974,10 @@ func (m *UnAdminJailRequest) Validate() error {
 	}
 
 	// no validation rules for Character
+
+	// no validation rules for Reason
+
+	// no validation rules for AdminId
 
 	return nil
 }
@@ -3617,142 +3846,6 @@ var _ interface {
 	ErrorName() string
 } = WatchUnAdminJailsRequestValidationError{}
 
-// Validate checks the field values on WatchPlayerAcquittalsRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *WatchPlayerAcquittalsRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// WatchPlayerAcquittalsRequestValidationError is the validation error returned
-// by WatchPlayerAcquittalsRequest.Validate if the designated constraints
-// aren't met.
-type WatchPlayerAcquittalsRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e WatchPlayerAcquittalsRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e WatchPlayerAcquittalsRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e WatchPlayerAcquittalsRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e WatchPlayerAcquittalsRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e WatchPlayerAcquittalsRequestValidationError) ErrorName() string {
-	return "WatchPlayerAcquittalsRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e WatchPlayerAcquittalsRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sWatchPlayerAcquittalsRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = WatchPlayerAcquittalsRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = WatchPlayerAcquittalsRequestValidationError{}
-
-// Validate checks the field values on WatchPlayerAcquittalsResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *WatchPlayerAcquittalsResponse) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// WatchPlayerAcquittalsResponseValidationError is the validation error
-// returned by WatchPlayerAcquittalsResponse.Validate if the designated
-// constraints aren't met.
-type WatchPlayerAcquittalsResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e WatchPlayerAcquittalsResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e WatchPlayerAcquittalsResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e WatchPlayerAcquittalsResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e WatchPlayerAcquittalsResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e WatchPlayerAcquittalsResponseValidationError) ErrorName() string {
-	return "WatchPlayerAcquittalsResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e WatchPlayerAcquittalsResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sWatchPlayerAcquittalsResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = WatchPlayerAcquittalsResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = WatchPlayerAcquittalsResponseValidationError{}
-
 // Validate checks the field values on WatchPlayerPunishmentsRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -3760,6 +3853,10 @@ func (m *WatchPlayerPunishmentsRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
+
+	// no validation rules for AccountId
+
+	// no validation rules for CharacterId
 
 	return nil
 }
@@ -3829,9 +3926,57 @@ func (m *WatchPlayerPunishmentsResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Type
+	switch m.Punishment.(type) {
 
-	// no validation rules for PunishmentId
+	case *WatchPlayerPunishmentsResponse_Ban:
+
+		if v, ok := interface{}(m.GetBan()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerPunishmentsResponseValidationError{
+					field:  "Ban",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerPunishmentsResponse_Block:
+
+		if v, ok := interface{}(m.GetBlock()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerPunishmentsResponseValidationError{
+					field:  "Block",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerPunishmentsResponse_Warn:
+
+		if v, ok := interface{}(m.GetWarn()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerPunishmentsResponseValidationError{
+					field:  "Warn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerPunishmentsResponse_Aj:
+
+		if v, ok := interface{}(m.GetAj()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerPunishmentsResponseValidationError{
+					field:  "Aj",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	return nil
 }
@@ -3892,6 +4037,198 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WatchPlayerPunishmentsResponseValidationError{}
+
+// Validate checks the field values on WatchPlayerAcquittalsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WatchPlayerAcquittalsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for AccountId
+
+	// no validation rules for CharacterId
+
+	return nil
+}
+
+// WatchPlayerAcquittalsRequestValidationError is the validation error returned
+// by WatchPlayerAcquittalsRequest.Validate if the designated constraints
+// aren't met.
+type WatchPlayerAcquittalsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WatchPlayerAcquittalsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WatchPlayerAcquittalsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WatchPlayerAcquittalsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WatchPlayerAcquittalsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WatchPlayerAcquittalsRequestValidationError) ErrorName() string {
+	return "WatchPlayerAcquittalsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WatchPlayerAcquittalsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWatchPlayerAcquittalsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WatchPlayerAcquittalsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WatchPlayerAcquittalsRequestValidationError{}
+
+// Validate checks the field values on WatchPlayerAcquittalsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WatchPlayerAcquittalsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	switch m.Acquittal.(type) {
+
+	case *WatchPlayerAcquittalsResponse_Unban:
+
+		if v, ok := interface{}(m.GetUnban()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerAcquittalsResponseValidationError{
+					field:  "Unban",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerAcquittalsResponse_Unblock:
+
+		if v, ok := interface{}(m.GetUnblock()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerAcquittalsResponseValidationError{
+					field:  "Unblock",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerAcquittalsResponse_Unwarn:
+
+		if v, ok := interface{}(m.GetUnwarn()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerAcquittalsResponseValidationError{
+					field:  "Unwarn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPlayerAcquittalsResponse_Unaj:
+
+		if v, ok := interface{}(m.GetUnaj()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPlayerAcquittalsResponseValidationError{
+					field:  "Unaj",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// WatchPlayerAcquittalsResponseValidationError is the validation error
+// returned by WatchPlayerAcquittalsResponse.Validate if the designated
+// constraints aren't met.
+type WatchPlayerAcquittalsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WatchPlayerAcquittalsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WatchPlayerAcquittalsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WatchPlayerAcquittalsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WatchPlayerAcquittalsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WatchPlayerAcquittalsResponseValidationError) ErrorName() string {
+	return "WatchPlayerAcquittalsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WatchPlayerAcquittalsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWatchPlayerAcquittalsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WatchPlayerAcquittalsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WatchPlayerAcquittalsResponseValidationError{}
 
 // Validate checks the field values on WatchPunishmentsRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3968,13 +4305,57 @@ func (m *WatchPunishmentsResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Type
+	switch m.Punishment.(type) {
 
-	// no validation rules for PunishmentId
+	case *WatchPunishmentsResponse_Ban:
 
-	// no validation rules for Player
+		if v, ok := interface{}(m.GetBan()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPunishmentsResponseValidationError{
+					field:  "Ban",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
 
-	// no validation rules for Character
+	case *WatchPunishmentsResponse_Block:
+
+		if v, ok := interface{}(m.GetBlock()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPunishmentsResponseValidationError{
+					field:  "Block",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPunishmentsResponse_Warn:
+
+		if v, ok := interface{}(m.GetWarn()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPunishmentsResponseValidationError{
+					field:  "Warn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchPunishmentsResponse_Aj:
+
+		if v, ok := interface{}(m.GetAj()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchPunishmentsResponseValidationError{
+					field:  "Aj",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	return nil
 }
@@ -4034,3 +4415,189 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WatchPunishmentsResponseValidationError{}
+
+// Validate checks the field values on WatchAcquittalsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WatchAcquittalsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	return nil
+}
+
+// WatchAcquittalsRequestValidationError is the validation error returned by
+// WatchAcquittalsRequest.Validate if the designated constraints aren't met.
+type WatchAcquittalsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WatchAcquittalsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WatchAcquittalsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WatchAcquittalsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WatchAcquittalsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WatchAcquittalsRequestValidationError) ErrorName() string {
+	return "WatchAcquittalsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WatchAcquittalsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWatchAcquittalsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WatchAcquittalsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WatchAcquittalsRequestValidationError{}
+
+// Validate checks the field values on WatchAcquittalsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WatchAcquittalsResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	switch m.Acquittal.(type) {
+
+	case *WatchAcquittalsResponse_Unban:
+
+		if v, ok := interface{}(m.GetUnban()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchAcquittalsResponseValidationError{
+					field:  "Unban",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchAcquittalsResponse_Unblock:
+
+		if v, ok := interface{}(m.GetUnblock()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchAcquittalsResponseValidationError{
+					field:  "Unblock",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchAcquittalsResponse_Unwarn:
+
+		if v, ok := interface{}(m.GetUnwarn()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchAcquittalsResponseValidationError{
+					field:  "Unwarn",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WatchAcquittalsResponse_Unaj:
+
+		if v, ok := interface{}(m.GetUnaj()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WatchAcquittalsResponseValidationError{
+					field:  "Unaj",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// WatchAcquittalsResponseValidationError is the validation error returned by
+// WatchAcquittalsResponse.Validate if the designated constraints aren't met.
+type WatchAcquittalsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WatchAcquittalsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WatchAcquittalsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WatchAcquittalsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WatchAcquittalsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WatchAcquittalsResponseValidationError) ErrorName() string {
+	return "WatchAcquittalsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WatchAcquittalsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWatchAcquittalsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WatchAcquittalsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WatchAcquittalsResponseValidationError{}
