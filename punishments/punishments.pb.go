@@ -25,99 +25,72 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Other types of punishment
-type PunishmentMessage struct {
-	// A player, that was given a punishment.
-	Player uint32 `protobuf:"varint,1,opt,name=player,proto3" json:"player,omitempty"`
-	// A character, that was given a punishment.
-	Character uint32 `protobuf:"varint,2,opt,name=character,proto3" json:"character,omitempty"`
-	// Expiration date in Unix time.
-	ExpirationDate int64 `protobuf:"varint,3,opt,name=expiration_date,json=expirationDate,proto3" json:"expiration_date,omitempty"`
-	// A reason of punishment.
-	Reason string `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
-	// Admin that punished a player.
-	Admin uint32 `protobuf:"varint,5,opt,name=admin,proto3" json:"admin,omitempty"`
-	// Date on which a punishment was issued in Unix time.
-	Date int64 `protobuf:"varint,6,opt,name=date,proto3" json:"date,omitempty"`
-	// Punishment status. True = active, false = deactivated.
-	Active               bool     `protobuf:"varint,7,opt,name=active,proto3" json:"active,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type PunishmentType int32
+
+const (
+	PunishmentType_UNKNOWN_PUNISHMENT PunishmentType = 0
+	PunishmentType_BAN                PunishmentType = 1
+	PunishmentType_BLOCK              PunishmentType = 2
+	PunishmentType_WARN               PunishmentType = 3
+	PunishmentType_ADMIN_JAIL         PunishmentType = 4
+)
+
+var PunishmentType_name = map[int32]string{
+	0: "UNKNOWN_PUNISHMENT",
+	1: "BAN",
+	2: "BLOCK",
+	3: "WARN",
+	4: "ADMIN_JAIL",
 }
 
-func (m *PunishmentMessage) Reset()         { *m = PunishmentMessage{} }
-func (m *PunishmentMessage) String() string { return proto.CompactTextString(m) }
-func (*PunishmentMessage) ProtoMessage()    {}
-func (*PunishmentMessage) Descriptor() ([]byte, []int) {
+var PunishmentType_value = map[string]int32{
+	"UNKNOWN_PUNISHMENT": 0,
+	"BAN":                1,
+	"BLOCK":              2,
+	"WARN":               3,
+	"ADMIN_JAIL":         4,
+}
+
+func (x PunishmentType) String() string {
+	return proto.EnumName(PunishmentType_name, int32(x))
+}
+
+func (PunishmentType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_5ae0d2819db7b861, []int{0}
 }
 
-func (m *PunishmentMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PunishmentMessage.Unmarshal(m, b)
-}
-func (m *PunishmentMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PunishmentMessage.Marshal(b, m, deterministic)
-}
-func (m *PunishmentMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PunishmentMessage.Merge(m, src)
-}
-func (m *PunishmentMessage) XXX_Size() int {
-	return xxx_messageInfo_PunishmentMessage.Size(m)
-}
-func (m *PunishmentMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_PunishmentMessage.DiscardUnknown(m)
+type AcquittalsType int32
+
+const (
+	AcquittalsType_UNKNOWN_ACQUITAL AcquittalsType = 0
+	AcquittalsType_UNBAN            AcquittalsType = 1
+	AcquittalsType_UNBLOCK          AcquittalsType = 2
+	AcquittalsType_UNWARN           AcquittalsType = 3
+	AcquittalsType_UN_ADMIN_JAIL    AcquittalsType = 4
+)
+
+var AcquittalsType_name = map[int32]string{
+	0: "UNKNOWN_ACQUITAL",
+	1: "UNBAN",
+	2: "UNBLOCK",
+	3: "UNWARN",
+	4: "UN_ADMIN_JAIL",
 }
 
-var xxx_messageInfo_PunishmentMessage proto.InternalMessageInfo
-
-func (m *PunishmentMessage) GetPlayer() uint32 {
-	if m != nil {
-		return m.Player
-	}
-	return 0
+var AcquittalsType_value = map[string]int32{
+	"UNKNOWN_ACQUITAL": 0,
+	"UNBAN":            1,
+	"UNBLOCK":          2,
+	"UNWARN":           3,
+	"UN_ADMIN_JAIL":    4,
 }
 
-func (m *PunishmentMessage) GetCharacter() uint32 {
-	if m != nil {
-		return m.Character
-	}
-	return 0
+func (x AcquittalsType) String() string {
+	return proto.EnumName(AcquittalsType_name, int32(x))
 }
 
-func (m *PunishmentMessage) GetExpirationDate() int64 {
-	if m != nil {
-		return m.ExpirationDate
-	}
-	return 0
-}
-
-func (m *PunishmentMessage) GetReason() string {
-	if m != nil {
-		return m.Reason
-	}
-	return ""
-}
-
-func (m *PunishmentMessage) GetAdmin() uint32 {
-	if m != nil {
-		return m.Admin
-	}
-	return 0
-}
-
-func (m *PunishmentMessage) GetDate() int64 {
-	if m != nil {
-		return m.Date
-	}
-	return 0
-}
-
-func (m *PunishmentMessage) GetActive() bool {
-	if m != nil {
-		return m.Active
-	}
-	return false
+func (AcquittalsType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_5ae0d2819db7b861, []int{1}
 }
 
 type BanMessage struct {
@@ -149,7 +122,7 @@ func (m *BanMessage) Reset()         { *m = BanMessage{} }
 func (m *BanMessage) String() string { return proto.CompactTextString(m) }
 func (*BanMessage) ProtoMessage()    {}
 func (*BanMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{1}
+	return fileDescriptor_5ae0d2819db7b861, []int{0}
 }
 
 func (m *BanMessage) XXX_Unmarshal(b []byte) error {
@@ -269,7 +242,7 @@ func (m *WarnMessage) Reset()         { *m = WarnMessage{} }
 func (m *WarnMessage) String() string { return proto.CompactTextString(m) }
 func (*WarnMessage) ProtoMessage()    {}
 func (*WarnMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{2}
+	return fileDescriptor_5ae0d2819db7b861, []int{1}
 }
 
 func (m *WarnMessage) XXX_Unmarshal(b []byte) error {
@@ -380,7 +353,7 @@ func (m *BlockMessage) Reset()         { *m = BlockMessage{} }
 func (m *BlockMessage) String() string { return proto.CompactTextString(m) }
 func (*BlockMessage) ProtoMessage()    {}
 func (*BlockMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{3}
+	return fileDescriptor_5ae0d2819db7b861, []int{2}
 }
 
 func (m *BlockMessage) XXX_Unmarshal(b []byte) error {
@@ -479,7 +452,7 @@ func (m *AdminJailMessage) Reset()         { *m = AdminJailMessage{} }
 func (m *AdminJailMessage) String() string { return proto.CompactTextString(m) }
 func (*AdminJailMessage) ProtoMessage()    {}
 func (*AdminJailMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{4}
+	return fileDescriptor_5ae0d2819db7b861, []int{3}
 }
 
 func (m *AdminJailMessage) XXX_Unmarshal(b []byte) error {
@@ -554,7 +527,7 @@ func (m *UnBanMessage) Reset()         { *m = UnBanMessage{} }
 func (m *UnBanMessage) String() string { return proto.CompactTextString(m) }
 func (*UnBanMessage) ProtoMessage()    {}
 func (*UnBanMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{5}
+	return fileDescriptor_5ae0d2819db7b861, []int{4}
 }
 
 func (m *UnBanMessage) XXX_Unmarshal(b []byte) error {
@@ -601,7 +574,7 @@ func (m *UnBlockMessage) Reset()         { *m = UnBlockMessage{} }
 func (m *UnBlockMessage) String() string { return proto.CompactTextString(m) }
 func (*UnBlockMessage) ProtoMessage()    {}
 func (*UnBlockMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{6}
+	return fileDescriptor_5ae0d2819db7b861, []int{5}
 }
 
 func (m *UnBlockMessage) XXX_Unmarshal(b []byte) error {
@@ -648,7 +621,7 @@ func (m *UnWarnMessage) Reset()         { *m = UnWarnMessage{} }
 func (m *UnWarnMessage) String() string { return proto.CompactTextString(m) }
 func (*UnWarnMessage) ProtoMessage()    {}
 func (*UnWarnMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{7}
+	return fileDescriptor_5ae0d2819db7b861, []int{6}
 }
 
 func (m *UnWarnMessage) XXX_Unmarshal(b []byte) error {
@@ -695,7 +668,7 @@ func (m *UnAdminJailMessage) Reset()         { *m = UnAdminJailMessage{} }
 func (m *UnAdminJailMessage) String() string { return proto.CompactTextString(m) }
 func (*UnAdminJailMessage) ProtoMessage()    {}
 func (*UnAdminJailMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{8}
+	return fileDescriptor_5ae0d2819db7b861, []int{7}
 }
 
 func (m *UnAdminJailMessage) XXX_Unmarshal(b []byte) error {
@@ -730,106 +703,6 @@ func (m *UnAdminJailMessage) GetCharacter() uint32 {
 	return 0
 }
 
-// Request message for rpc `Punish`.
-type PunishRequest struct {
-	// Player account.
-	Player uint32 `protobuf:"varint,1,opt,name=player,proto3" json:"player,omitempty"`
-	// Player character that was accused. Optional.
-	Character uint32 `protobuf:"varint,2,opt,name=character,proto3" json:"character,omitempty"`
-	// Ban reason.
-	Reason string `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
-	// Admin that banned a player. 0 = system ban.
-	Admin                uint32   `protobuf:"varint,4,opt,name=admin,proto3" json:"admin,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *PunishRequest) Reset()         { *m = PunishRequest{} }
-func (m *PunishRequest) String() string { return proto.CompactTextString(m) }
-func (*PunishRequest) ProtoMessage()    {}
-func (*PunishRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{9}
-}
-
-func (m *PunishRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PunishRequest.Unmarshal(m, b)
-}
-func (m *PunishRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PunishRequest.Marshal(b, m, deterministic)
-}
-func (m *PunishRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PunishRequest.Merge(m, src)
-}
-func (m *PunishRequest) XXX_Size() int {
-	return xxx_messageInfo_PunishRequest.Size(m)
-}
-func (m *PunishRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_PunishRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_PunishRequest proto.InternalMessageInfo
-
-func (m *PunishRequest) GetPlayer() uint32 {
-	if m != nil {
-		return m.Player
-	}
-	return 0
-}
-
-func (m *PunishRequest) GetCharacter() uint32 {
-	if m != nil {
-		return m.Character
-	}
-	return 0
-}
-
-func (m *PunishRequest) GetReason() string {
-	if m != nil {
-		return m.Reason
-	}
-	return ""
-}
-
-func (m *PunishRequest) GetAdmin() uint32 {
-	if m != nil {
-		return m.Admin
-	}
-	return 0
-}
-
-// Response message for rpc `Punish`.
-type PunishResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *PunishResponse) Reset()         { *m = PunishResponse{} }
-func (m *PunishResponse) String() string { return proto.CompactTextString(m) }
-func (*PunishResponse) ProtoMessage()    {}
-func (*PunishResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{10}
-}
-
-func (m *PunishResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PunishResponse.Unmarshal(m, b)
-}
-func (m *PunishResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PunishResponse.Marshal(b, m, deterministic)
-}
-func (m *PunishResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PunishResponse.Merge(m, src)
-}
-func (m *PunishResponse) XXX_Size() int {
-	return xxx_messageInfo_PunishResponse.Size(m)
-}
-func (m *PunishResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_PunishResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_PunishResponse proto.InternalMessageInfo
-
 // Request message for rpc `Ban`.
 type BanRequest struct {
 	Player uint32 `protobuf:"varint,1,opt,name=player,proto3" json:"player,omitempty"`
@@ -852,7 +725,7 @@ func (m *BanRequest) Reset()         { *m = BanRequest{} }
 func (m *BanRequest) String() string { return proto.CompactTextString(m) }
 func (*BanRequest) ProtoMessage()    {}
 func (*BanRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{11}
+	return fileDescriptor_5ae0d2819db7b861, []int{8}
 }
 
 func (m *BanRequest) XXX_Unmarshal(b []byte) error {
@@ -927,7 +800,7 @@ func (m *BanResponse) Reset()         { *m = BanResponse{} }
 func (m *BanResponse) String() string { return proto.CompactTextString(m) }
 func (*BanResponse) ProtoMessage()    {}
 func (*BanResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{12}
+	return fileDescriptor_5ae0d2819db7b861, []int{9}
 }
 
 func (m *BanResponse) XXX_Unmarshal(b []byte) error {
@@ -971,7 +844,7 @@ func (m *BlockRequest) Reset()         { *m = BlockRequest{} }
 func (m *BlockRequest) String() string { return proto.CompactTextString(m) }
 func (*BlockRequest) ProtoMessage()    {}
 func (*BlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{13}
+	return fileDescriptor_5ae0d2819db7b861, []int{10}
 }
 
 func (m *BlockRequest) XXX_Unmarshal(b []byte) error {
@@ -1025,7 +898,7 @@ func (m *BlockResponse) Reset()         { *m = BlockResponse{} }
 func (m *BlockResponse) String() string { return proto.CompactTextString(m) }
 func (*BlockResponse) ProtoMessage()    {}
 func (*BlockResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{14}
+	return fileDescriptor_5ae0d2819db7b861, []int{11}
 }
 
 func (m *BlockResponse) XXX_Unmarshal(b []byte) error {
@@ -1074,7 +947,7 @@ func (m *WarnRequest) Reset()         { *m = WarnRequest{} }
 func (m *WarnRequest) String() string { return proto.CompactTextString(m) }
 func (*WarnRequest) ProtoMessage()    {}
 func (*WarnRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{15}
+	return fileDescriptor_5ae0d2819db7b861, []int{12}
 }
 
 func (m *WarnRequest) XXX_Unmarshal(b []byte) error {
@@ -1142,7 +1015,7 @@ func (m *WarnResponse) Reset()         { *m = WarnResponse{} }
 func (m *WarnResponse) String() string { return proto.CompactTextString(m) }
 func (*WarnResponse) ProtoMessage()    {}
 func (*WarnResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{16}
+	return fileDescriptor_5ae0d2819db7b861, []int{13}
 }
 
 func (m *WarnResponse) XXX_Unmarshal(b []byte) error {
@@ -1188,7 +1061,7 @@ func (m *AdminJailRequest) Reset()         { *m = AdminJailRequest{} }
 func (m *AdminJailRequest) String() string { return proto.CompactTextString(m) }
 func (*AdminJailRequest) ProtoMessage()    {}
 func (*AdminJailRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{17}
+	return fileDescriptor_5ae0d2819db7b861, []int{14}
 }
 
 func (m *AdminJailRequest) XXX_Unmarshal(b []byte) error {
@@ -1248,7 +1121,7 @@ func (m *AdminJailResponse) Reset()         { *m = AdminJailResponse{} }
 func (m *AdminJailResponse) String() string { return proto.CompactTextString(m) }
 func (*AdminJailResponse) ProtoMessage()    {}
 func (*AdminJailResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{18}
+	return fileDescriptor_5ae0d2819db7b861, []int{15}
 }
 
 func (m *AdminJailResponse) XXX_Unmarshal(b []byte) error {
@@ -1281,7 +1154,7 @@ func (m *MuteGlobalChatsRequest) Reset()         { *m = MuteGlobalChatsRequest{}
 func (m *MuteGlobalChatsRequest) String() string { return proto.CompactTextString(m) }
 func (*MuteGlobalChatsRequest) ProtoMessage()    {}
 func (*MuteGlobalChatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{19}
+	return fileDescriptor_5ae0d2819db7b861, []int{16}
 }
 
 func (m *MuteGlobalChatsRequest) XXX_Unmarshal(b []byte) error {
@@ -1320,7 +1193,7 @@ func (m *MuteGlobalChatsResponse) Reset()         { *m = MuteGlobalChatsResponse
 func (m *MuteGlobalChatsResponse) String() string { return proto.CompactTextString(m) }
 func (*MuteGlobalChatsResponse) ProtoMessage()    {}
 func (*MuteGlobalChatsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{20}
+	return fileDescriptor_5ae0d2819db7b861, []int{17}
 }
 
 func (m *MuteGlobalChatsResponse) XXX_Unmarshal(b []byte) error {
@@ -1345,7 +1218,6 @@ var xxx_messageInfo_MuteGlobalChatsResponse proto.InternalMessageInfo
 type UnBanRequest struct {
 	BanId                uint32   `protobuf:"varint,1,opt,name=ban_id,json=banId,proto3" json:"ban_id,omitempty"`
 	Reason               string   `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
-	AdminId              uint32   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -1355,7 +1227,7 @@ func (m *UnBanRequest) Reset()         { *m = UnBanRequest{} }
 func (m *UnBanRequest) String() string { return proto.CompactTextString(m) }
 func (*UnBanRequest) ProtoMessage()    {}
 func (*UnBanRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{21}
+	return fileDescriptor_5ae0d2819db7b861, []int{18}
 }
 
 func (m *UnBanRequest) XXX_Unmarshal(b []byte) error {
@@ -1390,13 +1262,6 @@ func (m *UnBanRequest) GetReason() string {
 	return ""
 }
 
-func (m *UnBanRequest) GetAdminId() uint32 {
-	if m != nil {
-		return m.AdminId
-	}
-	return 0
-}
-
 // Response message for rpc `UnBan`.
 type UnBanResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1408,7 +1273,7 @@ func (m *UnBanResponse) Reset()         { *m = UnBanResponse{} }
 func (m *UnBanResponse) String() string { return proto.CompactTextString(m) }
 func (*UnBanResponse) ProtoMessage()    {}
 func (*UnBanResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{22}
+	return fileDescriptor_5ae0d2819db7b861, []int{19}
 }
 
 func (m *UnBanResponse) XXX_Unmarshal(b []byte) error {
@@ -1433,7 +1298,6 @@ var xxx_messageInfo_UnBanResponse proto.InternalMessageInfo
 type UnBlockRequest struct {
 	BlockId              uint32   `protobuf:"varint,1,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
 	Reason               string   `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
-	AdminId              uint32   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -1443,7 +1307,7 @@ func (m *UnBlockRequest) Reset()         { *m = UnBlockRequest{} }
 func (m *UnBlockRequest) String() string { return proto.CompactTextString(m) }
 func (*UnBlockRequest) ProtoMessage()    {}
 func (*UnBlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{23}
+	return fileDescriptor_5ae0d2819db7b861, []int{20}
 }
 
 func (m *UnBlockRequest) XXX_Unmarshal(b []byte) error {
@@ -1478,13 +1342,6 @@ func (m *UnBlockRequest) GetReason() string {
 	return ""
 }
 
-func (m *UnBlockRequest) GetAdminId() uint32 {
-	if m != nil {
-		return m.AdminId
-	}
-	return 0
-}
-
 // Response message for rpc `UnBlock`.
 type UnBlockResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1496,7 +1353,7 @@ func (m *UnBlockResponse) Reset()         { *m = UnBlockResponse{} }
 func (m *UnBlockResponse) String() string { return proto.CompactTextString(m) }
 func (*UnBlockResponse) ProtoMessage()    {}
 func (*UnBlockResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{24}
+	return fileDescriptor_5ae0d2819db7b861, []int{21}
 }
 
 func (m *UnBlockResponse) XXX_Unmarshal(b []byte) error {
@@ -1521,7 +1378,6 @@ var xxx_messageInfo_UnBlockResponse proto.InternalMessageInfo
 type UnWarnRequest struct {
 	WarnId               uint32   `protobuf:"varint,1,opt,name=warn_id,json=warnId,proto3" json:"warn_id,omitempty"`
 	Reason               string   `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
-	AdminId              uint32   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -1531,7 +1387,7 @@ func (m *UnWarnRequest) Reset()         { *m = UnWarnRequest{} }
 func (m *UnWarnRequest) String() string { return proto.CompactTextString(m) }
 func (*UnWarnRequest) ProtoMessage()    {}
 func (*UnWarnRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{25}
+	return fileDescriptor_5ae0d2819db7b861, []int{22}
 }
 
 func (m *UnWarnRequest) XXX_Unmarshal(b []byte) error {
@@ -1566,13 +1422,6 @@ func (m *UnWarnRequest) GetReason() string {
 	return ""
 }
 
-func (m *UnWarnRequest) GetAdminId() uint32 {
-	if m != nil {
-		return m.AdminId
-	}
-	return 0
-}
-
 // Response message for rpc `UnWarn`.
 type UnWarnResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1584,7 +1433,7 @@ func (m *UnWarnResponse) Reset()         { *m = UnWarnResponse{} }
 func (m *UnWarnResponse) String() string { return proto.CompactTextString(m) }
 func (*UnWarnResponse) ProtoMessage()    {}
 func (*UnWarnResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{26}
+	return fileDescriptor_5ae0d2819db7b861, []int{23}
 }
 
 func (m *UnWarnResponse) XXX_Unmarshal(b []byte) error {
@@ -1608,8 +1457,6 @@ var xxx_messageInfo_UnWarnResponse proto.InternalMessageInfo
 // Request message for rpc `UnAdminJail`.
 type UnAdminJailRequest struct {
 	Character            uint32   `protobuf:"varint,1,opt,name=character,proto3" json:"character,omitempty"`
-	Reason               string   `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
-	AdminId              uint32   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -1619,7 +1466,7 @@ func (m *UnAdminJailRequest) Reset()         { *m = UnAdminJailRequest{} }
 func (m *UnAdminJailRequest) String() string { return proto.CompactTextString(m) }
 func (*UnAdminJailRequest) ProtoMessage()    {}
 func (*UnAdminJailRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{27}
+	return fileDescriptor_5ae0d2819db7b861, []int{24}
 }
 
 func (m *UnAdminJailRequest) XXX_Unmarshal(b []byte) error {
@@ -1647,20 +1494,6 @@ func (m *UnAdminJailRequest) GetCharacter() uint32 {
 	return 0
 }
 
-func (m *UnAdminJailRequest) GetReason() string {
-	if m != nil {
-		return m.Reason
-	}
-	return ""
-}
-
-func (m *UnAdminJailRequest) GetAdminId() uint32 {
-	if m != nil {
-		return m.AdminId
-	}
-	return 0
-}
-
 // Response message for rpc `UnAdminJail`.
 type UnAdminJailResponse struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1672,7 +1505,7 @@ func (m *UnAdminJailResponse) Reset()         { *m = UnAdminJailResponse{} }
 func (m *UnAdminJailResponse) String() string { return proto.CompactTextString(m) }
 func (*UnAdminJailResponse) ProtoMessage()    {}
 func (*UnAdminJailResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{28}
+	return fileDescriptor_5ae0d2819db7b861, []int{25}
 }
 
 func (m *UnAdminJailResponse) XXX_Unmarshal(b []byte) error {
@@ -1705,7 +1538,7 @@ func (m *UnMuteGlobalChatsRequest) Reset()         { *m = UnMuteGlobalChatsReque
 func (m *UnMuteGlobalChatsRequest) String() string { return proto.CompactTextString(m) }
 func (*UnMuteGlobalChatsRequest) ProtoMessage()    {}
 func (*UnMuteGlobalChatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{29}
+	return fileDescriptor_5ae0d2819db7b861, []int{26}
 }
 
 func (m *UnMuteGlobalChatsRequest) XXX_Unmarshal(b []byte) error {
@@ -1744,7 +1577,7 @@ func (m *UnMuteGlobalChatsResponse) Reset()         { *m = UnMuteGlobalChatsResp
 func (m *UnMuteGlobalChatsResponse) String() string { return proto.CompactTextString(m) }
 func (*UnMuteGlobalChatsResponse) ProtoMessage()    {}
 func (*UnMuteGlobalChatsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{30}
+	return fileDescriptor_5ae0d2819db7b861, []int{27}
 }
 
 func (m *UnMuteGlobalChatsResponse) XXX_Unmarshal(b []byte) error {
@@ -1778,7 +1611,7 @@ func (m *GetPlayerBansRequest) Reset()         { *m = GetPlayerBansRequest{} }
 func (m *GetPlayerBansRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerBansRequest) ProtoMessage()    {}
 func (*GetPlayerBansRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{31}
+	return fileDescriptor_5ae0d2819db7b861, []int{28}
 }
 
 func (m *GetPlayerBansRequest) XXX_Unmarshal(b []byte) error {
@@ -1825,7 +1658,7 @@ func (m *GetPlayerBansResponse) Reset()         { *m = GetPlayerBansResponse{} }
 func (m *GetPlayerBansResponse) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerBansResponse) ProtoMessage()    {}
 func (*GetPlayerBansResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{32}
+	return fileDescriptor_5ae0d2819db7b861, []int{29}
 }
 
 func (m *GetPlayerBansResponse) XXX_Unmarshal(b []byte) error {
@@ -1865,7 +1698,7 @@ func (m *GetPlayerWarnsRequest) Reset()         { *m = GetPlayerWarnsRequest{} }
 func (m *GetPlayerWarnsRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerWarnsRequest) ProtoMessage()    {}
 func (*GetPlayerWarnsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{33}
+	return fileDescriptor_5ae0d2819db7b861, []int{30}
 }
 
 func (m *GetPlayerWarnsRequest) XXX_Unmarshal(b []byte) error {
@@ -1905,7 +1738,7 @@ func (m *GetPlayerWarnsResponse) Reset()         { *m = GetPlayerWarnsResponse{}
 func (m *GetPlayerWarnsResponse) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerWarnsResponse) ProtoMessage()    {}
 func (*GetPlayerWarnsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{34}
+	return fileDescriptor_5ae0d2819db7b861, []int{31}
 }
 
 func (m *GetPlayerWarnsResponse) XXX_Unmarshal(b []byte) error {
@@ -1945,7 +1778,7 @@ func (m *GetPlayerAdminJailRequest) Reset()         { *m = GetPlayerAdminJailReq
 func (m *GetPlayerAdminJailRequest) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerAdminJailRequest) ProtoMessage()    {}
 func (*GetPlayerAdminJailRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{35}
+	return fileDescriptor_5ae0d2819db7b861, []int{32}
 }
 
 func (m *GetPlayerAdminJailRequest) XXX_Unmarshal(b []byte) error {
@@ -1992,7 +1825,7 @@ func (m *GetPlayerAdminJailResponse) Reset()         { *m = GetPlayerAdminJailRe
 func (m *GetPlayerAdminJailResponse) String() string { return proto.CompactTextString(m) }
 func (*GetPlayerAdminJailResponse) ProtoMessage()    {}
 func (*GetPlayerAdminJailResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{36}
+	return fileDescriptor_5ae0d2819db7b861, []int{33}
 }
 
 func (m *GetPlayerAdminJailResponse) XXX_Unmarshal(b []byte) error {
@@ -2053,7 +1886,7 @@ func (m *GetBanRequest) Reset()         { *m = GetBanRequest{} }
 func (m *GetBanRequest) String() string { return proto.CompactTextString(m) }
 func (*GetBanRequest) ProtoMessage()    {}
 func (*GetBanRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{37}
+	return fileDescriptor_5ae0d2819db7b861, []int{34}
 }
 
 func (m *GetBanRequest) XXX_Unmarshal(b []byte) error {
@@ -2093,7 +1926,7 @@ func (m *GetWarnRequest) Reset()         { *m = GetWarnRequest{} }
 func (m *GetWarnRequest) String() string { return proto.CompactTextString(m) }
 func (*GetWarnRequest) ProtoMessage()    {}
 func (*GetWarnRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{38}
+	return fileDescriptor_5ae0d2819db7b861, []int{35}
 }
 
 func (m *GetWarnRequest) XXX_Unmarshal(b []byte) error {
@@ -2133,7 +1966,7 @@ func (m *GetBlockRequest) Reset()         { *m = GetBlockRequest{} }
 func (m *GetBlockRequest) String() string { return proto.CompactTextString(m) }
 func (*GetBlockRequest) ProtoMessage()    {}
 func (*GetBlockRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{39}
+	return fileDescriptor_5ae0d2819db7b861, []int{36}
 }
 
 func (m *GetBlockRequest) XXX_Unmarshal(b []byte) error {
@@ -2174,7 +2007,7 @@ func (m *IsPlayerBannedRequest) Reset()         { *m = IsPlayerBannedRequest{} }
 func (m *IsPlayerBannedRequest) String() string { return proto.CompactTextString(m) }
 func (*IsPlayerBannedRequest) ProtoMessage()    {}
 func (*IsPlayerBannedRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{40}
+	return fileDescriptor_5ae0d2819db7b861, []int{37}
 }
 
 func (m *IsPlayerBannedRequest) XXX_Unmarshal(b []byte) error {
@@ -2222,7 +2055,7 @@ func (m *IsPlayerBannedResponse) Reset()         { *m = IsPlayerBannedResponse{}
 func (m *IsPlayerBannedResponse) String() string { return proto.CompactTextString(m) }
 func (*IsPlayerBannedResponse) ProtoMessage()    {}
 func (*IsPlayerBannedResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{41}
+	return fileDescriptor_5ae0d2819db7b861, []int{38}
 }
 
 func (m *IsPlayerBannedResponse) XXX_Unmarshal(b []byte) error {
@@ -2269,7 +2102,7 @@ func (m *IsCharacterBlockedRequest) Reset()         { *m = IsCharacterBlockedReq
 func (m *IsCharacterBlockedRequest) String() string { return proto.CompactTextString(m) }
 func (*IsCharacterBlockedRequest) ProtoMessage()    {}
 func (*IsCharacterBlockedRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{42}
+	return fileDescriptor_5ae0d2819db7b861, []int{39}
 }
 
 func (m *IsCharacterBlockedRequest) XXX_Unmarshal(b []byte) error {
@@ -2310,7 +2143,7 @@ func (m *IsCharacterBlockedResponse) Reset()         { *m = IsCharacterBlockedRe
 func (m *IsCharacterBlockedResponse) String() string { return proto.CompactTextString(m) }
 func (*IsCharacterBlockedResponse) ProtoMessage()    {}
 func (*IsCharacterBlockedResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{43}
+	return fileDescriptor_5ae0d2819db7b861, []int{40}
 }
 
 func (m *IsCharacterBlockedResponse) XXX_Unmarshal(b []byte) error {
@@ -2357,7 +2190,7 @@ func (m *IsCharacterJailedRequest) Reset()         { *m = IsCharacterJailedReque
 func (m *IsCharacterJailedRequest) String() string { return proto.CompactTextString(m) }
 func (*IsCharacterJailedRequest) ProtoMessage()    {}
 func (*IsCharacterJailedRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{44}
+	return fileDescriptor_5ae0d2819db7b861, []int{41}
 }
 
 func (m *IsCharacterJailedRequest) XXX_Unmarshal(b []byte) error {
@@ -2398,7 +2231,7 @@ func (m *IsCharacterJailedResponse) Reset()         { *m = IsCharacterJailedResp
 func (m *IsCharacterJailedResponse) String() string { return proto.CompactTextString(m) }
 func (*IsCharacterJailedResponse) ProtoMessage()    {}
 func (*IsCharacterJailedResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{45}
+	return fileDescriptor_5ae0d2819db7b861, []int{42}
 }
 
 func (m *IsCharacterJailedResponse) XXX_Unmarshal(b []byte) error {
@@ -2444,7 +2277,7 @@ func (m *WatchBansRequest) Reset()         { *m = WatchBansRequest{} }
 func (m *WatchBansRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchBansRequest) ProtoMessage()    {}
 func (*WatchBansRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{46}
+	return fileDescriptor_5ae0d2819db7b861, []int{43}
 }
 
 func (m *WatchBansRequest) XXX_Unmarshal(b []byte) error {
@@ -2476,7 +2309,7 @@ func (m *WatchBlocksRequest) Reset()         { *m = WatchBlocksRequest{} }
 func (m *WatchBlocksRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchBlocksRequest) ProtoMessage()    {}
 func (*WatchBlocksRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{47}
+	return fileDescriptor_5ae0d2819db7b861, []int{44}
 }
 
 func (m *WatchBlocksRequest) XXX_Unmarshal(b []byte) error {
@@ -2508,7 +2341,7 @@ func (m *WatchWarnsRequest) Reset()         { *m = WatchWarnsRequest{} }
 func (m *WatchWarnsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchWarnsRequest) ProtoMessage()    {}
 func (*WatchWarnsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{48}
+	return fileDescriptor_5ae0d2819db7b861, []int{45}
 }
 
 func (m *WatchWarnsRequest) XXX_Unmarshal(b []byte) error {
@@ -2540,7 +2373,7 @@ func (m *WatchAdminJailsRequest) Reset()         { *m = WatchAdminJailsRequest{}
 func (m *WatchAdminJailsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchAdminJailsRequest) ProtoMessage()    {}
 func (*WatchAdminJailsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{49}
+	return fileDescriptor_5ae0d2819db7b861, []int{46}
 }
 
 func (m *WatchAdminJailsRequest) XXX_Unmarshal(b []byte) error {
@@ -2572,7 +2405,7 @@ func (m *WatchUnBansRequest) Reset()         { *m = WatchUnBansRequest{} }
 func (m *WatchUnBansRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchUnBansRequest) ProtoMessage()    {}
 func (*WatchUnBansRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{50}
+	return fileDescriptor_5ae0d2819db7b861, []int{47}
 }
 
 func (m *WatchUnBansRequest) XXX_Unmarshal(b []byte) error {
@@ -2604,7 +2437,7 @@ func (m *WatchUnBlocksRequest) Reset()         { *m = WatchUnBlocksRequest{} }
 func (m *WatchUnBlocksRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchUnBlocksRequest) ProtoMessage()    {}
 func (*WatchUnBlocksRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{51}
+	return fileDescriptor_5ae0d2819db7b861, []int{48}
 }
 
 func (m *WatchUnBlocksRequest) XXX_Unmarshal(b []byte) error {
@@ -2636,7 +2469,7 @@ func (m *WatchUnWarnsRequest) Reset()         { *m = WatchUnWarnsRequest{} }
 func (m *WatchUnWarnsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchUnWarnsRequest) ProtoMessage()    {}
 func (*WatchUnWarnsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{52}
+	return fileDescriptor_5ae0d2819db7b861, []int{49}
 }
 
 func (m *WatchUnWarnsRequest) XXX_Unmarshal(b []byte) error {
@@ -2668,7 +2501,7 @@ func (m *WatchUnAdminJailsRequest) Reset()         { *m = WatchUnAdminJailsReque
 func (m *WatchUnAdminJailsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchUnAdminJailsRequest) ProtoMessage()    {}
 func (*WatchUnAdminJailsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{53}
+	return fileDescriptor_5ae0d2819db7b861, []int{50}
 }
 
 func (m *WatchUnAdminJailsRequest) XXX_Unmarshal(b []byte) error {
@@ -2689,169 +2522,8 @@ func (m *WatchUnAdminJailsRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WatchUnAdminJailsRequest proto.InternalMessageInfo
 
-// Request message for rpc `WatchPlayerPunishments`.
-type WatchPlayerPunishmentsRequest struct {
-	AccountId            uint32   `protobuf:"varint,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
-	CharacterId          uint32   `protobuf:"varint,2,opt,name=character_id,json=characterId,proto3" json:"character_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *WatchPlayerPunishmentsRequest) Reset()         { *m = WatchPlayerPunishmentsRequest{} }
-func (m *WatchPlayerPunishmentsRequest) String() string { return proto.CompactTextString(m) }
-func (*WatchPlayerPunishmentsRequest) ProtoMessage()    {}
-func (*WatchPlayerPunishmentsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{54}
-}
-
-func (m *WatchPlayerPunishmentsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Unmarshal(m, b)
-}
-func (m *WatchPlayerPunishmentsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Marshal(b, m, deterministic)
-}
-func (m *WatchPlayerPunishmentsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WatchPlayerPunishmentsRequest.Merge(m, src)
-}
-func (m *WatchPlayerPunishmentsRequest) XXX_Size() int {
-	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Size(m)
-}
-func (m *WatchPlayerPunishmentsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_WatchPlayerPunishmentsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WatchPlayerPunishmentsRequest proto.InternalMessageInfo
-
-func (m *WatchPlayerPunishmentsRequest) GetAccountId() uint32 {
-	if m != nil {
-		return m.AccountId
-	}
-	return 0
-}
-
-func (m *WatchPlayerPunishmentsRequest) GetCharacterId() uint32 {
-	if m != nil {
-		return m.CharacterId
-	}
-	return 0
-}
-
-// Response message for rpc `WatchPlayerPunishments`.
-type WatchPlayerPunishmentsResponse struct {
-	// Types that are valid to be assigned to Punishment:
-	//	*WatchPlayerPunishmentsResponse_Ban
-	//	*WatchPlayerPunishmentsResponse_Block
-	//	*WatchPlayerPunishmentsResponse_Warn
-	//	*WatchPlayerPunishmentsResponse_Aj
-	Punishment           isWatchPlayerPunishmentsResponse_Punishment `protobuf_oneof:"punishment"`
-	XXX_NoUnkeyedLiteral struct{}                                    `json:"-"`
-	XXX_unrecognized     []byte                                      `json:"-"`
-	XXX_sizecache        int32                                       `json:"-"`
-}
-
-func (m *WatchPlayerPunishmentsResponse) Reset()         { *m = WatchPlayerPunishmentsResponse{} }
-func (m *WatchPlayerPunishmentsResponse) String() string { return proto.CompactTextString(m) }
-func (*WatchPlayerPunishmentsResponse) ProtoMessage()    {}
-func (*WatchPlayerPunishmentsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{55}
-}
-
-func (m *WatchPlayerPunishmentsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Unmarshal(m, b)
-}
-func (m *WatchPlayerPunishmentsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Marshal(b, m, deterministic)
-}
-func (m *WatchPlayerPunishmentsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WatchPlayerPunishmentsResponse.Merge(m, src)
-}
-func (m *WatchPlayerPunishmentsResponse) XXX_Size() int {
-	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Size(m)
-}
-func (m *WatchPlayerPunishmentsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_WatchPlayerPunishmentsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WatchPlayerPunishmentsResponse proto.InternalMessageInfo
-
-type isWatchPlayerPunishmentsResponse_Punishment interface {
-	isWatchPlayerPunishmentsResponse_Punishment()
-}
-
-type WatchPlayerPunishmentsResponse_Ban struct {
-	Ban *BanMessage `protobuf:"bytes,1,opt,name=ban,proto3,oneof"`
-}
-
-type WatchPlayerPunishmentsResponse_Block struct {
-	Block *BlockMessage `protobuf:"bytes,2,opt,name=block,proto3,oneof"`
-}
-
-type WatchPlayerPunishmentsResponse_Warn struct {
-	Warn *WarnMessage `protobuf:"bytes,3,opt,name=warn,proto3,oneof"`
-}
-
-type WatchPlayerPunishmentsResponse_Aj struct {
-	Aj *AdminJailMessage `protobuf:"bytes,4,opt,name=aj,proto3,oneof"`
-}
-
-func (*WatchPlayerPunishmentsResponse_Ban) isWatchPlayerPunishmentsResponse_Punishment() {}
-
-func (*WatchPlayerPunishmentsResponse_Block) isWatchPlayerPunishmentsResponse_Punishment() {}
-
-func (*WatchPlayerPunishmentsResponse_Warn) isWatchPlayerPunishmentsResponse_Punishment() {}
-
-func (*WatchPlayerPunishmentsResponse_Aj) isWatchPlayerPunishmentsResponse_Punishment() {}
-
-func (m *WatchPlayerPunishmentsResponse) GetPunishment() isWatchPlayerPunishmentsResponse_Punishment {
-	if m != nil {
-		return m.Punishment
-	}
-	return nil
-}
-
-func (m *WatchPlayerPunishmentsResponse) GetBan() *BanMessage {
-	if x, ok := m.GetPunishment().(*WatchPlayerPunishmentsResponse_Ban); ok {
-		return x.Ban
-	}
-	return nil
-}
-
-func (m *WatchPlayerPunishmentsResponse) GetBlock() *BlockMessage {
-	if x, ok := m.GetPunishment().(*WatchPlayerPunishmentsResponse_Block); ok {
-		return x.Block
-	}
-	return nil
-}
-
-func (m *WatchPlayerPunishmentsResponse) GetWarn() *WarnMessage {
-	if x, ok := m.GetPunishment().(*WatchPlayerPunishmentsResponse_Warn); ok {
-		return x.Warn
-	}
-	return nil
-}
-
-func (m *WatchPlayerPunishmentsResponse) GetAj() *AdminJailMessage {
-	if x, ok := m.GetPunishment().(*WatchPlayerPunishmentsResponse_Aj); ok {
-		return x.Aj
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*WatchPlayerPunishmentsResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*WatchPlayerPunishmentsResponse_Ban)(nil),
-		(*WatchPlayerPunishmentsResponse_Block)(nil),
-		(*WatchPlayerPunishmentsResponse_Warn)(nil),
-		(*WatchPlayerPunishmentsResponse_Aj)(nil),
-	}
-}
-
 // Request message for rpc `WatchPlayerAcquittals`.
 type WatchPlayerAcquittalsRequest struct {
-	AccountId            uint32   `protobuf:"varint,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
-	CharacterId          uint32   `protobuf:"varint,2,opt,name=character_id,json=characterId,proto3" json:"character_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -2861,7 +2533,7 @@ func (m *WatchPlayerAcquittalsRequest) Reset()         { *m = WatchPlayerAcquitt
 func (m *WatchPlayerAcquittalsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchPlayerAcquittalsRequest) ProtoMessage()    {}
 func (*WatchPlayerAcquittalsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{56}
+	return fileDescriptor_5ae0d2819db7b861, []int{51}
 }
 
 func (m *WatchPlayerAcquittalsRequest) XXX_Unmarshal(b []byte) error {
@@ -2882,38 +2554,18 @@ func (m *WatchPlayerAcquittalsRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WatchPlayerAcquittalsRequest proto.InternalMessageInfo
 
-func (m *WatchPlayerAcquittalsRequest) GetAccountId() uint32 {
-	if m != nil {
-		return m.AccountId
-	}
-	return 0
-}
-
-func (m *WatchPlayerAcquittalsRequest) GetCharacterId() uint32 {
-	if m != nil {
-		return m.CharacterId
-	}
-	return 0
-}
-
 // Response message for rpc `WatchPlayerAcquittals`.
 type WatchPlayerAcquittalsResponse struct {
-	// Types that are valid to be assigned to Acquittal:
-	//	*WatchPlayerAcquittalsResponse_Unban
-	//	*WatchPlayerAcquittalsResponse_Unblock
-	//	*WatchPlayerAcquittalsResponse_Unwarn
-	//	*WatchPlayerAcquittalsResponse_Unaj
-	Acquittal            isWatchPlayerAcquittalsResponse_Acquittal `protobuf_oneof:"acquittal"`
-	XXX_NoUnkeyedLiteral struct{}                                  `json:"-"`
-	XXX_unrecognized     []byte                                    `json:"-"`
-	XXX_sizecache        int32                                     `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *WatchPlayerAcquittalsResponse) Reset()         { *m = WatchPlayerAcquittalsResponse{} }
 func (m *WatchPlayerAcquittalsResponse) String() string { return proto.CompactTextString(m) }
 func (*WatchPlayerAcquittalsResponse) ProtoMessage()    {}
 func (*WatchPlayerAcquittalsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{57}
+	return fileDescriptor_5ae0d2819db7b861, []int{52}
 }
 
 func (m *WatchPlayerAcquittalsResponse) XXX_Unmarshal(b []byte) error {
@@ -2934,77 +2586,84 @@ func (m *WatchPlayerAcquittalsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WatchPlayerAcquittalsResponse proto.InternalMessageInfo
 
-type isWatchPlayerAcquittalsResponse_Acquittal interface {
-	isWatchPlayerAcquittalsResponse_Acquittal()
+// Request message for rpc `WatchPlayerPunishments`.
+type WatchPlayerPunishmentsRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-type WatchPlayerAcquittalsResponse_Unban struct {
-	Unban *UnBanMessage `protobuf:"bytes,1,opt,name=unban,proto3,oneof"`
+func (m *WatchPlayerPunishmentsRequest) Reset()         { *m = WatchPlayerPunishmentsRequest{} }
+func (m *WatchPlayerPunishmentsRequest) String() string { return proto.CompactTextString(m) }
+func (*WatchPlayerPunishmentsRequest) ProtoMessage()    {}
+func (*WatchPlayerPunishmentsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5ae0d2819db7b861, []int{53}
 }
 
-type WatchPlayerAcquittalsResponse_Unblock struct {
-	Unblock *UnBlockMessage `protobuf:"bytes,2,opt,name=unblock,proto3,oneof"`
+func (m *WatchPlayerPunishmentsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Unmarshal(m, b)
+}
+func (m *WatchPlayerPunishmentsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Marshal(b, m, deterministic)
+}
+func (m *WatchPlayerPunishmentsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WatchPlayerPunishmentsRequest.Merge(m, src)
+}
+func (m *WatchPlayerPunishmentsRequest) XXX_Size() int {
+	return xxx_messageInfo_WatchPlayerPunishmentsRequest.Size(m)
+}
+func (m *WatchPlayerPunishmentsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_WatchPlayerPunishmentsRequest.DiscardUnknown(m)
 }
 
-type WatchPlayerAcquittalsResponse_Unwarn struct {
-	Unwarn *UnWarnMessage `protobuf:"bytes,3,opt,name=unwarn,proto3,oneof"`
+var xxx_messageInfo_WatchPlayerPunishmentsRequest proto.InternalMessageInfo
+
+// Response message for rpc `WatchPlayerPunishments`.
+type WatchPlayerPunishmentsResponse struct {
+	Type                 PunishmentType `protobuf:"varint,1,opt,name=type,proto3,enum=mruv.punishments.PunishmentType" json:"type,omitempty"`
+	PunishmentId         uint32         `protobuf:"varint,2,opt,name=punishment_id,json=punishmentId,proto3" json:"punishment_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
-type WatchPlayerAcquittalsResponse_Unaj struct {
-	Unaj *UnAdminJailMessage `protobuf:"bytes,4,opt,name=unaj,proto3,oneof"`
+func (m *WatchPlayerPunishmentsResponse) Reset()         { *m = WatchPlayerPunishmentsResponse{} }
+func (m *WatchPlayerPunishmentsResponse) String() string { return proto.CompactTextString(m) }
+func (*WatchPlayerPunishmentsResponse) ProtoMessage()    {}
+func (*WatchPlayerPunishmentsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5ae0d2819db7b861, []int{54}
 }
 
-func (*WatchPlayerAcquittalsResponse_Unban) isWatchPlayerAcquittalsResponse_Acquittal() {}
+func (m *WatchPlayerPunishmentsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Unmarshal(m, b)
+}
+func (m *WatchPlayerPunishmentsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Marshal(b, m, deterministic)
+}
+func (m *WatchPlayerPunishmentsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WatchPlayerPunishmentsResponse.Merge(m, src)
+}
+func (m *WatchPlayerPunishmentsResponse) XXX_Size() int {
+	return xxx_messageInfo_WatchPlayerPunishmentsResponse.Size(m)
+}
+func (m *WatchPlayerPunishmentsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WatchPlayerPunishmentsResponse.DiscardUnknown(m)
+}
 
-func (*WatchPlayerAcquittalsResponse_Unblock) isWatchPlayerAcquittalsResponse_Acquittal() {}
+var xxx_messageInfo_WatchPlayerPunishmentsResponse proto.InternalMessageInfo
 
-func (*WatchPlayerAcquittalsResponse_Unwarn) isWatchPlayerAcquittalsResponse_Acquittal() {}
-
-func (*WatchPlayerAcquittalsResponse_Unaj) isWatchPlayerAcquittalsResponse_Acquittal() {}
-
-func (m *WatchPlayerAcquittalsResponse) GetAcquittal() isWatchPlayerAcquittalsResponse_Acquittal {
+func (m *WatchPlayerPunishmentsResponse) GetType() PunishmentType {
 	if m != nil {
-		return m.Acquittal
+		return m.Type
 	}
-	return nil
+	return PunishmentType_UNKNOWN_PUNISHMENT
 }
 
-func (m *WatchPlayerAcquittalsResponse) GetUnban() *UnBanMessage {
-	if x, ok := m.GetAcquittal().(*WatchPlayerAcquittalsResponse_Unban); ok {
-		return x.Unban
+func (m *WatchPlayerPunishmentsResponse) GetPunishmentId() uint32 {
+	if m != nil {
+		return m.PunishmentId
 	}
-	return nil
-}
-
-func (m *WatchPlayerAcquittalsResponse) GetUnblock() *UnBlockMessage {
-	if x, ok := m.GetAcquittal().(*WatchPlayerAcquittalsResponse_Unblock); ok {
-		return x.Unblock
-	}
-	return nil
-}
-
-func (m *WatchPlayerAcquittalsResponse) GetUnwarn() *UnWarnMessage {
-	if x, ok := m.GetAcquittal().(*WatchPlayerAcquittalsResponse_Unwarn); ok {
-		return x.Unwarn
-	}
-	return nil
-}
-
-func (m *WatchPlayerAcquittalsResponse) GetUnaj() *UnAdminJailMessage {
-	if x, ok := m.GetAcquittal().(*WatchPlayerAcquittalsResponse_Unaj); ok {
-		return x.Unaj
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*WatchPlayerAcquittalsResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*WatchPlayerAcquittalsResponse_Unban)(nil),
-		(*WatchPlayerAcquittalsResponse_Unblock)(nil),
-		(*WatchPlayerAcquittalsResponse_Unwarn)(nil),
-		(*WatchPlayerAcquittalsResponse_Unaj)(nil),
-	}
+	return 0
 }
 
 // Request message for rpc `WatchPunishments`.
@@ -3018,7 +2677,7 @@ func (m *WatchPunishmentsRequest) Reset()         { *m = WatchPunishmentsRequest
 func (m *WatchPunishmentsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchPunishmentsRequest) ProtoMessage()    {}
 func (*WatchPunishmentsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{58}
+	return fileDescriptor_5ae0d2819db7b861, []int{55}
 }
 
 func (m *WatchPunishmentsRequest) XXX_Unmarshal(b []byte) error {
@@ -3041,22 +2700,20 @@ var xxx_messageInfo_WatchPunishmentsRequest proto.InternalMessageInfo
 
 // Response message for rpc `WatchPunishments`.
 type WatchPunishmentsResponse struct {
-	// Types that are valid to be assigned to Punishment:
-	//	*WatchPunishmentsResponse_Ban
-	//	*WatchPunishmentsResponse_Block
-	//	*WatchPunishmentsResponse_Warn
-	//	*WatchPunishmentsResponse_Aj
-	Punishment           isWatchPunishmentsResponse_Punishment `protobuf_oneof:"punishment"`
-	XXX_NoUnkeyedLiteral struct{}                              `json:"-"`
-	XXX_unrecognized     []byte                                `json:"-"`
-	XXX_sizecache        int32                                 `json:"-"`
+	Type                 PunishmentType `protobuf:"varint,1,opt,name=type,proto3,enum=mruv.punishments.PunishmentType" json:"type,omitempty"`
+	PunishmentId         uint32         `protobuf:"varint,2,opt,name=punishment_id,json=punishmentId,proto3" json:"punishment_id,omitempty"`
+	Player               uint32         `protobuf:"varint,3,opt,name=player,proto3" json:"player,omitempty"`
+	Character            uint32         `protobuf:"varint,4,opt,name=character,proto3" json:"character,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *WatchPunishmentsResponse) Reset()         { *m = WatchPunishmentsResponse{} }
 func (m *WatchPunishmentsResponse) String() string { return proto.CompactTextString(m) }
 func (*WatchPunishmentsResponse) ProtoMessage()    {}
 func (*WatchPunishmentsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{59}
+	return fileDescriptor_5ae0d2819db7b861, []int{56}
 }
 
 func (m *WatchPunishmentsResponse) XXX_Unmarshal(b []byte) error {
@@ -3077,224 +2734,37 @@ func (m *WatchPunishmentsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WatchPunishmentsResponse proto.InternalMessageInfo
 
-type isWatchPunishmentsResponse_Punishment interface {
-	isWatchPunishmentsResponse_Punishment()
-}
-
-type WatchPunishmentsResponse_Ban struct {
-	Ban *BanMessage `protobuf:"bytes,1,opt,name=ban,proto3,oneof"`
-}
-
-type WatchPunishmentsResponse_Block struct {
-	Block *BlockMessage `protobuf:"bytes,2,opt,name=block,proto3,oneof"`
-}
-
-type WatchPunishmentsResponse_Warn struct {
-	Warn *WarnMessage `protobuf:"bytes,3,opt,name=warn,proto3,oneof"`
-}
-
-type WatchPunishmentsResponse_Aj struct {
-	Aj *AdminJailMessage `protobuf:"bytes,4,opt,name=aj,proto3,oneof"`
-}
-
-func (*WatchPunishmentsResponse_Ban) isWatchPunishmentsResponse_Punishment() {}
-
-func (*WatchPunishmentsResponse_Block) isWatchPunishmentsResponse_Punishment() {}
-
-func (*WatchPunishmentsResponse_Warn) isWatchPunishmentsResponse_Punishment() {}
-
-func (*WatchPunishmentsResponse_Aj) isWatchPunishmentsResponse_Punishment() {}
-
-func (m *WatchPunishmentsResponse) GetPunishment() isWatchPunishmentsResponse_Punishment {
+func (m *WatchPunishmentsResponse) GetType() PunishmentType {
 	if m != nil {
-		return m.Punishment
+		return m.Type
 	}
-	return nil
+	return PunishmentType_UNKNOWN_PUNISHMENT
 }
 
-func (m *WatchPunishmentsResponse) GetBan() *BanMessage {
-	if x, ok := m.GetPunishment().(*WatchPunishmentsResponse_Ban); ok {
-		return x.Ban
-	}
-	return nil
-}
-
-func (m *WatchPunishmentsResponse) GetBlock() *BlockMessage {
-	if x, ok := m.GetPunishment().(*WatchPunishmentsResponse_Block); ok {
-		return x.Block
-	}
-	return nil
-}
-
-func (m *WatchPunishmentsResponse) GetWarn() *WarnMessage {
-	if x, ok := m.GetPunishment().(*WatchPunishmentsResponse_Warn); ok {
-		return x.Warn
-	}
-	return nil
-}
-
-func (m *WatchPunishmentsResponse) GetAj() *AdminJailMessage {
-	if x, ok := m.GetPunishment().(*WatchPunishmentsResponse_Aj); ok {
-		return x.Aj
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*WatchPunishmentsResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*WatchPunishmentsResponse_Ban)(nil),
-		(*WatchPunishmentsResponse_Block)(nil),
-		(*WatchPunishmentsResponse_Warn)(nil),
-		(*WatchPunishmentsResponse_Aj)(nil),
-	}
-}
-
-// Request message for rpc `WatchAcquittals`.
-type WatchAcquittalsRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *WatchAcquittalsRequest) Reset()         { *m = WatchAcquittalsRequest{} }
-func (m *WatchAcquittalsRequest) String() string { return proto.CompactTextString(m) }
-func (*WatchAcquittalsRequest) ProtoMessage()    {}
-func (*WatchAcquittalsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{60}
-}
-
-func (m *WatchAcquittalsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WatchAcquittalsRequest.Unmarshal(m, b)
-}
-func (m *WatchAcquittalsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WatchAcquittalsRequest.Marshal(b, m, deterministic)
-}
-func (m *WatchAcquittalsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WatchAcquittalsRequest.Merge(m, src)
-}
-func (m *WatchAcquittalsRequest) XXX_Size() int {
-	return xxx_messageInfo_WatchAcquittalsRequest.Size(m)
-}
-func (m *WatchAcquittalsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_WatchAcquittalsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WatchAcquittalsRequest proto.InternalMessageInfo
-
-// Response message for rpc `WatchAcquittals`.
-type WatchAcquittalsResponse struct {
-	// Types that are valid to be assigned to Acquittal:
-	//	*WatchAcquittalsResponse_Unban
-	//	*WatchAcquittalsResponse_Unblock
-	//	*WatchAcquittalsResponse_Unwarn
-	//	*WatchAcquittalsResponse_Unaj
-	Acquittal            isWatchAcquittalsResponse_Acquittal `protobuf_oneof:"acquittal"`
-	XXX_NoUnkeyedLiteral struct{}                            `json:"-"`
-	XXX_unrecognized     []byte                              `json:"-"`
-	XXX_sizecache        int32                               `json:"-"`
-}
-
-func (m *WatchAcquittalsResponse) Reset()         { *m = WatchAcquittalsResponse{} }
-func (m *WatchAcquittalsResponse) String() string { return proto.CompactTextString(m) }
-func (*WatchAcquittalsResponse) ProtoMessage()    {}
-func (*WatchAcquittalsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5ae0d2819db7b861, []int{61}
-}
-
-func (m *WatchAcquittalsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_WatchAcquittalsResponse.Unmarshal(m, b)
-}
-func (m *WatchAcquittalsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_WatchAcquittalsResponse.Marshal(b, m, deterministic)
-}
-func (m *WatchAcquittalsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_WatchAcquittalsResponse.Merge(m, src)
-}
-func (m *WatchAcquittalsResponse) XXX_Size() int {
-	return xxx_messageInfo_WatchAcquittalsResponse.Size(m)
-}
-func (m *WatchAcquittalsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_WatchAcquittalsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_WatchAcquittalsResponse proto.InternalMessageInfo
-
-type isWatchAcquittalsResponse_Acquittal interface {
-	isWatchAcquittalsResponse_Acquittal()
-}
-
-type WatchAcquittalsResponse_Unban struct {
-	Unban *UnBanMessage `protobuf:"bytes,1,opt,name=unban,proto3,oneof"`
-}
-
-type WatchAcquittalsResponse_Unblock struct {
-	Unblock *UnBlockMessage `protobuf:"bytes,2,opt,name=unblock,proto3,oneof"`
-}
-
-type WatchAcquittalsResponse_Unwarn struct {
-	Unwarn *UnWarnMessage `protobuf:"bytes,3,opt,name=unwarn,proto3,oneof"`
-}
-
-type WatchAcquittalsResponse_Unaj struct {
-	Unaj *UnAdminJailMessage `protobuf:"bytes,4,opt,name=unaj,proto3,oneof"`
-}
-
-func (*WatchAcquittalsResponse_Unban) isWatchAcquittalsResponse_Acquittal() {}
-
-func (*WatchAcquittalsResponse_Unblock) isWatchAcquittalsResponse_Acquittal() {}
-
-func (*WatchAcquittalsResponse_Unwarn) isWatchAcquittalsResponse_Acquittal() {}
-
-func (*WatchAcquittalsResponse_Unaj) isWatchAcquittalsResponse_Acquittal() {}
-
-func (m *WatchAcquittalsResponse) GetAcquittal() isWatchAcquittalsResponse_Acquittal {
+func (m *WatchPunishmentsResponse) GetPunishmentId() uint32 {
 	if m != nil {
-		return m.Acquittal
+		return m.PunishmentId
 	}
-	return nil
+	return 0
 }
 
-func (m *WatchAcquittalsResponse) GetUnban() *UnBanMessage {
-	if x, ok := m.GetAcquittal().(*WatchAcquittalsResponse_Unban); ok {
-		return x.Unban
+func (m *WatchPunishmentsResponse) GetPlayer() uint32 {
+	if m != nil {
+		return m.Player
 	}
-	return nil
+	return 0
 }
 
-func (m *WatchAcquittalsResponse) GetUnblock() *UnBlockMessage {
-	if x, ok := m.GetAcquittal().(*WatchAcquittalsResponse_Unblock); ok {
-		return x.Unblock
+func (m *WatchPunishmentsResponse) GetCharacter() uint32 {
+	if m != nil {
+		return m.Character
 	}
-	return nil
-}
-
-func (m *WatchAcquittalsResponse) GetUnwarn() *UnWarnMessage {
-	if x, ok := m.GetAcquittal().(*WatchAcquittalsResponse_Unwarn); ok {
-		return x.Unwarn
-	}
-	return nil
-}
-
-func (m *WatchAcquittalsResponse) GetUnaj() *UnAdminJailMessage {
-	if x, ok := m.GetAcquittal().(*WatchAcquittalsResponse_Unaj); ok {
-		return x.Unaj
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*WatchAcquittalsResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*WatchAcquittalsResponse_Unban)(nil),
-		(*WatchAcquittalsResponse_Unblock)(nil),
-		(*WatchAcquittalsResponse_Unwarn)(nil),
-		(*WatchAcquittalsResponse_Unaj)(nil),
-	}
+	return 0
 }
 
 func init() {
-	proto.RegisterType((*PunishmentMessage)(nil), "mruv.punishments.PunishmentMessage")
+	proto.RegisterEnum("mruv.punishments.PunishmentType", PunishmentType_name, PunishmentType_value)
+	proto.RegisterEnum("mruv.punishments.AcquittalsType", AcquittalsType_name, AcquittalsType_value)
 	proto.RegisterType((*BanMessage)(nil), "mruv.punishments.BanMessage")
 	proto.RegisterType((*WarnMessage)(nil), "mruv.punishments.WarnMessage")
 	proto.RegisterType((*BlockMessage)(nil), "mruv.punishments.BlockMessage")
@@ -3303,8 +2773,6 @@ func init() {
 	proto.RegisterType((*UnBlockMessage)(nil), "mruv.punishments.UnBlockMessage")
 	proto.RegisterType((*UnWarnMessage)(nil), "mruv.punishments.UnWarnMessage")
 	proto.RegisterType((*UnAdminJailMessage)(nil), "mruv.punishments.UnAdminJailMessage")
-	proto.RegisterType((*PunishRequest)(nil), "mruv.punishments.PunishRequest")
-	proto.RegisterType((*PunishResponse)(nil), "mruv.punishments.PunishResponse")
 	proto.RegisterType((*BanRequest)(nil), "mruv.punishments.BanRequest")
 	proto.RegisterType((*BanResponse)(nil), "mruv.punishments.BanResponse")
 	proto.RegisterType((*BlockRequest)(nil), "mruv.punishments.BlockRequest")
@@ -3348,150 +2816,140 @@ func init() {
 	proto.RegisterType((*WatchUnBlocksRequest)(nil), "mruv.punishments.WatchUnBlocksRequest")
 	proto.RegisterType((*WatchUnWarnsRequest)(nil), "mruv.punishments.WatchUnWarnsRequest")
 	proto.RegisterType((*WatchUnAdminJailsRequest)(nil), "mruv.punishments.WatchUnAdminJailsRequest")
-	proto.RegisterType((*WatchPlayerPunishmentsRequest)(nil), "mruv.punishments.WatchPlayerPunishmentsRequest")
-	proto.RegisterType((*WatchPlayerPunishmentsResponse)(nil), "mruv.punishments.WatchPlayerPunishmentsResponse")
 	proto.RegisterType((*WatchPlayerAcquittalsRequest)(nil), "mruv.punishments.WatchPlayerAcquittalsRequest")
 	proto.RegisterType((*WatchPlayerAcquittalsResponse)(nil), "mruv.punishments.WatchPlayerAcquittalsResponse")
+	proto.RegisterType((*WatchPlayerPunishmentsRequest)(nil), "mruv.punishments.WatchPlayerPunishmentsRequest")
+	proto.RegisterType((*WatchPlayerPunishmentsResponse)(nil), "mruv.punishments.WatchPlayerPunishmentsResponse")
 	proto.RegisterType((*WatchPunishmentsRequest)(nil), "mruv.punishments.WatchPunishmentsRequest")
 	proto.RegisterType((*WatchPunishmentsResponse)(nil), "mruv.punishments.WatchPunishmentsResponse")
-	proto.RegisterType((*WatchAcquittalsRequest)(nil), "mruv.punishments.WatchAcquittalsRequest")
-	proto.RegisterType((*WatchAcquittalsResponse)(nil), "mruv.punishments.WatchAcquittalsResponse")
 }
 
 func init() { proto.RegisterFile("punishments/punishments.proto", fileDescriptor_5ae0d2819db7b861) }
 
 var fileDescriptor_5ae0d2819db7b861 = []byte{
-	// 2069 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x5a, 0x6d, 0x6f, 0x1b, 0xc7,
-	0x11, 0xd6, 0xf1, 0x9d, 0x43, 0xbd, 0xae, 0x2d, 0x99, 0x3a, 0x89, 0x12, 0xb5, 0xb2, 0x63, 0x49,
-	0xae, 0x45, 0x57, 0x0e, 0x82, 0xba, 0xe8, 0x5b, 0xe4, 0x00, 0x32, 0x03, 0x18, 0x70, 0xd8, 0xa8,
-	0x2e, 0x5c, 0xb4, 0xe9, 0x92, 0x3c, 0x48, 0xc7, 0x92, 0x47, 0x9a, 0x3c, 0xaa, 0x0d, 0x14, 0xa1,
-	0x40, 0x8a, 0xa2, 0x1f, 0x0a, 0xb4, 0x1f, 0x6c, 0xa0, 0x28, 0xd0, 0x9f, 0xd0, 0x9f, 0xd2, 0x6f,
-	0xfd, 0x0b, 0xfd, 0x03, 0xfd, 0x01, 0x05, 0x8a, 0x7d, 0xbb, 0xdb, 0xbb, 0xdb, 0xe3, 0x9d, 0xa2,
-	0xc0, 0x28, 0xd0, 0x7c, 0xd3, 0xee, 0xcd, 0xcc, 0x33, 0x33, 0xfb, 0xcc, 0x70, 0x67, 0x21, 0xa8,
-	0x8d, 0xa6, 0x8e, 0x3d, 0x39, 0x1f, 0x58, 0x8e, 0x3b, 0x69, 0x28, 0x7f, 0x1f, 0x8e, 0xc6, 0x43,
-	0x77, 0x88, 0x96, 0x07, 0xe3, 0xe9, 0xc5, 0xa1, 0xb2, 0x6f, 0x6e, 0x9e, 0x0d, 0x87, 0x67, 0x7d,
-	0xab, 0x41, 0x46, 0x76, 0x83, 0x38, 0xce, 0xd0, 0x25, 0xae, 0x3d, 0x74, 0x84, 0x3c, 0xfe, 0x87,
-	0x01, 0x2b, 0x2f, 0x3c, 0xe9, 0xe7, 0xd6, 0x64, 0x42, 0xce, 0x2c, 0xb4, 0x06, 0x85, 0x51, 0x9f,
-	0x7c, 0x6e, 0x8d, 0xab, 0x46, 0xdd, 0xd8, 0x5b, 0x68, 0x89, 0x15, 0xda, 0x84, 0x72, 0xe7, 0x9c,
-	0x8c, 0x49, 0xc7, 0xb5, 0xc6, 0xd5, 0x0c, 0xfb, 0xe4, 0x6f, 0xa0, 0xfb, 0xb0, 0x64, 0xfd, 0x66,
-	0x64, 0x8f, 0x19, 0xc0, 0x67, 0x5d, 0xe2, 0x5a, 0xd5, 0x6c, 0xdd, 0xd8, 0xcb, 0xb6, 0x16, 0xfd,
-	0xed, 0x8f, 0x88, 0xcb, 0xcc, 0x8f, 0x2d, 0x32, 0x19, 0x3a, 0xd5, 0x5c, 0xdd, 0xd8, 0x2b, 0xb7,
-	0xc4, 0x0a, 0xdd, 0x86, 0x3c, 0xe9, 0x0e, 0x6c, 0xa7, 0x9a, 0x67, 0xa6, 0xf9, 0x02, 0x21, 0xc8,
-	0x31, 0x5b, 0x05, 0x66, 0x8b, 0xfd, 0x4d, 0x2d, 0x90, 0x8e, 0x6b, 0x5f, 0x58, 0xd5, 0x62, 0xdd,
-	0xd8, 0x2b, 0xb5, 0xc4, 0x0a, 0xff, 0x2d, 0x03, 0x70, 0x4c, 0x9c, 0x9b, 0xc5, 0xb1, 0x08, 0x19,
-	0x7b, 0xc4, 0x5c, 0x2f, 0xb7, 0x32, 0xf6, 0x48, 0x17, 0x57, 0x2e, 0x21, 0xae, 0xbc, 0x3e, 0xae,
-	0x82, 0x1a, 0xd7, 0x3a, 0x94, 0xda, 0x44, 0xd8, 0x2b, 0x32, 0x7b, 0xc5, 0x36, 0xf1, 0x0c, 0x89,
-	0xf0, 0x4a, 0x6a, 0x78, 0xa8, 0x06, 0x30, 0x75, 0x3c, 0xa5, 0x32, 0x53, 0x2a, 0xb3, 0x1d, 0xa6,
-	0xb6, 0x0d, 0x15, 0xfe, 0x99, 0xa3, 0x01, 0x43, 0xe3, 0x1a, 0x1f, 0xd2, 0x1d, 0xfc, 0x26, 0x03,
-	0x95, 0x97, 0x64, 0xec, 0xfc, 0x4f, 0x9e, 0xf3, 0x06, 0x94, 0x7f, 0x4d, 0xc6, 0xc2, 0x20, 0x3f,
-	0xec, 0x12, 0xdd, 0xf8, 0x68, 0xc6, 0x81, 0xf3, 0x90, 0x7d, 0xb5, 0x12, 0x53, 0x03, 0xbe, 0xc5,
-	0x14, 0x77, 0x60, 0x5e, 0x08, 0x70, 0xc8, 0x32, 0x83, 0x14, 0x4a, 0x3c, 0x2b, 0xff, 0x36, 0x60,
-	0xfe, 0xb8, 0x3f, 0xec, 0xfc, 0xea, 0x66, 0x69, 0xf1, 0xa3, 0xcd, 0xea, 0xa3, 0xcd, 0xa9, 0xd1,
-	0xd6, 0x00, 0xda, 0x14, 0x93, 0xfb, 0x9d, 0xe7, 0x47, 0xc9, 0x76, 0x42, 0xf1, 0x16, 0x02, 0xf1,
-	0xb2, 0x70, 0x14, 0x45, 0x4e, 0x9c, 0x8a, 0xd8, 0x63, 0xaa, 0xbb, 0xb0, 0x20, 0x45, 0x38, 0x6e,
-	0x89, 0xe1, 0x4a, 0x3d, 0x1e, 0xf3, 0xdf, 0x0d, 0x58, 0x66, 0x7f, 0x7d, 0x4c, 0xec, 0xfe, 0xbb,
-	0x8c, 0xfb, 0x0e, 0x14, 0x49, 0x4f, 0x0d, 0xba, 0x40, 0x7a, 0xcc, 0xed, 0x0d, 0x28, 0xf7, 0x88,
-	0xdd, 0xff, 0xcc, 0xb5, 0x07, 0x96, 0x28, 0x94, 0x12, 0xdd, 0xf8, 0xd4, 0x1e, 0x58, 0xf8, 0xfb,
-	0x30, 0x7f, 0xea, 0xa4, 0x28, 0xec, 0x55, 0x28, 0x50, 0xfe, 0xdb, 0x5d, 0xe1, 0x66, 0xbe, 0x4d,
-	0x9c, 0x66, 0x17, 0x3f, 0x85, 0xc5, 0x53, 0x27, 0xd5, 0x11, 0xd3, 0xa2, 0x64, 0xa9, 0xf3, 0x4c,
-	0x14, 0xd9, 0xba, 0xd9, 0xc5, 0x3f, 0x82, 0x85, 0x53, 0x27, 0x4d, 0xf5, 0xdc, 0x81, 0x22, 0x23,
-	0x9c, 0x67, 0xa2, 0x40, 0x97, 0xcd, 0x2e, 0xfe, 0x18, 0xd0, 0xa9, 0xf3, 0xf5, 0x64, 0x1d, 0x4f,
-	0x60, 0x81, 0xf7, 0xed, 0x96, 0xf5, 0x7a, 0x6a, 0x4d, 0xdc, 0x77, 0x71, 0x78, 0x78, 0x19, 0x16,
-	0x25, 0xe8, 0x64, 0x34, 0x74, 0x26, 0x16, 0x7e, 0x6b, 0xb0, 0x86, 0x7b, 0x33, 0x27, 0xc2, 0x0d,
-	0x17, 0x41, 0x8e, 0xb1, 0x80, 0x63, 0xb3, 0xbf, 0xaf, 0xd7, 0x5b, 0xf1, 0x5d, 0xa8, 0x30, 0xaf,
-	0xb8, 0x97, 0x0a, 0x2d, 0x0c, 0x95, 0x16, 0xaf, 0x44, 0xdd, 0x4b, 0xef, 0x03, 0x5e, 0x1a, 0xf1,
-	0xa9, 0xca, 0xe8, 0x3d, 0xc8, 0xaa, 0x1e, 0x1c, 0xc0, 0x82, 0xb0, 0x2d, 0x7c, 0x50, 0x99, 0x65,
-	0x04, 0x99, 0xf5, 0x7b, 0x83, 0xb7, 0xe5, 0x9b, 0x65, 0x51, 0x66, 0x2d, 0xab, 0xcd, 0x5a, 0x8a,
-	0x0e, 0x8c, 0xef, 0xc3, 0x3c, 0x77, 0x43, 0xb8, 0xac, 0x10, 0xd9, 0x08, 0x10, 0x79, 0xac, 0x34,
-	0x8f, 0x74, 0xc9, 0x93, 0xce, 0x65, 0xb4, 0xce, 0xa5, 0xe1, 0xde, 0x2d, 0x58, 0x51, 0x30, 0x05,
-	0xfd, 0x8e, 0x60, 0xed, 0xf9, 0xd4, 0xb5, 0x4e, 0xfa, 0xc3, 0x36, 0xe9, 0x3f, 0x3d, 0x27, 0xee,
-	0x44, 0xba, 0x53, 0x85, 0x22, 0xe9, 0x74, 0x86, 0x53, 0xc7, 0x95, 0xd9, 0x16, 0x4b, 0xbc, 0x0e,
-	0x77, 0x22, 0x3a, 0xc2, 0xdc, 0x4f, 0x45, 0x9b, 0x91, 0x46, 0xf4, 0xbc, 0x89, 0x65, 0xc2, 0x3a,
-	0x94, 0x98, 0xaf, 0x54, 0x21, 0x2b, 0x40, 0xe9, 0xba, 0xd9, 0xc5, 0x4b, 0xb4, 0x79, 0x28, 0x94,
-	0xc4, 0xbf, 0xf0, 0x5a, 0x92, 0x04, 0x8b, 0x27, 0xc8, 0x57, 0x01, 0x5c, 0x81, 0x25, 0xcf, 0xbe,
-	0x80, 0xfc, 0x99, 0x6c, 0x60, 0x12, 0x31, 0xee, 0x7c, 0xbf, 0x0a, 0xde, 0x32, 0x8d, 0x47, 0x65,
-	0x0f, 0xb6, 0x02, 0xdd, 0xee, 0x66, 0x35, 0x36, 0x03, 0x78, 0x15, 0x6e, 0x05, 0x60, 0x04, 0xfa,
-	0xfb, 0x50, 0x3d, 0x75, 0xae, 0xcd, 0x8d, 0x0d, 0x58, 0xd7, 0x68, 0x09, 0x93, 0x3f, 0x80, 0xdb,
-	0x27, 0x96, 0xfb, 0x82, 0xd5, 0xe2, 0x31, 0x71, 0x26, 0x49, 0xe5, 0xca, 0xdb, 0x5a, 0x46, 0xb6,
-	0x35, 0xdc, 0x84, 0xd5, 0x90, 0xbe, 0xa8, 0xb3, 0x47, 0x90, 0x6b, 0x13, 0x67, 0x52, 0x35, 0xea,
-	0xd9, 0xbd, 0xca, 0xd1, 0xe6, 0x61, 0xf8, 0x0e, 0x7f, 0xe8, 0xff, 0xf2, 0xb5, 0x98, 0x24, 0x6e,
-	0x28, 0xa6, 0x68, 0xd2, 0x93, 0x7c, 0xc1, 0xcf, 0x61, 0x2d, 0xac, 0x20, 0xc0, 0x1f, 0x43, 0x9e,
-	0x9e, 0xba, 0x44, 0xaf, 0x45, 0xd1, 0x95, 0xdf, 0xbc, 0x16, 0x97, 0xc5, 0x4f, 0x60, 0xdd, 0x33,
-	0x77, 0xbd, 0x23, 0xc6, 0x97, 0x60, 0xea, 0x54, 0x85, 0x37, 0x81, 0x5b, 0x80, 0x11, 0xbc, 0x05,
-	0x5c, 0xaf, 0x03, 0x7b, 0x73, 0x43, 0xce, 0x9f, 0x1b, 0xf0, 0x36, 0x2c, 0x9c, 0x58, 0xae, 0x52,
-	0xe1, 0xf4, 0x8c, 0x24, 0xfb, 0x33, 0x76, 0x17, 0xd7, 0x61, 0xf1, 0xc4, 0x72, 0xd5, 0x22, 0x09,
-	0x4b, 0xec, 0xc0, 0x12, 0x35, 0xa1, 0x56, 0x6e, 0x58, 0xe4, 0x87, 0xb0, 0xda, 0x9c, 0x78, 0xe7,
-	0xec, 0x58, 0xdd, 0xeb, 0x32, 0xe5, 0x04, 0xd6, 0xc2, 0x06, 0x44, 0x7e, 0xd6, 0x58, 0x47, 0x72,
-	0x2c, 0x0e, 0x57, 0x6a, 0x89, 0x55, 0xdc, 0xc5, 0xe7, 0x09, 0xac, 0x37, 0x27, 0x4f, 0x65, 0xee,
-	0x99, 0xd3, 0xbe, 0x37, 0xb3, 0xcf, 0xe9, 0x13, 0x30, 0x75, 0xaa, 0xc2, 0x8f, 0x2a, 0xf0, 0xe6,
-	0xe4, 0x39, 0x22, 0x97, 0xb3, 0x6e, 0x50, 0xdf, 0x81, 0xaa, 0x62, 0x92, 0x9e, 0x7b, 0x5a, 0x67,
-	0x5e, 0x04, 0xe2, 0x90, 0x9a, 0x7e, 0x4e, 0x7a, 0x6c, 0x47, 0xe6, 0x84, 0xaf, 0x82, 0x5c, 0xca,
-	0x84, 0x6e, 0x94, 0x08, 0x96, 0x5f, 0x12, 0xb7, 0x73, 0xae, 0x14, 0x32, 0xbe, 0x0d, 0x88, 0xef,
-	0x51, 0x7f, 0xbd, 0xdd, 0x5b, 0xb0, 0xc2, 0x76, 0xd5, 0x3a, 0xc3, 0x55, 0x58, 0x63, 0x9b, 0x1e,
-	0x83, 0x23, 0x46, 0x58, 0xbb, 0xf7, 0x76, 0xd7, 0xe0, 0xb6, 0xdc, 0x0d, 0x18, 0x5f, 0x85, 0x5b,
-	0x62, 0x3f, 0x60, 0xde, 0x84, 0xaa, 0xd8, 0x8e, 0x02, 0x10, 0xa8, 0xb1, 0x6f, 0x9c, 0x1f, 0xfe,
-	0xf0, 0xee, 0xf5, 0x80, 0x1a, 0x80, 0xe8, 0x67, 0x7e, 0x67, 0x2f, 0x8b, 0x9d, 0x66, 0x97, 0x8e,
-	0x10, 0x5e, 0x62, 0xfd, 0x43, 0xaa, 0x78, 0x7b, 0xcd, 0x2e, 0xfe, 0x5d, 0x06, 0xb6, 0xe2, 0x30,
-	0xbc, 0x9e, 0x95, 0x6d, 0x13, 0x87, 0x59, 0x4f, 0x68, 0x59, 0xcf, 0xe6, 0x5a, 0x54, 0x14, 0x7d,
-	0x00, 0x79, 0x46, 0x04, 0x06, 0x58, 0x39, 0xda, 0xd2, 0xe8, 0x28, 0x37, 0xf4, 0x67, 0x73, 0x2d,
-	0x2e, 0x8e, 0x1e, 0x43, 0x8e, 0x36, 0x1d, 0x56, 0xdc, 0x49, 0xfd, 0xe9, 0xd9, 0x5c, 0x8b, 0x09,
-	0xa3, 0xf7, 0x21, 0x43, 0x7a, 0xac, 0xf4, 0x2b, 0x47, 0x38, 0xaa, 0x12, 0xbe, 0x84, 0x3f, 0x9b,
-	0x6b, 0x65, 0x48, 0xef, 0x78, 0x1e, 0xc0, 0x97, 0xc2, 0xbf, 0x84, 0x4d, 0x25, 0x09, 0x1f, 0x76,
-	0x5e, 0x4f, 0x6d, 0xd7, 0x25, 0xfd, 0xaf, 0x31, 0xcf, 0x7f, 0xcd, 0x04, 0xce, 0x52, 0x85, 0x10,
-	0x69, 0xfe, 0x00, 0xf2, 0x6c, 0x7e, 0x17, 0x89, 0xd6, 0x24, 0x4d, 0x9d, 0x8b, 0x68, 0xd2, 0x98,
-	0x38, 0xfa, 0x1e, 0x14, 0xc5, 0xbc, 0x27, 0xd2, 0x5d, 0xd7, 0x6a, 0x06, 0x13, 0x2e, 0x55, 0xd0,
-	0x13, 0x28, 0xf0, 0x01, 0x59, 0x24, 0x7d, 0x5b, 0xa7, 0x1c, 0x4c, 0xbb, 0x50, 0x40, 0xdf, 0x85,
-	0xdc, 0xd4, 0xf1, 0x52, 0x7f, 0x57, 0xa7, 0xa8, 0x49, 0x3e, 0xd3, 0x39, 0xae, 0x40, 0x99, 0xc8,
-	0x14, 0xd0, 0x6b, 0x1a, 0x4f, 0x4d, 0x84, 0xe0, 0xf8, 0x3f, 0x86, 0x28, 0x8f, 0xff, 0x53, 0x62,
-	0x7a, 0xcd, 0x27, 0x4c, 0x49, 0xfc, 0x26, 0x23, 0xb2, 0xf6, 0x0d, 0x95, 0x7c, 0x2a, 0x1d, 0xbd,
-	0xad, 0xc1, 0xda, 0xf3, 0xf1, 0xf4, 0x27, 0x0a, 0x5d, 0x7e, 0x6c, 0x8d, 0x2f, 0xec, 0x8e, 0x85,
-	0x06, 0x50, 0xe0, 0xbb, 0x48, 0xe3, 0x58, 0x60, 0xc0, 0x36, 0xeb, 0xf1, 0x02, 0xe2, 0x82, 0x58,
-	0xff, 0xf2, 0x9f, 0xff, 0x7a, 0x93, 0x31, 0x71, 0xb5, 0x71, 0xf1, 0x6d, 0xf5, 0x6d, 0xb6, 0x71,
-	0xc9, 0x7f, 0xe7, 0xaf, 0xd0, 0x39, 0x64, 0x8f, 0x89, 0x83, 0xf4, 0xb4, 0x94, 0x40, 0xb5, 0x98,
-	0xaf, 0x02, 0xe5, 0x2e, 0x43, 0xd9, 0xc2, 0x9b, 0x61, 0x94, 0x36, 0x71, 0x7c, 0xa4, 0x09, 0xe4,
-	0xd9, 0x91, 0xa0, 0x38, 0x3a, 0x4b, 0xb4, 0xed, 0xd8, 0xef, 0x02, 0x6f, 0x9f, 0xe1, 0xed, 0xe2,
-	0x9d, 0x08, 0x1e, 0x15, 0x6b, 0x5c, 0x7a, 0x0d, 0xed, 0x0a, 0xf5, 0x21, 0x47, 0x8f, 0x12, 0xc5,
-	0xd4, 0x82, 0x84, 0xdc, 0x8a, 0xfb, 0x2c, 0x10, 0xef, 0x31, 0xc4, 0x6d, 0x5c, 0x0b, 0x23, 0x52,
-	0x5a, 0xf8, 0x21, 0x7e, 0x01, 0x65, 0xef, 0xfc, 0xd1, 0xac, 0x5a, 0x92, 0xb8, 0xbb, 0x33, 0x65,
-	0x04, 0xf8, 0x7b, 0x0c, 0xbc, 0x8e, 0xb7, 0xc2, 0xe0, 0xa4, 0x17, 0x88, 0xf5, 0x4f, 0x06, 0x2c,
-	0x85, 0x26, 0x05, 0xb4, 0x17, 0x05, 0xd0, 0x8f, 0x20, 0xe6, 0x7e, 0x0a, 0xc9, 0x24, 0x87, 0x06,
-	0x53, 0xd7, 0x6a, 0x5c, 0x8a, 0x1f, 0x9c, 0x2b, 0xe4, 0x40, 0x9e, 0x15, 0x30, 0x8a, 0xab, 0xec,
-	0x19, 0x27, 0x1e, 0x9c, 0x4d, 0x05, 0xc3, 0x0e, 0xf4, 0x0c, 0xe3, 0xf7, 0xcc, 0x2b, 0xf4, 0x39,
-	0x14, 0x45, 0xd9, 0xa3, 0xf8, 0x8e, 0x20, 0x31, 0x77, 0x66, 0x48, 0x04, 0x79, 0x76, 0xa0, 0xe7,
-	0xd9, 0xa4, 0x71, 0x29, 0xaf, 0x95, 0x94, 0xdc, 0x05, 0xde, 0x34, 0x50, 0x6c, 0x3b, 0x99, 0x51,
-	0xb5, 0xa1, 0x39, 0x55, 0xe4, 0xf7, 0x60, 0x4b, 0xcf, 0x36, 0x31, 0x21, 0x5f, 0xa1, 0x2f, 0x0d,
-	0xa8, 0x28, 0x1d, 0x07, 0xcd, 0x6e, 0x48, 0x12, 0xff, 0x5e, 0x82, 0x54, 0x92, 0x13, 0x21, 0xd6,
-	0xbd, 0x35, 0x60, 0x25, 0x32, 0xa1, 0xa2, 0x03, 0x1d, 0x48, 0x0c, 0xf3, 0x1e, 0xa4, 0x92, 0x4d,
-	0x72, 0x2b, 0xc4, 0xbd, 0x3f, 0x18, 0x6c, 0xb0, 0xf2, 0x67, 0x5b, 0xf4, 0x5e, 0x14, 0x46, 0x37,
-	0x3c, 0x9b, 0xf7, 0x13, 0xe5, 0x82, 0x4d, 0x01, 0xd5, 0x34, 0xa4, 0x54, 0x3a, 0xec, 0x1f, 0x0d,
-	0x36, 0xc1, 0x29, 0x93, 0x2e, 0x9a, 0x05, 0xa1, 0xde, 0xba, 0xcd, 0xbd, 0x64, 0xc1, 0x60, 0x5e,
-	0x90, 0x96, 0x33, 0x8a, 0x37, 0x7f, 0x31, 0x00, 0x45, 0xa7, 0x5d, 0xf4, 0x60, 0x06, 0x50, 0x84,
-	0x41, 0xdf, 0x4a, 0x27, 0x9c, 0xe4, 0x59, 0x88, 0x48, 0x3d, 0x28, 0xf0, 0x49, 0x58, 0x57, 0x42,
-	0x81, 0x19, 0xd9, 0x9c, 0x79, 0x89, 0xc2, 0x3b, 0x0c, 0x70, 0x03, 0xad, 0xeb, 0xcf, 0x85, 0x56,
-	0x8e, 0x03, 0x45, 0x31, 0x54, 0xeb, 0x3a, 0x45, 0x70, 0xde, 0x36, 0x67, 0xdf, 0xa3, 0x30, 0x66,
-	0x70, 0x9b, 0xc8, 0x8c, 0xc9, 0x3c, 0xc5, 0x1b, 0x43, 0x49, 0x8e, 0xe8, 0x68, 0x47, 0x1f, 0x9d,
-	0xda, 0x9b, 0x12, 0x2e, 0x7c, 0x78, 0x97, 0x41, 0xd6, 0xd0, 0x46, 0x5c, 0x63, 0xa2, 0x98, 0x7f,
-	0x36, 0x60, 0x31, 0x38, 0xb3, 0xeb, 0x78, 0xa7, 0x7d, 0x16, 0xd0, 0xf1, 0x4e, 0x3f, 0xfe, 0xe3,
-	0x03, 0xe6, 0xca, 0x5d, 0x84, 0x67, 0x16, 0x41, 0xe3, 0xd2, 0x1e, 0x5d, 0xa1, 0xd7, 0x80, 0xa2,
-	0x03, 0xbc, 0x8e, 0x7a, 0xb1, 0x2f, 0x04, 0x3a, 0xea, 0xc5, 0xbf, 0x09, 0xe0, 0x39, 0xe4, 0xc0,
-	0x4a, 0x64, 0x4c, 0xd7, 0x35, 0xa7, 0xb8, 0x57, 0x00, 0xf3, 0x41, 0x2a, 0x59, 0x0f, 0xef, 0x13,
-	0x28, 0x7b, 0x43, 0xbc, 0xee, 0x06, 0x10, 0x9e, 0xf0, 0x13, 0xa8, 0x3c, 0xf7, 0xc8, 0x40, 0x2f,
-	0xa1, 0xa2, 0xbc, 0x01, 0xe8, 0x9a, 0x7c, 0xf4, 0x89, 0x20, 0x91, 0x41, 0xd4, 0xf0, 0xa7, 0x00,
-	0xfe, 0x33, 0x02, 0xda, 0x8d, 0xb1, 0x1b, 0xe8, 0x47, 0x09, 0xa5, 0x40, 0xad, 0x76, 0x60, 0x29,
-	0xf4, 0x0e, 0xa1, 0xbb, 0x84, 0xe8, 0x9f, 0x2a, 0xcc, 0x14, 0xf3, 0x47, 0x20, 0x27, 0xfc, 0x49,
-	0x23, 0x36, 0x27, 0x81, 0x17, 0x0f, 0x33, 0x61, 0xbe, 0x60, 0x86, 0x7f, 0x0e, 0x0b, 0x81, 0x57,
-	0x11, 0xdd, 0xaf, 0x86, 0xee, 0xd9, 0xc4, 0x4c, 0x1c, 0x41, 0x98, 0xf9, 0x57, 0x30, 0xaf, 0x3e,
-	0xae, 0xa0, 0x7b, 0xb1, 0xd6, 0x03, 0x69, 0x4f, 0x1a, 0x51, 0x98, 0x6d, 0x5b, 0xbc, 0x0a, 0xa9,
-	0x2f, 0x34, 0x3a, 0xaa, 0xc7, 0x3d, 0xe3, 0x98, 0xa9, 0xe6, 0x19, 0x06, 0xf5, 0x5b, 0x31, 0xee,
-	0x45, 0x1e, 0x63, 0x50, 0x23, 0x06, 0x2f, 0xee, 0x69, 0xc8, 0x7c, 0x94, 0x5e, 0x41, 0x16, 0xd9,
-	0x23, 0x03, 0x7d, 0x01, 0xab, 0xda, 0x57, 0x0a, 0x74, 0x38, 0xd3, 0x5c, 0x64, 0x3c, 0x35, 0x1b,
-	0xa9, 0xe5, 0x15, 0xf4, 0x81, 0x78, 0xa9, 0x53, 0x03, 0xdf, 0x8f, 0x33, 0x14, 0x0d, 0xf9, 0x20,
-	0x8d, 0xa8, 0x02, 0x77, 0x2e, 0x2b, 0xca, 0x0f, 0x33, 0xb6, 0xa2, 0x22, 0x01, 0xee, 0xa7, 0x90,
-	0x94, 0x58, 0xc7, 0x0f, 0x5e, 0xed, 0x9f, 0xd9, 0xee, 0xf9, 0xb4, 0x7d, 0xd8, 0x19, 0x0e, 0x1a,
-	0x74, 0x40, 0x7d, 0xd8, 0x7a, 0xd1, 0xa0, 0x06, 0x1e, 0x8e, 0xda, 0x0f, 0xcf, 0x86, 0x6a, 0x83,
-	0x6f, 0x17, 0xd8, 0xff, 0xeb, 0x3c, 0xfe, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x57, 0x7a, 0xbe,
-	0x8b, 0x00, 0x24, 0x00, 0x00,
+	// 1950 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x59, 0xdd, 0x4e, 0x23, 0xc9,
+	0x15, 0x9e, 0xf6, 0xbf, 0x8f, 0xc1, 0x98, 0x1a, 0xf0, 0x98, 0x06, 0x83, 0x29, 0x66, 0x76, 0xc0,
+	0x64, 0x30, 0x61, 0xf7, 0x22, 0x7b, 0x91, 0x1f, 0x60, 0x23, 0xe2, 0xd9, 0xc1, 0xcb, 0x78, 0xf1,
+	0x22, 0x8d, 0xb4, 0x42, 0x65, 0xbb, 0x05, 0x4d, 0xec, 0xb6, 0xc7, 0xdd, 0x26, 0x41, 0x2c, 0x8a,
+	0xb4, 0x52, 0x94, 0x8b, 0x48, 0xc9, 0xc5, 0xae, 0x94, 0x9b, 0xbc, 0x41, 0xf2, 0x06, 0x79, 0x8c,
+	0xbc, 0x42, 0x5e, 0x20, 0x6f, 0xb0, 0xea, 0xea, 0xea, 0xee, 0xea, 0xee, 0x2a, 0xdb, 0x68, 0x56,
+	0x7b, 0xe7, 0xaa, 0x3e, 0xf5, 0x7d, 0xa7, 0xce, 0x5f, 0x9d, 0x03, 0x50, 0x1e, 0x8e, 0x0d, 0xdd,
+	0xbc, 0xee, 0x6b, 0x86, 0x65, 0xd6, 0xb8, 0xdf, 0x7b, 0xc3, 0xd1, 0xc0, 0x1a, 0xa0, 0x42, 0x7f,
+	0x34, 0xbe, 0xdd, 0xe3, 0xf6, 0xd5, 0xb5, 0xab, 0xc1, 0xe0, 0xaa, 0xa7, 0xd5, 0xc8, 0x50, 0xaf,
+	0x11, 0xc3, 0x18, 0x58, 0xc4, 0xd2, 0x07, 0x06, 0x93, 0xc7, 0xff, 0x8c, 0x01, 0x1c, 0x11, 0xe3,
+	0x54, 0x33, 0x4d, 0x72, 0xa5, 0xa1, 0x22, 0xa4, 0x86, 0x3d, 0x72, 0xa7, 0x8d, 0x4a, 0x4a, 0x45,
+	0xd9, 0x9e, 0x6f, 0xb2, 0x15, 0x5a, 0x83, 0x6c, 0xe7, 0x9a, 0x8c, 0x48, 0xc7, 0xd2, 0x46, 0xa5,
+	0x18, 0xfd, 0xe4, 0x6f, 0xa0, 0x3c, 0xc4, 0xf4, 0x61, 0x29, 0x5e, 0x51, 0xb6, 0xb3, 0xcd, 0x98,
+	0x3e, 0x44, 0x2f, 0x61, 0x41, 0xfb, 0xe3, 0x50, 0x1f, 0x51, 0xa6, 0xcb, 0x2e, 0xb1, 0xb4, 0x52,
+	0xa2, 0xa2, 0x6c, 0xc7, 0x9b, 0x79, 0x7f, 0xfb, 0x33, 0x62, 0x51, 0xba, 0x91, 0x46, 0xcc, 0x81,
+	0x51, 0x4a, 0xd2, 0xc3, 0x6c, 0x85, 0x96, 0x20, 0x49, 0xba, 0x7d, 0xdd, 0x28, 0xa5, 0x28, 0x95,
+	0xb3, 0x40, 0x2b, 0x90, 0x69, 0x13, 0x86, 0x97, 0xa6, 0x78, 0xe9, 0x36, 0xf1, 0x80, 0x48, 0xc7,
+	0xd2, 0x6f, 0xb5, 0x52, 0xa6, 0xa2, 0x6c, 0x67, 0x9a, 0x6c, 0x85, 0xca, 0x00, 0x63, 0xc3, 0x3b,
+	0x94, 0xa5, 0x87, 0xb2, 0x74, 0x87, 0x1e, 0xdb, 0x80, 0x9c, 0xf3, 0xd9, 0x61, 0x03, 0xca, 0xe6,
+	0x9c, 0x38, 0xb4, 0x77, 0xf0, 0x77, 0x31, 0xc8, 0x5d, 0x90, 0xd1, 0x07, 0xda, 0x47, 0x60, 0x8f,
+	0xf8, 0x14, 0x7b, 0x24, 0xc4, 0xf6, 0x48, 0xf2, 0xf6, 0x58, 0x85, 0xec, 0x1f, 0xc8, 0x88, 0x01,
+	0xa6, 0x28, 0x60, 0xc6, 0xde, 0x08, 0x59, 0x24, 0x1d, 0xb0, 0x08, 0xbd, 0xb2, 0x7f, 0x2c, 0x43,
+	0x8f, 0x81, 0xb3, 0x45, 0x0f, 0x6e, 0xc2, 0x1c, 0x13, 0x70, 0x28, 0xb3, 0x94, 0x92, 0x1d, 0x72,
+	0xac, 0xf2, 0x7f, 0x05, 0xe6, 0x8e, 0x7a, 0x83, 0xce, 0xef, 0x3f, 0xcc, 0x2c, 0xfe, 0x6d, 0xe3,
+	0xe2, 0xdb, 0x26, 0xf8, 0xdb, 0x96, 0x01, 0xda, 0x36, 0xa7, 0xa3, 0x77, 0xd2, 0x71, 0x25, 0xdd,
+	0x09, 0xdd, 0x37, 0x15, 0xb8, 0x2f, 0xbd, 0x0e, 0x77, 0xd0, 0x09, 0x9c, 0x1c, 0xdb, 0xa3, 0x47,
+	0xb7, 0x60, 0xde, 0x15, 0x71, 0x78, 0x33, 0x94, 0xd7, 0x3d, 0xe7, 0xdc, 0xf9, 0xdf, 0x0a, 0x14,
+	0xe8, 0xaf, 0xd7, 0x44, 0xef, 0xfd, 0x94, 0xf7, 0x7e, 0x06, 0x69, 0x72, 0xc3, 0x5f, 0x3a, 0x45,
+	0x6e, 0xa8, 0xda, 0xab, 0x90, 0xbd, 0x21, 0x7a, 0xef, 0xd2, 0xd2, 0xfb, 0x1a, 0x4b, 0x94, 0x8c,
+	0xbd, 0x71, 0xae, 0xf7, 0x35, 0xfc, 0x4b, 0x98, 0x6b, 0x19, 0x33, 0x24, 0xf6, 0x32, 0xa4, 0xec,
+	0xf8, 0xd7, 0xbb, 0x4c, 0xcd, 0x64, 0x9b, 0x18, 0xf5, 0x2e, 0x3e, 0x86, 0x7c, 0xcb, 0x98, 0xc9,
+	0xc5, 0x76, 0x52, 0x52, 0xd3, 0x79, 0x10, 0x69, 0xba, 0xae, 0x77, 0xf1, 0x6f, 0x60, 0xbe, 0x65,
+	0xcc, 0x92, 0x3d, 0xcf, 0x20, 0x4d, 0x03, 0xce, 0x83, 0x48, 0xd9, 0xcb, 0x7a, 0x17, 0xbf, 0x06,
+	0xd4, 0x32, 0x7e, 0x1c, 0xab, 0xe3, 0xef, 0x15, 0x5a, 0xe9, 0x9a, 0xda, 0xfb, 0xb1, 0x66, 0x5a,
+	0x3f, 0x52, 0xa5, 0x43, 0x90, 0xa0, 0xe6, 0x77, 0x3c, 0x46, 0x7f, 0x3f, 0xae, 0xa8, 0xe1, 0xe7,
+	0x90, 0xa3, 0x5a, 0x99, 0xc3, 0x81, 0x61, 0x6a, 0x9c, 0x3f, 0x14, 0xde, 0x1f, 0xef, 0x58, 0xc2,
+	0xb9, 0xda, 0x07, 0xb4, 0x54, 0xe4, 0x01, 0x16, 0x13, 0x6b, 0x10, 0xe7, 0x35, 0xa8, 0xc2, 0x3c,
+	0xc3, 0x66, 0x3a, 0xf0, 0x2e, 0x55, 0x82, 0x2e, 0xfd, 0xb3, 0xe2, 0xd4, 0xc3, 0x0f, 0xb3, 0xa2,
+	0x6b, 0xb5, 0xb8, 0xd0, 0x6a, 0x33, 0x94, 0x3e, 0xfc, 0x12, 0xe6, 0x1c, 0x35, 0x98, 0xca, 0x5c,
+	0x04, 0x29, 0x81, 0x08, 0x1a, 0x71, 0x59, 0x3b, 0x9b, 0xf1, 0x5c, 0xe5, 0x62, 0x42, 0xe5, 0x66,
+	0xc8, 0x58, 0xfc, 0x14, 0x16, 0x39, 0x4e, 0x47, 0x43, 0x7c, 0x00, 0xc5, 0xd3, 0xb1, 0xa5, 0x9d,
+	0xf4, 0x06, 0x6d, 0xd2, 0x3b, 0xbe, 0x26, 0x96, 0xe9, 0xaa, 0x53, 0x82, 0x34, 0xe9, 0x74, 0x06,
+	0x63, 0xc3, 0x72, 0xad, 0xcd, 0x96, 0x78, 0x05, 0x9e, 0x45, 0xce, 0x30, 0x38, 0x37, 0xbf, 0x5d,
+	0x10, 0x71, 0xdc, 0xc8, 0x22, 0x01, 0x2f, 0xd8, 0xa9, 0xc9, 0xc5, 0x1d, 0x97, 0xf0, 0x2e, 0xa2,
+	0x3c, 0x0a, 0xa4, 0xa8, 0x8b, 0xb0, 0xe0, 0x81, 0x30, 0x5c, 0xaf, 0x06, 0xb8, 0xb0, 0x32, 0x4f,
+	0x49, 0x41, 0x0b, 0xb6, 0x66, 0xbc, 0xb3, 0xf1, 0x41, 0xa0, 0x2a, 0xcc, 0xe4, 0x55, 0xbc, 0x0c,
+	0x4f, 0x03, 0x67, 0x18, 0xd4, 0x27, 0x50, 0x6a, 0x19, 0x8f, 0xf6, 0xcb, 0x2a, 0xac, 0x08, 0x4e,
+	0x31, 0xc8, 0x5f, 0xc1, 0xd2, 0x89, 0x66, 0x9d, 0xd1, 0x3c, 0x38, 0x22, 0x86, 0x39, 0x2d, 0x55,
+	0x9c, 0x92, 0x12, 0x73, 0x4b, 0x0a, 0xae, 0xc3, 0x72, 0xe8, 0x3c, 0x8b, 0xf1, 0x7d, 0x48, 0xb4,
+	0x89, 0x61, 0x96, 0x94, 0x4a, 0x7c, 0x3b, 0x77, 0xb0, 0xb6, 0x17, 0xee, 0xf4, 0xf6, 0xfc, 0x72,
+	0xdf, 0xa4, 0x92, 0xb8, 0xc6, 0x41, 0xd9, 0x16, 0x9c, 0xa6, 0x0b, 0x3e, 0x85, 0x62, 0xf8, 0x00,
+	0x23, 0xff, 0x18, 0x92, 0xb6, 0x9f, 0x5c, 0xf6, 0x72, 0x94, 0x9d, 0x2b, 0xf4, 0x4d, 0x47, 0x16,
+	0x7f, 0x0a, 0x2b, 0x1e, 0xdc, 0x23, 0xfd, 0x75, 0x0f, 0xaa, 0xe8, 0x28, 0xd3, 0x26, 0xf0, 0xf4,
+	0x29, 0xc1, 0xa7, 0xef, 0x71, 0xd5, 0xcf, 0x4e, 0x77, 0xae, 0x41, 0xa5, 0xbf, 0xf1, 0x06, 0xcc,
+	0x9f, 0x68, 0x16, 0x97, 0x5d, 0xb6, 0x8f, 0xdc, 0x78, 0x8d, 0xe9, 0x5d, 0x5c, 0x81, 0xfc, 0x89,
+	0x66, 0xf1, 0x61, 0x1d, 0x96, 0xd8, 0x84, 0x05, 0x1b, 0x82, 0x4f, 0xa8, 0xb0, 0xc8, 0xaf, 0x61,
+	0xb9, 0x6e, 0x7a, 0x7e, 0x36, 0xb4, 0xee, 0x63, 0x23, 0xe5, 0x04, 0x8a, 0x61, 0x00, 0x66, 0x9f,
+	0x22, 0xad, 0x06, 0x86, 0xe6, 0xd0, 0x65, 0x9a, 0x6c, 0x25, 0x7b, 0xed, 0x3f, 0x85, 0x95, 0xba,
+	0x79, 0xec, 0xda, 0x9e, 0x2a, 0xed, 0x6b, 0x33, 0xd9, 0x4f, 0x6f, 0x41, 0x15, 0x1d, 0x65, 0x7a,
+	0x94, 0xc0, 0xa9, 0x19, 0x9e, 0x22, 0xee, 0x72, 0x52, 0xdb, 0xf0, 0x0b, 0x28, 0x71, 0x90, 0xb6,
+	0xdf, 0x67, 0x55, 0xe6, 0x2c, 0x70, 0x0f, 0xf7, 0xa4, 0x6f, 0x93, 0x1b, 0xba, 0xe3, 0xda, 0xc4,
+	0x59, 0x05, 0x63, 0x29, 0x16, 0x6a, 0xa3, 0x10, 0x14, 0x2e, 0x88, 0xd5, 0xb9, 0xe6, 0x12, 0x19,
+	0x2f, 0x01, 0x72, 0xf6, 0x6c, 0x7d, 0xbd, 0xdd, 0xa7, 0xb0, 0x48, 0x77, 0xf9, 0x3c, 0xc3, 0x25,
+	0x28, 0xd2, 0x4d, 0x2f, 0x82, 0x23, 0x20, 0xb4, 0x0a, 0x7b, 0xbb, 0x45, 0x58, 0x72, 0x77, 0x03,
+	0xe0, 0xcb, 0xf0, 0x94, 0xed, 0x07, 0xe0, 0x55, 0x28, 0xb1, 0xed, 0x28, 0xc1, 0x3a, 0xac, 0xd1,
+	0x6f, 0x2c, 0x85, 0x3a, 0xef, 0xc7, 0xba, 0x65, 0x11, 0xff, 0xfb, 0x06, 0x94, 0x25, 0xdf, 0x59,
+	0x1d, 0x0b, 0x0a, 0x9c, 0xf9, 0x99, 0xee, 0x22, 0xdc, 0xc3, 0xba, 0x4c, 0x80, 0x99, 0xfc, 0x13,
+	0x48, 0x58, 0x77, 0x43, 0x27, 0x43, 0xf3, 0x07, 0x95, 0x68, 0xcd, 0xf0, 0x0f, 0x9d, 0xdf, 0x0d,
+	0xb5, 0x26, 0x95, 0xb6, 0xdb, 0x71, 0x5f, 0xc6, 0x8f, 0x8f, 0x39, 0x7f, 0xb3, 0xde, 0xb5, 0x9f,
+	0x46, 0x87, 0x3c, 0xaa, 0xd7, 0xbf, 0x14, 0x66, 0x96, 0x9f, 0x56, 0x25, 0x2e, 0x6d, 0xe3, 0xf2,
+	0x5e, 0x28, 0x11, 0x8a, 0xd9, 0xea, 0x57, 0x90, 0x0f, 0x52, 0xa2, 0x22, 0xa0, 0x56, 0xe3, 0xf3,
+	0xc6, 0x17, 0x17, 0x8d, 0xcb, 0xb3, 0x56, 0xa3, 0xfe, 0xe5, 0xef, 0x4e, 0x7f, 0xdb, 0x38, 0x2f,
+	0x3c, 0x41, 0x69, 0x88, 0x1f, 0x1d, 0x36, 0x0a, 0x0a, 0xca, 0x42, 0xf2, 0xe8, 0xcd, 0x17, 0xc7,
+	0x9f, 0x17, 0x62, 0x28, 0x03, 0x89, 0x8b, 0xc3, 0x66, 0xa3, 0x10, 0x47, 0x79, 0x80, 0xc3, 0xcf,
+	0x4e, 0xeb, 0x8d, 0xcb, 0xd7, 0x87, 0xf5, 0x37, 0x85, 0x44, 0xf5, 0x6b, 0xc8, 0xfb, 0x4e, 0xa5,
+	0xb8, 0x4b, 0x50, 0x70, 0x71, 0x0f, 0x8f, 0xdf, 0xb6, 0xea, 0xe7, 0x87, 0x6f, 0x0a, 0x4f, 0x6c,
+	0xb0, 0x56, 0xc3, 0xc1, 0xcd, 0x41, 0xba, 0xd5, 0x70, 0x91, 0x01, 0x52, 0xad, 0x06, 0xc3, 0x5e,
+	0x84, 0xf9, 0x56, 0xe3, 0x92, 0x87, 0x3f, 0xf8, 0xcf, 0x2a, 0x14, 0x4f, 0x47, 0xe3, 0xaf, 0x38,
+	0x1b, 0x7f, 0xa9, 0x8d, 0x6e, 0xf5, 0x8e, 0x86, 0xae, 0x21, 0x7e, 0x44, 0x0c, 0x24, 0x7e, 0xa0,
+	0x98, 0x93, 0xd4, 0xb2, 0xe4, 0x2b, 0x0b, 0xbe, 0xe7, 0xdf, 0xfe, 0xf7, 0x7f, 0xdf, 0xc5, 0xd6,
+	0xf1, 0x5a, 0xed, 0xf6, 0xe7, 0xfc, 0x5f, 0x39, 0x6a, 0x6d, 0x62, 0xd4, 0xee, 0x1d, 0xc3, 0x3e,
+	0x20, 0x13, 0x92, 0x34, 0x4f, 0xd0, 0xba, 0x00, 0x8d, 0x2b, 0xbd, 0xea, 0x86, 0xf4, 0x3b, 0xe3,
+	0xdb, 0xa1, 0x7c, 0x5b, 0x78, 0x33, 0xc2, 0x67, 0x8b, 0xd5, 0xee, 0x3d, 0x7f, 0x3d, 0xa0, 0x1e,
+	0x24, 0xec, 0x24, 0x44, 0x92, 0x27, 0xd0, 0xa5, 0x5c, 0x97, 0x7d, 0x66, 0x8c, 0x2f, 0x28, 0xe3,
+	0x06, 0x2e, 0x87, 0x19, 0xed, 0xa7, 0xd3, 0xbf, 0xe2, 0x37, 0x90, 0xf5, 0x72, 0x1b, 0xe1, 0x28,
+	0x66, 0xf8, 0x59, 0x55, 0xb7, 0x26, 0xca, 0x30, 0xf2, 0x8f, 0x28, 0x79, 0x05, 0xaf, 0x87, 0xc9,
+	0xc9, 0x4d, 0xe0, 0xae, 0x7f, 0x53, 0x60, 0x21, 0xd4, 0xe7, 0xa0, 0xed, 0x28, 0x81, 0xb8, 0x81,
+	0x52, 0x77, 0x66, 0x90, 0x9c, 0xa6, 0x50, 0x7f, 0x6c, 0x69, 0xb5, 0x7b, 0xd6, 0x78, 0x3d, 0x20,
+	0x03, 0x92, 0xb4, 0x62, 0x8a, 0x3c, 0xce, 0xf7, 0xc3, 0x22, 0x8f, 0x07, 0x1b, 0x5e, 0x16, 0x61,
+	0x55, 0x71, 0x84, 0x39, 0xaf, 0xe4, 0x03, 0xba, 0x83, 0x34, 0xab, 0xc5, 0xa8, 0x22, 0x44, 0xe4,
+	0xa3, 0x6c, 0x73, 0x82, 0x44, 0x30, 0xce, 0xaa, 0xe2, 0x38, 0x33, 0x6b, 0xf7, 0xee, 0xa3, 0x68,
+	0x07, 0x77, 0xca, 0x29, 0xf7, 0x48, 0x78, 0x17, 0x3e, 0xd6, 0x2a, 0x72, 0x81, 0xa0, 0x7d, 0xab,
+	0xeb, 0xe2, 0x68, 0x63, 0x1d, 0xf9, 0x03, 0xfa, 0x56, 0x81, 0x1c, 0xf7, 0x9a, 0xa0, 0xe7, 0x22,
+	0xe4, 0x48, 0xcc, 0xbd, 0x98, 0x22, 0x35, 0x4d, 0x89, 0x50, 0xd4, 0x7d, 0xaf, 0xc0, 0x62, 0xa4,
+	0xbf, 0x46, 0x55, 0x11, 0x89, 0x24, 0xf2, 0x76, 0x67, 0x92, 0x9d, 0xa6, 0x56, 0x28, 0xf6, 0xfe,
+	0xa2, 0xd0, 0xb6, 0xd0, 0xef, 0xcc, 0xd1, 0x47, 0x51, 0x1a, 0x51, 0xeb, 0xaf, 0xbe, 0x9c, 0x2a,
+	0x17, 0x2c, 0x0a, 0xa8, 0x2c, 0x08, 0x4a, 0xd3, 0x2f, 0x0a, 0x7f, 0x55, 0x68, 0xff, 0xc9, 0xf5,
+	0xe9, 0x68, 0x12, 0x05, 0xdf, 0x33, 0xa8, 0xdb, 0xd3, 0x05, 0x83, 0x76, 0x41, 0xc2, 0x98, 0xe1,
+	0xb4, 0xf9, 0x87, 0x02, 0x28, 0xda, 0xab, 0xa3, 0xdd, 0x09, 0x44, 0x91, 0x08, 0xfa, 0xd9, 0x6c,
+	0xc2, 0xd3, 0x34, 0x0b, 0x05, 0xd2, 0x0d, 0xa4, 0x9c, 0x3e, 0x5e, 0x94, 0x42, 0x81, 0x0e, 0x5f,
+	0x9d, 0x38, 0x4e, 0xe1, 0x4d, 0x4a, 0xb8, 0x8a, 0x56, 0xc4, 0x7e, 0xb1, 0x33, 0xc7, 0x80, 0x34,
+	0x1b, 0x09, 0x44, 0x95, 0x22, 0x38, 0x2d, 0xa8, 0x93, 0xc7, 0x27, 0x8c, 0x29, 0xdd, 0x1a, 0x52,
+	0x25, 0x96, 0xb7, 0xf9, 0x46, 0x90, 0x71, 0x07, 0x0c, 0xb4, 0x29, 0xbe, 0x1d, 0x5f, 0x9b, 0x64,
+	0x2f, 0xa4, 0x4b, 0xb9, 0x45, 0x29, 0xcb, 0x68, 0x55, 0x56, 0x98, 0x6c, 0xce, 0xbf, 0x2b, 0x90,
+	0x0f, 0x4e, 0x1c, 0xa2, 0xb8, 0x13, 0x0e, 0x35, 0xa2, 0xb8, 0x13, 0x0f, 0x2f, 0xb8, 0x4a, 0x55,
+	0x79, 0x8e, 0xf0, 0xc4, 0x24, 0xa8, 0xdd, 0xeb, 0xc3, 0x07, 0xf4, 0x1e, 0x50, 0x74, 0xfc, 0x10,
+	0x85, 0x9e, 0x74, 0xbe, 0x11, 0x85, 0x9e, 0x7c, 0xa2, 0xc1, 0x4f, 0x90, 0x01, 0x8b, 0x91, 0x21,
+	0x43, 0x54, 0x9c, 0x64, 0x33, 0x8c, 0xba, 0x3b, 0x93, 0xac, 0xc7, 0xf7, 0x16, 0xb2, 0xde, 0x08,
+	0x22, 0xea, 0x00, 0xc2, 0xf3, 0xc9, 0x94, 0x50, 0x7e, 0xb2, 0xaf, 0xa0, 0x0b, 0xc8, 0x71, 0x13,
+	0x8c, 0xa8, 0xc8, 0x47, 0x07, 0x9c, 0xa9, 0x11, 0x64, 0x03, 0x9f, 0x03, 0xf8, 0x43, 0x10, 0xda,
+	0x92, 0xe0, 0x06, 0xea, 0xd1, 0x94, 0x54, 0xb0, 0x51, 0x3b, 0xb0, 0x10, 0x9a, 0xa2, 0x44, 0x4d,
+	0x88, 0x78, 0xd0, 0x52, 0x27, 0xf5, 0x4c, 0x22, 0x9b, 0x38, 0x03, 0x99, 0xd4, 0x26, 0x81, 0x79,
+	0x4d, 0x95, 0x75, 0x21, 0x3c, 0xf0, 0xd7, 0x30, 0x1f, 0x98, 0xe9, 0x44, 0xaf, 0x86, 0x68, 0xe8,
+	0x53, 0xe5, 0x0d, 0x07, 0x0f, 0xff, 0x0e, 0xe6, 0xf8, 0xd1, 0x10, 0xbd, 0x90, 0xa2, 0x07, 0xcc,
+	0x2e, 0xed, 0x29, 0x78, 0x6c, 0x9d, 0xcd, 0xb4, 0xfc, 0x7c, 0x29, 0x0a, 0x75, 0xd9, 0x10, 0xaa,
+	0x4e, 0x6e, 0x1f, 0x78, 0xaa, 0x3f, 0xb1, 0x49, 0x39, 0x32, 0x4c, 0xa2, 0x9a, 0x84, 0x4f, 0x36,
+	0x97, 0xaa, 0xfb, 0xb3, 0x1f, 0x70, 0x93, 0x6c, 0x5f, 0x41, 0xdf, 0xc0, 0xb2, 0x70, 0x1e, 0x46,
+	0x7b, 0x13, 0xe1, 0x22, 0x83, 0xb5, 0x5a, 0x9b, 0x59, 0x9e, 0x63, 0xef, 0xb3, 0xbf, 0x33, 0xf0,
+	0x17, 0xdf, 0x91, 0x01, 0x45, 0xaf, 0x5c, 0x9d, 0x45, 0xd4, 0xa7, 0x3b, 0xda, 0x7d, 0xb7, 0x73,
+	0xa5, 0x5b, 0xd7, 0xe3, 0xf6, 0x5e, 0x67, 0xd0, 0xaf, 0xd9, 0x73, 0xdc, 0xab, 0xe6, 0x59, 0xcd,
+	0xc6, 0x78, 0x35, 0x6c, 0xbf, 0xba, 0x1a, 0xf0, 0x65, 0xb7, 0x9d, 0xa2, 0xff, 0x29, 0xfe, 0xf8,
+	0x87, 0x00, 0x00, 0x00, 0xff, 0xff, 0xad, 0xde, 0x4c, 0xab, 0x7a, 0x1e, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -3506,8 +2964,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MruVPunishmentsServiceClient interface {
-	// Punish player with choosen punishment type.
-	Punish(ctx context.Context, in *PunishRequest, opts ...grpc.CallOption) (*PunishResponse, error)
 	// Ban player on account and/or ip.
 	// If ban_time is 0, ban will never expire.
 	Ban(ctx context.Context, in *BanRequest, opts ...grpc.CallOption) (*BanResponse, error)
@@ -3568,10 +3024,8 @@ type MruVPunishmentsServiceClient interface {
 	WatchPlayerPunishments(ctx context.Context, in *WatchPlayerPunishmentsRequest, opts ...grpc.CallOption) (MruVPunishmentsService_WatchPlayerPunishmentsClient, error)
 	// Subscribe to player acquittals.
 	WatchPlayerAcquittals(ctx context.Context, in *WatchPlayerAcquittalsRequest, opts ...grpc.CallOption) (MruVPunishmentsService_WatchPlayerAcquittalsClient, error)
-	// Subscribe to all punishments events.
+	// Subscribe to all punishments and acquittals events.
 	WatchPunishments(ctx context.Context, in *WatchPunishmentsRequest, opts ...grpc.CallOption) (MruVPunishmentsService_WatchPunishmentsClient, error)
-	// Subscribe to all acquittals events.
-	WatchAcquittals(ctx context.Context, in *WatchAcquittalsRequest, opts ...grpc.CallOption) (*WatchAcquittalsResponse, error)
 }
 
 type mruVPunishmentsServiceClient struct {
@@ -3580,15 +3034,6 @@ type mruVPunishmentsServiceClient struct {
 
 func NewMruVPunishmentsServiceClient(cc *grpc.ClientConn) MruVPunishmentsServiceClient {
 	return &mruVPunishmentsServiceClient{cc}
-}
-
-func (c *mruVPunishmentsServiceClient) Punish(ctx context.Context, in *PunishRequest, opts ...grpc.CallOption) (*PunishResponse, error) {
-	out := new(PunishResponse)
-	err := c.cc.Invoke(ctx, "/mruv.punishments.MruVPunishmentsService/Punish", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *mruVPunishmentsServiceClient) Ban(ctx context.Context, in *BanRequest, opts ...grpc.CallOption) (*BanResponse, error) {
@@ -4114,19 +3559,8 @@ func (x *mruVPunishmentsServiceWatchPunishmentsClient) Recv() (*WatchPunishments
 	return m, nil
 }
 
-func (c *mruVPunishmentsServiceClient) WatchAcquittals(ctx context.Context, in *WatchAcquittalsRequest, opts ...grpc.CallOption) (*WatchAcquittalsResponse, error) {
-	out := new(WatchAcquittalsResponse)
-	err := c.cc.Invoke(ctx, "/mruv.punishments.MruVPunishmentsService/WatchAcquittals", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // MruVPunishmentsServiceServer is the server API for MruVPunishmentsService service.
 type MruVPunishmentsServiceServer interface {
-	// Punish player with choosen punishment type.
-	Punish(context.Context, *PunishRequest) (*PunishResponse, error)
 	// Ban player on account and/or ip.
 	// If ban_time is 0, ban will never expire.
 	Ban(context.Context, *BanRequest) (*BanResponse, error)
@@ -4187,19 +3621,14 @@ type MruVPunishmentsServiceServer interface {
 	WatchPlayerPunishments(*WatchPlayerPunishmentsRequest, MruVPunishmentsService_WatchPlayerPunishmentsServer) error
 	// Subscribe to player acquittals.
 	WatchPlayerAcquittals(*WatchPlayerAcquittalsRequest, MruVPunishmentsService_WatchPlayerAcquittalsServer) error
-	// Subscribe to all punishments events.
+	// Subscribe to all punishments and acquittals events.
 	WatchPunishments(*WatchPunishmentsRequest, MruVPunishmentsService_WatchPunishmentsServer) error
-	// Subscribe to all acquittals events.
-	WatchAcquittals(context.Context, *WatchAcquittalsRequest) (*WatchAcquittalsResponse, error)
 }
 
 // UnimplementedMruVPunishmentsServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedMruVPunishmentsServiceServer struct {
 }
 
-func (*UnimplementedMruVPunishmentsServiceServer) Punish(ctx context.Context, req *PunishRequest) (*PunishResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Punish not implemented")
-}
 func (*UnimplementedMruVPunishmentsServiceServer) Ban(ctx context.Context, req *BanRequest) (*BanResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ban not implemented")
 }
@@ -4290,30 +3719,9 @@ func (*UnimplementedMruVPunishmentsServiceServer) WatchPlayerAcquittals(req *Wat
 func (*UnimplementedMruVPunishmentsServiceServer) WatchPunishments(req *WatchPunishmentsRequest, srv MruVPunishmentsService_WatchPunishmentsServer) error {
 	return status.Errorf(codes.Unimplemented, "method WatchPunishments not implemented")
 }
-func (*UnimplementedMruVPunishmentsServiceServer) WatchAcquittals(ctx context.Context, req *WatchAcquittalsRequest) (*WatchAcquittalsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method WatchAcquittals not implemented")
-}
 
 func RegisterMruVPunishmentsServiceServer(s *grpc.Server, srv MruVPunishmentsServiceServer) {
 	s.RegisterService(&_MruVPunishmentsService_serviceDesc, srv)
-}
-
-func _MruVPunishmentsService_Punish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PunishRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVPunishmentsServiceServer).Punish(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.punishments.MruVPunishmentsService/Punish",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVPunishmentsServiceServer).Punish(ctx, req.(*PunishRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _MruVPunishmentsService_Ban_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -4889,32 +4297,10 @@ func (x *mruVPunishmentsServiceWatchPunishmentsServer) Send(m *WatchPunishmentsR
 	return x.ServerStream.SendMsg(m)
 }
 
-func _MruVPunishmentsService_WatchAcquittals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(WatchAcquittalsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MruVPunishmentsServiceServer).WatchAcquittals(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/mruv.punishments.MruVPunishmentsService/WatchAcquittals",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MruVPunishmentsServiceServer).WatchAcquittals(ctx, req.(*WatchAcquittalsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _MruVPunishmentsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mruv.punishments.MruVPunishmentsService",
 	HandlerType: (*MruVPunishmentsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Punish",
-			Handler:    _MruVPunishmentsService_Punish_Handler,
-		},
 		{
 			MethodName: "Ban",
 			Handler:    _MruVPunishmentsService_Ban_Handler,
@@ -4990,10 +4376,6 @@ var _MruVPunishmentsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IsCharacterJailed",
 			Handler:    _MruVPunishmentsService_IsCharacterJailed_Handler,
-		},
-		{
-			MethodName: "WatchAcquittals",
-			Handler:    _MruVPunishmentsService_WatchAcquittals_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
