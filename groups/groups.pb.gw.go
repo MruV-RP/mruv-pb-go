@@ -1102,7 +1102,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/CreateGroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/CreateGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1125,7 +1125,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetGroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1148,7 +1148,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/UpdateGroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/UpdateGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1171,7 +1171,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/DeleteGroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/DeleteGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1194,7 +1194,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetGroups")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetGroups")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1217,7 +1217,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/AssignOwner")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AssignOwner")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1240,7 +1240,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetOwner")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetOwner")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1263,7 +1263,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/AddMember")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddMember")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1286,7 +1286,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetMembers")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetMembers")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1309,7 +1309,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/RemoveMember")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemoveMember")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1332,7 +1332,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/AddPermission")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddPermission")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1355,7 +1355,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetPermissions")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetPermissions")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1378,7 +1378,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/RemovePermission")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemovePermission")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1401,7 +1401,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/AddSubgroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddSubgroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1424,7 +1424,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetSubgroups")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetSubgroups")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1447,7 +1447,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/RemoveSubgroup")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemoveSubgroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1470,7 +1470,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/IsPermitted")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/IsPermitted")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1493,7 +1493,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetServiceStatus")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetServiceStatus")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1516,7 +1516,7 @@ func RegisterMruVGroupsServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.MruVGroupsService/GetServiceVersion")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetServiceVersion")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1578,7 +1578,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/CreateGroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/CreateGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1598,7 +1598,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetGroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1618,7 +1618,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/UpdateGroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/UpdateGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1638,7 +1638,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/DeleteGroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/DeleteGroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1658,7 +1658,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetGroups")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetGroups")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1678,7 +1678,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/AssignOwner")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AssignOwner")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1698,7 +1698,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetOwner")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetOwner")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1718,7 +1718,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/AddMember")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddMember")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1738,7 +1738,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetMembers")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetMembers")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1758,7 +1758,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/RemoveMember")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemoveMember")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1778,7 +1778,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/AddPermission")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddPermission")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1798,7 +1798,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetPermissions")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetPermissions")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1818,7 +1818,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/RemovePermission")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemovePermission")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1838,7 +1838,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/AddSubgroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/AddSubgroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1858,7 +1858,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetSubgroups")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetSubgroups")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1878,7 +1878,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/RemoveSubgroup")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/RemoveSubgroup")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1898,7 +1898,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/IsPermitted")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/IsPermitted")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1918,7 +1918,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetServiceStatus")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetServiceStatus")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1938,7 +1938,7 @@ func RegisterMruVGroupsServiceHandlerClient(ctx context.Context, mux *runtime.Se
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.MruVGroupsService/GetServiceVersion")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/mruv.groups.MruVGroupsService/GetServiceVersion")
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
